@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Java · Ruta de Aprendizaje · 8 Semanas</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@5.0.18/index.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter@5.0.16/index.min.css">
+<style>
+  :root{
+    --bg:#F0F0F0;
+    --ink:#000;
+    --paper:#fff;
+    --accent:#E76F00;
+    --mute:#6b6b6b;
+    --line:#000;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;font-weight:500;font-size:14px;line-height:1.45}
+  .mono{font-family:'JetBrains Mono',monospace}
+  .container{max-width:1180px;margin:0 auto;padding:24px 20px 80px}
+  
+  /* HEADER */
+  header.hero{
+    border:4px solid var(--ink);
+    background:var(--paper);
+    padding:28px 28px 22px;
+    box-shadow:8px 8px 0 var(--ink);
+    margin-bottom:24px;
+  }
+  .tag{
+    display:inline-block;
+    background:var(--ink);color:var(--paper);
+    font-family:'JetBrains Mono',monospace;
+    padding:3px 10px;font-size:11px;letter-spacing:1px;
+    margin-bottom:14px;text-transform:uppercase;
+  }
+  h1.title{
+    font-family:'JetBrains Mono',monospace;
+    font-size:56px;line-height:1;margin:0 0 10px;
+    font-weight:700;letter-spacing:-2px;
+  }
+  h1.title span{color:var(--accent)}
+  .hero-meta{
+    display:flex;flex-wrap:wrap;gap:18px;
+    font-family:'JetBrains Mono',monospace;font-size:12px;
+    border-top:3px solid var(--ink);padding-top:14px;margin-top:14px;
+  }
+  .hero-meta b{color:var(--accent)}
+  
+  /* PROGRESS BAR GLOBAL */
+  .global-progress{
+    border:4px solid var(--ink);
+    background:var(--paper);
+    padding:18px 22px;
+    box-shadow:6px 6px 0 var(--ink);
+    margin-bottom:24px;
+    display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;
+  }
+  .bar-track{
+    height:26px;border:3px solid var(--ink);background:var(--paper);
+    position:relative;overflow:hidden;
+  }
+  .bar-fill{
+    height:100%;background:var(--accent);
+    background-image:repeating-linear-gradient(45deg,rgba(0,0,0,.15) 0 8px,transparent 8px 16px);
+    width:0%;transition:width .35s ease;
+  }
+  .bar-label{
+    position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    font-family:'JetBrains Mono',monospace;font-weight:700;font-size:13px;
+  }
+  .gp-title{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:1px}
+  .gp-pct{font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:800;color:var(--accent)}
+  
+  /* UNITS */
+  .unit{
+    border:4px solid var(--ink);
+    background:var(--paper);
+    margin-bottom:18px;
+    box-shadow:6px 6px 0 var(--ink);
+  }
+  .unit-head{
+    padding:16px 18px;
+    cursor:pointer;user-select:none;
+    display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;
+    background:var(--paper);
+    border-bottom:4px solid var(--ink);
+  }
+  .unit-head.open{background:var(--ink);color:var(--paper)}
+  .unit-head.open .unit-meta b,.unit-head.open .unit-pct{color:var(--accent)}
+  .unit-num{
+    font-family:'JetBrains Mono',monospace;font-weight:800;font-size:28px;
+    border:3px solid currentColor;width:52px;height:52px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .unit-info h2{
+    margin:0;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:18px;line-height:1.15;
+  }
+  .unit-meta{
+    font-family:'JetBrains Mono',monospace;font-size:11px;
+    display:flex;gap:14px;margin-top:4px;color:var(--mute);
+  }
+  .unit-meta b{color:var(--ink)}
+  .unit-head.open .unit-meta{color:#bbb}
+  .unit-progress{
+    display:flex;flex-direction:column;align-items:flex-end;gap:6px;min-width:180px;
+  }
+  .unit-pct{font-family:'JetBrains Mono',monospace;font-weight:800;font-size:20px;color:var(--accent)}
+  .mini-track{width:180px;height:14px;border:3px solid currentColor;background:transparent;position:relative}
+  .mini-fill{height:100%;background:var(--accent);width:0%;transition:width .3s}
+  .unit-head.open .mini-track{color:var(--paper)}
+  .toggle-ico{
+    font-family:'JetBrains Mono',monospace;font-size:24px;font-weight:800;margin-left:8px;
+  }
+  
+  .unit-body{display:none;padding:18px 20px 22px;border-top:0}
+  .unit-body.show{display:block}
+  .unit-desc{
+    font-size:13px;padding:12px 14px;border:3px solid var(--ink);
+    background:#f7f7f7;margin-bottom:16px;
+  }
+  
+  /* SUBTOPICS */
+  .sub{
+    border:3px solid var(--ink);
+    margin-bottom:12px;background:var(--paper);
+  }
+  .sub-head{
+    padding:12px 14px;cursor:pointer;user-select:none;
+    display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;
+  }
+  .sub-head:hover{background:#f7f7f7}
+  .sub-check{
+    width:22px;height:22px;border:3px solid var(--ink);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'JetBrains Mono',monospace;font-weight:900;font-size:16px;
+    cursor:pointer;background:var(--paper);flex-shrink:0;
+  }
+  .sub-check.checked{background:var(--accent);color:var(--paper)}
+  .sub-title{
+    font-family:'JetBrains Mono',monospace;font-weight:700;font-size:14px;margin:0;
+  }
+  .sub-code{
+    font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--mute);
+  }
+  .sub-toggle{font-family:'JetBrains Mono',monospace;font-weight:800;font-size:20px}
+  .sub-body{display:none;padding:14px 16px 16px;border-top:3px solid var(--ink);background:#fafafa}
+  .sub-body.show{display:block}
+  
+  .obj{
+    border-left:6px solid var(--accent);
+    padding:10px 14px;background:var(--paper);
+    border:3px solid var(--ink);border-left:6px solid var(--accent);
+    font-size:13px;margin-bottom:14px;
+  }
+  .obj b{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1px;display:block;margin-bottom:4px;color:var(--accent);text-transform:uppercase}
+  
+  .refs{display:grid;grid-template-columns:1fr;gap:12px}
+  @media(min-width:900px){.refs{grid-template-columns:1fr 1fr 1fr}}
+  .ref-block{
+    border:3px solid var(--ink);padding:10px 12px;background:var(--paper);
+  }
+  .ref-title{
+    font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;
+    text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;
+    padding-bottom:6px;border-bottom:2px dashed var(--ink);
+    display:flex;justify-content:space-between;align-items:center;
+  }
+  .ref-title span{color:var(--accent)}
+  .ref-list{list-style:none;margin:0;padding:0;font-size:12.5px}
+  .ref-list li{
+    padding:6px 0;border-bottom:1px dotted #bbb;
+    display:grid;grid-template-columns:auto 1fr;gap:8px;
+  }
+  .ref-list li:last-child{border-bottom:0}
+  .ref-list .idx{
+    font-family:'JetBrains Mono',monospace;font-weight:800;color:var(--accent);
+    min-width:18px;
+  }
+  .ref-list .meta{
+    font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--mute);
+    display:block;margin-top:2px;
+  }
+  .badge{
+    display:inline-block;background:var(--ink);color:var(--paper);
+    font-family:'JetBrains Mono',monospace;font-size:9px;
+    padding:1px 5px;margin-left:4px;letter-spacing:.5px;
+  }
+  .badge.adv{background:var(--accent)}
+  .badge.mid{background:#444}
+  
+  /* FOOTER */
+  footer{
+    margin-top:30px;border:4px solid var(--ink);padding:16px 20px;
+    background:var(--ink);color:var(--paper);
+    box-shadow:6px 6px 0 var(--accent);
+    font-family:'JetBrains Mono',monospace;font-size:12px;
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;
+  }
+  footer b{color:var(--accent)}
+  
+  /* TABLE */
+  .complexity{
+    border:3px solid var(--ink);border-collapse:collapse;
+    font-family:'JetBrains Mono',monospace;font-size:11px;
+    margin:14px 0;width:100%;
+  }
+  .complexity th,.complexity td{border:2px solid var(--ink);padding:6px 8px;text-align:left}
+  .complexity th{background:var(--ink);color:var(--paper)}
+  .complexity tr:nth-child(even) td{background:#f2f2f2}
+  
+  @media(max-width:700px){
+    h1.title{font-size:38px}
+    .unit-head{grid-template-columns:auto 1fr}
+    .unit-progress{grid-column:1/-1;align-items:flex-start;flex-direction:row;justify-content:space-between}
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header class="hero">
+    <span class="tag">// RUTA DE APRENDIZAJE · 8 SEMANAS</span>
+    <h1 class="title mono">JAVA<span>_</span><br>DE FUNDAMENTOS A PROYECTO</h1>
+    <div style="font-size:13px;max-width:780px">
+      Plan intensivo de <b>8 semanas</b> (integrado en un programa mayor de 4 meses) que recorre los fundamentos del lenguaje, POO avanzada, APIs intermedias, un proyecto integrador con JDBC/Swing y buenas prácticas profesionales con SOLID, patrones, JUnit y Git.
+    </div>
+    <div class="hero-meta">
+      <span>DURACIÓN: <b>8 SEM</b></span>
+      <span>HORAS EST.: <b>208 h</b></span>
+      <span>UNIDADES: <b>05</b></span>
+      <span>SUBTEMAS: <b>20</b></span>
+      <span>ESTILO: <b>BRUTALISMO INDUSTRIAL</b></span>
+      <span>LENGUAJE: <b>JAVA · JVM</b></span>
+    </div>
+  </header>
+
+  <div class="global-progress">
+    <div>
+      <div class="gp-title">Progreso general del curso</div>
+      <div class="bar-track" style="margin-top:8px">
+        <div class="bar-fill" id="globalFill"></div>
+        <div class="bar-label" id="globalLabel">0 / 20 subtemas · 0%</div>
+      </div>
+    </div>
+    <div class="gp-pct mono" id="globalPct">0%</div>
+  </div>
+
+  <div id="units"></div>
+
+  <footer>
+    <div>// PLAN_JAVA_8WKS :: v1.0</div>
+    <div>TODAS LAS REFERENCIAS SON <b>GRATUITAS</b> Y PÚBLICAS</div>
+    <div>LAST_BUILD: <b>2026.07.25</b></div>
+  </footer>
+</div>
+
+<script>
+const DATA = [
+  {
+    num:"01", title:"Fundamentos y Sintaxis en Java",
+    weeks:"Semanas 1–2", hours:"28 h", difficulty:"BÁSICO",
+    desc:"Establece las bases conceptuales del lenguaje Java, la comprensión del compilador y la Máquina Virtual de Java (JVM), así como la correcta estructuración de datos y control de flujo empleando la sintaxis moderna del lenguaje.",
+    subs:[
+      {
+        code:"1.1", title:"Tipos de datos, variables y operadores",
+        obj:"Declarar y manipular variables, tipos de datos primitivos y operadores dentro del entorno de desarrollo IntelliJ IDEA y el OpenJDK más reciente para construir la base lógica de programas secuenciales.",
+        videos:[
+          {t:"Curso de Java desde cero: Variables y Tipos de Datos", c:"MoureDev"},
+          {t:"Curso de Java completo para principiantes: Tipos de Datos Primitivos y Operadores", c:"pildorasinformaticas"},
+          {t:"Aprende Java desde cero: Variables, Constantes y Operadores Aritméticos", c:"Programación Ats"},
+          {t:"Tutorial de Java Profesional: Variables, Tipos de Datos y Conversión de Tipos", c:"TodoCode"},
+          {t:"Java desde Cero: Variables, Operadores Lógicos y Relacionales", c:"Makigas"}
+        ],
+        biblio:[
+          {t:"Think Java: How to Think Like a Computer Scientist, 2nd Ed.", a:"Allen B. Downey, Chris Mayfield", d:"Cap. 2: Variables and Operators, pp. 15–28"},
+          {t:"Aprenda Java como si estuviera en primero", a:"Javier García de Jalón et al.", d:"Cap. 2: Variables y Tipos Primitivos, pp. 16–32"},
+          {t:"The Java Tutorials: Language Basics", a:"Oracle Corporation", d:"Primitive Data Types and Variables, pp. 1–12"},
+          {t:"Introduction to Programming Using Java, 9th Ed.", a:"David J. Eck", d:"Cap. 2: Names and Things, pp. 25–55"},
+          {t:"Fundamentos de Programación en Java", a:"UNAM", d:"Unidad 2: Elementos Básicos, pp. 18–35"}
+        ],
+        practica:[
+          {t:"Ejercicios resueltos de Variables y Operadores en Java", c:"Programación Ats · YouTube", lvl:"Básico"},
+          {t:"Annalyn's Infiltration y Lasagna", c:"Exercism Java Track", lvl:"Básico"},
+          {t:"Ejercicios 01_variables y 02_operators", c:"mouredev/hello-java · GitHub", lvl:"Básico"},
+          {t:"Java Stdin/Stdout I & II y Java Datatypes", c:"HackerRank Java Track", lvl:"Básico"},
+          {t:"Think Java, 2nd Ed. · Sección 2.11: Exercises", c:"Libro de texto · pp. 29–30", lvl:"Básico"}
+        ]
+      },
+      {
+        code:"1.2", title:"Estructuras de control (condicionales, bucles)",
+        obj:"Implementar estructuras condicionales y de repetición para controlar el flujo de ejecución del programa de acuerdo con requerimientos de lógica algorítmica.",
+        videos:[
+          {t:"Curso de Java desde cero: Estructuras de Control e Iteración", c:"MoureDev"},
+          {t:"Condicionales (if, else, switch) y Bucles (for, while, do-while)", c:"pildorasinformaticas"},
+          {t:"Java desde Cero: Control de Flujo y Sentencias Condicionales", c:"Makigas"},
+          {t:"Aprende Java: Bucles e Iteraciones en Java Moderno", c:"Programación Ats"},
+          {t:"Java Profesional: Estructuras Repetitivas y Evaluación Condicional", c:"TodoCode"}
+        ],
+        biblio:[
+          {t:"Think Java, 2nd Ed.", a:"Downey & Mayfield", d:"Cap. 3 (pp. 31–44) y Cap. 6 (pp. 71–84)"},
+          {t:"Aprenda Java como si estuviera en primero", a:"García de Jalón et al.", d:"Cap. 3: Sentencias de Control, pp. 46–70"},
+          {t:"The Java Tutorials: Control Flow Statements", a:"Oracle", d:"Java SE Documentation, pp. 1–18"},
+          {t:"Introduction to Programming Using Java, 9th Ed.", a:"David J. Eck", d:"Cap. 3: Control, pp. 61–105"},
+          {t:"Guía de Lógica de Programación y Control de Flujo en Java", a:"UPM", d:"Cap. 2, pp. 12–30 (OCW)"}
+        ],
+        practica:[
+          {t:"Ejercicios resueltos de Condicionales y Bucles", c:"Programación Ats · YouTube", lvl:"Básico"},
+          {t:"Fizz Buzz y Palindrome Number", c:"LeetCode", lvl:"Básico"},
+          {t:"03_conditionals y 04_loops", c:"mouredev/hello-java · GitHub", lvl:"Básico"},
+          {t:"Katas 8 kyu · Java · Control Flow", c:"CodeWars", lvl:"Básico"},
+          {t:"Think Java · Sección 6.9: Exercises", c:"Libro de texto · pp. 83–84", lvl:"Básico"}
+        ]
+      },
+      {
+        code:"1.3", title:"Arrays y estructuras básicas",
+        obj:"Manipular arreglos unidimensionales y multidimensionales para el almacenamiento y procesamiento eficiente de colecciones finitas de datos homogéneos.",
+        videos:[
+          {t:"Curso de Java desde cero: Arrays y Arreglos Multidimensionales", c:"MoureDev"},
+          {t:"Curso de Java: Matrices y Arreglos en Java", c:"pildorasinformaticas"},
+          {t:"Java desde Cero: Arrays y Recorrido de Arreglos", c:"Makigas"},
+          {t:"Aprende Java: Vectores y Matrices Paso a Paso", c:"Programación Ats"},
+          {t:"Manejo de Arreglos y Recorrido con For-Each", c:"TodoCode"}
+        ],
+        biblio:[
+          {t:"Think Java, 2nd Ed.", a:"Downey & Mayfield", d:"Cap. 7 y Cap. 8: Arrays, pp. 85–110"},
+          {t:"Aprenda Java como si estuviera en primero", a:"García de Jalón et al.", d:"Cap. 6: Arrays, pp. 131–150"},
+          {t:"The Java Tutorials: Arrays", a:"Oracle", d:"Language Basics, pp. 1–10"},
+          {t:"Introduction to Programming Using Java, 9th Ed.", a:"David J. Eck", d:"Cap. 7: Arrays & ArrayLists, pp. 315–340"},
+          {t:"Java Language Specification: Arrays", a:"OpenJDK", d:"Capítulo 10, pp. 301–315"}
+        ],
+        practica:[
+          {t:"Ejercicios Resueltos de Arreglos 1D y 2D", c:"Programación Ats · YouTube", lvl:"Intermedio"},
+          {t:"Java 1D Array y Java 2D Array", c:"HackerRank Java Track", lvl:"Básico"},
+          {t:"05_arrays", c:"mouredev/hello-java · GitHub", lvl:"Básico"},
+          {t:"Bird Watcher", c:"Exercism Java Track", lvl:"Básico"},
+          {t:"Aprenda Java · Sección 6.5: Ejercicios de Arrays", c:"Libro · pp. 151–154", lvl:"Intermedio"}
+        ]
+      },
+      {
+        code:"1.4", title:"Introducción a clases y objetos",
+        obj:"Diferenciar los conceptos de clase, objeto, estado y comportamiento para diseñar plantillas que modelen entidades del mundo real en Java.",
+        videos:[
+          {t:"Curso de Java desde cero: Clases, Objetos y Métodos", c:"MoureDev"},
+          {t:"POO I (Clases y Constructores)", c:"pildorasinformaticas"},
+          {t:"Java desde Cero: Objetos y Clases en Java", c:"Makigas"},
+          {t:"POO en Java: Creación de Clases, Instanciación y Métodos", c:"Programación Ats"},
+          {t:"Introducción a la Programación Orientada a Objetos", c:"TodoCode"}
+        ],
+        biblio:[
+          {t:"Think Java, 2nd Ed.", a:"Downey & Mayfield", d:"Cap. 10 y 11: Objects & Classes, pp. 125–154"},
+          {t:"Aprenda Java como si estuviera en primero", a:"García de Jalón et al.", d:"Cap. 4: Clases y Objetos, pp. 71–95"},
+          {t:"The Java Tutorials: Classes and Objects", a:"Oracle", d:"OOP Concepts, pp. 1–25"},
+          {t:"Introduction to Programming Using Java, 9th Ed.", a:"David J. Eck", d:"Cap. 5: Objects and Classes, pp. 195–235"},
+          {t:"Modelado de Clases y Objetos en Java", a:"UNAL", d:"Módulo 1, pp. 1–30"}
+        ],
+        practica:[
+          {t:"Ejercicios resueltos de Clases y Métodos", c:"Programación Ats · YouTube", lvl:"Intermedio"},
+          {t:"06_classes_objects", c:"mouredev/hello-java · GitHub", lvl:"Básico"},
+          {t:"Elons Toys y Remote Control Competition", c:"Exercism Java Track", lvl:"Intermedio"},
+          {t:"Java Inheritance I · Instanciación", c:"HackerRank", lvl:"Básico"},
+          {t:"Think Java · Sección 11.8: Exercises", c:"Libro · pp. 152–154", lvl:"Intermedio"}
+        ]
+      }
+    ]
+  },
+  {
+    num:"02", title:"POO Avanzada en Java",
+    weeks:"Semanas 3–4", hours:"30 h", difficulty:"INTERMEDIO",
+    desc:"Profundiza en los pilares fundamentales de la Programación Orientada a Objetos, permitiendo construir sistemas extensibles, desacoplados y resilientes a fallos mediante herencia, polimorfismo, encapsulamiento y manejo de excepciones.",
+    subs:[
+      {
+        code:"2.1", title:"Herencia e interfaces",
+        obj:"Aplicar el mecanismo de herencia y la definición de interfaces para reutilizar código y establecer contratos de comportamiento dentro de una jerarquía de clases.",
+        videos:[
+          {t:"Curso de Java desde cero: Herencia e Interfaces", c:"MoureDev"},
+          {t:"Herencia e Interfaces en la Práctica", c:"pildorasinformaticas"},
+          {t:"POO Avanzada: Herencia, Super y Reescritura de Métodos", c:"Makigas"},
+          {t:"Programación en Java: Interfaces y Jerarquías de Clases", c:"Programación Ats"},
+          {t:"Implementación de Interfaces y Herencia Múltiple Sintética", c:"TodoCode"}
+        ],
+        biblio:[
+          {t:"Think Java, 2nd Ed.", a:"Downey & Mayfield", d:"Cap. 14: Extending Classes, pp. 185–200"},
+          {t:"Aprenda Java como si estuviera en primero", a:"García de Jalón et al.", d:"Cap. 4 (Herencia), pp. 96–110"},
+          {t:"The Java Tutorials: Interfaces and Inheritance", a:"Oracle", d:"pp. 1–22"},
+          {t:"Introduction to Programming Using Java, 9th Ed.", a:"David J. Eck", d:"Cap. 5: Inheritance & Interfaces, pp. 236–260"},
+          {t:"Apuntes de Herencia e Interfaces en Java", a:"U. de Chile", d:"DCC, pp. 1–25"}
+        ],
+        practica:[
+          {t:"Ejercicios Resueltos de Herencia e Interfaces", c:"Programación Ats · YouTube", lvl:"Intermedio"},
+          {t:"Wizards and Warriors", c:"Exercism Java Track", lvl:"Intermedio"},
+          {t:"07_inheritance_interfaces", c:"mouredev/hello-java · GitHub", lvl:"Intermedio"},
+          {t:"Java Interface y Java Method Overriding", c:"HackerRank", lvl:"Intermedio"},
+          {t:"Think Java · Sección 14.7: Exercises", c:"Libro · pp. 198–200", lvl:"Intermedio"}
+        ]
+      },
+      {
+        code:"2.2", title:"Polimorfismo y clases abstractas",
+        obj:"Diferenciar la abstracción pura de la implementación parcial mediante clases abstractas y polimorfismo para construir componentes de software dinámicos e intercambiables.",
+        videos:[
+          {t:"Curso de Java desde cero: Polimorfismo y Clases Abstractas", c:"MoureDev"},
+          {t:"Polimorfismo en Acción y Clases Abstractas", c:"pildorasinformaticas"},
+          {t:"Java Avanzado: Clases Abstractas vs Interfaces y Polimorfismo", c:"Makigas"},
+          {t:"POO en Java: Polimorfismo y Métodos Abstractos", c:"Programación Ats"},
+          {t:"Concepto de Polimorfismo con Ejemplos Prácticos", c:"TodoCode"}
+        ],
+        biblio:[
+          {t:"Think Java, 2nd Ed.", a:"Downey & Mayfield", d:"Cap. 15: Abstract Objects, pp. 201–215"},
+          {t:"Aprenda Java como si estuviera en primero", a:"García de Jalón et al.", d:"Cap. 4: Abstractas y Polimorfismo, pp. 111–120"},
+          {t:"The Java Tutorials: Abstract Methods and Classes", a:"Oracle", d:"pp. 1–10"},
+          {t:"Introduction to Programming Using Java, 9th Ed.", a:"David J. Eck", d:"Cap. 5.5, pp. 245–258"},
+          {t:"Guía Teórico-Práctica de Polimorfismo en Java", a:"UNAD", d:"pp. 10–30"}
+        ],
+        practica:[
+          {t:"Ejercicios Resueltos de Polimorfismo y Clases Abstractas", c:"Programación Ats · YouTube", lvl:"Intermedio"},
+          {t:"Elons Toys (Polymorphic Design)", c:"Exercism Java Track", lvl:"Intermedio"},
+          {t:"08_polymorphism_abstraction", c:"mouredev/hello-java · GitHub", lvl:"Intermedio"},
+          {t:"Java Abstract Class", c:"HackerRank", lvl:"Intermedio"},
+          {t:"Think Java · Sección 15.6: Exercises", c:"Libro · pp. 213–215", lvl:"Intermedio"}
+        ]
+      },
+      {
+        code:"2.3", title:"Encapsulamiento y modificadores de acceso",
+        obj:"Aplicar los principios de encapsulamiento utilizando los modificadores de acceso de Java (private, protected, public, package-private) para proteger el estado interno de las clases y garantizar el ocultamiento de información.",
+        videos:[
+          {t:"Curso de Java desde cero: Encapsulamiento y Modificadores", c:"MoureDev"},
+          {t:"Encapsulamiento, Getters y Setters", c:"pildorasinformaticas"},
+          {t:"POO Java: Modificadores de Acceso (Public, Private, Protected)", c:"Makigas"},
+          {t:"Aprende Java: Ocultamiento de Información y Modificadores", c:"Programación Ats"},
+          {t:"Java Profesional: Encapsulamiento y Métodos de Acceso", c:"TodoCode"}
+        ],
+        biblio:[
+          {t:"Think Java, 2nd Ed.", a:"Downey & Mayfield", d:"Cap. 11: Mutators & Getters, pp. 140–150"},
+          {t:"Aprenda Java como si estuviera en primero", a:"García de Jalón et al.", d:"Cap. 4.3: Paquetes y Acceso, pp. 85–95"},
+          {t:"The Java Tutorials: Controlling Access to Members", a:"Oracle", d:"pp. 1–8"},
+          {t:"Introduction to Programming Using Java, 9th Ed.", a:"David J. Eck", d:"Cap. 5.2: Access Modifiers, pp. 205–215"},
+          {t:"Encapsulamiento y Control de Acceso en LOO", a:"UPV", d:"RiuNet, pp. 1–18"}
+        ],
+        practica:[
+          {t:"Ejercicios Resueltos de Encapsulamiento y Get/Set", c:"Programación Ats · YouTube", lvl:"Intermedio"},
+          {t:"09_encapsulation", c:"mouredev/hello-java · GitHub", lvl:"Intermedio"},
+          {t:"Squeaky Clean", c:"Exercism Java Track", lvl:"Intermedio"},
+          {t:"Katas de Encapsulamiento en Java", c:"CodeWars", lvl:"Intermedio"},
+          {t:"Eck · Ejercicios del Capítulo 5", c:"Libro · pp. 261–264", lvl:"Intermedio"}
+        ]
+      },
+      {
+        code:"2.4", title:"Manejo de excepciones (try-catch-finally)",
+        obj:"Diseñar estrategias de control de errores mediante bloques try-catch-finally, la creación de excepciones personalizadas y el manejo de excepciones verificadas (checked) y no verificadas (unchecked).",
+        videos:[
+          {t:"Curso de Java desde cero: Manejo de Excepciones y Errores", c:"MoureDev"},
+          {t:"Excepciones (Try-Catch, Throws, Excepciones Custom)", c:"pildorasinformaticas"},
+          {t:"Java Avanzado: Captura y Lanzamiento de Excepciones", c:"Makigas"},
+          {t:"Aprende Java: Excepciones Verificadas y No Verificadas", c:"Programación Ats"},
+          {t:"Manejo de Errores con Try-Catch y Finally", c:"TodoCode"}
+        ],
+        biblio:[
+          {t:"Think Java, 2nd Ed.", a:"Downey & Mayfield", d:"Cap. 12: Exceptions, pp. 155–168"},
+          {t:"Aprenda Java como si estuviera en primero", a:"García de Jalón et al.", d:"Cap. 5: Excepciones, pp. 111–130"},
+          {t:"The Java Tutorials: Lesson Exceptions", a:"Oracle", d:"pp. 1–20"},
+          {t:"Introduction to Programming Using Java, 9th Ed.", a:"David J. Eck", d:"Cap. 8.3, pp. 385–402"},
+          {t:"Tratamiento de Excepciones en Java", a:"U. de Sevilla", d:"idUS, pp. 1–22"}
+        ],
+        practica:[
+          {t:"Ejercicios Resueltos de Excepciones", c:"Programación Ats · YouTube", lvl:"Intermedio"},
+          {t:"Java Exception Handling y Try-catch", c:"HackerRank", lvl:"Intermedio"},
+          {t:"10_exceptions", c:"mouredev/hello-java · GitHub", lvl:"Intermedio"},
+          {t:"Pig Latin (con validación de errores)", c:"Exercism Java Track", lvl:"Intermedio"},
+          {t:"Aprenda Java · Sección 5.6: Ejercicios de Excepciones", c:"Libro · pp. 129–130", lvl:"Intermedio"}
+        ]
+      }
+    ]
+  },
+  {
+    num:"03", title:"Funcionalidades Intermedias del Lenguaje",
+    weeks:"Semana 5", hours:"26 h", difficulty:"INTERMEDIO–AVANZADO",
+    desc:"Procesamiento avanzado de datos en memoria mediante la API de Colecciones, paradigma funcional con Lambdas y Streams, seguridad de tipos con Genéricos y ejecución concurrente básica con Threads.",
+    table:true,
+    subs:[
+      {
+        code:"3.1", title:"Colecciones (Collections Framework: List, Map, Set)",
+        obj:"Seleccionar e implementar las estructuras de datos apropiadas del Collections Framework (List, Set, Map) para optimizar el almacenamiento y acceso a los datos según el caso de uso.",
+        videos:[
+          {t:"Curso de Java desde cero: Collections Framework (List, Set, Map)", c:"MoureDev"},
+          {t:"Colecciones (ArrayList, HashMap, HashSet)", c:"pildorasinformaticas"},
+          {t:"Java desde Cero: Colecciones y Estructuras de Datos", c:"Makigas"},
+          {t:"Aprende Java: Listas, Conjuntos y Mapas en Java", c:"Programación Ats"},
+          {t:"Colecciones en Java Explicadas a Fondo", c:"TodoCode"}
+        ],
+        biblio:[
+          {t:"Think Java, 2nd Ed.", a:"Downey & Mayfield", d:"Cap. 12: Collections, pp. 169–184"},
+          {t:"Aprenda Java como si estuviera en primero", a:"García de Jalón et al.", d:"Cap. 6.3, pp. 142–160"},
+          {t:"The Java Tutorials: Trail Collections", a:"Oracle", d:"pp. 1–35"},
+          {t:"Introduction to Programming Using Java, 9th Ed.", a:"David J. Eck", d:"Cap. 10: Collection Classes, pp. 485–520"},
+          {t:"Estructuras de Datos y Colecciones en Java", a:"UC3M", d:"OCW, pp. 1–40"}
+        ],
+        practica:[
+          {t:"Ejercicios Resueltos de ArrayList, HashSet y HashMap", c:"Programación Ats · YouTube", lvl:"Intermedio"},
+          {t:"Java List, Java Map, Java Hashset", c:"HackerRank", lvl:"Intermedio"},
+          {t:"11_collections", c:"mouredev/hello-java · GitHub", lvl:"Intermedio"},
+          {t:"Two Sum y Contains Duplicate", c:"LeetCode", lvl:"Intermedio"},
+          {t:"Eck · Ejercicios del Capítulo 10", c:"Libro · pp. 535–538", lvl:"Intermedio"}
+        ]
+      },
+      {
+        code:"3.2", title:"Expresiones Lambda y Streams",
+        obj:"Aplicar el paradigma de programación funcional mediante expresiones Lambda y la API de Streams para procesar colecciones de datos de forma declarativa, legible y eficiente.",
+        videos:[
+          {t:"Curso de Java desde cero: Lambdas y Streams", c:"MoureDev"},
+          {t:"Java Avanzado: Expresiones Lambda y Stream API", c:"pildorasinformaticas"},
+          {t:"Java Funcional: Lambdas, Programación Funcional y Streams", c:"Makigas"},
+          {t:"Manipulación de Datos con Streams y Filter/Map/Reduce", c:"Programación Ats"},
+          {t:"Programación Funcional para Principiantes", c:"TodoCode"}
+        ],
+        biblio:[
+          {t:"The Java Tutorials: Lambdas and Aggregate Operations", a:"Oracle", d:"pp. 1–25"},
+          {t:"Introduction to Programming Using Java, 9th Ed.", a:"David J. Eck", d:"Cap. 10.6: Stream API, pp. 521–534"},
+          {t:"Java 8 in Action (extractos)", a:"Urma et al.", d:"Cap. 2 & 4: Lambdas and Streams, pp. 35–80"},
+          {t:"Programación Funcional en Java Moderno", a:"UPC", d:"Apuntes, pp. 1–30 (UPCommons)"},
+          {t:"The Stream API Specification", a:"OpenJDK", d:"pp. 1–15"}
+        ],
+        practica:[
+          {t:"Ejercicios Resueltos de Lambdas y Streams", c:"Programación Ats · YouTube", lvl:"Avanzado"},
+          {t:"Gigasecond y DnD Character", c:"Exercism Java Track", lvl:"Intermedio"},
+          {t:"12_lambdas_streams", c:"mouredev/hello-java · GitHub", lvl:"Avanzado"},
+          {t:"winterbe/java8-tutorial (Streams)", c:"GitHub", lvl:"Avanzado"},
+          {t:"Eck · Ejercicios de Streams del Cap. 10", c:"Libro · pp. 539–540", lvl:"Intermedio"}
+        ]
+      },
+      {
+        code:"3.3", title:"Generics",
+        obj:"Diseñar clases, interfaces y métodos genéricos empleando parámetros de tipo para garantizar la seguridad de tipos (type safety) en tiempo de compilación y evitar el uso excesivo de casting.",
+        videos:[
+          {t:"Curso de Java desde cero: Genéricos (Generics)", c:"MoureDev"},
+          {t:"Java Avanzado: Clases y Métodos Genéricos", c:"pildorasinformaticas"},
+          {t:"Java en Profundidad: Generics y Wildcards (? extends T, ? super T)", c:"Makigas"},
+          {t:"Programación en Java: Programación Genérica Paso a Paso", c:"Programación Ats"},
+          {t:"Genéricos y Tipos Comodín Explicados", c:"TodoCode"}
+        ],
+        biblio:[
+          {t:"The Java Tutorials: Lesson Generics", a:"Oracle", d:"pp. 1–28"},
+          {t:"Introduction to Programming Using Java, 9th Ed.", a:"David J. Eck", d:"Cap. 10.1, pp. 470–484"},
+          {t:"Aprenda Java como si estuviera en primero", a:"García de Jalón et al.", d:"Cap. 6.4: Genéricos, pp. 161–170"},
+          {t:"Tipos Genéricos y Parametrización en Java", a:"UBA", d:"pp. 1–20"},
+          {t:"Java Language Specification: Generics", a:"OpenJDK", d:"Cap. 4.5, pp. 75–98"}
+        ],
+        practica:[
+          {t:"Ejercicios Resueltos de Clases y Métodos Genéricos", c:"Programación Ats · YouTube", lvl:"Intermedio"},
+          {t:"Java Generic Methods", c:"HackerRank", lvl:"Intermedio"},
+          {t:"13_generics", c:"mouredev/hello-java · GitHub", lvl:"Intermedio"},
+          {t:"Custom Set", c:"Exercism Java Track", lvl:"Avanzado"},
+          {t:"Eck · Ejercicios Cap. 10.1", c:"Libro · pp. 536–537", lvl:"Intermedio"}
+        ]
+      },
+      {
+        code:"3.4", title:"Multihilo básico (Threads)",
+        obj:"Crear y gestionar hilos de ejecución concurrentes utilizando la clase Thread y la interfaz Runnable para desarrollar aplicaciones responsivas que ejecuten tareas en segundo plano.",
+        videos:[
+          {t:"Curso de Java desde cero: Concurrencia y Hilos Básicos", c:"MoureDev"},
+          {t:"Java Avanzado: Programación Multihilo e Hilos", c:"pildorasinformaticas"},
+          {t:"Java Concurrente: Hilos, Runnable y Sincronización Básica", c:"Makigas"},
+          {t:"Hilos (Threads) y Ciclo de Vida de un Hilo", c:"Programación Ats"},
+          {t:"Introducción a la Concurrencia y Multihilo", c:"TodoCode"}
+        ],
+        biblio:[
+          {t:"Think Java, 2nd Ed.", a:"Downey & Mayfield", d:"Apéndice E: Multithreading, pp. 240–252"},
+          {t:"The Java Tutorials: Concurrency", a:"Oracle", d:"pp. 1–22"},
+          {t:"Introduction to Programming Using Java, 9th Ed.", a:"David J. Eck", d:"Cap. 12: Threads, pp. 585–615"},
+          {t:"Aprenda Java como si estuviera en primero", a:"García de Jalón et al.", d:"Cap. 7: Hilos, pp. 171–190"},
+          {t:"Programación Concurrente en Java", a:"UNLP", d:"SEDICI, pp. 1–35"}
+        ],
+        practica:[
+          {t:"Ejercicios Resueltos de Hilos con Thread y Runnable", c:"Programación Ats · YouTube", lvl:"Avanzado"},
+          {t:"Print in Order y Building H2O", c:"LeetCode Concurrency", lvl:"Avanzado"},
+          {t:"14_threads", c:"mouredev/hello-java · GitHub", lvl:"Intermedio"},
+          {t:"Bank Account (Concurrencia)", c:"Exercism Java Track", lvl:"Avanzado"},
+          {t:"Eck · Ejercicios del Capítulo 12", c:"Libro · pp. 625–628", lvl:"Avanzado"}
+        ]
+      }
+    ]
+  },
+  {
+    num:"04", title:"Proyecto Integrador (JDBC · Swing)",
+    weeks:"Semanas 6–7", hours:"32 h", difficulty:"AVANZADO",
+    desc:"Construcción de una aplicación completa de escritorio conectada a una base de datos relacional mediante la arquitectura DAO (Data Access Object), aplicando JDBC, Swing y organización en capas.",
+    subs:[
+      {
+        code:"4.1", title:"Conexión a base de datos (JDBC)",
+        obj:"Configurar y establecer conexiones seguras entre una aplicación Java y un motor de base de datos relacional empleando la API JDBC y controladores de base de datos.",
+        videos:[
+          {t:"Curso de Java desde cero: Conexión a BD con JDBC", c:"MoureDev"},
+          {t:"Java y Bases de Datos: JDBC Paso a Paso", c:"pildorasinformaticas"},
+          {t:"Java y Persistencia: JDBC con PostgreSQL y MySQL", c:"Makigas"},
+          {t:"Conexión Java a MySQL/PostgreSQL mediante JDBC", c:"Programación Ats"},
+          {t:"Conectar Java con Base de Datos usando JDBC", c:"TodoCode"}
+        ],
+        biblio:[
+          {t:"JDBC Database Access Documentation", a:"Oracle", d:"Java SE, pp. 1–30"},
+          {t:"Introduction to Programming Using Java, 9th Ed.", a:"David J. Eck", d:"Cap. 13.1: JDBC, pp. 630–645"},
+          {t:"Acceso a BD en Java mediante JDBC", a:"U. de Alicante", d:"RUA, pp. 1–28"},
+          {t:"PostgreSQL JDBC Driver Documentation", a:"PostgreSQL", d:"jdbc.postgresql.org, pp. 1–20"},
+          {t:"Persistencia de Datos en Java", a:"U. de Granada", d:"DIGIBUG, pp. 1–32"}
+        ],
+        practica:[
+          {t:"Ejercicios Resueltos de Conexión JDBC", c:"Programación Ats · YouTube", lvl:"Intermedio"},
+          {t:"15_jdbc_base", c:"mouredev/hello-java · GitHub", lvl:"Intermedio"},
+          {t:"oracle-samples/oracle-db-examples (Java/JDBC)", c:"GitHub", lvl:"Intermedio"},
+          {t:"Rest API (Simulación de Persistencia)", c:"Exercism", lvl:"Avanzado"},
+          {t:"Eck · Ejercicios JDBC del Cap. 13", c:"Libro · pp. 660–662", lvl:"Intermedio"}
+        ]
+      },
+      {
+        code:"4.2", title:"Sentencias SQL desde Java",
+        obj:"Ejecutar operaciones CRUD en una base de datos relacional desde Java utilizando Statement y PreparedStatement para prevenir inyecciones SQL.",
+        videos:[
+          {t:"Curso de Java desde cero: Consultas SQL y PreparedStatement", c:"MoureDev"},
+          {t:"Java JDBC: Consultas, Inserciones y PreparedStatement", c:"pildorasinformaticas"},
+          {t:"Java JDBC: Operaciones CRUD y Prevención de SQL Injection", c:"Makigas"},
+          {t:"Aprende Java: Ejecución de Sentencias SQL desde Java", c:"Programación Ats"},
+          {t:"CRUD Completo con JDBC y MySQL/PostgreSQL", c:"TodoCode"}
+        ],
+        biblio:[
+          {t:"The Java Tutorials: Using PreparedStatements", a:"Oracle", d:"JDBC Basics, pp. 1–15"},
+          {t:"Introduction to Programming Using Java, 9th Ed.", a:"David J. Eck", d:"Cap. 13.2, pp. 646–658"},
+          {t:"Inyección SQL y Uso Seguro de PreparedStatement", a:"UPM", d:"OCW, pp. 1–20"},
+          {t:"SQL Injection Prevention Cheat Sheet in Java", a:"OWASP", d:"owasp.org, pp. 1–12"},
+          {t:"Desarrollo de Sistemas Persistentes con Java y SQL", a:"U. de Valencia", d:"RODERIC, pp. 1–35"}
+        ],
+        practica:[
+          {t:"Ejercicios Resueltos de CRUD Completo con PreparedStatement", c:"Programación Ats · YouTube", lvl:"Intermedio"},
+          {t:"Java DB Connectivity and SQL Execution", c:"HackerRank", lvl:"Intermedio"},
+          {t:"16_jdbc_crud", c:"mouredev/hello-java · GitHub", lvl:"Intermedio"},
+          {t:"Database Track: Integración SQL con Lógica de Negocio", c:"LeetCode", lvl:"Intermedio"},
+          {t:"Eck · Ejercicios Cap. 13.2", c:"Libro · pp. 662–664", lvl:"Intermedio"}
+        ]
+      },
+      {
+        code:"4.3", title:"Interfaz gráfica básica (Swing/AWT)",
+        obj:"Diseñar interfaces gráficas de usuario (GUI) mediante los componentes y contenedores de Swing y AWT para capturar eventos e interactuar visualmente con el usuario.",
+        videos:[
+          {t:"Curso de Java desde cero: Interfaces Gráficas con Swing", c:"MoureDev"},
+          {t:"Interfaces Gráficas con Swing y AWT", c:"pildorasinformaticas"},
+          {t:"Java GUI: Ventanas, Botones y Manejo de Eventos en Swing", c:"Makigas"},
+          {t:"Formularios Gráficos con JFrame y JPanel", c:"Programación Ats"},
+          {t:"Creación de GUI en IntelliJ IDEA", c:"TodoCode"}
+        ],
+        biblio:[
+          {t:"Think Java, 2nd Ed.", a:"Downey & Mayfield", d:"Apéndice B: GUI Graphics, pp. 220–232"},
+          {t:"Aprenda Java como si estuviera en primero", a:"García de Jalón et al.", d:"Cap. 8: AWT y Swing, pp. 191–230"},
+          {t:"The Java Tutorials: Creating a GUI With JFC/Swing", a:"Oracle", d:"pp. 1–40"},
+          {t:"Introduction to Programming Using Java, 9th Ed.", a:"David J. Eck", d:"Cap. 6: GUI, pp. 265–314"},
+          {t:"Programación de Interfaces Gráficas en Java Swing", a:"UNS", d:"pp. 1–30"}
+        ],
+        practica:[
+          {t:"Ejercicios Resueltos de Interfaces Gráficas en Swing", c:"Programación Ats · YouTube", lvl:"Intermedio"},
+          {t:"17_swing_gui", c:"mouredev/hello-java · GitHub", lvl:"Intermedio"},
+          {t:"GUI Event Listener Simulation", c:"Exercism", lvl:"Intermedio"},
+          {t:"Eck · Ejercicios del Capítulo 6", c:"Libro · pp. 310–314", lvl:"Intermedio"},
+          {t:"Aprenda Java · Sección 8.8: Ejercicios de Swing", c:"Libro · pp. 228–230", lvl:"Intermedio"}
+        ]
+      },
+      {
+        code:"4.4", title:"Proyecto final integrador",
+        obj:"Integrar los componentes de interfaz gráfica, la lógica de negocio orientada a objetos y la persistencia JDBC en un sistema de software funcional.",
+        videos:[
+          {t:"Curso de Java desde cero: Proyecto Integrador Completo", c:"MoureDev"},
+          {t:"Desarrollo de una Aplicación de Escritorio Completa", c:"pildorasinformaticas"},
+          {t:"Java Avanzado: Arquitectura MVC en Java", c:"Makigas"},
+          {t:"Sistema de Gestión Completo con BD y Swing", c:"Programación Ats"},
+          {t:"Proyecto CRUD con Arquitectura en Capas", c:"TodoCode"}
+        ],
+        biblio:[
+          {t:"Architectural Patterns in Java Desktop Apps", a:"Oracle", d:"Developer Guides, pp. 1–25"},
+          {t:"Introduction to Programming Using Java, 9th Ed.", a:"David J. Eck", d:"Cap. 13.3, pp. 658–670"},
+          {t:"MVC y Arquitectura en Capas en Java", a:"U. de Cantabria", d:"OCW, pp. 1–22"},
+          {t:"Guía para Proyectos Integradores en Java", a:"UNED", d:"e-Spacio, pp. 1–40"},
+          {t:"Aprenda Java como si estuviera en primero", a:"García de Jalón et al.", d:"Cap. 9: Proyecto Completo, pp. 231–250"}
+        ],
+        practica:[
+          {t:"Sistema de Ventas/Inventario en Java (paso a paso)", c:"Programación Ats · YouTube", lvl:"Avanzado"},
+          {t:"18_final_project", c:"mouredev/hello-java · GitHub", lvl:"Avanzado"},
+          {t:"karan/Projects (Proyectos Integradores Java)", c:"GitHub", lvl:"Avanzado"},
+          {t:"Capstone Brotli/Dungeon Crawler", c:"Exercism", lvl:"Avanzado"},
+          {t:"Eck · Proyecto Final Cap. 13", c:"Libro · pp. 671–674", lvl:"Avanzado"}
+        ]
+      }
+    ]
+  },
+  {
+    num:"05", title:"Buenas Prácticas y Control de Versiones",
+    weeks:"Semana 8", hours:"24 h", difficulty:"AVANZADO · PROFESIONAL",
+    desc:"Eleva la calidad técnica del estudiante mediante los principios SOLID, patrones de diseño, pruebas unitarias automatizadas con JUnit 5 y flujo profesional con Git y GitHub.",
+    subs:[
+      {
+        code:"5.1", title:"Principios SOLID aplicados en Java",
+        obj:"Aplicar los principios de diseño SOLID (SRP, OCP, LSP, ISP, DIP) en el refactorizado de código Java para garantizar la mantenibilidad y modularidad del sistema.",
+        videos:[
+          {t:"Curso de Java desde cero: Principios SOLID Explicados", c:"MoureDev"},
+          {t:"Principios SOLID en Java con Ejemplos Prácticos", c:"pildorasinformaticas"},
+          {t:"Arquitectura de Software: Aprende los 5 Principios SOLID", c:"Makigas"},
+          {t:"Buenas Prácticas en Java: Aplicando SOLID a Tu Código", c:"TodoCode"},
+          {t:"SOLID: Refactorización y Arquitectura Limpia en Java", c:"BettaTech"}
+        ],
+        biblio:[
+          {t:"SOLID Design Principles in OO Languages", a:"Piccioni et al.", d:"ETH Zurich, pp. 1–25"},
+          {t:"Principios de Diseño de Software OO", a:"U. de Salamanca", d:"Gredos, pp. 1–30"},
+          {t:"Manual de Principios SOLID y Buenas Prácticas en Java", a:"USAC", d:"pp. 1–28"},
+          {t:"OO Design and SOLID Principles", a:"OSSU", d:"pp. 1–35"},
+          {t:"Best Practices in Java Class Design", a:"Oracle", d:"Technical Articles, pp. 1–18"}
+        ],
+        practica:[
+          {t:"Refactorización usando Principios SOLID", c:"BettaTech · YouTube", lvl:"Avanzado"},
+          {t:"19_solid", c:"mouredev/hello-java · GitHub", lvl:"Avanzado"},
+          {t:"webpro/solid-principles-java (Katas)", c:"GitHub", lvl:"Avanzado"},
+          {t:"Katas de Refactorizado y Arquitectura Limpia", c:"Exercism", lvl:"Avanzado"},
+          {t:"Piccioni et al. · Sección 4: Exercises", c:"Documento · pp. 26–30", lvl:"Avanzado"}
+        ]
+      },
+      {
+        code:"5.2", title:"Patrones de diseño básicos (Singleton, Factory)",
+        obj:"Implementar los patrones de diseño creacionales Singleton y Factory Method para resolver problemas recurrentes de instanciación y creación de objetos en Java.",
+        videos:[
+          {t:"Curso de Java desde cero: Patrones Singleton y Factory", c:"MoureDev"},
+          {t:"Patrones de Diseño en Java: Singleton y Factory Method", c:"pildorasinformaticas"},
+          {t:"Patrones de Diseño: Creacionales (Singleton, Factory)", c:"Makigas"},
+          {t:"Aprende Patrones de Diseño: Singleton y Factory", c:"TodoCode"},
+          {t:"Patrones de Diseño en Java desde Cero", c:"Programación Ats"}
+        ],
+        biblio:[
+          {t:"Design Patterns (notas académicas abiertas)", a:"Gamma, Helm, Johnson, Vlissides", d:"Cap. 3: Creational, pp. 81–133"},
+          {t:"Catálogo de Patrones Creacionales en Java", a:"UPM", d:"OCW, pp. 1–32"},
+          {t:"Design Patterns: Singleton & Factory in Java", a:"Refactoring.Guru", d:"pp. 1–20"},
+          {t:"Patrones de Diseño OO", a:"U. de Valladolid", d:"UVaDOC, pp. 1–28"},
+          {t:"Patrones de Creación en Lenguaje Java", a:"U. de los Andes", d:"Séneca, pp. 1–24"}
+        ],
+        practica:[
+          {t:"Implementación de Singleton y Factory", c:"Programación Ats · YouTube", lvl:"Avanzado"},
+          {t:"20_design_patterns", c:"mouredev/hello-java · GitHub", lvl:"Avanzado"},
+          {t:"Java Code Examples: Singleton & Factory", c:"Refactoring.Guru", lvl:"Avanzado"},
+          {t:"iluwatar/java-design-patterns", c:"GitHub", lvl:"Avanzado"},
+          {t:"UPM · Ejercicios de Patrones Creacionales", c:"Manual docente · pp. 33–36", lvl:"Avanzado"}
+        ]
+      },
+      {
+        code:"5.3", title:"Testing unitario con JUnit",
+        obj:"Escribir e interpretar pruebas unitarias automatizadas empleando la biblioteca JUnit 5 para validar el correcto funcionamiento de los métodos y prevenir regresiones en el código.",
+        videos:[
+          {t:"Curso de Java desde cero: Pruebas Unitarias con JUnit 5", c:"MoureDev"},
+          {t:"Testing Unitario y JUnit 5 desde Cero", c:"pildorasinformaticas"},
+          {t:"Testing en Java: Introducción a JUnit 5 y Assertions", c:"Makigas"},
+          {t:"Aprende Pruebas Unitarias en Java con JUnit 5", c:"TodoCode"},
+          {t:"Java Testing: Cobertura de Código y TDD Básico", c:"Programación Ats"}
+        ],
+        biblio:[
+          {t:"JUnit 5 User Guide", a:"JUnit 5 Team", d:"junit.org, pp. 1–60"},
+          {t:"Introduction to Programming Using Java, 9th Ed.", a:"David J. Eck", d:"Cap. 8.5: Unit Testing, pp. 415–425"},
+          {t:"Pruebas Unitarias y Calidad del Software en Java", a:"UNED", d:"e-Spacio, pp. 1–25"},
+          {t:"Guía de Testing Automatizado con JUnit", a:"U. de Zaragoza", d:"ZORA, pp. 1–30"},
+          {t:"TDD Practices in Java Open Source", a:"OpenJDK", d:"pp. 1–18"}
+        ],
+        practica:[
+          {t:"Ejercicios Resueltos de Pruebas Unitarias con JUnit 5", c:"Programación Ats · YouTube", lvl:"Intermedio"},
+          {t:"Todos los ejercicios con suites JUnit 5", c:"Exercism Java Track", lvl:"Intermedio"},
+          {t:"21_unit_testing", c:"mouredev/hello-java · GitHub", lvl:"Intermedio"},
+          {t:"Pruebas de Métodos con Casos de Borde", c:"HackerRank", lvl:"Intermedio"},
+          {t:"JUnit 5 User Guide · Sección 2.22: Code Samples", c:"Documentación · pp. 55–60", lvl:"Avanzado"}
+        ]
+      },
+      {
+        code:"5.4", title:"Uso de Git y control de versiones",
+        obj:"Ejecutar comandos del sistema de control de versiones Git y utilizar la integración nativa de JetBrains IntelliJ IDEA con GitHub para gestionar el historial de cambios y colaborar en repositorios de código.",
+        videos:[
+          {t:"Curso de Git y GitHub desde cero", c:"MoureDev"},
+          {t:"Curso de Git y GitHub Completo desde Cero", c:"pildorasinformaticas"},
+          {t:"Git: Ramas, Merges y Resolución de Conflictos", c:"Makigas"},
+          {t:"Git y GitHub para Programadores Java: Integración en IntelliJ", c:"TodoCode"},
+          {t:"Control de Versiones con Git y GitHub Paso a Paso", c:"Programación Ats"}
+        ],
+        biblio:[
+          {t:"Pro Git, 2nd Edition", a:"Scott Chacon & Ben Straub", d:"Cap. 1, 2 y 3, pp. 1–100 (git-scm.com/book)"},
+          {t:"hello-git: Material didáctico (45 clases)", a:"MoureDev", d:"GitHub, pp. 1–10"},
+          {t:"Guía Teórico-Práctica de Control de Versiones con Git", a:"U. de Alicante", d:"RUA, pp. 1–45"},
+          {t:"Version Control Systems in IntelliJ IDEA", a:"JetBrains", d:"Docs, pp. 1–30"},
+          {t:"Manual de Git y GitHub para Proyectos de Software", a:"UNAM", d:"pp. 1–35"}
+        ],
+        practica:[
+          {t:"Taller Práctico Resuelto de Git y GitHub", c:"MoureDev · YouTube", lvl:"Intermedio"},
+          {t:"Niveles 1 al 34 de Gestión de Ramas y Commits", c:"Learn Git Branching", lvl:"Intermedio"},
+          {t:"hello-git: Flujo Pull Request", c:"GitHub MoureDev", lvl:"Intermedio"},
+          {t:"Command Line Track: Katas de Git", c:"Exercism", lvl:"Básico"},
+          {t:"Pro Git · Ejercicios Cap. 3 (Git Branching)", c:"Libro · pp. 95–100", lvl:"Intermedio"}
+        ]
+      }
+    ]
+  }
+];
+
+const STORAGE_KEY = "java_route_progress_v1";
+let state = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+// state: { "1.1": true, "1.2": false, ... }
+
+function save(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+
+function badgeFor(lvl){
+  const L = lvl.toLowerCase();
+  let cls = "";
+  if(L.includes("avanz")) cls = "adv";
+  else if(L.includes("inter")) cls = "mid";
+  return `<span class="badge ${cls}">${lvl}</span>`;
+}
+
+function renderUnit(u, idx){
+  const subCount = u.subs.length;
+  const doneCount = u.subs.filter(s => state[s.code]).length;
+  const pct = Math.round(doneCount/subCount*100);
+
+  let subsHTML = u.subs.map(s => renderSub(s, idx)).join("");
+
+  let extra = "";
+  if(u.table){
+    extra = `
+    <table class="complexity">
+      <thead><tr><th>Estructura</th><th>Búsqueda</th><th>Inserción</th><th>Eliminación</th></tr></thead>
+      <tbody>
+        <tr><td>ArrayList</td><td>O(1) índice / O(n) valor</td><td>O(1) amortizado</td><td>O(n)</td></tr>
+        <tr><td>LinkedList</td><td>O(n)</td><td>O(1) con nodo</td><td>O(1) con nodo</td></tr>
+        <tr><td>HashSet</td><td>O(1) prom.</td><td>O(1) prom.</td><td>O(1) prom.</td></tr>
+        <tr><td>TreeSet</td><td>O(log n)</td><td>O(log n)</td><td>O(log n)</td></tr>
+        <tr><td>HashMap</td><td>O(1) prom.</td><td>O(1) prom.</td><td>O(1) prom.</td></tr>
+      </tbody>
+    </table>`;
+  }
+
+  return `
+  <section class="unit" data-idx="${idx}">
+    <div class="unit-head" data-unit="${idx}">
+      <div class="unit-num">${u.num}</div>
+      <div class="unit-info">
+        <h2>Unidad ${u.num} — ${u.title}</h2>
+        <div class="unit-meta">
+          <span>${u.weeks}</span>
+          <span>CARGA: <b>${u.hours}</b></span>
+          <span>NIVEL: <b>${u.difficulty}</b></span>
+          <span>SUBTEMAS: <b>${subCount}</b></span>
+        </div>
+      </div>
+      <div class="unit-progress">
+        <div class="unit-pct" id="upct-${idx}">${doneCount}/${subCount} · ${pct}%</div>
+        <div class="mini-track"><div class="mini-fill" id="ufill-${idx}" style="width:${pct}%"></div></div>
+        <span class="toggle-ico" id="tico-${idx}">+</span>
+      </div>
+    </div>
+    <div class="unit-body" id="ubody-${idx}">
+      <div class="unit-desc">${u.desc}</div>
+      ${extra}
+      ${subsHTML}
+    </div>
+  </section>`;
+}
+
+function renderSub(s){
+  const checked = !!state[s.code];
+  const videosHTML = s.videos.map((v,i)=>`<li><span class="idx">V${i+1}</span><span>${v.t}<span class="meta">${v.c}</span></span></li>`).join("");
+  const bibHTML = s.biblio.map((b,i)=>`<li><span class="idx">B${i+1}</span><span><b>${b.t}</b><span class="meta">${b.a} · ${b.d}</span></span></li>`).join("");
+  const pracHTML = s.practica.map((p,i)=>`<li><span class="idx">P${i+1}</span><span>${p.t}${badgeFor(p.lvl)}<span class="meta">${p.c}</span></span></li>`).join("");
+
+  return `
+  <article class="sub" data-code="${s.code}">
+    <div class="sub-head" data-subhead="${s.code}">
+      <div class="sub-check ${checked?'checked':''}" data-check="${s.code}">${checked?'✓':''}</div>
+      <div>
+        <h3 class="sub-title">Subtema ${s.code}: ${s.title}</h3>
+        <span class="sub-code">OBJETIVO + 5 VIDEOS · 5 LIBROS · 5 PRÁCTICAS</span>
+      </div>
+      <span class="sub-toggle" id="stico-${s.code}">+</span>
+    </div>
+    <div class="sub-body" id="sbody-${s.code}">
+      <div class="obj">
+        <b>» Objetivo de aprendizaje</b>
+        ${s.obj}
+      </div>
+      <div class="refs">
+        <div class="ref-block">
+          <div class="ref-title">Referencias en Video <span>TEORÍA</span></div>
+          <ul class="ref-list">${videosHTML}</ul>
+        </div>
+        <div class="ref-block">
+          <div class="ref-title">Referencias Bibliográficas <span>LIBROS</span></div>
+          <ul class="ref-list">${bibHTML}</ul>
+        </div>
+        <div class="ref-block">
+          <div class="ref-title">Referencias de Práctica <span>KATAS</span></div>
+          <ul class="ref-list">${pracHTML}</ul>
+        </div>
+      </div>
+    </div>
+  </article>`;
+}
+
+function renderAll(){
+  document.getElementById("units").innerHTML = DATA.map((u,i)=>renderUnit(u,i)).join("");
+  bindEvents();
+  updateGlobal();
+}
+
+function updateUnitProgress(idx){
+  const u = DATA[idx];
+  const doneCount = u.subs.filter(s=>state[s.code]).length;
+  const pct = Math.round(doneCount/u.subs.length*100);
+  document.getElementById(`upct-${idx}`).textContent = `${doneCount}/${u.subs.length} · ${pct}%`;
+  document.getElementById(`ufill-${idx}`).style.width = pct+"%";
+  updateGlobal();
+}
+
+function updateGlobal(){
+  let total = 0, done = 0;
+  DATA.forEach(u=>u.subs.forEach(s=>{total++; if(state[s.code]) done++;}));
+  const pct = Math.round(done/total*100);
+  document.getElementById("globalFill").style.width = pct+"%";
+  document.getElementById("globalLabel").textContent = `${done} / ${total} subtemas · ${pct}%`;
+  document.getElementById("globalPct").textContent = pct+"%";
+}
+
+function bindEvents(){
+  // unit toggles
+  document.querySelectorAll(".unit-head").forEach(el=>{
+    el.addEventListener("click",(e)=>{
+      if(e.target.closest(".sub-check")) return;
+      const idx = el.dataset.unit;
+      const body = document.getElementById("ubody-"+idx);
+      const ico = document.getElementById("tico-"+idx);
+      const isOpen = body.classList.toggle("show");
+      el.classList.toggle("open", isOpen);
+      ico.textContent = isOpen ? "−" : "+";
+    });
+  });
+  // sub toggles
+  document.querySelectorAll(".sub-head").forEach(el=>{
+    el.addEventListener("click",(e)=>{
+      if(e.target.closest(".sub-check")) return;
+      const code = el.dataset.subhead;
+      const body = document.getElementById("sbody-"+code);
+      const ico = document.getElementById("stico-"+code);
+      const isOpen = body.classList.toggle("show");
+      ico.textContent = isOpen ? "−" : "+";
+    });
+  });
+  // checks
+  document.querySelectorAll(".sub-check").forEach(el=>{
+    el.addEventListener("click",(e)=>{
+      e.stopPropagation();
+      const code = el.dataset.check;
+      state[code] = !state[code];
+      el.classList.toggle("checked", state[code]);
+      el.textContent = state[code] ? "✓" : "";
+      save();
+      // find unit idx
+      let uidx = -1;
+      DATA.forEach((u,i)=>u.subs.forEach(s=>{ if(s.code===code) uidx=i; }));
+      updateUnitProgress(uidx);
+    });
+  });
+}
+
+renderAll();
+</script>
+</body>
+</html>
