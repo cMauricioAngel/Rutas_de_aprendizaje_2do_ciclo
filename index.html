@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,80 +7,197 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@5.0.18/index.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter@5.0.16/index.min.css">
 <style>
+  /* ====== Tema azul marino · claro/oscuro ====== */
   :root{
-    --bg:#F0F0F0;
-    --ink:#000;
-    --paper:#fff;
-    --accent:#E76F00;
-    --mute:#6b6b6b;
+    --bg:#eef2f7;
+    --bg-grad-1:#e8f0fc;
+    --bg-grad-2:#dbe7f5;
+    --paper:#ffffff;
+    --ink:#0a1a2f;
+    --ink-soft:#1a3358;
+    --accent:#1e6fd8;
+    --accent-bright:#4a9eff;
+    --accent-soft:#e3eefc;
+    --mute:#5a6b80;
+    --line:#cdd9e8;
+    --shadow:rgba(10,26,47,.12);
+    --shadow-strong:rgba(10,26,47,.22);
   }
+  [data-theme="dark"]{
+    --bg:#0a1a2f;
+    --bg-grad-1:#0a1a2f;
+    --bg-grad-2:#12294a;
+    --paper:#12294a;
+    --ink:#e8f0fc;
+    --ink-soft:#a8c0e0;
+    --accent:#4a9eff;
+    --accent-bright:#7ab8ff;
+    --accent-soft:#1a3358;
+    --mute:#8aa3c4;
+    --line:#1f3a5f;
+    --shadow:rgba(0,0,0,.35);
+    --shadow-strong:rgba(0,0,0,.55);
+  }
+
   *{box-sizing:border-box}
-  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;font-weight:500;font-size:15px;line-height:1.5}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--bg);
+    background-image:linear-gradient(180deg,var(--bg-grad-1) 0%,var(--bg-grad-2) 100%);
+    background-attachment:fixed;
+    color:var(--ink);
+    font-family:'Inter',sans-serif;font-weight:500;font-size:15px;line-height:1.5;
+    transition:background-color .3s ease,color .3s ease;
+    min-height:100vh;
+  }
   .mono{font-family:'JetBrains Mono',monospace}
   .container{max-width:1180px;margin:0 auto;padding:24px 20px 80px}
 
+  /* ====== HEADER ====== */
   header.hero{
-    border:4px solid var(--ink);
-    background:var(--accent);
-    color:#000;
-    padding:28px 28px 22px;
-    box-shadow:8px 8px 0 var(--ink);
+    background:linear-gradient(135deg,#0a1a2f 0%,#1e3a5f 60%,#1e6fd8 100%);
+    color:#fff;
+    padding:32px 28px 26px;
+    border-radius:14px;
+    box-shadow:0 10px 30px var(--shadow-strong);
     margin-bottom:24px;
+    position:relative;
+    overflow:hidden;
+    border:1px solid rgba(74,158,255,.25);
   }
-  header.hero h1{margin:0 0 8px;font-family:'JetBrains Mono',monospace;font-weight:800;font-size:28px;letter-spacing:-1px}
-  header.hero p{margin:0;font-family:'JetBrains Mono',monospace;font-size:13px;opacity:.78}
-  header.hero .bar{display:inline-block;background:#000;color:var(--accent);padding:2px 8px;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:14px}
+  header.hero::before{
+    content:"";position:absolute;top:-60px;right:-60px;width:240px;height:240px;
+    background:radial-gradient(circle,rgba(74,158,255,.35) 0%,transparent 70%);
+    pointer-events:none;
+  }
+  header.hero .bar{
+    display:inline-block;background:rgba(74,158,255,.25);color:#7ab8ff;
+    padding:4px 12px;font-family:'JetBrains Mono',monospace;font-size:11px;
+    font-weight:700;letter-spacing:1.5px;margin-bottom:14px;border:1px solid rgba(74,158,255,.4);
+    border-radius:4px;
+  }
+  header.hero h1{
+    margin:0 0 8px;font-family:'JetBrains Mono',monospace;
+    font-weight:800;font-size:30px;letter-spacing:-1px;
+  }
+  header.hero p{margin:0;font-family:'JetBrains Mono',monospace;font-size:13px;opacity:.7}
 
+  /* ====== TOGGLE DARK MODE ====== */
+  .theme-toggle{
+    position:absolute;top:24px;right:24px;
+    background:rgba(255,255,255,.12);
+    border:1px solid rgba(255,255,255,.25);
+    color:#fff;width:42px;height:42px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    cursor:pointer;font-size:18px;line-height:1;
+    transition:background .2s ease,transform .2s ease;
+    backdrop-filter:blur(6px);
+  }
+  .theme-toggle:hover{background:rgba(255,255,255,.22);transform:scale(1.05)}
+  .theme-toggle:focus-visible{outline:2px solid var(--accent-bright);outline-offset:2px}
+  .theme-toggle .icon{display:none}
+  [data-theme="light"] .theme-toggle .icon-moon{display:block}
+  [data-theme="dark"]  .theme-toggle .icon-sun{display:block}
+
+  /* ====== CONTROLS ====== */
   .controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:20px}
   .controls input{
-    flex:1;min-width:220px;border:3px solid var(--ink);background:var(--paper);
-    padding:12px 14px;font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:500;
-    box-shadow:4px 4px 0 var(--ink);outline:none;color:#000;
+    flex:1;min-width:220px;
+    border:1px solid var(--line);background:var(--paper);
+    padding:12px 16px;font-family:'JetBrains Mono',monospace;font-size:14px;
+    font-weight:500;color:var(--ink);border-radius:8px;outline:none;
+    box-shadow:0 2px 6px var(--shadow);
+    transition:border-color .15s ease,box-shadow .15s ease;
   }
-  .controls input:focus{background:#fff8ef}
-  .controls .count{font-family:'JetBrains Mono',monospace;font-size:12px;background:#000;color:var(--accent);padding:8px 12px;font-weight:700;border:3px solid var(--ink)}
+  .controls input::placeholder{color:var(--mute)}
+  .controls input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(74,158,255,.25)}
+  .controls .count{
+    font-family:'JetBrains Mono',monospace;font-size:12px;
+    background:var(--accent-soft);color:var(--accent);
+    padding:9px 14px;font-weight:700;border-radius:8px;border:1px solid var(--line);
+  }
 
+  /* ====== GRID ====== */
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px}
   a.card{
     display:flex;flex-direction:column;text-decoration:none;color:inherit;
-    border:4px solid var(--ink);background:var(--paper);
-    box-shadow:6px 6px 0 var(--ink);
-    transition:transform .08s ease-out, box-shadow .08s ease-out;
+    background:var(--paper);border:1px solid var(--line);border-radius:12px;
+    box-shadow:0 4px 12px var(--shadow);
+    transition:transform .15s ease,box-shadow .15s ease,border-color .15s ease;
     position:relative;overflow:hidden;
   }
-  a.card:hover{transform:translate(-2px,-2px);box-shadow:10px 10px 0 var(--ink)}
-  a.card:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink)}
-  .card-strip{height:14px;background:repeating-linear-gradient(45deg,var(--accent),var(--accent) 10px,#000 10px,#000 20px)}
+  a.card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 10px 24px var(--shadow-strong);
+    border-color:var(--accent);
+  }
+  a.card:active{transform:translateY(-1px)}
+  .card-strip{height:6px;background:linear-gradient(90deg,#0a1a2f 0%,#1e6fd8 50%,#4a9eff 100%)}
   .card-body{padding:18px 18px 20px;display:flex;flex-direction:column;gap:8px;flex:1}
-  .card-tag{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;letter-spacing:1px;color:var(--accent);text-transform:uppercase}
-  .card-title{font-family:'JetBrains Mono',monospace;font-weight:800;font-size:18px;line-height:1.25;letter-spacing:-.3px;margin:0}
-  .card-meta{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--mute);margin-top:auto;padding-top:8px;border-top:2px solid #e5e5e5;display:flex;justify-content:space-between;align-items:center}
-  .card-arrow{position:absolute;top:18px;right:18px;width:30px;height:30px;border:3px solid #000;background:#fff;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-weight:800;font-size:18px}
-  a.card:hover .card-arrow{background:var(--accent)}
+  .card-tag{
+    display:inline-block;font-family:'JetBrains Mono',monospace;
+    font-size:10px;font-weight:700;letter-spacing:1px;color:var(--accent);
+    text-transform:uppercase;background:var(--accent-soft);
+    padding:3px 8px;border-radius:4px;align-self:flex-start;
+  }
+  .card-title{
+    font-family:'JetBrains Mono',monospace;font-weight:700;
+    font-size:16px;line-height:1.3;letter-spacing:-.2px;margin:0;color:var(--ink);
+  }
+  .card-meta{
+    font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--mute);
+    margin-top:auto;padding-top:10px;border-top:1px solid var(--line);
+    display:flex;justify-content:space-between;align-items:center;
+  }
+  .card-arrow{
+    position:absolute;top:14px;right:14px;width:30px;height:30px;
+    border-radius:50%;background:var(--accent-soft);color:var(--accent);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'JetBrains Mono',monospace;font-weight:800;font-size:16px;
+    transition:background .15s ease,color .15s ease;
+  }
+  a.card:hover .card-arrow{background:var(--accent);color:#fff}
 
-  mark{background:var(--accent);color:#000;padding:0 2px}
+  mark{background:var(--accent-bright);color:#0a1a2f;padding:0 3px;border-radius:2px}
 
+  /* ====== FOOTER ====== */
   footer{
-    margin-top:40px;border-top:4px solid var(--ink);padding-top:16px;
+    margin-top:40px;padding-top:18px;border-top:1px solid var(--line);
     font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--mute);
     display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
   }
-  footer .chip{background:#000;color:var(--accent);padding:3px 8px;font-weight:700}
+  footer .chip{
+    background:var(--accent);color:#fff;padding:3px 10px;
+    font-weight:700;border-radius:4px;letter-spacing:.5px;
+  }
 
-  .noscript-msg{background:#ffecdb;border:3px solid #000;padding:10px;margin-bottom:16px;font-family:'JetBrains Mono',monospace;font-size:13px}
+  .noscript-msg{
+    background:var(--accent-soft);border:1px solid var(--line);
+    color:var(--ink);padding:12px 14px;margin-bottom:16px;border-radius:8px;
+    font-family:'JetBrains Mono',monospace;font-size:13px;
+  }
+
+  /* Evitar Flash Of Wrong Theme (FOUC) */
+  .theme-toggle{visibility:visible}
 
   @media (max-width:560px){
     header.hero h1{font-size:22px}
-    .card-arrow{width:26px;height:26px;font-size:16px}
+    header.hero{padding:24px 20px 22px}
+    .theme-toggle{top:18px;right:18px}
+    .card-arrow{width:26px;height:26px;font-size:14px}
   }
 </style>
 </head>
 <body>
 <div class="container">
   <header class="hero">
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Cambiar tema claro/oscuro" title="Cambiar tema">
+      <span class="icon icon-sun">☀</span>
+      <span class="icon icon-moon">🌙</span>
+    </button>
     <span class="bar">RUTAS//INDEX</span>
     <h1>Rutas de Aprendizaje</h1>
-    <p>8 mapas · acceso rápido · brútalista · 2do ciclo</p>
+    <p>8 mapas · acceso rápido · 2do ciclo</p>
   </header>
 
   <div class="controls">
@@ -178,42 +295,63 @@
 
   <footer>
     <span><span class="chip">RUTAS//INDEX</span> · estático · sin backend</span>
-    <span>Estilo brutalista · #E76F00</span>
+    <span>Tema azul marino · #1e6fd8 · ☀/🌙</span>
   </footer>
 </div>
 
 <script>
-  // Filtro opcional — las tarjetas ya son HTML estático,
-  // así que aunque este script falle, las rutas se ven igual.
+  // ====== Anti-FOUC: aplicar tema antes de pintar ======
   (function(){
-    var q = document.getElementById('q');
-    var count = document.getElementById('count');
-    var cards = document.querySelectorAll('#grid a.card');
+    var saved = null;
+    try { saved = localStorage.getItem("rutas-theme"); } catch(e){}
+    if(!saved){
+      saved = (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light";
+    }
+    document.documentElement.setAttribute("data-theme", saved);
+  })();
+
+  // ====== Toggle de tema ======
+  (function(){
+    var btn = document.getElementById("themeToggle");
+    if(!btn) return;
+    btn.addEventListener("click", function(){
+      var cur = document.documentElement.getAttribute("data-theme") || "light";
+      var next = cur === "dark" ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", next);
+      try { localStorage.setItem("rutas-theme", next); } catch(e){}
+    });
+  })();
+
+  // ====== Filtro de búsqueda (opcional) ======
+  (function(){
+    var q = document.getElementById("q");
+    var count = document.getElementById("count");
+    var cards = document.querySelectorAll("#grid a.card");
     if(!q || !count || !cards.length) return;
 
-    function escapeHtml(s){return s.replace(/[&<>"']/g,function(c){return {"&":"&","<":"<",">":">",'"':""","'":"&#39;"}[c];});}
-    function stripTags(s){return s.replace(/<[^>]*>/g,'');}
+    function escapeHtml(s){return s.replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+    function stripTags(s){return s.replace(/<[^>]*>/g,"");}
 
-    q.addEventListener('input', function(){
+    q.addEventListener("input", function(){
       var query = q.value.trim().toLowerCase();
       var visible = 0;
       cards.forEach(function(card){
-        var titleEl = card.querySelector('.card-title');
-        var tagEl = card.querySelector('.card-tag');
-        var titleText = titleEl ? stripTags(titleEl.textContent) : '';
-        var tagText = tagEl ? stripTags(tagEl.textContent) : '';
+        var titleEl = card.querySelector(".card-title");
+        var tagEl = card.querySelector(".card-tag");
+        var titleText = titleEl ? stripTags(titleEl.textContent) : "";
+        var tagText = tagEl ? stripTags(tagEl.textContent) : "";
         var match = !query || titleText.toLowerCase().indexOf(query) > -1 || tagText.toLowerCase().indexOf(query) > -1;
-        card.style.display = match ? '' : 'none';
+        card.style.display = match ? "" : "none";
         if(match) visible++;
         if(titleEl && query){
           var safe = escapeHtml(titleText);
-          var qre = query.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
-          titleEl.innerHTML = safe.replace(new RegExp('('+qre+')','gi'),'<mark>$1</mark>');
+          var qre = query.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+          titleEl.innerHTML = safe.replace(new RegExp("("+qre+")","gi"),"<mark>$1</mark>");
         } else if(titleEl){
           titleEl.textContent = titleText;
         }
       });
-      count.textContent = visible + ' / ' + cards.length;
+      count.textContent = visible + " / " + cards.length;
     });
   })();
 </script>
