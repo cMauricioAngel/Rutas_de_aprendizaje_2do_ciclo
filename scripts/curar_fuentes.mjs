@@ -268,6 +268,12 @@ function normalizeRef(r, type) {
 
 // Extractor principal que maneja múltiples formatos
 function extractAllFormats(src, mapaName, varName) {
+  // Si tiene parseHTML=true, extraer referencias del HTML estático
+  const mapaInfo = MAPAS.find(m => m.file === mapaName);
+  if (mapaInfo && mapaInfo.parseHTML) {
+    return extractRefsFromHTML(src, mapaName);
+  }
+  
   const lit = extractDataArray(src, varName);
   if (!lit) return null;
   
@@ -282,6 +288,183 @@ function extractAllFormats(src, mapaName, varName) {
     console.error(`Error parsing ${mapaName} (${varName}): ${e.message}`);
     return null;
   }
+}
+
+// Extrae referencias de HTML estático (formato Matemática Discreta)
+function extractRefsFromHTML(src, mapaName) {
+  const refs = [];
+  
+  // Expresiones regulares para extraer bloques de contenido
+  // El formato es: <div class="subtopic-accordion" id="u1-s1">...<span class="subtopic-title">TITULO</span>
+  const subtopicRegex = /<div\s+class="subtopic-accordion"\s+id="(u\d+-s\d+)">[\s\S]*?<span\s+class="subtopic-title">([\s\S]*?)<\/span>/g;
+  const biblioBlockRegex = /<h4>REFERENCIAS BIBLIOGRÁFICAS<\/h4>\s*<ul>([\s\S]*?)<\/ul>/g;
+  const videoBlockRegex = /<h4>REFERENCIAS EN VIDEO<\/h4>\s*<ul>([\s\S]*?)<\/ul>/g;
+  const practicaBlockRegex = /<h4>REFERENCIAS DE PRÁCTICA<\/h4>\s*<ul>([\s\S]*?)<\/ul>/g;
+  const liRegex = /<li>([\s\S]*?)<\/li>/g;
+  
+  let subMatch;
+  let subCount = 0;
+  
+  // Resetear el lastIndex para empezar desde el principio
+  subtopicRegex.lastIndex = 0;
+  
+  while ((subMatch = subtopicRegex.exec(src)) !== null) {
+    subCount++;
+    const subId = subMatch[1];
+    const subTitle = subMatch[2].replace(/<[^>]*>/g, '').trim();
+    
+    // Encontrar los bloques de referencias asociados a este subtema
+    // Buscamos desde la posición actual hasta el siguiente subtema
+    const nextSubPos = subtopicRegex.lastIndex;
+    const nextSubStart = src.indexOf('<div class="subtopic-accordion"', nextSubPos);
+    const sectionEnd = nextSubStart > 0 ? nextSubStart : src.length;
+    const sectionContent = src.slice(subMatch.index, sectionEnd);
+    
+    // Extraer bibliografía
+    let biblioMatch;
+    let biblioIdx = 0;
+    biblioBlockRegex.lastIndex = 0;
+    while ((biblioMatch = biblioBlockRegex.exec(sectionContent)) !== null) {
+      const ulContent = biblioMatch[1];
+      liRegex.lastIndex = 0;
+      let liMatch;
+      while ((liMatch = liRegex.exec(ulContent)) !== null) {
+        const refText = liMatch[1].replace(/<[^>]*>/g, '').trim();
+        if (refText) {
+          const parsed = parseMathDiscreteRef(refText, 'libro');
+          if (parsed) {
+            refs.push({
+              id: `${mapaName}:${subId}:biblio:${biblioIdx}`,
+              mapa: mapaName,
+              unidad: subTitle,
+              subtema: `${subId} · ${subTitle}`,
+              seccion: "Bibliografía",
+              tipo: "libro",
+              titulo_visible: parsed.titulo,
+              autor_canal: parsed.autor,
+              cita: parsed.cita || "",
+              url_actual: "",
+              estado: "pendiente",
+              busqueda_url: searchUrl({ t: parsed.titulo, c: parsed.autor }, "biblio")
+            });
+            biblioIdx++;
+          }
+        }
+      }
+    }
+    
+    // Extraer videos
+    let videoMatch;
+    let videoIdx = 0;
+    videoBlockRegex.lastIndex = 0;
+    while ((videoMatch = videoBlockRegex.exec(sectionContent)) !== null) {
+      const ulContent = videoMatch[1];
+      liRegex.lastIndex = 0;
+      let liMatch;
+      while ((liMatch = liRegex.exec(ulContent)) !== null) {
+        const refText = liMatch[1].replace(/<[^>]*>/g, '').trim();
+        if (refText) {
+          const parsed = parseMathDiscreteRef(refText, 'video');
+          if (parsed) {
+            refs.push({
+              id: `${mapaName}:${subId}:videos:${videoIdx}`,
+              mapa: mapaName,
+              unidad: subTitle,
+              subtema: `${subId} · ${subTitle}`,
+              seccion: "Videos",
+              tipo: "video",
+              titulo_visible: parsed.titulo,
+              autor_canal: parsed.canal,
+              cita: "",
+              url_actual: "",
+              estado: "pendiente",
+              busqueda_url: searchUrl({ t: parsed.titulo, c: parsed.canal }, "videos")
+            });
+            videoIdx++;
+          }
+        }
+      }
+    }
+    
+    // Extraer práctica
+    let practicaMatch;
+    let practicaIdx = 0;
+    practicaBlockRegex.lastIndex = 0;
+    while ((practicaMatch = practicaBlockRegex.exec(sectionContent)) !== null) {
+      const ulContent = practicaMatch[1];
+      liRegex.lastIndex = 0;
+      let liMatch;
+      while ((liMatch = liRegex.exec(ulContent)) !== null) {
+        const refText = liMatch[1].replace(/<[^>]*>/g, '').trim();
+        if (refText) {
+          const parsed = parseMathDiscreteRef(refText, 'practica');
+          if (parsed) {
+            refs.push({
+              id: `${mapaName}:${subId}:practica:${practicaIdx}`,
+              mapa: mapaName,
+              unidad: subTitle,
+              subtema: `${subId} · ${subTitle}`,
+              seccion: "Práctica",
+              tipo: "practica",
+              titulo_visible: parsed.titulo || parsed.ejercicio,
+              autor_canal: parsed.autor,
+              cita: parsed.cita || "",
+              url_actual: "",
+              estado: "pendiente",
+              busqueda_url: searchUrl({ t: parsed.titulo || parsed.ejercicio, c: parsed.autor }, "practica")
+            });
+            practicaIdx++;
+          }
+        }
+      }
+    }
+  }
+  
+  console.log(`   Extraídas ${refs.length} referencias de HTML para ${mapaName}`);
+  return { refs, data: null, match: null };
+}
+
+// Parsea una referencia de Matemática Discreta
+function parseMathDiscreteRef(text, type) {
+  if (!text) return null;
+  
+  // Para libros: "AUTOR - TÍTULO, CAP. X, PP. Y-Z" o "AUTOR - CAP. X, PP. Y-Z"
+  if (type === 'libro') {
+    const parts = text.split('-').map(s => s.trim());
+    if (parts.length >= 2) {
+      const autor = parts[0];
+      const resto = parts.slice(1).join('-');
+      // Intentar separar título y cita (capítulos, páginas)
+      const citaMatch = resto.match(/(.+?)(,\s*CAP\.|,\s*PP\.|\(\d+ª?\s*ED\.\))?/i);
+      const titulo = citaMatch ? citaMatch[1].trim() : resto;
+      const cita = resto;
+      return { autor, titulo, cita };
+    }
+    return { autor: '', titulo: text, cita: '' };
+  }
+  
+  // Para videos: "CANAL: TÍTULO" o "CANAL - TÍTULO"
+  if (type === 'video') {
+    const sepMatch = text.match(/^([^:—-]+)[:—-]\s*(.+)$/);
+    if (sepMatch) {
+      return { canal: sepMatch[1].trim(), titulo: sepMatch[2].trim() };
+    }
+    return { canal: '', titulo: text };
+  }
+  
+  // Para práctica: puede tener badges como "BÁSICO", "INTERMEDIO", "AVANZADO"
+  if (type === 'practica') {
+    const cleanText = text.replace(/<span[^>]*>.*?<\/span>/g, '').trim();
+    const parts = cleanText.split('-').map(s => s.trim());
+    if (parts.length >= 2) {
+      const autor = parts[0];
+      const ejercicio = parts.slice(1).join('-');
+      return { autor, ejercicio, titulo: ejercicio, cita: ejercicio };
+    }
+    return { autor: '', titulo: text, ejercicio: text };
+  }
+  
+  return null;
 }
 
 /* ---------- funciones principales ---------- */

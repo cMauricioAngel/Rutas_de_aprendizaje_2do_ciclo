@@ -1,5 +1,67 @@
 ```
+# Logs
 *.log
-curacion_*.log
-curacion_*.txt
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+.venv.bak/
+pip-log.txt
+pip-selfcheck.json
+.python-version
+.ipython/
+
+# Coverage
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage/
+htmlcov/
+
+# Testing
+.pytest_cache/
+.hypothesis/
+.tox/
+.coverage/
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.local
+*.env*
+.env.*
 ```

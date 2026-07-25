@@ -1,0 +1,66 @@
+🚀 Pipeline de Curación de Fuentes para Rutas de Aprendizaje
+
+============================================================
+
+📋 Extrayendo referencias de todos los mapas...
+
+✅ Mapa_Java.html (DATA): 300 referencias encontradas
+✅ Mapa_Javascript.html (DATA): 300 referencias encontradas
+✅ Mapa_Mate_superior.html (syllabusData): 408 referencias encontradas
+✅ Mapa_Modelado_de_negocios.html (syllabusData): 145 referencias encontradas
+✅ Mapa_Programacion_orientada_a_objetos.html (syllabusData): 247 referencias encontradas
+✅ Mapa_Algebra_LIneal_y_Geo._Analitica.html (DATA): 160 referencias encontradas
+❌ Mapa_Mate_discreta2.html: no se pudo extraer referencias
+
+📊 Total: 1560 referencias de 6 mapas
+
+🔍 Enriqueciendo referencias con fuentes conocidas y URLs de búsqueda...
+
+   • 0 referencias con fuente canónica identificada
+   • 92 con URL existente
+   • 1468 pendientes de verificación
+
+💾 CSV guardado en: /workspace/data/referencias_curadas_preliminar.csv
+   Total filas: 1560
+
+🔗 Verificando URLs (esto puede tomar varios minutos)...
+
+   Verificando 92 URLs...
+
+   Progreso: 10/92 (10 OK, 0 error)   
+   Progreso: 20/92 (20 OK, 0 error)   Progreso: 20/92 (20 OK, 0 error)   
+   Progreso: 30/92 (30 OK, 0 error)   
+   Progreso: 40/92 (40 OK, 0 error)   Progreso: 40/92 (40 OK, 0 error)   
+   Progreso: 50/92 (50 OK, 0 error)   
+   Progreso: 60/92 (60 OK, 0 error)   Progreso: 60/92 (60 OK, 0 error)   
+   Progreso: 70/92 (70 OK, 0 error)   
+   Progreso: 80/92 (80 OK, 0 error)   Progreso: 80/92 (80 OK, 0 error)   
+   Progreso: 90/92 (90 OK, 0 error)   
+   Progreso: 92/92 (92 OK, 0 error)   
+
+✅ Verificación completada: 92 URLs válidas, 0 con errores
+
+💾 CSV guardado en: /workspace/data/referencias_curadas.csv
+   Total filas: 1560
+
+📝 Aplicando URLs verificadas a los archivos HTML...
+
+✅ 92 URLs aplicadas en Mapa_Java.html
+   ⚠️  No hay URLs verificadas para aplicar en Mapa_Javascript.html
+   ⚠️  No hay URLs verificadas para aplicar en Mapa_Mate_superior.html
+   ⚠️  No hay URLs verificadas para aplicar en Mapa_Modelado_de_negocios.html
+   ⚠️  No hay URLs verificadas para aplicar en Mapa_Programacion_orientada_a_objetos.html
+   ⚠️  No hay URLs verificadas para aplicar en Mapa_Algebra_LIneal_y_Geo._Analitica.html
+
+============================================================
+📊 RESUMEN FINAL
+============================================================
+Total referencias procesadas: 1560
+• Verificadas con URL válida: 92
+• Sugeridas (pendientes de verificar): 0
+• Con URL existente: 0
+• Pendientes: 1468
+• No existen (HTTP error): 0
+
+✅ ¡Proceso completado!
+
