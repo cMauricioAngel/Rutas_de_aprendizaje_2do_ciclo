@@ -38,6 +38,8 @@ htmlcov/
 .DS_Store
 Thumbs.db
 *.log
+curacion_*.log
+curacion_*.txt
 
 # Python specific
 *.pyc
