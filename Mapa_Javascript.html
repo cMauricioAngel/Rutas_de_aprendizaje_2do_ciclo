@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RUTA::JAVASCRIPT // 8 SEMANAS</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@5.0.0/index.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/space-grotesk@5.0.0/index.css">
+<style>
+:root{
+  --js:#F7DF1E;
+  --bk:#000;
+  --wh:#fff;
+  --bd:2px solid #000;
+  --bd-thick:3px solid #000;
+  --bd-heavy:4px solid #000;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--js);color:#000;font-family:'Space Grotesk','Arial Black',sans-serif;font-weight:700;line-height:1.35}
+.mono{font-family:'JetBrains Mono',monospace;font-weight:400}
+.bk{background:#000;color:#F7DF1E}
+.yl{background:#F7DF1E;color:#000}
+.wh-bg{background:#fff;color:#000}
+
+/* HEADER */
+header{border-bottom:var(--bd-heavy);background:#000;color:#F7DF1E;padding:20px 24px}
+.top-bar{display:flex;justify-content:space-between;align-items:center;font-family:'JetBrains Mono',monospace;font-size:12px;padding-bottom:12px;border-bottom:1px dashed #F7DF1E;margin-bottom:16px;flex-wrap:wrap;gap:8px}
+.top-bar span{letter-spacing:1px}
+.h-title{font-size:clamp(32px,7vw,72px);font-weight:700;letter-spacing:-2px;line-height:0.95;text-transform:uppercase}
+.h-title em{color:#000;background:#F7DF1E;padding:0 10px;font-style:normal;display:inline-block;transform:skew(-6deg)}
+.h-sub{font-family:'JetBrains Mono',monospace;font-size:14px;margin-top:12px;letter-spacing:1px}
+.h-sub b{background:#F7DF1E;color:#000;padding:2px 6px}
+
+/* PROGRESS BAR GENERAL */
+.global-progress{border-top:var(--bd-heavy);border-bottom:var(--bd-heavy);background:#F7DF1E;padding:14px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.gp-label{font-size:12px;font-family:'JetBrains Mono',monospace;letter-spacing:1px;white-space:nowrap}
+.gp-track{flex:1;min-width:200px;height:24px;background:#fff;border:var(--bd);position:relative;overflow:hidden}
+.gp-fill{height:100%;background:#000;transition:width .3s ease;width:0%}
+.gp-pct{font-family:'JetBrains Mono',monospace;font-size:20px;min-width:70px;text-align:right}
+
+/* TIMELINE */
+.timeline{background:#000;color:#F7DF1E;padding:16px 24px;border-bottom:var(--bd-heavy);overflow-x:auto}
+.timeline h3{font-size:12px;font-family:'JetBrains Mono',monospace;letter-spacing:2px;margin-bottom:10px}
+.tl-row{display:flex;gap:6px;min-width:max-content}
+.tl-cell{border:2px solid #F7DF1E;padding:6px 10px;font-family:'JetBrains Mono',monospace;font-size:11px;min-width:76px;text-align:center;cursor:default}
+.tl-cell.active{background:#F7DF1E;color:#000}
+.tl-cell .wk{font-size:10px;display:block;opacity:.8}
+
+/* MAIN */
+main{padding:20px 24px 80px;max-width:1200px;margin:0 auto}
+
+/* UNIT */
+.unit{border:var(--bd-heavy);background:#F7DF1E;margin-bottom:18px}
+.unit-head{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;padding:12px 14px;cursor:pointer;user-select:none;background:#000;color:#F7DF1E;border-bottom:var(--bd-heavy)}
+.unit-head:hover{background:#F7DF1E;color:#000}
+.unit-head:hover .u-tag{background:#000;color:#F7DF1E}
+.unit-head:hover .u-pct{background:#000;color:#F7DF1E;border-color:#F7DF1E}
+.u-tag{font-family:'JetBrains Mono',monospace;font-size:11px;border:2px solid currentColor;padding:3px 8px;letter-spacing:1px;background:#F7DF1E;color:#000;white-space:nowrap}
+.u-title{font-size:clamp(14px,2vw,19px);font-weight:700;text-transform:uppercase;letter-spacing:-.5px}
+.u-meta{display:flex;gap:10px;align-items:center;font-family:'JetBrains Mono',monospace;font-size:11px;flex-wrap:wrap}
+.u-pct{border:2px solid #F7DF1E;padding:2px 6px;min-width:56px;text-align:center}
+.u-arrow{font-size:20px;transition:transform .2s}
+.unit.open .u-arrow{transform:rotate(90deg)}
+.unit-body{display:none;padding:0}
+.unit.open .unit-body{display:block}
+.unit-bar{height:8px;background:#fff;border-bottom:var(--bd)}
+.unit-bar-fill{height:100%;background:#000;transition:width .3s}
+
+/* SUBTOPIC */
+.subtopic{border-top:var(--bd);background:#fff}
+.subtopic:first-child{border-top:none}
+.sub-head{display:grid;grid-template-columns:auto 1fr auto auto;gap:12px;align-items:center;padding:10px 14px;cursor:pointer}
+.sub-head:hover{background:#000;color:#F7DF1E}
+.sub-head:hover .s-check{border-color:#F7DF1E}
+.sub-head:hover .s-arr{color:#F7DF1E}
+.s-check{width:22px;height:22px;border:var(--bd-thick);background:#fff;cursor:pointer;position:relative;flex-shrink:0}
+.s-check.done{background:#000}
+.s-check.done::after{content:"";position:absolute;left:6px;top:1px;width:6px;height:13px;border:solid #F7DF1E;border-width:0 3px 3px 0;transform:rotate(45deg)}
+.s-title{font-size:14px;font-weight:700;letter-spacing:-.3px}
+.s-tag{font-family:'JetBrains Mono',monospace;font-size:10px;background:#000;color:#F7DF1E;padding:2px 6px;letter-spacing:1px}
+.s-arr{font-size:16px}
+.subtopic.open .s-arr{transform:rotate(90deg)}
+.sub-body{display:none;border-top:var(--bd);padding:14px}
+.subtopic.open .sub-body{display:block}
+
+/* OBJECTIVE */
+.obj{background:#000;color:#F7DF1E;padding:10px 12px;border:var(--bd);margin-bottom:14px;font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.5}
+.obj b{color:#fff;text-transform:uppercase;letter-spacing:1px;font-size:11px;display:block;margin-bottom:4px}
+
+/* SECTIONS */
+.sect{margin-bottom:12px;border:var(--bd);background:#F7DF1E}
+.sect-head{background:#000;color:#F7DF1E;padding:6px 10px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;display:flex;justify-content:space-between;align-items:center}
+.sect-head span.ct{font-size:10px;opacity:.8}
+.sect-list{list-style:none;padding:0}
+.sect-list li{padding:8px 10px;border-bottom:1px solid #000;font-size:13px;font-weight:400;font-family:'Space Grotesk',sans-serif}
+.sect-list li:last-child{border-bottom:none}
+.sect-list li:hover{background:#000;color:#F7DF1E}
+.ref-t{font-weight:700;display:block;margin-bottom:2px;font-size:13px}
+.ref-m{font-family:'JetBrains Mono',monospace;font-size:11px;opacity:.85}
+.ref-level{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10px;background:#000;color:#F7DF1E;padding:1px 5px;margin-left:6px;letter-spacing:1px}
+.sect-list li:hover .ref-level{background:#F7DF1E;color:#000}
+
+/* FOOTER */
+footer{border-top:var(--bd-heavy);background:#000;color:#F7DF1E;padding:20px 24px;font-family:'JetBrains Mono',monospace;font-size:11px;text-align:center;letter-spacing:1px}
+footer b{background:#F7DF1E;color:#000;padding:1px 6px}
+
+/* UTIL */
+.flex{display:flex}
+.gap-8{gap:8px}
+.wrap{flex-wrap:wrap}
+.reset-btn{background:#F7DF1E;color:#000;border:var(--bd-thick);padding:6px 14px;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:12px;cursor:pointer;letter-spacing:1px;text-transform:uppercase}
+.reset-btn:hover{background:#000;color:#F7DF1E;border-color:#F7DF1E}
+
+/* MARQUEE */
+.marquee{background:#F7DF1E;border-bottom:var(--bd-heavy);overflow:hidden;white-space:nowrap;padding:6px 0}
+.marquee-inner{display:inline-block;animation:scroll 40s linear infinite;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:2px}
+@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.marquee-inner span{margin:0 20px}
+
+@media (max-width:640px){
+  .unit-head{grid-template-columns:1fr;gap:8px}
+  .u-meta{justify-content:flex-start}
+  .sub-head{grid-template-columns:auto 1fr auto;gap:8px}
+  .s-tag{grid-column:2/3}
+  main{padding:14px 10px 60px}
+  header{padding:14px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="top-bar">
+    <span>◼ SYS.LEARN // v4.2</span>
+    <span>RUTA-04 / 08</span>
+    <span id="clock">SAT·25·07·2026</span>
+  </div>
+  <h1 class="h-title">RUTA<br><em>JAVASCRIPT</em></h1>
+  <div class="h-sub">DURACIÓN: <b>8 SEMANAS</b> &nbsp;//&nbsp; MODO: <b>BRUTAL / ALTO CONTRASTE</b> &nbsp;//&nbsp; SEMANAS 9→16</div>
+</header>
+
+<div class="marquee">
+  <div class="marquee-inner">
+    <span>► HOISTING</span><span>► CLOSURES</span><span>► PROTOTYPES</span><span>► THIS</span><span>► PROMISES</span><span>► ASYNC/AWAIT</span><span>► FETCH API</span><span>► REACT</span><span>► NODE.JS</span><span>► ES6 MODULES</span><span>► GIT</span><span>► HOISTING</span><span>► CLOSURES</span><span>► PROTOTYPES</span><span>► THIS</span><span>► PROMISES</span><span>► ASYNC/AWAIT</span><span>► FETCH API</span><span>► REACT</span><span>► NODE.JS</span><span>► ES6 MODULES</span><span>► GIT</span>
+  </div>
+</div>
+
+<div class="global-progress">
+  <div class="gp-label">◼ PROGRESO::TOTAL</div>
+  <div class="gp-track"><div class="gp-fill" id="gpFill"></div></div>
+  <div class="gp-pct" id="gpPct">0%</div>
+  <button class="reset-btn" onclick="resetAll()">RESET</button>
+</div>
+
+<div class="timeline">
+  <h3>◼ DISTRIBUCIÓN TEMPORAL // 8 SEMANAS</h3>
+  <div class="tl-row">
+    <div class="tl-cell active">U1<span class="wk">S9</span></div>
+    <div class="tl-cell active">U1<span class="wk">S10</span></div>
+    <div class="tl-cell" style="background:#F7DF1E;color:#000;border-color:#000">U2<span class="wk">S11</span></div>
+    <div class="tl-cell" style="background:#F7DF1E;color:#000;border-color:#000">U2<span class="wk">S12</span></div>
+    <div class="tl-cell">U3<span class="wk">S13</span></div>
+    <div class="tl-cell">U4<span class="wk">S14</span></div>
+    <div class="tl-cell">U4<span class="wk">S15</span></div>
+    <div class="tl-cell" style="background:#F7DF1E;color:#000;border-color:#000">U5<span class="wk">S16</span></div>
+  </div>
+</div>
+
+<main id="main"></main>
+
+<footer>
+  ◼ RUTA·JAVASCRIPT // BRUTALIST EDITION // 2026 &nbsp;|&nbsp; PROGRESO GUARDADO EN <b>localStorage</b> &nbsp;|&nbsp; PRESIONA <b>RESET</b> PARA REINICIAR
+</footer>
+
+<script>
+const DATA = [
+  {
+    id:"u1", tag:"UNIDAD·01", title:"Fundamentos", weeks:"S9–S10", hours:28,
+    subs:[
+      {id:"u1s1", tag:"1.1", title:"Sintaxis, tipos de datos y variables (var/let/const)",
+        obj:"Diferenciar el comportamiento del elevamiento (hoisting) y el ámbito de bloque entre las declaraciones var, let y const, aplicando la sintaxis adecuada para garantizar la inmutabilidad y predictibilidad del código.",
+        videos:[
+          ["Curso de JavaScript desde cero","MoureDev por Brais Moure"],
+          ["Curso JavaScript: 1. Introducción","Jon Mircha"],
+          ["CURSO DE JAVASCRIPT COMPLETO DESDE CERO en español (2025)","Carlos Azaustre - AprendiendoDEV"],
+          ["Curso de JavaScript desde Cero para Principiantes","TodoCode"],
+          ["JavaScript para Principiantes - Curso Completo desde Cero","Fazt"]
+        ],
+        biblio:[
+          ["Marijn Haverbeke","JavaScript Elocuente (4.ª ed.)","Cap. 1: Valores, Tipos y Operadores","pp. 11-28"],
+          ["Kyle Simpson","You Don't Know JS: Primeros Pasos","Cap. 1: En la programación","pp. 1-25"],
+          ["Ilya Kantor","El Tutorial de JavaScript Moderno","Parte 1, Cap. 2 (Sec. 2.1-2.8)","pp. 15-60 · es.javascript.info"],
+          ["Mozilla Developer Network","Guía de JavaScript","Gramática y tipos","MDN · acceso público"],
+          ["ManzDev","LenguajeJS: Guía de JavaScript","Sección 1: Primeros Pasos","pp. 1-30"]
+        ],
+        practica:[
+          ["Curso de JavaScript desde cero · Lección 18 - Ejercicios primeros pasos","MoureDev por Brais Moure","BÁSICO"],
+          ["freeCodeCamp · JavaScript Algorithms and Data Structures → Basic JavaScript","freeCodeCamp.org","BÁSICO"],
+          ["aprendejavascript.dev · Sección 01: Tipos de datos y Variables","aprendejavascript.dev","BÁSICO"],
+          ["Exercism · JavaScript Track → Lucian's Luscious Lasagna","exercism.org","BÁSICO"],
+          ["Marijn Haverbeke · JavaScript Elocuente (4.ª ed.) · Ejercicios Cap. 2","Estructura del Programa","BÁSICO · pp. 44-45"]
+        ]
+      },
+      {id:"u1s2", tag:"1.2", title:"Funciones y ámbito (scope)",
+        obj:"Implementar funciones declarativas, expresadas y de flecha (arrow functions), gestionando correctamente el ámbito global, de función y de bloque para controlar el acceso y vida útil de las variables.",
+        videos:[
+          ["Curso COMPLETO de JavaScript INTERMEDIO · Funciones y Ámbito","MoureDev por Brais Moure"],
+          ["Curso de lógica para aprender cualquier lenguaje · Lección 2: Funciones y alcance","MoureDev por Brais Moure"],
+          ["Curso JavaScript: 11. Funciones","Jon Mircha"],
+          ["Funciones en Javascript · Parámetros y Return [Con Ejemplos]","Code Hive"],
+          ["Curso de JavaScript desde cero: Funciones y Scope","TodoCode"]
+        ],
+        biblio:[
+          ["Marijn Haverbeke","JavaScript Elocuente (4.ª ed.)","Cap. 3: Funciones","pp. 46-64"],
+          ["Kyle Simpson","You Don't Know JS: Scope & Closures","Cap. 1 y Cap. 3","pp. 1-15, 30-48"],
+          ["Ilya Kantor","El Tutorial de JavaScript Moderno","Parte 1, Cap. 2 (Sec. 2.14-2.15)","pp. 65-80"],
+          ["ManzDev","LenguajeJS","Sección 1: Funciones, Callbacks y Arrow Functions","pp. 31-50"],
+          ["Alfredo Moreno y Mario Rubio","Aprende JavaScript en un fin de semana","Fase 1, Objetivo 8","pp. 45-60"]
+        ],
+        practica:[
+          ["Curso COMPLETO de JavaScript INTERMEDIO · Lección 12 - Funciones avanzadas","MoureDev por Brais Moure","INTERMEDIO"],
+          ["HackerRank · 10 Days of JavaScript → Day 2: Functions / Let and Const","hackerrank.com","BÁSICO"],
+          ["Retos de Programación · Ejercicios de Lógica con Funciones","retosdeprogramacion.com","BÁSICO"],
+          ["aprendejavascript.dev · Sección: Funciones y Ámbito en JS","aprendejavascript.dev","BÁSICO"],
+          ["Marijn Haverbeke · JavaScript Elocuente · Mínimo y Recursión, Cap. 3","pp. 63-64","INTERMEDIO"]
+        ]
+      },
+      {id:"u1s3", tag:"1.3", title:"Estructuras de control y arrays",
+        obj:"Aplicar estructuras condicionales, bucles e iteradores mutables e inmutables de arrays para la manipulación metódica de colecciones de datos y la gestión del flujo lógico del programa.",
+        videos:[
+          ["Curso de JavaScript desde cero · Lección 23: Condicionales / 25: Arrays / 29: Bucles","MoureDev por Brais Moure"],
+          ["Curso de lógica para aprender cualquier lenguaje · Lección 1 y 3","MoureDev por Brais Moure"],
+          ["Curso JavaScript: 13. Condicionales y 17. Bucles","Jon Mircha"],
+          ["Aprende Arrays y sus Métodos en JavaScript","Carlos Azaustre - AprendiendoDEV"],
+          ["Curso de JavaScript desde cero: Estructuras Repetitivas y Arrays","TodoCode"]
+        ],
+        biblio:[
+          ["Marijn Haverbeke","JavaScript Elocuente (4.ª ed.)","Cap. 4: Estructuras de Datos","pp. 65-88"],
+          ["Ilya Kantor","El Tutorial de JavaScript Moderno","Parte 1, Cap. 5 (Sec. 5.4 y 5.5)","pp. 160-200"],
+          ["ManzDev","LenguajeJS","Sección 3: Arrays y Métodos de Iteración","pp. 51-85"],
+          ["Mozilla Developer Network","Guía de JavaScript","Control de flujo, bucles e iteradores","MDN"],
+          ["Kyle Simpson","You Don't Know JS: Primeros Pasos","Cap. 2: Bucles y Colecciones","pp. 30-45"]
+        ],
+        practica:[
+          ["Curso de JavaScript desde cero · Lecciones 24, 28 y 30 - Ejercicios","MoureDev por Brais Moure","BÁSICO"],
+          ["HackerRank · Data Structures → Arrays - DS / 2D Array - DS","hackerrank.com","BÁSICO"],
+          ["Exercism · JavaScript Track → Bird Watcher y Elyses Analytic Enchantments","exercism.org","BÁSICO"],
+          ["aprendejavascript.dev · Sección: Arrays y Métodos de Iteración","aprendejavascript.dev","BÁSICO"],
+          ["Marijn Haverbeke · La suma de un rango / Revirtiendo un arreglo, Cap. 4","pp. 86-87","BÁSICO"]
+        ]
+      },
+      {id:"u1s4", tag:"1.4", title:"DOM básico y manipulación de elementos",
+        obj:"Seleccionar y modificar elementos de la interfaz en el Document Object Model (DOM) mediante la creación de nodos, alteración de atributos y modificación dinámica de estilos CSS desde JavaScript nativo.",
+        videos:[
+          ["Curso de JavaScript desde cero: Módulo DOM · Lecciones 63 a 68","MoureDev por Brais Moure"],
+          ["Curso JavaScript: 60. WEB APIs y 61. DOM: Introducción","Jon Mircha"],
+          ["Aprende a Manipular el DOM en JavaScript desde cero","Carlos Azaustre - AprendiendoDEV"],
+          ["DOM en JavaScript: Seleccionar elementos, eventos y crear HTML","midudev"],
+          ["Curso de JavaScript desde cero: ¿Qué es el DOM y Proyecto Integrador final","TodoCode"]
+        ],
+        biblio:[
+          ["Marijn Haverbeke","JavaScript Elocuente (4.ª ed.)","Cap. 14: El Modelo de Objetos del Documento","pp. 240-265"],
+          ["Ilya Kantor","El Tutorial de JavaScript Moderno","Parte 2, Cap. 1: El Documento (Sec. 1.1-1.7)","pp. 1-45"],
+          ["Jon Mircha","Notas sobre el DOM","Manipulación de HTML con JavaScript","jonmircha.com/dom"],
+          ["Mozilla Developer Network","Introducción al DOM","Manipulación de elementos","MDN"],
+          ["ManzDev","LenguajeJS","Sección 10: Web APIs: El DOM","pp. 160-190"]
+        ],
+        practica:[
+          ["Proyecto Lista de Tareas con DOM y JavaScript puro (Ejemplo 70)","MoureDev por Brais Moure","BÁSICO"],
+          ["freeCodeCamp · JavaScript Algorithms → Role Playing Game (DOM)","freeCodeCamp.org","BÁSICO"],
+          ["aprendejavascript.dev · Sección: DOM y Eventos: Selección y manipulación","aprendejavascript.dev","BÁSICO"],
+          ["GitHub (mouredev/hello-javascript) · Carpeta: Ejemplos DOM","github.com/mouredev","BÁSICO"],
+          ["Marijn Haverbeke · Construyendo una tabla / Elementos por nombre, Cap. 14","pp. 264-265","INTERMEDIO"]
+        ]
+      }
+    ]
+  },
+  {
+    id:"u2", tag:"UNIDAD·02", title:"POO y Funciones Avanzadas", weeks:"S11–S12", hours:32,
+    subs:[
+      {id:"u2s1", tag:"2.1", title:"Clases ES6 y herencia",
+        obj:"Construir modelos de programación orientada a objetos utilizando la sintaxis de clases ES6, constructores, campos privados y esquemas de herencia mediante extends y super para encapsular la lógica de negocio.",
+        videos:[
+          ["Curso de JavaScript desde cero · Lección 37: Clases / 38: Herencia","MoureDev por Brais Moure"],
+          ["Curso JavaScript: 22. Clases y 23. Herencia en Clases","Jon Mircha"],
+          ["Aprende Programación Orientada a Objetos en JavaScript (Clases ES6)","Carlos Azaustre - AprendiendoDEV"],
+          ["Orientación a Objetos y Clases en JavaScript Moderno","Fazt"],
+          ["Curso de lógica de programación · Lección 8: Clases y 9: Herencia","MoureDev por Brais Moure"]
+        ],
+        biblio:[
+          ["Marijn Haverbeke","JavaScript Elocuente (4.ª ed.)","Cap. 6: La Vida Secreta de los Objetos","pp. 106-125"],
+          ["Ilya Kantor","El Tutorial de JavaScript Moderno","Parte 1, Cap. 9: Clases (Sec. 9.1-9.3)","pp. 345-370"],
+          ["ManzDev","LenguajeJS","Sección 4: OOP: Clases y Herencia","pp. 86-110"],
+          ["Kyle Simpson","You Don't Know JS: this & Object Prototypes","Cap. 4: Mixing 'Class' Objects","pp. 65-90"],
+          ["Alfredo Moreno y Mario Rubio","Aprende JavaScript en un fin de semana","Objetivo 12: Clases y Herencia","pp. 110-130"]
+        ],
+        practica:[
+          ["Curso de JavaScript desde cero · Lección 39 - Ejercicios: Clases y Herencia","MoureDev por Brais Moure","INTERMEDIO"],
+          ["Exercism · JavaScript Track → Wizarding Classes y Bank Account","exercism.org","INTERMEDIO"],
+          ["aprendejavascript.dev · Sección: Clases y Herencia","aprendejavascript.dev","INTERMEDIO"],
+          ["HackerRank · 10 Days of JavaScript → Day 6: Classes / Inheritance","hackerrank.com","BÁSICO"],
+          ["Marijn Haverbeke · Un tipo vector / Conjuntos, Cap. 6","pp. 123-124","INTERMEDIO"]
+        ]
+      },
+      {id:"u2s2", tag:"2.2", title:"Closures (Clausuras)",
+        obj:"Explicar la retención del entorno léxico mediante clausuras (closures) e implementar el patrón módulo y funciones de orden superior para encapsular el estado privado de los objetos.",
+        videos:[
+          ["Curso COMPLETO de JavaScript INTERMEDIO · Lección 7: Closures","MoureDev por Brais Moure"],
+          ["Curso JavaScript: 43. Closures (Clausuras en JS)","Jon Mircha"],
+          ["Entiende de una vez por todas los Closures en JavaScript","Carlos Azaustre - AprendiendoDEV"],
+          ["JavaScript Closures: Explicación gráfica y práctica","midudev"],
+          ["Qué son los Closures y para qué sirven en JavaScript","Fazt"]
+        ],
+        biblio:[
+          ["Kyle Simpson","You Don't Know JS: Scope & Closures","Cap. 5: Scope Closures","pp. 70-90"],
+          ["Ilya Kantor","El Tutorial de JavaScript Moderno","Parte 1, Cap. 6 (Sec. 6.3)","pp. 215-235"],
+          ["Marijn Haverbeke","JavaScript Elocuente (4.ª ed.)","Cap. 3: Funciones: Cierres","pp. 54-58"],
+          ["ManzDev","LenguajeJS","Sección 1: Funciones anónimas y clausuras","pp. 38-45"],
+          ["Mozilla Developer Network","Guía avanzada de JavaScript","Closures","MDN"]
+        ],
+        practica:[
+          ["Curso COMPLETO de JavaScript INTERMEDIO · Lección 12 - Closures resueltos","MoureDev por Brais Moure","AVANZADO"],
+          ["Exercism · JavaScript Track → PasS - Closures and Private State","exercism.org","INTERMEDIO"],
+          ["aprendejavascript.dev · Sección: Scope y Closures","aprendejavascript.dev","INTERMEDIO"],
+          ["GitHub (mouredev/hello-javascript) · Funciones avanzadas y retención de ámbito","github.com/mouredev","AVANZADO"],
+          ["Ilya Kantor · Suma con cierre / Filtrar a través de una función, Sec. 6.3","pp. 233-235","AVANZADO"]
+        ]
+      },
+      {id:"u2s3", tag:"2.3", title:"Prototypes y prototype chain",
+        obj:"Analizar la herencia prototípica subyacente en JavaScript inspeccionando la cadena de prototipos (prototype chain) y delegando comportamiento directamente entre objetos sin abstracciones sintácticas.",
+        videos:[
+          ["Curso COMPLETO de JavaScript INTERMEDIO · Objetos y clases avanzados: Prototipos","MoureDev por Brais Moure"],
+          ["Curso JavaScript: 21. Prototipos y Herencia Prototípica","Jon Mircha"],
+          ["Prototipos en JavaScript explicados de forma sencilla","Carlos Azaustre - AprendiendoDEV"],
+          ["Entendiendo Prototype y Prototype Chain en JavaScript","midudev"],
+          ["Prototipos y Objetos en JavaScript Avanzado","Fazt"]
+        ],
+        biblio:[
+          ["Kyle Simpson","You Don't Know JS: this & Object Prototypes","Cap. 5: Prototypes","pp. 95-120"],
+          ["Ilya Kantor","El Tutorial de JavaScript Moderno","Parte 1, Cap. 8 (Sec. 8.1-8.4)","pp. 310-340"],
+          ["Marijn Haverbeke","JavaScript Elocuente (4.ª ed.)","Cap. 6: Prototipos y Cadena","pp. 107-112"],
+          ["ManzDev","LenguajeJS","Sección 1: Cadena de prototipos","pp. 20-30"],
+          ["Mozilla Developer Network","Guía de JavaScript","Modelo de objetos y prototipos","MDN"]
+        ],
+        practica:[
+          ["Curso COMPLETO de JavaScript INTERMEDIO · Lección 23 - Objetos avanzados","MoureDev por Brais Moure","AVANZADO"],
+          ["freeCodeCamp · Object Oriented Programming → Prototype Chain","freeCodeCamp.org","INTERMEDIO"],
+          ["aprendejavascript.dev · Sección: Referencias y Prototipos","aprendejavascript.dev","INTERMEDIO"],
+          ["GitHub (mouredev/hello-javascript) · Módulo 25: Prototipos","github.com/mouredev","AVANZADO"],
+          ["Ilya Kantor · ¿Dónde escribe? / Prototipos de objetos, Sec. 8.1","pp. 320-322","INTERMEDIO"]
+        ]
+      },
+      {id:"u2s4", tag:"2.4", title:"Contexto y comportamiento de 'this'",
+        obj:"Determinar el valor dinámico de la palabra clave this en diferentes entornos de ejecución y manipular su enlace explícito mediante el uso de los métodos call, apply y bind.",
+        videos:[
+          ["Curso COMPLETO de JavaScript INTERMEDIO · Comportamiento del contexto y binding","MoureDev por Brais Moure"],
+          ["Curso JavaScript: 57. el objeto this y los métodos call, apply, bind","Jon Mircha"],
+          ["¿Qué es 'this' en JavaScript y cómo funciona?","Carlos Azaustre - AprendiendoDEV"],
+          ["Mastering THIS in JavaScript: Implicit vs Explicit binding","midudev"],
+          ["El misterio de 'this' en JavaScript resuelto","Fazt"]
+        ],
+        biblio:[
+          ["Kyle Simpson","You Don't Know JS: this & Object Prototypes","Cap. 1 y Cap. 2","pp. 1-18, 19-42"],
+          ["Ilya Kantor","El Tutorial de JavaScript Moderno","Parte 1, Cap. 4: Métodos y 'this'","pp. 130-145"],
+          ["Marijn Haverbeke","JavaScript Elocuente (4.ª ed.)","Cap. 6: Métodos y this","pp. 106-109"],
+          ["ManzDev","LenguajeJS","Sección 4: El identificador 'this'","pp. 95-102"],
+          ["Mozilla Developer Network","Referencia Técnica","Operador 'this' y Function.prototype.bind()","MDN"]
+        ],
+        practica:[
+          ["Curso COMPLETO de JavaScript INTERMEDIO · Ejercicios de 'this' y binding","MoureDev por Brais Moure","AVANZADO"],
+          ["Exercism · JavaScript Track → Context Binding & Implicit Dynamic Execution","exercism.org","AVANZADO"],
+          ["aprendejavascript.dev · Sección: El objeto 'this' y sus reglas","aprendejavascript.dev","INTERMEDIO"],
+          ["GitHub (mouredev/hello-javascript) · Ejercicios .call(), .apply(), .bind()","github.com/mouredev","AVANZADO"],
+          ["Kyle Simpson · Verificación de reglas de enlace, Cap. 2","pp. 40-42","AVANZADO"]
+        ]
+      }
+    ]
+  },
+  {
+    id:"u3", tag:"UNIDAD·03", title:"Asincronía y APIs", weeks:"S13", hours:26,
+    subs:[
+      {id:"u3s1", tag:"3.1", title:"Callbacks",
+        obj:"Diseñar funciones de interbloqueo (callbacks) para gestionar la ejecución asíncrona de procesos e identificar las limitaciones arquitectónicas asociadas al callback hell.",
+        videos:[
+          ["Curso COMPLETO de JavaScript INTERMEDIO · Lección 11: Callbacks / 39-42","MoureDev por Brais Moure"],
+          ["Curso JavaScript: 46. Callbacks","Jon Mircha"],
+          ["Aprende Callbacks en JavaScript: Entendiendo la Asincronía","Carlos Azaustre - AprendiendoDEV"],
+          ["Asincronía en JavaScript: Callbacks y Event Loop","midudev"],
+          ["JavaScript Asíncrono: Callbacks explicados fácil","Fazt"]
+        ],
+        biblio:[
+          ["Kyle Simpson","You Don't Know JS: Async & Performance","Cap. 2: Callbacks","pp. 20-40"],
+          ["Ilya Kantor","El Tutorial de JavaScript Moderno","Parte 1, Cap. 11 (Sec. 11.1)","pp. 410-422"],
+          ["Marijn Haverbeke","JavaScript Elocuente (4.ª ed.)","Cap. 11: Programación Asincrónica","pp. 196-200"],
+          ["ManzDev","LenguajeJS","Sección 9: Callbacks y HOF","pp. 120-128"],
+          ["Jon Mircha","Notas sobre JavaScript Asíncrono","Manejo de Callbacks","jonmircha.com"]
+        ],
+        practica:[
+          ["Curso COMPLETO de JavaScript INTERMEDIO · Lección 12 y 45 - Asincronía básica","MoureDev por Brais Moure","INTERMEDIO"],
+          ["HackerRank · 10 Days of JavaScript → Day 5: Arrow Functions and Callbacks","hackerrank.com","BÁSICO"],
+          ["aprendejavascript.dev · Sección: Programación Asíncrona: Callbacks","aprendejavascript.dev","INTERMEDIO"],
+          ["GitHub (mouredev/hello-javascript) · Módulo 42: Callbacks y Temporizadores","github.com/mouredev","INTERMEDIO"],
+          ["Marijn Haverbeke · Control de flujo diferido, Cap. 11","pp. 216-218","INTERMEDIO"]
+        ]
+      },
+      {id:"u3s2", tag:"3.2", title:"Promises (Promesas)",
+        obj:"Resolver operaciones asíncronas encadenadas empleando la API de Promesas, gestionando los estados (pending, fulfilled, rejected) y la captura centralizada de errores con .catch().",
+        videos:[
+          ["Curso COMPLETO de JavaScript INTERMEDIO · Lección 43: Promesas","MoureDev por Brais Moure"],
+          ["Curso JavaScript: 47. Promesas","Jon Mircha"],
+          ["Aprende Promesas en JavaScript desde Cero","Carlos Azaustre - AprendiendoDEV"],
+          ["Promesas en JavaScript: Tutorial completo desde cero","midudev"],
+          ["Promises en JS: Todo lo que necesitas saber","Fazt"]
+        ],
+        biblio:[
+          ["Kyle Simpson","You Don't Know JS: Async & Performance","Cap. 3: Promises","pp. 41-85"],
+          ["Ilya Kantor","El Tutorial de JavaScript Moderno","Parte 1, Cap. 11 (Sec. 11.2-11.5)","pp. 423-450"],
+          ["Marijn Haverbeke","JavaScript Elocuente (4.ª ed.)","Cap. 11: Promesas","pp. 200-208"],
+          ["ManzDev","LenguajeJS","Sección 9: Gestión de Promesas","pp. 129-140"],
+          ["Mozilla Developer Network","Guía de JavaScript","Usando Promesas · Promise.all / Promise.race","MDN"]
+        ],
+        practica:[
+          ["Curso COMPLETO de JavaScript INTERMEDIO · Lección 45 - Ejercicios: Promesas","MoureDev por Brais Moure","INTERMEDIO"],
+          ["freeCodeCamp · ES6 → Create a JavaScript Promise / Handle a Fulfilled Promise","freeCodeCamp.org","INTERMEDIO"],
+          ["Exercism · JavaScript Track → Promise-iton y Custom Promise All","exercism.org","INTERMEDIO"],
+          ["aprendejavascript.dev · Sección: Promises Básicas y Avanzadas","aprendejavascript.dev","INTERMEDIO"],
+          ["Ilya Kantor · Re-resolver promesa / Animar con promesas, Sec. 11.2","pp. 433-435","INTERMEDIO"]
+        ]
+      },
+      {id:"u3s3", tag:"3.3", title:"Async / Await",
+        obj:"Sintetizar flujos asíncronos complejos utilizando la sintaxis async/await estructurada con bloques try/catch para una lectura secuencial e imperativa del código asíncrono.",
+        videos:[
+          ["Curso COMPLETO de JavaScript INTERMEDIO · Lección 44: Async/Await","MoureDev por Brais Moure"],
+          ["Curso JavaScript: 48. Async - Await","Jon Mircha"],
+          ["Aprende Async/Await y Promesas en JavaScript","Carlos Azaustre - AprendiendoDEV"],
+          ["Async / Await en JavaScript: La forma moderna de manejar asincronía","midudev"],
+          ["Async Await JavaScript Tutorial Práctico","Fazt"]
+        ],
+        biblio:[
+          ["Ilya Kantor","El Tutorial de JavaScript Moderno","Parte 1, Cap. 11 (Sec. 11.8)","pp. 460-475"],
+          ["Marijn Haverbeke","JavaScript Elocuente (4.ª ed.)","Cap. 11: Funciones Async","pp. 209-215"],
+          ["Kyle Simpson","You Don't Know JS: Async & Performance","Cap. 4: Generators + Async","pp. 86-110"],
+          ["ManzDev","LenguajeJS","Sección 9: Sintaxis Async/Await","pp. 141-150"],
+          ["Mozilla Developer Network","Referencia Técnica","Operador await y async function","MDN"]
+        ],
+        practica:[
+          ["Curso COMPLETO de JavaScript INTERMEDIO · Ejercicios de Async/Await","MoureDev por Brais Moure","AVANZADO"],
+          ["Exercism · JavaScript Track → Translation Service (Async/Await)","exercism.org","AVANZADO"],
+          ["aprendejavascript.dev · Sección: Programación Asíncrona: async/await","aprendejavascript.dev","INTERMEDIO"],
+          ["GitHub (mouredev/hello-javascript) · Módulo 45: Promesas a Async/Await","github.com/mouredev","AVANZADO"],
+          ["Ilya Kantor · Reescritura de promesas a async/await, Sec. 11.8","pp. 473-475","AVANZADO"]
+        ]
+      },
+      {id:"u3s4", tag:"3.4", title:"Fetch API y consumo de datos externos",
+        obj:"Consumir servicios web RESTful mediante la API nativa fetch, procesando respuestas HTTP en formato JSON e integrando la información en la interfaz gráfica del usuario.",
+        videos:[
+          ["Curso de JavaScript desde cero: Peticiones HTTP y Fetch API · Lecciones 53-57","MoureDev por Brais Moure"],
+          ["Curso JavaScript: 68. Consumo de APIs con Fetch","Jon Mircha"],
+          ["Consumir una API REST con JavaScript (Fetch API)","Carlos Azaustre - AprendiendoDEV"],
+          ["Fetch API en JavaScript: Cómo hacer peticiones HTTP en JS","midudev"],
+          ["Consumo de APIs en JavaScript: Fetch, Async Await y Renderizado DOM","Fazt"]
+        ],
+        biblio:[
+          ["Ilya Kantor","El Tutorial de JavaScript Moderno","Parte 3, Cap. 1: Fetch API (Sec. 1.1-1.4)","pp. 1-35"],
+          ["Marijn Haverbeke","JavaScript Elocuente (4.ª ed.)","Cap. 18: HTTP y Formularios","pp. 320-335"],
+          ["ManzDev","LenguajeJS","Sección 9: Fetch API y Headers","pp. 151-165"],
+          ["Jon Mircha","Notas sobre AJAX y Consumo de API REST","jonmircha.com/api-rest","—"],
+          ["Mozilla Developer Network","Guía de APIs Web","Utilizando Fetch API","MDN"]
+        ],
+        practica:[
+          ["Ejercicio de consumo de API de Pokémon/Weather con Fetch","MoureDev por Brais Moure","INTERMEDIO"],
+          ["freeCodeCamp · Asynchronous JavaScript → Use the Fetch API","freeCodeCamp.org","INTERMEDIO"],
+          ["aprendejavascript.dev · Sección: Fetch API y Consumo de APIs REST","aprendejavascript.dev","INTERMEDIO"],
+          ["GitHub (mouredev/hello-javascript) · Módulo 53: PokéAPI/OpenWeather","github.com/mouredev","INTERMEDIO"],
+          ["Marijn Haverbeke · El contenido negociado, Cap. 18","pp. 340-342","AVANZADO"]
+        ]
+      }
+    ]
+  },
+  {
+    id:"u4", tag:"UNIDAD·04", title:"Proyecto Integrador", weeks:"S14–S15", hours:30,
+    subs:[
+      {id:"u4s1", tag:"4.1", title:"Manejo de eventos avanzado",
+        obj:"Optimizar el procesamiento de interacciones de usuario en el navegador utilizando delegación de eventos, detención de propagación (event bubbling/capturing) y técnicas de limitación de frecuencia (debouncing/throttling).",
+        videos:[
+          ["Curso de JavaScript desde cero: Elementos y eventos del DOM · Lección 68","MoureDev por Brais Moure"],
+          ["Curso JavaScript: 74. Flujo de Eventos y 76. Delegación","Jon Mircha"],
+          ["Eventos en JavaScript: Propagación, Event Listener y Delegación","Carlos Azaustre - AprendiendoDEV"],
+          ["Delegación de Eventos en JavaScript: Mejora el rendimiento de tu web","midudev"],
+          ["Manejo de Eventos Avanzado en JavaScript","Fazt"]
+        ],
+        biblio:[
+          ["Marijn Haverbeke","JavaScript Elocuente (4.ª ed.)","Cap. 15: Manejo de Eventos","pp. 266-285"],
+          ["Ilya Kantor","El Tutorial de JavaScript Moderno","Parte 2, Cap. 2: Burbujeo, captura, delegación","pp. 51-85"],
+          ["Jon Mircha","Notas de estudio","Modelo de Eventos en el DOM","jonmircha.com/dom"],
+          ["ManzDev","LenguajeJS","Sección 10: Event Listeners Avanzados","pp. 191-210"],
+          ["Mozilla Developer Network","Guía de Eventos","Event target, Propagation, Delegation","MDN"]
+        ],
+        practica:[
+          ["Práctica paso a paso de Eventos y Delegación en DOM","MoureDev por Brais Moure","INTERMEDIO"],
+          ["freeCodeCamp · DOM Manipulation and Event Handling","freeCodeCamp.org","INTERMEDIO"],
+          ["aprendejavascript.dev · Sección: Eventos y Event Listeners","aprendejavascript.dev","INTERMEDIO"],
+          ["GitHub (mouredev/hello-javascript) · Módulo 68: Eventos del DOM","github.com/mouredev","INTERMEDIO"],
+          ["Marijn Haverbeke · Rastro del ratón / Pestañas, Cap. 15","pp. 283-285","INTERMEDIO"]
+        ]
+      },
+      {id:"u4s2", tag:"4.2", title:"Introducción a un framework/librería (React)",
+        obj:"Comparar el desarrollo con JavaScript nativo (Vanilla JS) y el desarrollo basado en componentes declarativos y gestión de estado reactivo utilizando React.",
+        videos:[
+          ["Curso de React desde cero con proyectos prácticos (15 horas)","midudev"],
+          ["Aprende React JS desde Cero para Principiantes","Carlos Azaustre - AprendiendoDEV"],
+          ["React JS Curso Práctico para Principiantes","Fazt"],
+          ["Curso JavaScript: 104. Reactividad Introducción","Jon Mircha"],
+          ["React Router desde cero: Aprendiendo enrutado en React","midudev"]
+        ],
+        biblio:[
+          ["Documentación Oficial de React","react.dev","Aprender React · Pensar en React","—"],
+          ["Jon Mircha","Notas sobre Reactividad","Librerías de Interfaz","jonmircha.com"],
+          ["ManzDev","LenguajeJS / Frameworks","Transición Vanilla JS → Declarativas","pp. 220-240"],
+          ["Ilya Kantor","El Tutorial de JavaScript Moderno","Parte 2, Cap. 4: Componentes y Estado","pp. 120-145"],
+          ["Mozilla Developer Network","Entendiendo Frameworks Frontend","Introducción a React","MDN"]
+        ],
+        practica:[
+          ["Curso de React: Construyendo un Tres en Raya y un Buscador de Películas","midudev","INTERMEDIO"],
+          ["freeCodeCamp · Front End Development Libraries → React","freeCodeCamp.org","INTERMEDIO"],
+          ["Exercism · React Track / JavaScript Frameworks","exercism.org","INTERMEDIO"],
+          ["GitHub (midudev/curso-react) · Proyectos prácticos","github.com/midudev","INTERMEDIO"],
+          ["react.dev · Tutorial interactivo: Tic-Tac-Toe con Gestión de Estado","react.dev","BÁSICO"]
+        ]
+      },
+      {id:"u4s3", tag:"4.3", title:"Buenas prácticas y organización de código",
+        obj:"Estructurar aplicaciones cliente siguiendo principios de diseño limpio (Clean Code), modularización semántica, principios SOLID aplicados a JS y herramientas de formateo estándar.",
+        videos:[
+          ["Curso de JavaScript desde cero: Buenas Prácticas y Guía de Estilo · Lección 14","MoureDev por Brais Moure"],
+          ["Escribir código JavaScript Limpio y Mantenible (Clean Code)","Carlos Azaustre - AprendiendoDEV"],
+          ["Buenas Prácticas en JavaScript y Arquitectura de Código","midudev"],
+          ["Principios SOLID en JavaScript explicados con ejemplos","Fazt"],
+          ["Programación Lógica: La habilidad que nadie te enseña","MoureDev por Brais Moure"]
+        ],
+        biblio:[
+          ["Ilya Kantor","El Tutorial de JavaScript Moderno","Parte 1, Cap. 3 (Sec. 3.1 y 3.2)","pp. 80-98"],
+          ["Marijn Haverbeke","JavaScript Elocuente (4.ª ed.)","Cap. 10: Módulos y Arquitectura","pp. 180-190"],
+          ["Kyle Simpson","You Don't Know JS: ES6 & Beyond","Cap. 3: Organización de Código","pp. 56-80"],
+          ["ManzDev","LenguajeJS","Sección 5: ESLint y Linters","pp. 111-119"],
+          ["Guía de Estilo de JavaScript de Airbnb","(Traducción en español)","Repositorio académico GitHub","—"]
+        ],
+        practica:[
+          ["Refactorización de Código JavaScript Sucio a Código Limpio","Carlos Azaustre - AprendiendoDEV","INTERMEDIO"],
+          ["Exercism · JavaScript Track → Refactorización y Clean Code Katas","exercism.org","INTERMEDIO"],
+          ["aprendejavascript.dev · Sección: Patrones y Buenas Prácticas","aprendejavascript.dev","INTERMEDIO"],
+          ["GitHub (mouredev/hello-javascript) · Guía de Estilo y Buenas Prácticas","github.com/mouredev","INTERMEDIO"],
+          ["Ilya Kantor · Análisis de calidad de código, Sec. 3.5","pp. 102-105","INTERMEDIO"]
+        ]
+      },
+      {id:"u4s4", tag:"4.4", title:"Proyecto final integrador",
+        obj:"Desarrollar una aplicación web interactiva completa que integre manipulación avanzada del DOM, consumo de APIs externas, persistencia de datos y una arquitectura de código mantenible.",
+        videos:[
+          ["Curso de JavaScript desde cero: Proyecto Final Aplicación Completa","MoureDev por Brais Moure"],
+          ["Curso de JavaScript desde cero: Proyecto Final Integrador (Calculadora y TodoApp)","TodoCode"],
+          ["Crea una Aplicación Web Completa con JavaScript Vanilla","Carlos Azaustre - AprendiendoDEV"],
+          ["Aprende JavaScript creando 10 Proyectos Reales paso a paso","midudev"],
+          ["Proyecto Integrador JavaScript y Fetch API desde Cero","Fazt"]
+        ],
+        biblio:[
+          ["Marijn Haverbeke","JavaScript Elocuente (4.ª ed.)","Cap. 7: Proyecto Un Robot / Cap. 19","pp. 126-140, 343-365"],
+          ["Ilya Kantor","El Tutorial de JavaScript Moderno","Parte 2, Cap. 5: Proyectos e Interfaces","pp. 180-220"],
+          ["Jon Mircha","Notas sobre Arquitectura SPA","jonmircha.com/spa","—"],
+          ["ManzDev","LenguajeJS","Sección 10: Proyectos Integrales","pp. 211-230"],
+          ["Mozilla Developer Network","Estructurando una aplicación web","JavaScript pura","MDN"]
+        ],
+        practica:[
+          ["Proyecto Integrador Lista de Tareas y Dashboard de Clima","MoureDev por Brais Moure","AVANZADO"],
+          ["freeCodeCamp · JavaScript Algorithms and Data Structures Projects","freeCodeCamp.org","AVANZADO"],
+          ["aprendejavascript.dev · Proyecto Integrador: Estructura, Teclado e Historial","aprendejavascript.dev","INTERMEDIO"],
+          ["GitHub (mouredev/hello-javascript) · Carpeta de proyectos integradores","github.com/mouredev","AVANZADO"],
+          ["Marijn Haverbeke · Construcción completa: Un Robot, Cap. 7","pp. 126-140","AVANZADO"]
+        ]
+      }
+    ]
+  },
+  {
+    id:"u5", tag:"UNIDAD·05", title:"Buenas Prácticas y Ecosistema Moderno", weeks:"S16", hours:24,
+    subs:[
+      {id:"u5s1", tag:"5.1", title:"Módulos ES6 (import/export)",
+        obj:"Arquitecturar proyectos dividiendo el código en módulos independientes reutilizando funcionalidades mediante las sentencias de exportación e importación nativas (import/export).",
+        videos:[
+          ["Curso de JavaScript desde cero: Módulos · Lección 44","MoureDev por Brais Moure"],
+          ["Curso JavaScript: 33. Módulos (import / export)","Jon Mircha"],
+          ["Módulos en JavaScript (ES Modules): Import y Export explicados","Carlos Azaustre - AprendiendoDEV"],
+          ["ES Modules en JavaScript: Todo lo que debes saber","midudev"],
+          ["Módulos en JavaScript Vanilla: Importación y Exportación","Fazt"]
+        ],
+        biblio:[
+          ["Marijn Haverbeke","JavaScript Elocuente (4.ª ed.)","Cap. 10: Módulos","pp. 180-195"],
+          ["Ilya Kantor","El Tutorial de JavaScript Moderno","Parte 1, Cap. 13 (Sec. 13.1-13.3)","pp. 510-535"],
+          ["Kyle Simpson","You Don't Know JS: ES6 & Beyond","Cap. 3: Módulos ES6","pp. 75-95"],
+          ["ManzDev","LenguajeJS","Sección 4: Módulos (ESM)","pp. 66-85"],
+          ["Mozilla Developer Network","Guía de Módulos JavaScript","ES6 Modules","MDN"]
+        ],
+        practica:[
+          ["Curso de JavaScript desde cero · Lección 45 - Módulos y package.json","MoureDev por Brais Moure","INTERMEDIO"],
+          ["freeCodeCamp · ES6 → Export and Import Module Scripts","freeCodeCamp.org","BÁSICO"],
+          ["aprendejavascript.dev · Sección: Módulos: Export e Import","aprendejavascript.dev","INTERMEDIO"],
+          ["GitHub (mouredev/hello-javascript) · Módulo 44: Exportación modular","github.com/mouredev","INTERMEDIO"],
+          ["Marijn Haverbeke · Un robot modular, Cap. 10","pp. 194-195","INTERMEDIO"]
+        ]
+      },
+      {id:"u5s2", tag:"5.2", title:"Manejo de JSON y almacenamiento local",
+        obj:"Persistir el estado de la aplicación en el navegador web serializando y deserializando datos en formato JSON mediante la Web Storage API (localStorage y sessionStorage).",
+        videos:[
+          ["Curso de JavaScript desde cero: JSON y Almacenamiento Local","MoureDev por Brais Moure"],
+          ["Curso JavaScript: 59. JSON (JavaScript Object Notation)","Jon Mircha"],
+          ["Aprende LocalStorage y SessionStorage en JavaScript","Carlos Azaustre - AprendiendoDEV"],
+          ["Manejo de JSON y LocalStorage en JavaScript","midudev"],
+          ["LocalStorage y JSON Parse/Stringify en JavaScript Práctico","Fazt"]
+        ],
+        biblio:[
+          ["Ilya Kantor","El Tutorial de JavaScript Moderno","Parte 3, Cap. 2: LocalStorage, sessionStorage","pp. 40-58"],
+          ["Jon Mircha","Notas sobre JSON","Estructura y sintaxis","jonmircha.com/json"],
+          ["Marijn Haverbeke","JavaScript Elocuente (4.ª ed.)","Cap. 18: Formularios y Almacenamiento","pp. 330-338"],
+          ["ManzDev","LenguajeJS","Sección 10: JSON y Web Storage API","pp. 195-205"],
+          ["Mozilla Developer Network","Guía de la Web Storage API","LocalStorage y JSON","MDN"]
+        ],
+        practica:[
+          ["Persistencia de datos de To-Do List en LocalStorage","MoureDev por Brais Moure","BÁSICO"],
+          ["freeCodeCamp · JavaScript Algorithms → LocalStorage Basics","freeCodeCamp.org","BÁSICO"],
+          ["aprendejavascript.dev · Sección: JSON y Almacenamiento Local","aprendejavascript.dev","BÁSICO"],
+          ["GitHub (mouredev/hello-javascript) · JSON.stringify y JSON.parse","github.com/mouredev","BÁSICO"],
+          ["Ilya Kantor · Guardar campo de formulario, sección Web Storage","pp. 56-58","BÁSICO"]
+        ]
+      },
+      {id:"u5s3", tag:"5.3", title:"Introducción a Node.js",
+        obj:"Ejecutar código JavaScript fuera del entorno del navegador utilizando Node.js para administrar paquetes con NPM y desarrollar scripts del lado del servidor.",
+        videos:[
+          ["Curso de JavaScript desde cero: Módulo Node.js y Entornos de Ejecución","MoureDev por Brais Moure"],
+          ["Aprende Node.js desde Cero: Curso Completo","midudev"],
+          ["Curso de Node.js y Express desde Cero para Principiantes","Carlos Azaustre - AprendiendoDEV"],
+          ["Nodejs Curso Práctico desde Cero","Fazt"],
+          ["Curso JavaScript: 105. Introducción a Node.js","Jon Mircha"]
+        ],
+        biblio:[
+          ["Marijn Haverbeke","JavaScript Elocuente (4.ª ed.)","Cap. 20: Node.js","pp. 360-385"],
+          ["Ilya Kantor","El Tutorial de JavaScript Moderno","Parte 1, Cap. 1: Entornos Node.js","pp. 5-14"],
+          ["Documentación Oficial de Node.js","Guía de Inicio","Node.js y NPM","nodejs.org"],
+          ["ManzDev","LenguajeJS","Sección 5: Node.js, NPM y Scripts","pp. 105-115"],
+          ["Alfredo Moreno y Mario Rubio","Aprende JavaScript en un fin de semana","Objetivo 3: NodeJS","pp. 25-35"]
+        ],
+        practica:[
+          ["Creación de un script CLI con Node.js y manejo de paquetes con NPM","midudev","INTERMEDIO"],
+          ["Exercism · JavaScript Track → Ejercicios de ejecución en Node.js","exercism.org","BÁSICO"],
+          ["freeCodeCamp · Managing Packages con npm","freeCodeCamp.org","BÁSICO"],
+          ["GitHub (mouredev/hello-javascript) · Node.js y package.json","github.com/mouredev","BÁSICO"],
+          ["Marijn Haverbeke · Una herramienta de búsqueda (Grep), Cap. 20","pp. 383-385","INTERMEDIO"]
+        ]
+      },
+      {id:"u5s4", tag:"5.4", title:"Uso de Git y control de versiones",
+        obj:"Gestionar el control de versiones de repositorios de software aplicando comandos de Git para seguimiento de cambios, ramificación y colaboración alojada en GitHub.",
+        videos:[
+          ["Git y GitHub desde cero","MoureDev por Brais Moure"],
+          ["Curso de Git y GitHub desde Cero","midudev"],
+          ["Curso de Git y GitHub desde Cero","Soy Dalto"],
+          ["Aprende Git y GitHub desde Cero (Tutorial paso a paso)","Carlos Azaustre - AprendiendoDEV"],
+          ["Aprende Git y GitHub desde cero","MoureDev TV"]
+        ],
+        biblio:[
+          ["Brais Moure","Git & GitHub desde cero","Capítulos 1 al 4","pp. 10-160 · Leanpub"],
+          ["Scott Chacon y Ben Straub","Pro Git (2.ª edición)","Cap. 1: Inicio / Cap. 2: Fundamentos","pp. 1-60"],
+          ["Ilya Kantor","El Tutorial de JavaScript Moderno","Parte 1, Cap. 3: Control de Versiones","pp. 99-108"],
+          ["ManzDev","LenguajeJS","Sección 5: Integración Continua y Git","pp. 116-125"],
+          ["Documentación Oficial de GitHub","Guías de aprendizaje","GitHub Docs","docs.github.com"]
+        ],
+        practica:[
+          ["Aprende Git y GitHub: Ejercicios reales de comandos y flujos (Lecciones 1-20)","MoureDev por Brais Moure","BÁSICO"],
+          ["Learn Git Branching · Juego interactivo en línea","learngitbranching.js.org","BÁSICO"],
+          ["GitHub (mouredev/hello-git) · Pull Request y flujo colaborativo (lección 36)","github.com/mouredev","BÁSICO"],
+          ["freeCodeCamp · Developer Pass → Git and GitHub Basics","freeCodeCamp.org","BÁSICO"],
+          ["Brais Moure · Primeros commits / Resolución de conflictos, Cap. 2 y 3","pp. 70-72, 110-115","BÁSICO"]
+        ]
+      }
+    ]
+  }
+];
+
+const STORAGE_KEY = "ruta_js_progress_v1";
+let progress = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+
+function save(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(progress)); }
+
+function render(){
+  const main = document.getElementById("main");
+  main.innerHTML = "";
+  DATA.forEach(u => {
+    const unitEl = document.createElement("section");
+    unitEl.className = "unit";
+    unitEl.id = u.id;
+
+    const subIds = u.subs.map(s=>s.id);
+    const doneCount = subIds.filter(id=>progress[id]).length;
+    const pct = Math.round((doneCount/subIds.length)*100);
+
+    unitEl.innerHTML = `
+      <div class="unit-head" onclick="toggleUnit('${u.id}')">
+        <span class="u-tag">${u.tag}</span>
+        <div>
+          <div class="u-title">${u.title}</div>
+          <div class="u-meta" style="margin-top:4px;color:inherit">
+            <span>◼ ${u.weeks}</span>
+            <span>◼ ${u.hours}h</span>
+            <span>◼ ${subIds.length} subtemas</span>
+            <span>◼ ${doneCount}/${subIds.length} OK</span>
+          </div>
+        </div>
+        <div class="flex gap-8" style="align-items:center">
+          <span class="u-pct mono">${pct}%</span>
+          <span class="u-arrow">▸</span>
+        </div>
+      </div>
+      <div class="unit-bar"><div class="unit-bar-fill" style="width:${pct}%"></div></div>
+      <div class="unit-body">
+        ${u.subs.map(s => renderSub(s)).join("")}
+      </div>
+    `;
+    main.appendChild(unitEl);
+  });
+  updateGlobal();
+}
+
+function renderSub(s){
+  const isDone = progress[s.id];
+  const videosHtml = s.videos.map(v=>`<li><span class="ref-t">${v[0]}</span><span class="ref-m">▸ Canal: ${v[1]}</span></li>`).join("");
+  const biblioHtml = s.biblio.map(b=>`<li><span class="ref-t">${b[1]}</span><span class="ref-m">${b[0]} · ${b[2]} · ${b[3]}</span></li>`).join("");
+  const pracHtml = s.practica.map(p=>`<li><span class="ref-t">${p[0]} <span class="ref-level">${p[2]}</span></span><span class="ref-m">▸ ${p[1]}</span></li>`).join("");
+
+  return `
+    <div class="subtopic" id="${s.id}_wrap">
+      <div class="sub-head" onclick="toggleSub('${s.id}')">
+        <div class="s-check ${isDone?'done':''}" onclick="event.stopPropagation();toggleCheck('${s.id}')"></div>
+        <div>
+          <div class="s-title">${s.title}</div>
+        </div>
+        <span class="s-tag">${s.tag}</span>
+        <span class="s-arr">▸</span>
+      </div>
+      <div class="sub-body">
+        <div class="obj"><b>◼ OBJETIVO DE APRENDIZAJE</b>${s.obj}</div>
+        <div class="sect">
+          <div class="sect-head"><span>◼ VIDEOS · TEORÍA</span><span class="ct">${s.videos.length} refs</span></div>
+          <ul class="sect-list">${videosHtml}</ul>
+        </div>
+        <div class="sect">
+          <div class="sect-head"><span>◼ BIBLIOGRAFÍA</span><span class="ct">${s.biblio.length} refs</span></div>
+          <ul class="sect-list">${biblioHtml}</ul>
+        </div>
+        <div class="sect">
+          <div class="sect-head"><span>◼ PRÁCTICA</span><span class="ct">${s.practica.length} refs</span></div>
+          <ul class="sect-list">${pracHtml}</ul>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function toggleUnit(id){
+  document.getElementById(id).classList.toggle("open");
+}
+function toggleSub(id){
+  document.getElementById(id+"_wrap").classList.toggle("open");
+}
+function toggleCheck(id){
+  progress[id] = !progress[id];
+  save();
+  render();
+  // reopen unit that was open
+}
+function updateGlobal(){
+  const total = DATA.reduce((acc,u)=>acc+u.subs.length,0);
+  const done = Object.values(progress).filter(Boolean).length;
+  const pct = total?Math.round((done/total)*100):0;
+  document.getElementById("gpFill").style.width = pct+"%";
+  document.getElementById("gpPct").textContent = pct+"%";
+}
+function resetAll(){
+  if(confirm("¿Reiniciar todo el progreso?")){
+    progress = {};
+    save();
+    render();
+  }
+}
+
+// Restore open states (simple)
+render();
+</script>
+</body>
+</html>
