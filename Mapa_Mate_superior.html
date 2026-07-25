@@ -705,6 +705,8 @@
             .brace-deco { display: none; }
             h1 { font-size: clamp(2rem, 5vw, 3rem); }
         }
+    .resource-list a{color:inherit;text-decoration:none;border-bottom:2px solid currentColor;padding-bottom:1px;transition:opacity .15s}
+    .resource-list a:hover{opacity:.7}
     </style>
 </head>
 <body>
@@ -796,783 +798,2279 @@
 
     <script>
         const syllabusData = [
-            {
-                title: "Funciones, Polinomiales y Racionales",
-                weeks: "Semanas 1 - 4",
-                hours: 32,
-                subtopics: [
-                    {
-                        title: "1.1 Dominio y Rango",
-                        objective: "Determinar analítica y gráficamente conjuntos de entrada y salida.",
-                        videos: [
-                            { t: "Dominio y rango de una función", c: "Profe Alex" },
-                            { t: "Dominio de funciones analíticas", c: "Julio Profe" },
-                            { t: "Dominio y rango de una función", c: "Khan Academy en Español" },
-                            { t: "Dominio y rango (funciones racionales y radicales)", c: "Unicoos" }
-                        ],
-                        books: [
-                            { a: "OpenStax", t: "Precálculo 2ed", c: "Sec. 1.2 Dominio y Rango", p: "pp. 60-75" },
-                            { a: "OpenStax", t: "Álgebra y Trigonometría", c: "Sec. 3.2 Dominio y Rango", p: "pp. 315-328" },
-                            { a: "LibreTexts", t: "Matemáticas Precálculo", c: "Cap. 1: Funciones", p: "pp. 12-28" },
-                            { a: "OpenStax", t: "Precálculo 2ed", c: "Sec. 1.1 Funciones y Notación", p: "pp. 45-59" }
-                        ],
-                        practice: [
-                            { s: "OpenStax Precálculo Sec. 1.2, Ej. 6-26", l: "Básico" },
-                            { s: "OpenStax Precálculo Sec. 1.2, Ej. 38-47", l: "Intermedio" },
-                            { s: "Video: Ejercicios resueltos de dominio (Profe Alex)", l: "Básico" },
-                            { s: "Video: Problemas de dominio analítico (Julio Profe)", l: "Intermedio" }
-                        ]
-                    },
-                    {
-                        title: "1.2 Gráfica de Funciones",
-                        objective: "Trazar y reconocer gráficas a partir de transformaciones.",
-                        videos: [
-                            { t: "Reconocer gráficas de funciones", c: "Khan Academy en Español" },
-                            { t: "Trazado de gráficas y transformaciones", c: "Unicoos" },
-                            { t: "Transformaciones de funciones", c: "Profe Alex" },
-                            { t: "Gráficas de funciones elementales", c: "Julio Profe" }
-                        ],
-                        books: [
-                            { a: "OpenStax", t: "Precálculo 2ed", c: "Sec. 1.5 Transformaciones", p: "pp. 89-105" },
-                            { a: "OpenStax", t: "Álgebra y Trigonometría", c: "Sec. 1.5 Transformaciones", p: "pp. 380-395" },
-                            { a: "LibreTexts", t: "Libro de Precálculo", c: "Cap. 1: Transformaciones", p: "pp. 45-60" },
-                            { a: "OpenStax", t: "Precálculo 2ed", c: "Sec. 1.3 Puntos de corte", p: "pp. 76-88" }
-                        ],
-                        practice: [
-                            { s: "OpenStax Precálculo Sec. 1.5, Ej. 10-35", l: "Intermedio" },
-                            { s: "OpenStax Precálculo Sec. 1.3, Ej. 5-20", l: "Básico" },
-                            { s: "Video: Ejercicios de transformaciones (Unicoos)", l: "Intermedio" },
-                            { s: "Libro: Prácticas de graficado Cap 1 (LibreTexts)", l: "Básico" }
-                        ]
-                    },
-                    {
-                        title: "1.3 Tipos de Funciones",
-                        objective: "Clasificar funciones por sus propiedades algebraicas e inyectividad.",
-                        videos: [
-                            { t: "Clasificación de funciones", c: "Profe Alex" },
-                            { t: "Funciones inyectivas y sobreyectivas", c: "Julio Profe" },
-                            { t: "Tipos de funciones y sus gráficas", c: "Unicoos" },
-                            { t: "Relaciones y funciones", c: "Khan Academy en Español" }
-                        ],
-                        books: [
-                            { a: "OpenStax", t: "Precálculo 2ed", c: "Sec. 1.1 Funciones y su notación", p: "pp. 45-59" },
-                            { a: "OpenStax", t: "Álgebra y Trigonometría", c: "Sec. 1.1", p: "pp. 340-355" },
-                            { a: "LibreTexts", t: "Precálculo", c: "Cap. 1: Definición de Función", p: "pp. 5-15" },
-                            { a: "OpenStax", t: "College Algebra", c: "Sec. 4.1", p: "pp. 390-405" }
-                        ],
-                        practice: [
-                            { s: "OpenStax Precálculo Sec. 1.1, Ej. 15-40", l: "Básico" },
-                            { s: "Video: Identificación de tipos de funciones (Profe Alex)", l: "Básico" },
-                            { s: "Video: Evaluación de funciones (Khan Academy)", l: "Básico" },
-                            { s: "Libro: Ejercicios de clasificación (LibreTexts)", l: "Intermedio" }
-                        ]
-                    },
-                    {
-                        title: "1.4 Funciones a Trozos",
-                        objective: "Evaluar y graficar funciones definidas por tramos.",
-                        videos: [
-                            { t: "Gráfico de una función a trozos", c: "Profe Alex" },
-                            { t: "Funciones a trozos", c: "Khan Academy en Español" },
-                            { t: "Evaluar funciones definidas por partes", c: "Julio Profe" },
-                            { t: "Funciones a trozos y valor absoluto", c: "Unicoos" }
-                        ],
-                        books: [
-                            { a: "OpenStax", t: "Precálculo 2ed", c: "Sec. 1.2 Funciones definidas por partes", p: "pp. 68-75" },
-                            { a: "OpenStax", t: "College Algebra", c: "Sec. 3.2", p: "pp. 300-315" },
-                            { a: "LibreTexts", t: "Precálculo", c: "Cap. 1: Funciones a trozos", p: "pp. 70-80" },
-                            { a: "OpenStax", t: "Álgebra y Trigonometría", c: "Sec. 3.2", p: "pp. 330-340" }
-                        ],
-                        practice: [
-                            { s: "OpenStax Precálculo Sec. 1.2, Ej. 38-47", l: "Intermedio" },
-                            { s: "Video: Gráficas complejas a trozos (Profe Alex)", l: "Intermedio" },
-                            { s: "Libro: Ejercicios Cap 3 OpenStax College Algebra", l: "Básico" },
-                            { s: "Video: Evaluación algebraica (Julio Profe)", l: "Intermedio" }
-                        ]
-                    },
-                    {
-                        title: "1.5 Álgebra y Composición de Funciones",
-                        objective: "Operar y componer funciones hallando el dominio resultante.",
-                        videos: [
-                            { t: "Función compuesta e introducción", c: "Profe Alex" },
-                            { t: "Composición de funciones", c: "Julio Profe" },
-                            { t: "Composición de funciones", c: "Khan Academy en Español" },
-                            { t: "Operaciones con funciones", c: "Unicoos" }
-                        ],
-                        books: [
-                            { a: "OpenStax", t: "Precálculo 2ed", c: "Sec. 1.4 Composición de funciones", p: "pp. 81-88" },
-                            { a: "OpenStax", t: "College Algebra", c: "Sec. 3.4 Composición", p: "pp. 330-345" },
-                            { a: "LibreTexts", t: "Precálculo", c: "Cap. 1: Composición", p: "pp. 90-102" },
-                            { a: "OpenStax", t: "Álgebra y Trigonometría", c: "Sec. 3.4", p: "pp. 360-375" }
-                        ],
-                        practice: [
-                            { s: "OpenStax Precálculo Sec. 1.4, Ej. 8-28", l: "Intermedio" },
-                            { s: "Video: Ejercicios de composición (Unicoos)", l: "Intermedio" },
-                            { s: "Libro: Problemas de dominio en composición (LibreTexts)", l: "Avanzado" },
-                            { s: "Video: Composición de funciones racionales (Julio Profe)", l: "Avanzado" }
-                        ]
-                    },
-                    {
-                        title: "1.6 Funciones Inversas",
-                        objective: "Verificar si f es biunívoca y calcular la función inversa.",
-                        videos: [
-                            { t: "Introducción a funciones inversas", c: "Khan Academy en Español" },
-                            { t: "Cálculo analítico de la inversa", c: "Unicoos" },
-                            { t: "Funciones inversas", c: "Profe Alex" },
-                            { t: "Cómo hallar la función inversa", c: "Julio Profe" }
-                        ],
-                        books: [
-                            { a: "OpenStax", t: "Precálculo 2ed", c: "Sec. 1.7 Funciones inversas", p: "pp. 106-115" },
-                            { a: "OpenStax", t: "Álgebra y Trigonometría", c: "Sec. 3.7 Inversas", p: "pp. 390-405" },
-                            { a: "LibreTexts", t: "Precálculo", c: "Cap. 1: Funciones Inversas", p: "pp. 110-125" },
-                            { a: "OpenStax", t: "College Algebra", c: "Sec. 3.7", p: "pp. 360-375" }
-                        ],
-                        practice: [
-                            { s: "OpenStax Precálculo Sec. 1.7, Ej. 12-30", l: "Intermedio" },
-                            { s: "Video: Ejercicios de inversas (Profe Alex)", l: "Intermedio" },
-                            { s: "Libro: Restricción de dominio para inversas (LibreTexts)", l: "Avanzado" },
-                            { s: "Video: Verificación gráfica (Unicoos)", l: "Intermedio" }
-                        ]
-                    },
-                    {
-                        title: "1.7 Funciones Polinomiales",
-                        objective: "Identificar grado, coeficientes y comportamiento final.",
-                        videos: [
-                            { t: "Funciones polinomiales y grado", c: "Profe Alex" },
-                            { t: "Introducción a los polinomios", c: "Julio Profe" },
-                            { t: "Grado y comportamiento final", c: "Khan Academy en Español" },
-                            { t: "Funciones polinomiales", c: "Unicoos" }
-                        ],
-                        books: [
-                            { a: "OpenStax", t: "Precálculo 2ed", c: "Sec. 3.2 Polinomios", p: "pp. 180-195" },
-                            { a: "OpenStax", t: "Álgebra y Trigonometría", c: "Sec. 5.2", p: "pp. 450-465" },
-                            { a: "LibreTexts", t: "Precálculo", c: "Cap. 3: Polinomios", p: "pp. 140-155" },
-                            { a: "OpenStax", t: "Precálculo 2ed", c: "Sec. 3.1 Cuadráticas", p: "pp. 170-179" }
-                        ],
-                        practice: [
-                            { s: "OpenStax Precálculo Sec. 3.2, Ej. 6-22", l: "Básico" },
-                            { s: "Video: Comportamiento final (Khan Academy)", l: "Intermedio" },
-                            { s: "Libro: Ejercicios de identificación (LibreTexts)", l: "Básico" },
-                            { s: "Video: Grado y coeficiente principal (Julio Profe)", l: "Básico" }
-                        ]
-                    },
-                    {
-                        title: "1.8 Gráfica de Polinomios",
-                        objective: "Trazar curvas polinomiales usando ceros, multiplicidad e inflexión.",
-                        videos: [
-                            { t: "Gráficas y multiplicidad de ceros", c: "Khan Academy en Español" },
-                            { t: "Representación de polinomios", c: "Unicoos" },
-                            { t: "Trazado de funciones polinomiales", c: "Profe Alex" },
-                            { t: "Gráfica de polinomios de grado n", c: "Julio Profe" }
-                        ],
-                        books: [
-                            { a: "OpenStax", t: "Precálculo 2ed", c: "Sec. 3.3 Gráficas de polinomios", p: "pp. 196-210" },
-                            { a: "OpenStax", t: "Álgebra y Trigonometría", c: "Sec. 5.3", p: "pp. 470-485" },
-                            { a: "LibreTexts", t: "Precálculo", c: "Cap. 3: Gráficas", p: "pp. 160-175" },
-                            { a: "OpenStax", t: "College Algebra", c: "Sec. 5.3", p: "pp. 410-425" }
-                        ],
-                        practice: [
-                            { s: "OpenStax Precálculo Sec. 3.3, Ej. 15-35", l: "Intermedio" },
-                            { s: "Video: Ejercicios de trazado (Unicoos)", l: "Intermedio" },
-                            { s: "Libro: Análisis de multiplicidad (OpenStax)", l: "Intermedio" },
-                            { s: "Video: Puntos de inflexión (Profe Alex)", l: "Avanzado" }
-                        ]
-                    },
-                    {
-                        title: "1.9 Ceros de Polinomios",
-                        objective: "Aplicar división sintética, Teorema del Residuo y de Ceros Racionales.",
-                        videos: [
-                            { t: "División sintética y ceros de un polinomio", c: "Julio Profe" },
-                            { t: "Teorema del residuo", c: "Profe Alex" },
-                            { t: "Teorema de ceros racionales", c: "Khan Academy en Español" },
-                            { t: "Factorización de polinomios de alto grado", c: "Unicoos" }
-                        ],
-                        books: [
-                            { a: "OpenStax", t: "Precálculo 2ed", c: "Sec. 3.4 Factorización", p: "pp. 211-225" },
-                            { a: "OpenStax", t: "Álgebra y Trigonometría", c: "Sec. 5.4 Ceros", p: "pp. 490-505" },
-                            { a: "OpenStax", t: "Precálculo 2ed", c: "Sec. 3.5 Ceros complejos", p: "pp. 226-235" },
-                            { a: "LibreTexts", t: "Precálculo", c: "Cap. 3: Ceros", p: "pp. 180-195" }
-                        ],
-                        practice: [
-                            { s: "OpenStax Precálculo Sec. 3.4, Ej. 10-40", l: "Avanzado" },
-                            { s: "Video: División sintética avanzada (Julio Profe)", l: "Intermedio" },
-                            { s: "Libro: Aplicación del teorema fundamental (OpenStax)", l: "Avanzado" },
-                            { s: "Video: Teorema del factor (Profe Alex)", l: "Intermedio" }
-                        ]
-                    },
-                    {
-                        title: "1.10 Funciones Racionales",
-                        objective: "Modelar cocientes de polinomios identificando su dominio restringido.",
-                        videos: [
-                            { t: "Dominio y rango de función racional", c: "Profe Alex" },
-                            { t: "Análisis de funciones racionales", c: "Unicoos" },
-                            { t: "Introducción a funciones racionales", c: "Khan Academy en Español" },
-                            { t: "Gráficas de funciones racionales", c: "Julio Profe" }
-                        ],
-                        books: [
-                            { a: "OpenStax", t: "Precálculo 2ed", c: "Sec. 3.7 Funciones racionales", p: "pp. 240-255" },
-                            { a: "OpenStax", t: "Álgebra y Trigonometría", c: "Sec. 5.6 Racionales", p: "pp. 520-535" },
-                            { a: "LibreTexts", t: "Precálculo", c: "Cap. 3: Racionales", p: "pp. 200-215" },
-                            { a: "OpenStax", t: "College Algebra", c: "Sec. 5.6", p: "pp. 440-455" }
-                        ],
-                        practice: [
-                            { s: "OpenStax Precálculo Sec. 3.7, Ej. 8-24", l: "Básico" },
-                            { s: "Video: Simplificación y dominio (Unicoos)", l: "Básico" },
-                            { s: "Libro: Gráficas de racionales básicas (OpenStax)", l: "Intermedio" },
-                            { s: "Video: Evaluación de racionales (Profe Alex)", l: "Básico" }
-                        ]
-                    },
-                    {
-                        title: "1.11 Asíntotas Racionales",
-                        objective: "Determinar analíticamente asíntotas verticales, horizontales y oblicuas.",
-                        videos: [
-                            { t: "Asíntotas verticales, horizontales y oblicuas", c: "Profe Alex" },
-                            { t: "Asíntotas oblicuas", c: "Julio Profe" },
-                            { t: "Asíntotas de funciones racionales", c: "Khan Academy en Español" },
-                            { t: "Cálculo de asíntotas", c: "Unicoos" }
-                        ],
-                        books: [
-                            { a: "OpenStax", t: "Precálculo 2ed", c: "Sec. 3.7 Asíntotas", p: "pp. 256-265" },
-                            { a: "OpenStax", t: "Álgebra y Trigonometría", c: "Sec. 5.6 Asíntotas", p: "pp. 536-545" },
-                            { a: "LibreTexts", t: "Precálculo", c: "Cap. 3: Asíntotas", p: "pp. 220-230" },
-                            { a: "OpenStax", t: "College Algebra", c: "Sec. 5.6", p: "pp. 460-470" }
-                        ],
-                        practice: [
-                            { s: "OpenStax Precálculo Sec. 3.7, Ej. 25-50", l: "Avanzado" },
-                            { s: "Video: Ejercicios de asíntotas oblicuas (Julio Profe)", l: "Avanzado" },
-                            { s: "Libro: Regla de la división para asíntotas (LibreTexts)", l: "Intermedio" },
-                            { s: "Video: Trazado con asíntotas (Profe Alex)", l: "Intermedio" }
-                        ]
-                    }
-                ]
-            },
-            {
-                title: "Funciones Trascendentes y Trigonometría",
-                weeks: "Semanas 5 - 8",
-                hours: 32,
-                subtopics: [
-                    {
-                        title: "2.1 Funciones Exponenciales",
-                        objective: "Evaluar, graficar e identificar crecimiento y decaimiento exponencial.",
-                        videos: [
-                            { t: "Función Exponencial y características", c: "Profe Alex" },
-                            { t: "Gráficas exponenciales", c: "Julio Profe" },
-                            { t: "Funciones exponenciales", c: "Khan Academy en Español" },
-                            { t: "Crecimiento y decaimiento", c: "Unicoos" }
-                        ],
-                        books: [
-                            { a: "OpenStax", t: "Precálculo 2ed", c: "Sec. 4.1 Funciones exponenciales", p: "pp. 270-285" },
-                            { a: "OpenStax", t: "Álgebra y Trigonometría", c: "Sec. 6.1", p: "pp. 550-565" },
-                            { a: "LibreTexts", t: "Precálculo", c: "Cap. 4: Exponenciales", p: "pp. 10-25" },
-                            { a: "OpenStax", t: "Precálculo 2ed", c: "Sec. 4.2 Gráficos", p: "pp. 286-295" }
-                        ],
-                        practice: [
-                            { s: "OpenStax Precálculo Sec. 4.1, Ej. 8-26", l: "Básico" },
-                            { s: "OpenStax Precálculo Sec. 4.2, Ej. 6-20", l: "Básico" },
-                            { s: "Video: Ejercicios de gráficas exponenciales (Julio Profe)", l: "Intermedio" },
-                            { s: "Libro: Evaluación algebraica (LibreTexts)", l: "Básico" }
-                        ]
-                    },
-                    {
-                        title: "2.2 Funciones Logarítmicas",
-                        objective: "Convertir entre la forma exponencial y la forma logarítmica.",
-                        videos: [
-                            { t: "Logaritmos e introducción", c: "Profe Alex" },
-                            { t: "Concepto de logaritmo", c: "Khan Academy en Español" },
-                            { t: "Funciones logarítmicas", c: "Julio Profe" },
-                            { t: "Gráficas logarítmicas", c: "Unicoos" }
-                        ],
-                        books: [
-                            { a: "OpenStax", t: "Precálculo 2ed", c: "Sec. 4.3 Funciones logarítmicas", p: "pp. 296-310" },
-                            { a: "OpenStax", t: "Álgebra y Trigonometría", c: "Sec. 6.3 Logaritmos", p: "pp. 580-595" },
-                            { a: "LibreTexts", t: "Precálculo", c: "Cap. 4: Logaritmos", p: "pp. 30-45" },
-                            { a: "OpenStax", t: "Precálculo 2ed", c: "Sec. 4.4 Gráficos", p: "pp. 311-320" }
-                        ],
-                        practice: [
-                            { s: "OpenStax Precálculo Sec. 4.3, Ej. 10-35", l: "Básico" },
-                            { s: "Video: Conversión exponencial-logarítmica (Profe Alex)", l: "Básico" },
-                            { s: "Libro: Gráficas de logaritmos (OpenStax)", l: "Intermedio" },
-                            { s: "Video: Dominio logarítmico (Unicoos)", l: "Intermedio" }
-                        ]
-                    },
-                    {
-                        title: "2.3 Leyes de Exponentes y Logaritmos",
-                        objective: "Aplicar propiedades de expansión y condensación logarítmica.",
-                        videos: [
-                            { t: "Propiedades de los logaritmos", c: "Profe Alex" },
-                            { t: "Leyes de logaritmos y exponentes", c: "Unicoos" },
-                            { t: "Propiedades de los logaritmos", c: "Khan Academy en Español" },
-                            { t: "Expansión y condensación logarítmica", c: "Julio Profe" }
-                        ],
-                        books: [
-                            { a: "OpenStax", t: "Precálculo 2ed", c: "Sec. 4.5 Propiedades", p: "pp. 321-335" },
-                            { a: "OpenStax", t: "Álgebra y Trigonometría", c: "Sec. 6.5 Propiedades", p: "pp. 610-625" },
-                            { a: "LibreTexts", t: "Precálculo", c: "Cap. 4: Leyes Logarítmicas", p: "pp. 50-65" },
-                            { a: "OpenStax", t: "College Algebra", c: "Sec. 6.5", p: "pp. 500-515" }
-                        ],
-                        practice: [
-                            { s: "OpenStax Precálculo Sec. 4.5, Ej. 8-42", l: "Intermedio" },
-                            { s: "Video: Ejercicios de expansión (Julio Profe)", l: "Intermedio" },
-                            { s: "Libro: Condensación de expresiones (OpenStax)", l: "Intermedio" },
-                            { s: "Video: Cambio de base (Profe Alex)", l: "Básico" }
-                        ]
-                    },
-                    {
-                        title: "2.4 Ecuaciones Exponenciales y Logarítmicas",
-                        objective: "Resolver ecuaciones algebraicas con incógnitas en exponentes o argumentos.",
-                        videos: [
-                            { t: "Ecuaciones exponenciales y logarítmicas", c: "Julio Profe" },
-                            { t: "Ecuaciones logarítmicas", c: "Khan Academy en Español" },
-                            { t: "Resolución de ecuaciones exponenciales", c: "Profe Alex" },
-                            { t: "Ecuaciones con logaritmos", c: "Unicoos" }
-                        ],
-                        books: [
-                            { a: "OpenStax", t: "Precálculo 2ed", c: "Sec. 4.6 Ecuaciones", p: "pp. 336-350" },
-                            { a: "OpenStax", t: "Álgebra y Trigonometría", c: "Sec. 6.6 Ecuaciones", p: "pp. 630-645" },
-                            { a: "LibreTexts", t: "Precálculo", c: "Cap. 4: Ecuaciones", p: "pp. 70-85" },
-                            { a: "OpenStax", t: "College Algebra", c: "Sec. 6.6", p: "pp. 520-535" }
-                        ],
-                        practice: [
-                            { s: "OpenStax Precálculo Sec. 4.6, Ej. 10-48", l: "Intermedio" },
-                            { s: "Video: Ecuaciones de cambio de base (Profe Alex)", l: "Intermedio" },
-                            { s: "Libro: Solución de ecuaciones logarítmicas (OpenStax)", l: "Avanzado" },
-                            { s: "Video: Ecuaciones exponenciales con base e (Unicoos)", l: "Avanzado" }
-                        ]
-                    },
-                    {
-                        title: "2.5 Modelado Exponencial y Logarítmico",
-                        objective: "Resolver problemas de interés compuesto, población y vida media.",
-                        videos: [
-                            { t: "Aplicaciones del crecimiento poblacional", c: "Profe Alex" },
-                            { t: "Problemas de desintegración radiactiva", c: "Unicoos" },
-                            { t: "Modelos exponenciales", c: "Khan Academy en Español" },
-                            { t: "Interés compuesto continuo", c: "Julio Profe" }
-                        ],
-                        books: [
-                            { a: "OpenStax", t: "Precálculo 2ed", c: "Sec. 4.7 Modelos", p: "pp. 351-365" },
-                            { a: "OpenStax", t: "Álgebra y Trigonometría", c: "Sec. 6.7 Modelos", p: "pp. 650-665" },
-                            { a: "LibreTexts", t: "Precálculo", c: "Cap. 4: Aplicaciones", p: "pp. 90-105" },
-                            { a: "OpenStax", t: "College Algebra", c: "Sec. 6.7", p: "pp. 540-555" }
-                        ],
-                        practice: [
-                            { s: "OpenStax Precálculo Sec. 4.7, Ej. 6-30", l: "Avanzado" },
-                            { s: "Video: Ejercicios de interés compuesto (Julio Profe)", l: "Intermedio" },
-                            { s: "Libro: Modelos de decaimiento (OpenStax)", l: "Avanzado" },
-                            { s: "Video: Problemas de vida media (Profe Alex)", l: "Intermedio" }
-                        ]
-                    },
-                    {
-                        title: "2.6 Círculo Unitario y Trigonometría",
-                        objective: "Definir seno, coseno y tangente en el círculo unitario para ángulos reales.",
-                        videos: [
-                            { t: "Círculo unitario y razones trigonométricas", c: "Profe Alex" },
-                            { t: "El círculo unitario", c: "Khan Academy en Español" },
-                            { t: "Trigonometría: Círculo Unitario", c: "Julio Profe" },
-                            { t: "Razones trigonométricas", c: "Unicoos" }
-                        ],
-                        books: [
-                            { a: "OpenStax", t: "Precálculo 2ed", c: "Sec. 5.2 Círculo unitario", p: "pp. 370-385" },
-                            { a: "OpenStax", t: "Álgebra y Trigonometría", c: "Sec. 7.2", p: "pp. 670-685" },
-                            { a: "LibreTexts", t: "Precálculo", c: "Cap. 5: Círculo Unitario", p: "pp. 10-25" },
-                            { a: "OpenStax", t: "Precálculo 2ed", c: "Sec. 5.1 Ángulos", p: "pp. 360-369" }
-                        ],
-                        practice: [
-                            { s: "OpenStax Precálculo Sec. 5.2, Ej. 8-32", l: "Básico" },
-                            { s: "Video: Memoria del círculo unitario (Profe Alex)", l: "Básico" },
-                            { s: "Libro: Evaluación de ángulos notables (LibreTexts)", l: "Intermedio" },
-                            { s: "Video: Ángulos cuadrantales (Julio Profe)", l: "Básico" }
-                        ]
-                    },
-                    {
-                        title: "2.7 Trigonometría del Triángulo Rectángulo",
-                        objective: "Aplicar razones trigonométricas a la resolución de triángulos rectángulos.",
-                        videos: [
-                            { t: "Razones trigonométricas en triángulos rectángulos", c: "Julio Profe" },
-                            { t: "Resolución de triángulos", c: "Unicoos" },
-                            { t: "Triángulos rectángulos", c: "Khan Academy en Español" },
-                            { t: "Razones trigonométricas", c: "Profe Alex" }
-                        ],
-                        books: [
-                            { a: "OpenStax", t: "Precálculo 2ed", c: "Sec. 5.4 Triángulo rectángulo", p: "pp. 400-415" },
-                            { a: "OpenStax", t: "Álgebra y Trigonometría", c: "Sec. 7.4", p: "pp. 710-725" },
-                            { a: "LibreTexts", t: "Precálculo", c: "Cap. 5: Triángulos", p: "pp. 40-55" },
-                            { a: "OpenStax", t: "College Algebra", c: "Sec. 7.4", p: "pp. 580-595" }
-                        ],
-                        practice: [
-                            { s: "OpenStax Precálculo Sec. 5.4, Ej. 10-36", l: "Básico" },
-                            { s: "Video: Resolución de catetos (Unicoos)", l: "Básico" },
-                            { s: "Libro: Teorema de Pitágoras trigonométrico (OpenStax)", l: "Intermedio" },
-                            { s: "Video: Ángulos de elevación (Profe Alex)", l: "Intermedio" }
-                        ]
-                    },
-                    {
-                        title: "2.8 Trigonometría Analítica y Leyes",
-                        objective: "Resolver triángulos no rectángulos usando Ley de Senos y Cosenos.",
-                        videos: [
-                            { t: "Ley de senos y cosenos", c: "Khan Academy en Español" },
-                            { t: "Aplicaciones trigonométricas", c: "Profe Alex" },
-                            { t: "Ley de los cosenos", c: "Julio Profe" },
-                            { t: "Resolución de triángulos oblicuángulos", c: "Unicoos" }
-                        ],
-                        books: [
-                            { a: "OpenStax", t: "Precálculo 2ed", c: "Sec. 6.1 Ley de Senos", p: "pp. 420-435" },
-                            { a: "OpenStax", t: "Álgebra y Trigonometría", c: "Sec. 8.1 Ley de Senos", p: "pp. 730-745" },
-                            { a: "OpenStax", t: "Precálculo 2ed", c: "Sec. 6.2 Ley de Cosenos", p: "pp. 436-445" },
-                            { a: "LibreTexts", t: "Precálculo", c: "Cap. 6: Leyes Trigonométricas", p: "pp. 10-25" }
-                        ],
-                        practice: [
-                            { s: "OpenStax Precálculo Sec. 6.1, Ej. 6-24", l: "Intermedio" },
-                            { s: "OpenStax Precálculo Sec. 6.2, Ej. 6-24", l: "Intermedio" },
-                            { s: "Video: Ejercicios Ley de Cosenos (Julio Profe)", l: "Avanzado" },
-                            { s: "Video: Aplicación en topografía (Profe Alex)", l: "Intermedio" }
-                        ]
-                    },
-                    {
-                        title: "2.9 Identidades Trigonométricas",
-                        objective: "Demostrar identidades fundamentales, de suma/diferencia y ángulo doble.",
-                        videos: [
-                            { t: "Demostración de identidades trigonométricas", c: "Julio Profe" },
-                            { t: "Identidades fundamentales", c: "Unicoos" },
-                            { t: "Identidades trigonométricas", c: "Khan Academy en Español" },
-                            { t: "Identidades de suma y resta de ángulos", c: "Profe Alex" }
-                        ],
-                        books: [
-                            { a: "OpenStax", t: "Precálculo 2ed", c: "Sec. 7.1 Simplificación", p: "pp. 460-475" },
-                            { a: "OpenStax", t: "Álgebra y Trigonometría", c: "Sec. 9.1 Identidades", p: "pp. 780-795" },
-                            { a: "OpenStax", t: "Precálculo 2ed", c: "Sec. 7.2 Suma y diferencia", p: "pp. 476-485" },
-                            { a: "LibreTexts", t: "Precálculo", c: "Cap. 7: Identidades", p: "pp. 30-45" }
-                        ],
-                        practice: [
-                            { s: "OpenStax Precálculo Sec. 7.1, Ej. 10-40", l: "Avanzado" },
-                            { s: "Video: Identidades pitagóricas (Unicoos)", l: "Intermedio" },
-                            { s: "Libro: Demostraciones algebraicas (OpenStax)", l: "Avanzado" },
-                            { s: "Video: Fórmulas de ángulo doble (Profe Alex)", l: "Avanzado" }
-                        ]
-                    },
-                    {
-                        title: "2.10 Funciones Trigonométricas Inversas",
-                        objective: "Evaluar y determinar dominio y rango restricto de arcsen, arccos y arctan.",
-                        videos: [
-                            { t: "Funciones trigonométricas inversas", c: "Profe Alex" },
-                            { t: "Evaluación de inversas trigonométricas", c: "Khan Academy en Español" },
-                            { t: "Funciones inversas (arcsen, arccos)", c: "Julio Profe" },
-                            { t: "Restricciones de inversas", c: "Unicoos" }
-                        ],
-                        books: [
-                            { a: "OpenStax", t: "Precálculo 2ed", c: "Sec. 5.3 Inversas", p: "pp. 386-399" },
-                            { a: "OpenStax", t: "Álgebra y Trigonometría", c: "Sec. 7.3 Inversas", p: "pp. 690-705" },
-                            { a: "LibreTexts", t: "Precálculo", c: "Cap. 5: Inversas", p: "pp. 60-75" },
-                            { a: "OpenStax", t: "College Algebra", c: "Sec. 6.1", p: "pp. 560-575" }
-                        ],
-                        practice: [
-                            { s: "OpenStax Precálculo Sec. 5.3, Ej. 8-30", l: "Intermedio" },
-                            { s: "Video: Composición trigonométrica (Khan Academy)", l: "Intermedio" },
-                            { s: "Libro: Gráficas de inversas (LibreTexts)", l: "Básico" },
-                            { s: "Video: Cálculo sin calculadora (Profe Alex)", l: "Intermedio" }
-                        ]
-                    },
-                    {
-                        title: "2.11 Ecuaciones Trigonométricas",
-                        objective: "Hallar soluciones analíticas de ecuaciones trigonométricas en un intervalo.",
-                        videos: [
-                            { t: "Ecuaciones trigonométricas de primer y segundo grado", c: "Julio Profe" },
-                            { t: "Ecuaciones con identidades", c: "Unicoos" },
-                            { t: "Ecuaciones trigonométricas", c: "Khan Academy en Español" },
-                            { t: "Resolución de ecuaciones trigonométricas", c: "Profe Alex" }
-                        ],
-                        books: [
-                            { a: "OpenStax", t: "Precálculo 2ed", c: "Sec. 7.5 Ecuaciones", p: "pp. 500-515" },
-                            { a: "OpenStax", t: "Álgebra y Trigonometría", c: "Sec. 9.5 Ecuaciones", p: "pp. 830-845" },
-                            { a: "LibreTexts", t: "Precálculo", c: "Cap. 7: Ecuaciones", p: "pp. 80-95" },
-                            { a: "OpenStax", t: "College Algebra", c: "Sec. 7.5", p: "pp. 610-625" }
-                        ],
-                        practice: [
-                            { s: "OpenStax Precálculo Sec. 7.5, Ej. 10-45", l: "Avanzado" },
-                            { s: "Video: Ecuaciones cuadráticas trigonométricas (Unicoos)", l: "Avanzado" },
-                            { s: "Libro: Uso de fórmulas cuadráticas (OpenStax)", l: "Avanzado" },
-                            { s: "Video: Soluciones en [0, 2π) (Julio Profe)", l: "Intermedio" }
-                        ]
-                    }
-                ]
-            },
-            {
-                title: "Álgebra Lineal y Matrices",
-                weeks: "Semanas 9 - 12",
-                hours: 28,
-                subtopics: [
-                    {
-                        title: "3.1 Matrices y Operaciones",
-                        objective: "Efectuar suma, multiplicación por escalar y producto matricial.",
-                        videos: [
-                            { t: "Operaciones con matrices y propiedades", c: "Profe Alex" },
-                            { t: "Multiplicación matricial", c: "Julio Profe" },
-                            { t: "Multiplicación de matrices", c: "Khan Academy en Español" },
-                            { t: "Suma y producto de matrices", c: "Unicoos" }
-                        ],
-                        books: [
-                            { a: "OpenStax", t: "Precálculo 2ed", c: "Sec. 9.5 Matrices", p: "pp. 610-625" },
-                            { a: "OpenStax", t: "Álgebra y Trigonometría", c: "Sec. 11.5 Matrices", p: "pp. 980-995" },
-                            { a: "LibreTexts", t: "Precálculo", c: "Cap. 9: Matrices", p: "pp. 10-25" },
-                            { a: "OpenStax", t: "College Algebra", c: "Sec. 9.5", p: "pp. 760-775" }
-                        ],
-                        practice: [
-                            { s: "OpenStax Precálculo Sec. 9.5, Ej. 8-34", l: "Básico" },
-                            { s: "Video: Propiedades del producto (Julio Profe)", l: "Intermedio" },
-                            { s: "Libro: Dimensiones de matrices (LibreTexts)", l: "Básico" },
-                            { s: "Video: Matriz transpuesta (Profe Alex)", l: "Básico" }
-                        ]
-                    },
-                    {
-                        title: "3.2 Operaciones con Gauss-Jordan",
-                        objective: "Reducir matrices mediante operaciones elementales de fila a forma escalonada.",
-                        videos: [
-                            { t: "Método de Gauss-Jordan", c: "Profe Alex" },
-                            { t: "Eliminación por reducción de filas", c: "Khan Academy en Español" },
-                            { t: "Método de eliminación de Gauss", c: "Julio Profe" },
-                            { t: "Matriz escalonada reducida", c: "Unicoos" }
-                        ],
-                        books: [
-                            { a: "OpenStax", t: "Precálculo 2ed", c: "Sec. 9.6 Eliminación gaussiana", p: "pp. 626-640" },
-                            { a: "OpenStax", t: "Álgebra y Trigonometría", c: "Sec. 11.6 Gauss", p: "pp. 1000-1015" },
-                            { a: "LibreTexts", t: "Precálculo", c: "Cap. 9: Gauss", p: "pp. 30-45" },
-                            { a: "OpenStax", t: "Precálculo 2ed", c: "Sec. 9.1 Sistemas 2x2", p: "pp. 580-590" }
-                        ],
-                        practice: [
-                            { s: "OpenStax Precálculo Sec. 9.6, Ej. 10-38", l: "Intermedio" },
-                            { s: "Video: Operaciones fila (Unicoos)", l: "Intermedio" },
-                            { s: "Libro: Sistemas 3x3 (OpenStax)", l: "Intermedio" },
-                            { s: "Video: Reducción a forma RREF (Khan Academy)", l: "Avanzado" }
-                        ]
-                    },
-                    {
-                        title: "3.3 Determinantes (2x2 y 3x3)",
-                        objective: "Calcular el determinante usando la Regla de Sarrus y menores/cofactores.",
-                        videos: [
-                            { t: "Determinante 3x3 por Sarrus y cofactores", c: "Julio Profe" },
-                            { t: "Cálculo de determinantes", c: "Unicoos" },
-                            { t: "Determinante de una matriz", c: "Profe Alex" },
-                            { t: "Menores y cofactores", c: "Khan Academy en Español" }
-                        ],
-                        books: [
-                            { a: "OpenStax", t: "Precálculo 2ed", c: "Sec. 9.7 Determinantes", p: "pp. 641-655" },
-                            { a: "OpenStax", t: "Álgebra y Trigonometría", c: "Sec. 11.7 Determinantes", p: "pp. 1020-1035" },
-                            { a: "LibreTexts", t: "Precálculo", c: "Cap. 9: Determinantes", p: "pp. 50-65" },
-                            { a: "OpenStax", t: "College Algebra", c: "Sec. 9.7", p: "pp. 780-795" }
-                        ],
-                        practice: [
-                            { s: "OpenStax Precálculo Sec. 9.7, Ej. 6-28", l: "Intermedio" },
-                            { s: "Video: Regla de Sarrus (Profe Alex)", l: "Básico" },
-                            { s: "Libro: Expansión por cofactores (OpenStax)", l: "Intermedio" },
-                            { s: "Video: Propiedades de determinantes (Julio Profe)", l: "Avanzado" }
-                        ]
-                    },
-                    {
-                        title: "3.4 Matriz Inversa por Gauss-Jordan",
-                        objective: "Calcular la inversa operando la matriz aumentada [A|I] hasta [I|A^-1].",
-                        videos: [
-                            { t: "Matriz inversa por eliminación gaussiana", c: "Profe Alex" },
-                            { t: "Inversa de matrices", c: "Khan Academy en Español" },
-                            { t: "Cálculo de la matriz inversa (Gauss)", c: "Julio Profe" },
-                            { t: "Inversa por método de Gauss", c: "Unicoos" }
-                        ],
-                        books: [
-                            { a: "OpenStax", t: "Precálculo 2ed", c: "Sec. 9.5 Inversa de una matriz", p: "pp. 630-640" },
-                            { a: "OpenStax", t: "Álgebra y Trigonometría", c: "Sec. 11.8 Inversas", p: "pp. 1040-1055" },
-                            { a: "LibreTexts", t: "Precálculo", c: "Cap. 9: Matriz Inversa", p: "pp. 70-85" },
-                            { a: "OpenStax", t: "College Algebra", c: "Sec. 9.8", p: "pp. 800-815" }
-                        ],
-                        practice: [
-                            { s: "OpenStax Precálculo Sec. 9.5, Ej. 36-52", l: "Intermedio" },
-                            { s: "Video: Verificación de inversa (Khan Academy)", l: "Básico" },
-                            { s: "Libro: Matrices singulares (OpenStax)", l: "Intermedio" },
-                            { s: "Video: Pasos para la inversa 3x3 (Julio Profe)", l: "Avanzado" }
-                        ]
-                    },
-                    {
-                        title: "3.5 Matriz Inversa por Adjunta",
-                        objective: "Obtener la inversa mediante la fórmula A^-1 = (1/det(A)) * Adj(A).",
-                        videos: [
-                            { t: "Matriz inversa mediante la adjunta", c: "Julio Profe" },
-                            { t: "Cálculo de la adjunta y determinante", c: "Unicoos" },
-                            { t: "Matriz adjunta y inversa", c: "Profe Alex" },
-                            { t: "Inversa por matriz de cofactores", c: "MathEasy Solutions" }
-                        ],
-                        books: [
-                            { a: "OpenStax", t: "Álgebra y Trigonometría", c: "Sec. 11.8 Adjunta", p: "pp. 1056-1065" },
-                            { a: "LibreTexts", t: "Precálculo", c: "Cap. 9: Inversa por Adjunta", p: "pp. 90-105" },
-                            { a: "OpenStax", t: "Precálculo 2ed", c: "Sec. 9.7 Propiedades", p: "pp. 650-660" },
-                            { a: "OpenStax", t: "College Algebra", c: "Sec. 9.8 Cofactores", p: "pp. 810-820" }
-                        ],
-                        practice: [
-                            { s: "OpenStax Precálculo Sec. 9.7, Ej. 30-44", l: "Avanzado" },
-                            { s: "Video: Matriz de cofactores (Unicoos)", l: "Intermedio" },
-                            { s: "Libro: Transposición de cofactores (OpenStax)", l: "Avanzado" },
-                            { s: "Video: Cálculo simbólico de Adj (Julio Profe)", l: "Avanzado" }
-                        ]
-                    },
-                    {
-                        title: "3.6 Solución de Sistemas Lineales",
-                        objective: "Resolver Ax=b usando Regla de Cramer, sustitución e inversa.",
-                        videos: [
-                            { t: "Sistemas de ecuaciones con la Regla de Cramer", c: "Profe Alex" },
-                            { t: "Resolución matricial de sistemas", c: "Julio Profe" },
-                            { t: "Regla de Cramer", c: "Khan Academy en Español" },
-                            { t: "Sistemas por inversa matricial", c: "Unicoos" }
-                        ],
-                        books: [
-                            { a: "OpenStax", t: "Precálculo 2ed", c: "Sec. 9.7 Regla de Cramer", p: "pp. 660-670" },
-                            { a: "OpenStax", t: "Álgebra y Trigonometría", c: "Sec. 11.9 Cramer", p: "pp. 1070-1085" },
-                            { a: "LibreTexts", t: "Precálculo", c: "Cap. 9: Cramer", p: "pp. 110-125" },
-                            { a: "OpenStax", t: "College Algebra", c: "Sec. 9.9", p: "pp. 830-845" }
-                        ],
-                        practice: [
-                            { s: "OpenStax Precálculo Sec. 9.7, Ej. 12-35", l: "Intermedio" },
-                            { s: "Video: Ejercicios con Cramer 3x3 (Profe Alex)", l: "Avanzado" },
-                            { s: "Libro: Sistemas sin solución (OpenStax)", l: "Intermedio" },
-                            { s: "Video: Sistema por matriz inversa (Unicoos)", l: "Intermedio" }
-                        ]
-                    },
-                    {
-                        title: "3.7 Aplicaciones de Sistemas",
-                        objective: "Modelar problemas de redes, flujos económicos y mezclas.",
-                        videos: [
-                            { t: "Aplicaciones de los sistemas lineales", c: "Khan Academy en Español" },
-                            { t: "Problemas de planteamiento matricial", c: "Unicoos" },
-                            { t: "Redes y flujos", c: "Profe Alex" },
-                            { t: "Aplicaciones de matrices", c: "Julio Profe" }
-                        ],
-                        books: [
-                            { a: "OpenStax", t: "Precálculo 2ed", c: "Sec. 9.2 Sistemas 3 variables", p: "pp. 595-610" },
-                            { a: "OpenStax", t: "Álgebra y Trigonometría", c: "Sec. 11.2 Aplicaciones", p: "pp. 940-955" },
-                            { a: "OpenStax", t: "Precálculo 2ed", c: "Sec. 9.8 Modelos", p: "pp. 675-690" },
-                            { a: "LibreTexts", t: "Precálculo", c: "Cap. 9: Aplicaciones", p: "pp. 130-145" }
-                        ],
-                        practice: [
-                            { s: "OpenStax Precálculo Sec. 9.2, Ej. 15-32", l: "Avanzado" },
-                            { s: "Video: Problemas de mezclas (Unicoos)", l: "Intermedio" },
-                            { s: "Libro: Modelos económicos (OpenStax)", l: "Avanzado" },
-                            { s: "Video: Análisis de redes (Profe Alex)", l: "Avanzado" }
-                        ]
-                    },
-                    {
-                        title: "3.8 Interpretación Geométrica",
-                        objective: "Visualizar intersecciones de rectas en R^2 y planos en R^3.",
-                        videos: [
-                            { t: "Interpretación de sistemas 2x2 y 3x3", c: "Profe Alex" },
-                            { t: "Planos en el espacio y soluciones", c: "Julio Profe" },
-                            { t: "Visualización de sistemas lineales", c: "Unicoos" },
-                            { t: "Geometría de sistemas", c: "MathEasy Solutions" }
-                        ],
-                        books: [
-                            { a: "OpenStax", t: "Precálculo 2ed", c: "Sec. 9.1 Geometría 2D", p: "pp. 585-595" },
-                            { a: "OpenStax", t: "Álgebra y Trigonometría", c: "Sec. 11.1 Geometría", p: "pp. 920-935" },
-                            { a: "LibreTexts", t: "Precálculo", c: "Cap. 9: Geometría Lineal", p: "pp. 15-30" },
-                            { a: "OpenStax", t: "College Algebra", c: "Sec. 9.1", p: "pp. 740-755" }
-                        ],
-                        practice: [
-                            { s: "OpenStax Precálculo Sec. 9.1, Ej. 30-45", l: "Intermedio" },
-                            { s: "Video: Planos paralelos y coincidentes (Julio Profe)", l: "Avanzado" },
-                            { s: "Libro: Sistemas inconsistentes (OpenStax)", l: "Intermedio" },
-                            { s: "Video: Intersección de planos (Unicoos)", l: "Avanzado" }
-                        ]
-                    }
-                ]
-            },
-            {
-                title: "Límites de Funciones Reales y Continuidad",
-                weeks: "Semanas 13 - 16",
-                hours: 24,
-                subtopics: [
-                    {
-                        title: "4.1 Definición Intuitiva de Límites",
-                        objective: "Comprender el concepto de límite mediante aproximación numérica y gráfica.",
-                        videos: [
-                            { t: "Definición e intuición de límite", c: "Profe Alex" },
-                            { t: "Concepto numérico y gráfico del límite", c: "Julio Profe" },
-                            { t: "Introducción a los límites", c: "Khan Academy en Español" },
-                            { t: "Idea informal de límite", c: "Unicoos" }
-                        ],
-                        books: [
-                            { a: "OpenStax", t: "Cálculo Vol. 1", c: "Sec. 2.2 Límite de una función", p: "pp. 180-195" },
-                            { a: "OpenStax", t: "Cálculo Vol. 1", c: "Sec. 2.1 Repaso previo", p: "pp. 170-179" },
-                            { a: "LibreTexts", t: "Cálculo", c: "Cap. 2: Límites", p: "pp. 10-25" },
-                            { a: "OpenStax", t: "Precálculo 2ed", c: "Sec. 12.1 Concepto de límite", p: "pp. 800-815" }
-                        ],
-                        practice: [
-                            { s: "OpenStax Cálculo Vol 1 Sec. 2.2, Ej. 30-50", l: "Básico" },
-                            { s: "Video: Estimaciones a partir de tablas (Khan Academy)", l: "Básico" },
-                            { s: "Libro: Lectura gráfica de límites (LibreTexts)", l: "Básico" },
-                            { s: "Video: Aproximaciones por la izquierda y derecha (Profe Alex)", l: "Intermedio" }
-                        ]
-                    },
-                    {
-                        title: "4.2 Límites Laterales",
-                        objective: "Evaluar límites unilaterales para determinar la existencia del límite general.",
-                        videos: [
-                            { t: "Límites por izquierda y por derecha", c: "Profe Alex" },
-                            { t: "Límites laterales y existencia", c: "Khan Academy en Español" },
-                            { t: "Límites unilaterales", c: "Julio Profe" },
-                            { t: "Límites laterales", c: "Unicoos" }
-                        ],
-                        books: [
-                            { a: "OpenStax", t: "Cálculo Vol. 1", c: "Sec. 2.2 Límites unilaterales", p: "pp. 196-205" },
-                            { a: "LibreTexts", t: "Cálculo", c: "Cap. 2: Límites Laterales", p: "pp. 30-45" },
-                            { a: "OpenStax", t: "Precálculo 2ed", c: "Sec. 12.2 Laterales", p: "pp. 816-825" },
-                            { a: "OpenStax", t: "Cálculo Vol. 1", c: "Sec. 2.3 Existencia", p: "pp. 210-215" }
-                        ],
-                        practice: [
-                            { s: "OpenStax Cálculo Vol 1 Sec. 2.2, Ej. 51-65", l: "Intermedio" },
-                            { s: "Video: Comprobación de existencia (Julio Profe)", l: "Intermedio" },
-                            { s: "Libro: Límites en saltos (OpenStax)", l: "Intermedio" },
-                            { s: "Video: Tablas laterales (Khan Academy)", l: "Básico" }
-                        ]
-                    },
-                    {
-                        title: "4.3 Interpretación Geométrica",
-                        objective: "Analizar gráficamente límites, discontinuidades evitables y de salto.",
-                        videos: [
-                            { t: "Interpretación gráfica de límites", c: "Julio Profe" },
-                            { t: "Límites sobre la gráfica de una función", c: "Unicoos" },
-                            { t: "Discontinuidades", c: "Khan Academy en Español" },
-                            { t: "Tipos de discontinuidades", c: "Profe Alex" }
-                        ],
-                        books: [
-                            { a: "OpenStax", t: "Cálculo Vol. 1", c: "Sec. 2.4 Continuidad", p: "pp. 220-235" },
-                            { a: "OpenStax", t: "Cálculo Vol. 1", c: "Sec. 2.2 Interpretación", p: "pp. 200-210" },
-                            { a: "LibreTexts", t: "Cálculo", c: "Cap. 2: Continuidad", p: "pp. 50-65" },
-                            { a: "OpenStax", t: "Precálculo 2ed", c: "Sec. 12.3 Continuidad", p: "pp. 830-845" }
-                        ],
-                        practice: [
-                            { s: "OpenStax Cálculo Vol 1 Sec. 2.4, Ej. 130-150", l: "Intermedio" },
-                            { s: "Video: Identificación de asíntotas en gráfica (Unicoos)", l: "Intermedio" },
-                            { s: "Libro: Clasificación de discontinuidades (OpenStax)", l: "Avanzado" },
-                            { s: "Video: Huecos en la gráfica (Profe Alex)", l: "Básico" }
-                        ]
-                    },
-                    {
-                        title: "4.4 Límites Infinitos y Asíntotas",
-                        objective: "Calcular límites al infinito y límites infinitos para identificar asíntotas.",
-                        videos: [
-                            { t: "Límites al infinito e infinitos", c: "Profe Alex" },
-                            { t: "Límites indeterminados 0/0 e ∞/∞", c: "Julio Profe" },
-                            { t: "Límites al infinito", c: "Khan Academy en Español" },
-                            { t: "Asíntotas y límites infinitos", c: "Unicoos" }
-                        ],
-                        books: [
-                            { a: "OpenStax", t: "Cálculo Vol. 1", c: "Sec. 2.2 Límites infinitos", p: "pp. 206-215" },
-                            { a: "OpenStax", t: "Cálculo Vol. 1", c: "Sec. 2.3 Leyes de los límites", p: "pp. 216-225" },
-                            { a: "LibreTexts", t: "Cálculo", c: "Cap. 2: Límites al Infinito", p: "pp. 70-85" },
-                            { a: "OpenStax", t: "Precálculo 2ed", c: "Sec. 12.4 Infinitos", p: "pp. 850-865" }
-                        ],
-                        practice: [
-                            { s: "OpenStax Cálculo Vol 1 Sec. 2.3, Ej. 85-115", l: "Avanzado" },
-                            { s: "Video: Comportamiento asintótico (Profe Alex)", l: "Avanzado" },
-                            { s: "Libro: Cálculo de asíntotas oblicuas (OpenStax)", l: "Avanzado" },
-                            { s: "Video: Límites de polinomios (Julio Profe)", l: "Intermedio" }
-                        ]
-                    }
-                ]
-            }
-        ];
+  {
+    "title": "Funciones, Polinomiales y Racionales",
+    "weeks": "Semanas 1 - 4",
+    "hours": 32,
+    "subtopics": [
+      {
+        "title": "1.1 Dominio y Rango",
+        "objective": "Determinar analítica y gráficamente conjuntos de entrada y salida.",
+        "videos": [
+          {
+            "t": "Dominio y rango de una función",
+            "c": "Profe Alex"
+          },
+          {
+            "t": "Dominio de funciones analíticas",
+            "c": "Julio Profe"
+          },
+          {
+            "t": "Dominio y rango de una función",
+            "c": "Khan Academy en Español"
+          },
+          {
+            "t": "Dominio y rango (funciones racionales y radicales)",
+            "c": "Unicoos"
+          }
+        ],
+        "books": [
+          {
+            "a": "OpenStax",
+            "t": "Precálculo 2ed",
+            "c": "Sec. 1.2 Dominio y Rango",
+            "p": "pp. 60-75"
+          },
+          {
+            "a": "OpenStax",
+            "t": "Álgebra y Trigonometría",
+            "c": "Sec. 3.2 Dominio y Rango",
+            "p": "pp. 315-328"
+          },
+          {
+            "a": "LibreTexts",
+            "t": "Matemáticas Precálculo",
+            "c": "Cap. 1: Funciones",
+            "p": "pp. 12-28"
+          },
+          {
+            "a": "OpenStax",
+            "t": "Precálculo 2ed",
+            "c": "Sec. 1.1 Funciones y Notación",
+            "p": "pp. 45-59"
+          }
+        ],
+        "practice": [
+          {
+            "s": "OpenStax Precálculo Sec. 1.2, Ej. 6-26",
+            "l": "Básico"
+          },
+          {
+            "s": "OpenStax Precálculo Sec. 1.2, Ej. 38-47",
+            "l": "Intermedio"
+          },
+          {
+            "s": "Video: Ejercicios resueltos de dominio (Profe Alex)",
+            "l": "Básico"
+          },
+          {
+            "s": "Video: Problemas de dominio analítico (Julio Profe)",
+            "l": "Intermedio"
+          }
+        ]
+      },
+      {
+        "title": "1.2 Gráfica de Funciones",
+        "objective": "Trazar y reconocer gráficas a partir de transformaciones.",
+        "videos": [
+          {
+            "t": "Reconocer gráficas de funciones",
+            "c": "Khan Academy en Español"
+          },
+          {
+            "t": "Trazado de gráficas y transformaciones",
+            "c": "Unicoos"
+          },
+          {
+            "t": "Transformaciones de funciones",
+            "c": "Profe Alex"
+          },
+          {
+            "t": "Gráficas de funciones elementales",
+            "c": "Julio Profe"
+          }
+        ],
+        "books": [
+          {
+            "a": "OpenStax",
+            "t": "Precálculo 2ed",
+            "c": "Sec. 1.5 Transformaciones",
+            "p": "pp. 89-105"
+          },
+          {
+            "a": "OpenStax",
+            "t": "Álgebra y Trigonometría",
+            "c": "Sec. 1.5 Transformaciones",
+            "p": "pp. 380-395"
+          },
+          {
+            "a": "LibreTexts",
+            "t": "Libro de Precálculo",
+            "c": "Cap. 1: Transformaciones",
+            "p": "pp. 45-60"
+          },
+          {
+            "a": "OpenStax",
+            "t": "Precálculo 2ed",
+            "c": "Sec. 1.3 Puntos de corte",
+            "p": "pp. 76-88"
+          }
+        ],
+        "practice": [
+          {
+            "s": "OpenStax Precálculo Sec. 1.5, Ej. 10-35",
+            "l": "Intermedio"
+          },
+          {
+            "s": "OpenStax Precálculo Sec. 1.3, Ej. 5-20",
+            "l": "Básico"
+          },
+          {
+            "s": "Video: Ejercicios de transformaciones (Unicoos)",
+            "l": "Intermedio"
+          },
+          {
+            "s": "Libro: Prácticas de graficado Cap 1 (LibreTexts)",
+            "l": "Básico"
+          }
+        ]
+      },
+      {
+        "title": "1.3 Tipos de Funciones",
+        "objective": "Clasificar funciones por sus propiedades algebraicas e inyectividad.",
+        "videos": [
+          {
+            "t": "Clasificación de funciones",
+            "c": "Profe Alex"
+          },
+          {
+            "t": "Funciones inyectivas y sobreyectivas",
+            "c": "Julio Profe"
+          },
+          {
+            "t": "Tipos de funciones y sus gráficas",
+            "c": "Unicoos"
+          },
+          {
+            "t": "Relaciones y funciones",
+            "c": "Khan Academy en Español"
+          }
+        ],
+        "books": [
+          {
+            "a": "OpenStax",
+            "t": "Precálculo 2ed",
+            "c": "Sec. 1.1 Funciones y su notación",
+            "p": "pp. 45-59"
+          },
+          {
+            "a": "OpenStax",
+            "t": "Álgebra y Trigonometría",
+            "c": "Sec. 1.1",
+            "p": "pp. 340-355"
+          },
+          {
+            "a": "LibreTexts",
+            "t": "Precálculo",
+            "c": "Cap. 1: Definición de Función",
+            "p": "pp. 5-15"
+          },
+          {
+            "a": "OpenStax",
+            "t": "College Algebra",
+            "c": "Sec. 4.1",
+            "p": "pp. 390-405"
+          }
+        ],
+        "practice": [
+          {
+            "s": "OpenStax Precálculo Sec. 1.1, Ej. 15-40",
+            "l": "Básico"
+          },
+          {
+            "s": "Video: Identificación de tipos de funciones (Profe Alex)",
+            "l": "Básico"
+          },
+          {
+            "s": "Video: Evaluación de funciones (Khan Academy)",
+            "l": "Básico"
+          },
+          {
+            "s": "Libro: Ejercicios de clasificación (LibreTexts)",
+            "l": "Intermedio"
+          }
+        ]
+      },
+      {
+        "title": "1.4 Funciones a Trozos",
+        "objective": "Evaluar y graficar funciones definidas por tramos.",
+        "videos": [
+          {
+            "t": "Gráfico de una función a trozos",
+            "c": "Profe Alex"
+          },
+          {
+            "t": "Funciones a trozos",
+            "c": "Khan Academy en Español"
+          },
+          {
+            "t": "Evaluar funciones definidas por partes",
+            "c": "Julio Profe"
+          },
+          {
+            "t": "Funciones a trozos y valor absoluto",
+            "c": "Unicoos"
+          }
+        ],
+        "books": [
+          {
+            "a": "OpenStax",
+            "t": "Precálculo 2ed",
+            "c": "Sec. 1.2 Funciones definidas por partes",
+            "p": "pp. 68-75"
+          },
+          {
+            "a": "OpenStax",
+            "t": "College Algebra",
+            "c": "Sec. 3.2",
+            "p": "pp. 300-315"
+          },
+          {
+            "a": "LibreTexts",
+            "t": "Precálculo",
+            "c": "Cap. 1: Funciones a trozos",
+            "p": "pp. 70-80"
+          },
+          {
+            "a": "OpenStax",
+            "t": "Álgebra y Trigonometría",
+            "c": "Sec. 3.2",
+            "p": "pp. 330-340"
+          }
+        ],
+        "practice": [
+          {
+            "s": "OpenStax Precálculo Sec. 1.2, Ej. 38-47",
+            "l": "Intermedio"
+          },
+          {
+            "s": "Video: Gráficas complejas a trozos (Profe Alex)",
+            "l": "Intermedio"
+          },
+          {
+            "s": "Libro: Ejercicios Cap 3 OpenStax College Algebra",
+            "l": "Básico"
+          },
+          {
+            "s": "Video: Evaluación algebraica (Julio Profe)",
+            "l": "Intermedio"
+          }
+        ]
+      },
+      {
+        "title": "1.5 Álgebra y Composición de Funciones",
+        "objective": "Operar y componer funciones hallando el dominio resultante.",
+        "videos": [
+          {
+            "t": "Función compuesta e introducción",
+            "c": "Profe Alex"
+          },
+          {
+            "t": "Composición de funciones",
+            "c": "Julio Profe"
+          },
+          {
+            "t": "Composición de funciones",
+            "c": "Khan Academy en Español"
+          },
+          {
+            "t": "Operaciones con funciones",
+            "c": "Unicoos"
+          }
+        ],
+        "books": [
+          {
+            "a": "OpenStax",
+            "t": "Precálculo 2ed",
+            "c": "Sec. 1.4 Composición de funciones",
+            "p": "pp. 81-88"
+          },
+          {
+            "a": "OpenStax",
+            "t": "College Algebra",
+            "c": "Sec. 3.4 Composición",
+            "p": "pp. 330-345"
+          },
+          {
+            "a": "LibreTexts",
+            "t": "Precálculo",
+            "c": "Cap. 1: Composición",
+            "p": "pp. 90-102"
+          },
+          {
+            "a": "OpenStax",
+            "t": "Álgebra y Trigonometría",
+            "c": "Sec. 3.4",
+            "p": "pp. 360-375"
+          }
+        ],
+        "practice": [
+          {
+            "s": "OpenStax Precálculo Sec. 1.4, Ej. 8-28",
+            "l": "Intermedio"
+          },
+          {
+            "s": "Video: Ejercicios de composición (Unicoos)",
+            "l": "Intermedio"
+          },
+          {
+            "s": "Libro: Problemas de dominio en composición (LibreTexts)",
+            "l": "Avanzado"
+          },
+          {
+            "s": "Video: Composición de funciones racionales (Julio Profe)",
+            "l": "Avanzado"
+          }
+        ]
+      },
+      {
+        "title": "1.6 Funciones Inversas",
+        "objective": "Verificar si f es biunívoca y calcular la función inversa.",
+        "videos": [
+          {
+            "t": "Introducción a funciones inversas",
+            "c": "Khan Academy en Español"
+          },
+          {
+            "t": "Cálculo analítico de la inversa",
+            "c": "Unicoos"
+          },
+          {
+            "t": "Funciones inversas",
+            "c": "Profe Alex"
+          },
+          {
+            "t": "Cómo hallar la función inversa",
+            "c": "Julio Profe"
+          }
+        ],
+        "books": [
+          {
+            "a": "OpenStax",
+            "t": "Precálculo 2ed",
+            "c": "Sec. 1.7 Funciones inversas",
+            "p": "pp. 106-115"
+          },
+          {
+            "a": "OpenStax",
+            "t": "Álgebra y Trigonometría",
+            "c": "Sec. 3.7 Inversas",
+            "p": "pp. 390-405"
+          },
+          {
+            "a": "LibreTexts",
+            "t": "Precálculo",
+            "c": "Cap. 1: Funciones Inversas",
+            "p": "pp. 110-125"
+          },
+          {
+            "a": "OpenStax",
+            "t": "College Algebra",
+            "c": "Sec. 3.7",
+            "p": "pp. 360-375"
+          }
+        ],
+        "practice": [
+          {
+            "s": "OpenStax Precálculo Sec. 1.7, Ej. 12-30",
+            "l": "Intermedio"
+          },
+          {
+            "s": "Video: Ejercicios de inversas (Profe Alex)",
+            "l": "Intermedio"
+          },
+          {
+            "s": "Libro: Restricción de dominio para inversas (LibreTexts)",
+            "l": "Avanzado"
+          },
+          {
+            "s": "Video: Verificación gráfica (Unicoos)",
+            "l": "Intermedio"
+          }
+        ]
+      },
+      {
+        "title": "1.7 Funciones Polinomiales",
+        "objective": "Identificar grado, coeficientes y comportamiento final.",
+        "videos": [
+          {
+            "t": "Funciones polinomiales y grado",
+            "c": "Profe Alex"
+          },
+          {
+            "t": "Introducción a los polinomios",
+            "c": "Julio Profe"
+          },
+          {
+            "t": "Grado y comportamiento final",
+            "c": "Khan Academy en Español"
+          },
+          {
+            "t": "Funciones polinomiales",
+            "c": "Unicoos"
+          }
+        ],
+        "books": [
+          {
+            "a": "OpenStax",
+            "t": "Precálculo 2ed",
+            "c": "Sec. 3.2 Polinomios",
+            "p": "pp. 180-195"
+          },
+          {
+            "a": "OpenStax",
+            "t": "Álgebra y Trigonometría",
+            "c": "Sec. 5.2",
+            "p": "pp. 450-465"
+          },
+          {
+            "a": "LibreTexts",
+            "t": "Precálculo",
+            "c": "Cap. 3: Polinomios",
+            "p": "pp. 140-155"
+          },
+          {
+            "a": "OpenStax",
+            "t": "Precálculo 2ed",
+            "c": "Sec. 3.1 Cuadráticas",
+            "p": "pp. 170-179"
+          }
+        ],
+        "practice": [
+          {
+            "s": "OpenStax Precálculo Sec. 3.2, Ej. 6-22",
+            "l": "Básico"
+          },
+          {
+            "s": "Video: Comportamiento final (Khan Academy)",
+            "l": "Intermedio"
+          },
+          {
+            "s": "Libro: Ejercicios de identificación (LibreTexts)",
+            "l": "Básico"
+          },
+          {
+            "s": "Video: Grado y coeficiente principal (Julio Profe)",
+            "l": "Básico"
+          }
+        ]
+      },
+      {
+        "title": "1.8 Gráfica de Polinomios",
+        "objective": "Trazar curvas polinomiales usando ceros, multiplicidad e inflexión.",
+        "videos": [
+          {
+            "t": "Gráficas y multiplicidad de ceros",
+            "c": "Khan Academy en Español"
+          },
+          {
+            "t": "Representación de polinomios",
+            "c": "Unicoos"
+          },
+          {
+            "t": "Trazado de funciones polinomiales",
+            "c": "Profe Alex"
+          },
+          {
+            "t": "Gráfica de polinomios de grado n",
+            "c": "Julio Profe"
+          }
+        ],
+        "books": [
+          {
+            "a": "OpenStax",
+            "t": "Precálculo 2ed",
+            "c": "Sec. 3.3 Gráficas de polinomios",
+            "p": "pp. 196-210"
+          },
+          {
+            "a": "OpenStax",
+            "t": "Álgebra y Trigonometría",
+            "c": "Sec. 5.3",
+            "p": "pp. 470-485"
+          },
+          {
+            "a": "LibreTexts",
+            "t": "Precálculo",
+            "c": "Cap. 3: Gráficas",
+            "p": "pp. 160-175"
+          },
+          {
+            "a": "OpenStax",
+            "t": "College Algebra",
+            "c": "Sec. 5.3",
+            "p": "pp. 410-425"
+          }
+        ],
+        "practice": [
+          {
+            "s": "OpenStax Precálculo Sec. 3.3, Ej. 15-35",
+            "l": "Intermedio"
+          },
+          {
+            "s": "Video: Ejercicios de trazado (Unicoos)",
+            "l": "Intermedio"
+          },
+          {
+            "s": "Libro: Análisis de multiplicidad (OpenStax)",
+            "l": "Intermedio"
+          },
+          {
+            "s": "Video: Puntos de inflexión (Profe Alex)",
+            "l": "Avanzado"
+          }
+        ]
+      },
+      {
+        "title": "1.9 Ceros de Polinomios",
+        "objective": "Aplicar división sintética, Teorema del Residuo y de Ceros Racionales.",
+        "videos": [
+          {
+            "t": "División sintética y ceros de un polinomio",
+            "c": "Julio Profe"
+          },
+          {
+            "t": "Teorema del residuo",
+            "c": "Profe Alex"
+          },
+          {
+            "t": "Teorema de ceros racionales",
+            "c": "Khan Academy en Español"
+          },
+          {
+            "t": "Factorización de polinomios de alto grado",
+            "c": "Unicoos"
+          }
+        ],
+        "books": [
+          {
+            "a": "OpenStax",
+            "t": "Precálculo 2ed",
+            "c": "Sec. 3.4 Factorización",
+            "p": "pp. 211-225"
+          },
+          {
+            "a": "OpenStax",
+            "t": "Álgebra y Trigonometría",
+            "c": "Sec. 5.4 Ceros",
+            "p": "pp. 490-505"
+          },
+          {
+            "a": "OpenStax",
+            "t": "Precálculo 2ed",
+            "c": "Sec. 3.5 Ceros complejos",
+            "p": "pp. 226-235"
+          },
+          {
+            "a": "LibreTexts",
+            "t": "Precálculo",
+            "c": "Cap. 3: Ceros",
+            "p": "pp. 180-195"
+          }
+        ],
+        "practice": [
+          {
+            "s": "OpenStax Precálculo Sec. 3.4, Ej. 10-40",
+            "l": "Avanzado"
+          },
+          {
+            "s": "Video: División sintética avanzada (Julio Profe)",
+            "l": "Intermedio"
+          },
+          {
+            "s": "Libro: Aplicación del teorema fundamental (OpenStax)",
+            "l": "Avanzado"
+          },
+          {
+            "s": "Video: Teorema del factor (Profe Alex)",
+            "l": "Intermedio"
+          }
+        ]
+      },
+      {
+        "title": "1.10 Funciones Racionales",
+        "objective": "Modelar cocientes de polinomios identificando su dominio restringido.",
+        "videos": [
+          {
+            "t": "Dominio y rango de función racional",
+            "c": "Profe Alex"
+          },
+          {
+            "t": "Análisis de funciones racionales",
+            "c": "Unicoos"
+          },
+          {
+            "t": "Introducción a funciones racionales",
+            "c": "Khan Academy en Español"
+          },
+          {
+            "t": "Gráficas de funciones racionales",
+            "c": "Julio Profe"
+          }
+        ],
+        "books": [
+          {
+            "a": "OpenStax",
+            "t": "Precálculo 2ed",
+            "c": "Sec. 3.7 Funciones racionales",
+            "p": "pp. 240-255"
+          },
+          {
+            "a": "OpenStax",
+            "t": "Álgebra y Trigonometría",
+            "c": "Sec. 5.6 Racionales",
+            "p": "pp. 520-535"
+          },
+          {
+            "a": "LibreTexts",
+            "t": "Precálculo",
+            "c": "Cap. 3: Racionales",
+            "p": "pp. 200-215"
+          },
+          {
+            "a": "OpenStax",
+            "t": "College Algebra",
+            "c": "Sec. 5.6",
+            "p": "pp. 440-455"
+          }
+        ],
+        "practice": [
+          {
+            "s": "OpenStax Precálculo Sec. 3.7, Ej. 8-24",
+            "l": "Básico"
+          },
+          {
+            "s": "Video: Simplificación y dominio (Unicoos)",
+            "l": "Básico"
+          },
+          {
+            "s": "Libro: Gráficas de racionales básicas (OpenStax)",
+            "l": "Intermedio"
+          },
+          {
+            "s": "Video: Evaluación de racionales (Profe Alex)",
+            "l": "Básico"
+          }
+        ]
+      },
+      {
+        "title": "1.11 Asíntotas Racionales",
+        "objective": "Determinar analíticamente asíntotas verticales, horizontales y oblicuas.",
+        "videos": [
+          {
+            "t": "Asíntotas verticales, horizontales y oblicuas",
+            "c": "Profe Alex"
+          },
+          {
+            "t": "Asíntotas oblicuas",
+            "c": "Julio Profe"
+          },
+          {
+            "t": "Asíntotas de funciones racionales",
+            "c": "Khan Academy en Español"
+          },
+          {
+            "t": "Cálculo de asíntotas",
+            "c": "Unicoos"
+          }
+        ],
+        "books": [
+          {
+            "a": "OpenStax",
+            "t": "Precálculo 2ed",
+            "c": "Sec. 3.7 Asíntotas",
+            "p": "pp. 256-265"
+          },
+          {
+            "a": "OpenStax",
+            "t": "Álgebra y Trigonometría",
+            "c": "Sec. 5.6 Asíntotas",
+            "p": "pp. 536-545"
+          },
+          {
+            "a": "LibreTexts",
+            "t": "Precálculo",
+            "c": "Cap. 3: Asíntotas",
+            "p": "pp. 220-230"
+          },
+          {
+            "a": "OpenStax",
+            "t": "College Algebra",
+            "c": "Sec. 5.6",
+            "p": "pp. 460-470"
+          }
+        ],
+        "practice": [
+          {
+            "s": "OpenStax Precálculo Sec. 3.7, Ej. 25-50",
+            "l": "Avanzado"
+          },
+          {
+            "s": "Video: Ejercicios de asíntotas oblicuas (Julio Profe)",
+            "l": "Avanzado"
+          },
+          {
+            "s": "Libro: Regla de la división para asíntotas (LibreTexts)",
+            "l": "Intermedio"
+          },
+          {
+            "s": "Video: Trazado con asíntotas (Profe Alex)",
+            "l": "Intermedio"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Funciones Trascendentes y Trigonometría",
+    "weeks": "Semanas 5 - 8",
+    "hours": 32,
+    "subtopics": [
+      {
+        "title": "2.1 Funciones Exponenciales",
+        "objective": "Evaluar, graficar e identificar crecimiento y decaimiento exponencial.",
+        "videos": [
+          {
+            "t": "Función Exponencial y características",
+            "c": "Profe Alex"
+          },
+          {
+            "t": "Gráficas exponenciales",
+            "c": "Julio Profe"
+          },
+          {
+            "t": "Funciones exponenciales",
+            "c": "Khan Academy en Español"
+          },
+          {
+            "t": "Crecimiento y decaimiento",
+            "c": "Unicoos"
+          }
+        ],
+        "books": [
+          {
+            "a": "OpenStax",
+            "t": "Precálculo 2ed",
+            "c": "Sec. 4.1 Funciones exponenciales",
+            "p": "pp. 270-285"
+          },
+          {
+            "a": "OpenStax",
+            "t": "Álgebra y Trigonometría",
+            "c": "Sec. 6.1",
+            "p": "pp. 550-565"
+          },
+          {
+            "a": "LibreTexts",
+            "t": "Precálculo",
+            "c": "Cap. 4: Exponenciales",
+            "p": "pp. 10-25"
+          },
+          {
+            "a": "OpenStax",
+            "t": "Precálculo 2ed",
+            "c": "Sec. 4.2 Gráficos",
+            "p": "pp. 286-295"
+          }
+        ],
+        "practice": [
+          {
+            "s": "OpenStax Precálculo Sec. 4.1, Ej. 8-26",
+            "l": "Básico"
+          },
+          {
+            "s": "OpenStax Precálculo Sec. 4.2, Ej. 6-20",
+            "l": "Básico"
+          },
+          {
+            "s": "Video: Ejercicios de gráficas exponenciales (Julio Profe)",
+            "l": "Intermedio"
+          },
+          {
+            "s": "Libro: Evaluación algebraica (LibreTexts)",
+            "l": "Básico"
+          }
+        ]
+      },
+      {
+        "title": "2.2 Funciones Logarítmicas",
+        "objective": "Convertir entre la forma exponencial y la forma logarítmica.",
+        "videos": [
+          {
+            "t": "Logaritmos e introducción",
+            "c": "Profe Alex"
+          },
+          {
+            "t": "Concepto de logaritmo",
+            "c": "Khan Academy en Español"
+          },
+          {
+            "t": "Funciones logarítmicas",
+            "c": "Julio Profe"
+          },
+          {
+            "t": "Gráficas logarítmicas",
+            "c": "Unicoos"
+          }
+        ],
+        "books": [
+          {
+            "a": "OpenStax",
+            "t": "Precálculo 2ed",
+            "c": "Sec. 4.3 Funciones logarítmicas",
+            "p": "pp. 296-310"
+          },
+          {
+            "a": "OpenStax",
+            "t": "Álgebra y Trigonometría",
+            "c": "Sec. 6.3 Logaritmos",
+            "p": "pp. 580-595"
+          },
+          {
+            "a": "LibreTexts",
+            "t": "Precálculo",
+            "c": "Cap. 4: Logaritmos",
+            "p": "pp. 30-45"
+          },
+          {
+            "a": "OpenStax",
+            "t": "Precálculo 2ed",
+            "c": "Sec. 4.4 Gráficos",
+            "p": "pp. 311-320"
+          }
+        ],
+        "practice": [
+          {
+            "s": "OpenStax Precálculo Sec. 4.3, Ej. 10-35",
+            "l": "Básico"
+          },
+          {
+            "s": "Video: Conversión exponencial-logarítmica (Profe Alex)",
+            "l": "Básico"
+          },
+          {
+            "s": "Libro: Gráficas de logaritmos (OpenStax)",
+            "l": "Intermedio"
+          },
+          {
+            "s": "Video: Dominio logarítmico (Unicoos)",
+            "l": "Intermedio"
+          }
+        ]
+      },
+      {
+        "title": "2.3 Leyes de Exponentes y Logaritmos",
+        "objective": "Aplicar propiedades de expansión y condensación logarítmica.",
+        "videos": [
+          {
+            "t": "Propiedades de los logaritmos",
+            "c": "Profe Alex"
+          },
+          {
+            "t": "Leyes de logaritmos y exponentes",
+            "c": "Unicoos"
+          },
+          {
+            "t": "Propiedades de los logaritmos",
+            "c": "Khan Academy en Español"
+          },
+          {
+            "t": "Expansión y condensación logarítmica",
+            "c": "Julio Profe"
+          }
+        ],
+        "books": [
+          {
+            "a": "OpenStax",
+            "t": "Precálculo 2ed",
+            "c": "Sec. 4.5 Propiedades",
+            "p": "pp. 321-335"
+          },
+          {
+            "a": "OpenStax",
+            "t": "Álgebra y Trigonometría",
+            "c": "Sec. 6.5 Propiedades",
+            "p": "pp. 610-625"
+          },
+          {
+            "a": "LibreTexts",
+            "t": "Precálculo",
+            "c": "Cap. 4: Leyes Logarítmicas",
+            "p": "pp. 50-65"
+          },
+          {
+            "a": "OpenStax",
+            "t": "College Algebra",
+            "c": "Sec. 6.5",
+            "p": "pp. 500-515"
+          }
+        ],
+        "practice": [
+          {
+            "s": "OpenStax Precálculo Sec. 4.5, Ej. 8-42",
+            "l": "Intermedio"
+          },
+          {
+            "s": "Video: Ejercicios de expansión (Julio Profe)",
+            "l": "Intermedio"
+          },
+          {
+            "s": "Libro: Condensación de expresiones (OpenStax)",
+            "l": "Intermedio"
+          },
+          {
+            "s": "Video: Cambio de base (Profe Alex)",
+            "l": "Básico"
+          }
+        ]
+      },
+      {
+        "title": "2.4 Ecuaciones Exponenciales y Logarítmicas",
+        "objective": "Resolver ecuaciones algebraicas con incógnitas en exponentes o argumentos.",
+        "videos": [
+          {
+            "t": "Ecuaciones exponenciales y logarítmicas",
+            "c": "Julio Profe"
+          },
+          {
+            "t": "Ecuaciones logarítmicas",
+            "c": "Khan Academy en Español"
+          },
+          {
+            "t": "Resolución de ecuaciones exponenciales",
+            "c": "Profe Alex"
+          },
+          {
+            "t": "Ecuaciones con logaritmos",
+            "c": "Unicoos"
+          }
+        ],
+        "books": [
+          {
+            "a": "OpenStax",
+            "t": "Precálculo 2ed",
+            "c": "Sec. 4.6 Ecuaciones",
+            "p": "pp. 336-350"
+          },
+          {
+            "a": "OpenStax",
+            "t": "Álgebra y Trigonometría",
+            "c": "Sec. 6.6 Ecuaciones",
+            "p": "pp. 630-645"
+          },
+          {
+            "a": "LibreTexts",
+            "t": "Precálculo",
+            "c": "Cap. 4: Ecuaciones",
+            "p": "pp. 70-85"
+          },
+          {
+            "a": "OpenStax",
+            "t": "College Algebra",
+            "c": "Sec. 6.6",
+            "p": "pp. 520-535"
+          }
+        ],
+        "practice": [
+          {
+            "s": "OpenStax Precálculo Sec. 4.6, Ej. 10-48",
+            "l": "Intermedio"
+          },
+          {
+            "s": "Video: Ecuaciones de cambio de base (Profe Alex)",
+            "l": "Intermedio"
+          },
+          {
+            "s": "Libro: Solución de ecuaciones logarítmicas (OpenStax)",
+            "l": "Avanzado"
+          },
+          {
+            "s": "Video: Ecuaciones exponenciales con base e (Unicoos)",
+            "l": "Avanzado"
+          }
+        ]
+      },
+      {
+        "title": "2.5 Modelado Exponencial y Logarítmico",
+        "objective": "Resolver problemas de interés compuesto, población y vida media.",
+        "videos": [
+          {
+            "t": "Aplicaciones del crecimiento poblacional",
+            "c": "Profe Alex"
+          },
+          {
+            "t": "Problemas de desintegración radiactiva",
+            "c": "Unicoos"
+          },
+          {
+            "t": "Modelos exponenciales",
+            "c": "Khan Academy en Español"
+          },
+          {
+            "t": "Interés compuesto continuo",
+            "c": "Julio Profe"
+          }
+        ],
+        "books": [
+          {
+            "a": "OpenStax",
+            "t": "Precálculo 2ed",
+            "c": "Sec. 4.7 Modelos",
+            "p": "pp. 351-365"
+          },
+          {
+            "a": "OpenStax",
+            "t": "Álgebra y Trigonometría",
+            "c": "Sec. 6.7 Modelos",
+            "p": "pp. 650-665"
+          },
+          {
+            "a": "LibreTexts",
+            "t": "Precálculo",
+            "c": "Cap. 4: Aplicaciones",
+            "p": "pp. 90-105"
+          },
+          {
+            "a": "OpenStax",
+            "t": "College Algebra",
+            "c": "Sec. 6.7",
+            "p": "pp. 540-555"
+          }
+        ],
+        "practice": [
+          {
+            "s": "OpenStax Precálculo Sec. 4.7, Ej. 6-30",
+            "l": "Avanzado"
+          },
+          {
+            "s": "Video: Ejercicios de interés compuesto (Julio Profe)",
+            "l": "Intermedio"
+          },
+          {
+            "s": "Libro: Modelos de decaimiento (OpenStax)",
+            "l": "Avanzado"
+          },
+          {
+            "s": "Video: Problemas de vida media (Profe Alex)",
+            "l": "Intermedio"
+          }
+        ]
+      },
+      {
+        "title": "2.6 Círculo Unitario y Trigonometría",
+        "objective": "Definir seno, coseno y tangente en el círculo unitario para ángulos reales.",
+        "videos": [
+          {
+            "t": "Círculo unitario y razones trigonométricas",
+            "c": "Profe Alex"
+          },
+          {
+            "t": "El círculo unitario",
+            "c": "Khan Academy en Español"
+          },
+          {
+            "t": "Trigonometría: Círculo Unitario",
+            "c": "Julio Profe"
+          },
+          {
+            "t": "Razones trigonométricas",
+            "c": "Unicoos"
+          }
+        ],
+        "books": [
+          {
+            "a": "OpenStax",
+            "t": "Precálculo 2ed",
+            "c": "Sec. 5.2 Círculo unitario",
+            "p": "pp. 370-385"
+          },
+          {
+            "a": "OpenStax",
+            "t": "Álgebra y Trigonometría",
+            "c": "Sec. 7.2",
+            "p": "pp. 670-685"
+          },
+          {
+            "a": "LibreTexts",
+            "t": "Precálculo",
+            "c": "Cap. 5: Círculo Unitario",
+            "p": "pp. 10-25"
+          },
+          {
+            "a": "OpenStax",
+            "t": "Precálculo 2ed",
+            "c": "Sec. 5.1 Ángulos",
+            "p": "pp. 360-369"
+          }
+        ],
+        "practice": [
+          {
+            "s": "OpenStax Precálculo Sec. 5.2, Ej. 8-32",
+            "l": "Básico"
+          },
+          {
+            "s": "Video: Memoria del círculo unitario (Profe Alex)",
+            "l": "Básico"
+          },
+          {
+            "s": "Libro: Evaluación de ángulos notables (LibreTexts)",
+            "l": "Intermedio"
+          },
+          {
+            "s": "Video: Ángulos cuadrantales (Julio Profe)",
+            "l": "Básico"
+          }
+        ]
+      },
+      {
+        "title": "2.7 Trigonometría del Triángulo Rectángulo",
+        "objective": "Aplicar razones trigonométricas a la resolución de triángulos rectángulos.",
+        "videos": [
+          {
+            "t": "Razones trigonométricas en triángulos rectángulos",
+            "c": "Julio Profe"
+          },
+          {
+            "t": "Resolución de triángulos",
+            "c": "Unicoos"
+          },
+          {
+            "t": "Triángulos rectángulos",
+            "c": "Khan Academy en Español"
+          },
+          {
+            "t": "Razones trigonométricas",
+            "c": "Profe Alex"
+          }
+        ],
+        "books": [
+          {
+            "a": "OpenStax",
+            "t": "Precálculo 2ed",
+            "c": "Sec. 5.4 Triángulo rectángulo",
+            "p": "pp. 400-415"
+          },
+          {
+            "a": "OpenStax",
+            "t": "Álgebra y Trigonometría",
+            "c": "Sec. 7.4",
+            "p": "pp. 710-725"
+          },
+          {
+            "a": "LibreTexts",
+            "t": "Precálculo",
+            "c": "Cap. 5: Triángulos",
+            "p": "pp. 40-55"
+          },
+          {
+            "a": "OpenStax",
+            "t": "College Algebra",
+            "c": "Sec. 7.4",
+            "p": "pp. 580-595"
+          }
+        ],
+        "practice": [
+          {
+            "s": "OpenStax Precálculo Sec. 5.4, Ej. 10-36",
+            "l": "Básico"
+          },
+          {
+            "s": "Video: Resolución de catetos (Unicoos)",
+            "l": "Básico"
+          },
+          {
+            "s": "Libro: Teorema de Pitágoras trigonométrico (OpenStax)",
+            "l": "Intermedio"
+          },
+          {
+            "s": "Video: Ángulos de elevación (Profe Alex)",
+            "l": "Intermedio"
+          }
+        ]
+      },
+      {
+        "title": "2.8 Trigonometría Analítica y Leyes",
+        "objective": "Resolver triángulos no rectángulos usando Ley de Senos y Cosenos.",
+        "videos": [
+          {
+            "t": "Ley de senos y cosenos",
+            "c": "Khan Academy en Español"
+          },
+          {
+            "t": "Aplicaciones trigonométricas",
+            "c": "Profe Alex"
+          },
+          {
+            "t": "Ley de los cosenos",
+            "c": "Julio Profe"
+          },
+          {
+            "t": "Resolución de triángulos oblicuángulos",
+            "c": "Unicoos"
+          }
+        ],
+        "books": [
+          {
+            "a": "OpenStax",
+            "t": "Precálculo 2ed",
+            "c": "Sec. 6.1 Ley de Senos",
+            "p": "pp. 420-435"
+          },
+          {
+            "a": "OpenStax",
+            "t": "Álgebra y Trigonometría",
+            "c": "Sec. 8.1 Ley de Senos",
+            "p": "pp. 730-745"
+          },
+          {
+            "a": "OpenStax",
+            "t": "Precálculo 2ed",
+            "c": "Sec. 6.2 Ley de Cosenos",
+            "p": "pp. 436-445"
+          },
+          {
+            "a": "LibreTexts",
+            "t": "Precálculo",
+            "c": "Cap. 6: Leyes Trigonométricas",
+            "p": "pp. 10-25"
+          }
+        ],
+        "practice": [
+          {
+            "s": "OpenStax Precálculo Sec. 6.1, Ej. 6-24",
+            "l": "Intermedio"
+          },
+          {
+            "s": "OpenStax Precálculo Sec. 6.2, Ej. 6-24",
+            "l": "Intermedio"
+          },
+          {
+            "s": "Video: Ejercicios Ley de Cosenos (Julio Profe)",
+            "l": "Avanzado"
+          },
+          {
+            "s": "Video: Aplicación en topografía (Profe Alex)",
+            "l": "Intermedio"
+          }
+        ]
+      },
+      {
+        "title": "2.9 Identidades Trigonométricas",
+        "objective": "Demostrar identidades fundamentales, de suma/diferencia y ángulo doble.",
+        "videos": [
+          {
+            "t": "Demostración de identidades trigonométricas",
+            "c": "Julio Profe"
+          },
+          {
+            "t": "Identidades fundamentales",
+            "c": "Unicoos"
+          },
+          {
+            "t": "Identidades trigonométricas",
+            "c": "Khan Academy en Español"
+          },
+          {
+            "t": "Identidades de suma y resta de ángulos",
+            "c": "Profe Alex"
+          }
+        ],
+        "books": [
+          {
+            "a": "OpenStax",
+            "t": "Precálculo 2ed",
+            "c": "Sec. 7.1 Simplificación",
+            "p": "pp. 460-475"
+          },
+          {
+            "a": "OpenStax",
+            "t": "Álgebra y Trigonometría",
+            "c": "Sec. 9.1 Identidades",
+            "p": "pp. 780-795"
+          },
+          {
+            "a": "OpenStax",
+            "t": "Precálculo 2ed",
+            "c": "Sec. 7.2 Suma y diferencia",
+            "p": "pp. 476-485"
+          },
+          {
+            "a": "LibreTexts",
+            "t": "Precálculo",
+            "c": "Cap. 7: Identidades",
+            "p": "pp. 30-45"
+          }
+        ],
+        "practice": [
+          {
+            "s": "OpenStax Precálculo Sec. 7.1, Ej. 10-40",
+            "l": "Avanzado"
+          },
+          {
+            "s": "Video: Identidades pitagóricas (Unicoos)",
+            "l": "Intermedio"
+          },
+          {
+            "s": "Libro: Demostraciones algebraicas (OpenStax)",
+            "l": "Avanzado"
+          },
+          {
+            "s": "Video: Fórmulas de ángulo doble (Profe Alex)",
+            "l": "Avanzado"
+          }
+        ]
+      },
+      {
+        "title": "2.10 Funciones Trigonométricas Inversas",
+        "objective": "Evaluar y determinar dominio y rango restricto de arcsen, arccos y arctan.",
+        "videos": [
+          {
+            "t": "Funciones trigonométricas inversas",
+            "c": "Profe Alex"
+          },
+          {
+            "t": "Evaluación de inversas trigonométricas",
+            "c": "Khan Academy en Español"
+          },
+          {
+            "t": "Funciones inversas (arcsen, arccos)",
+            "c": "Julio Profe"
+          },
+          {
+            "t": "Restricciones de inversas",
+            "c": "Unicoos"
+          }
+        ],
+        "books": [
+          {
+            "a": "OpenStax",
+            "t": "Precálculo 2ed",
+            "c": "Sec. 5.3 Inversas",
+            "p": "pp. 386-399"
+          },
+          {
+            "a": "OpenStax",
+            "t": "Álgebra y Trigonometría",
+            "c": "Sec. 7.3 Inversas",
+            "p": "pp. 690-705"
+          },
+          {
+            "a": "LibreTexts",
+            "t": "Precálculo",
+            "c": "Cap. 5: Inversas",
+            "p": "pp. 60-75"
+          },
+          {
+            "a": "OpenStax",
+            "t": "College Algebra",
+            "c": "Sec. 6.1",
+            "p": "pp. 560-575"
+          }
+        ],
+        "practice": [
+          {
+            "s": "OpenStax Precálculo Sec. 5.3, Ej. 8-30",
+            "l": "Intermedio"
+          },
+          {
+            "s": "Video: Composición trigonométrica (Khan Academy)",
+            "l": "Intermedio"
+          },
+          {
+            "s": "Libro: Gráficas de inversas (LibreTexts)",
+            "l": "Básico"
+          },
+          {
+            "s": "Video: Cálculo sin calculadora (Profe Alex)",
+            "l": "Intermedio"
+          }
+        ]
+      },
+      {
+        "title": "2.11 Ecuaciones Trigonométricas",
+        "objective": "Hallar soluciones analíticas de ecuaciones trigonométricas en un intervalo.",
+        "videos": [
+          {
+            "t": "Ecuaciones trigonométricas de primer y segundo grado",
+            "c": "Julio Profe"
+          },
+          {
+            "t": "Ecuaciones con identidades",
+            "c": "Unicoos"
+          },
+          {
+            "t": "Ecuaciones trigonométricas",
+            "c": "Khan Academy en Español"
+          },
+          {
+            "t": "Resolución de ecuaciones trigonométricas",
+            "c": "Profe Alex"
+          }
+        ],
+        "books": [
+          {
+            "a": "OpenStax",
+            "t": "Precálculo 2ed",
+            "c": "Sec. 7.5 Ecuaciones",
+            "p": "pp. 500-515"
+          },
+          {
+            "a": "OpenStax",
+            "t": "Álgebra y Trigonometría",
+            "c": "Sec. 9.5 Ecuaciones",
+            "p": "pp. 830-845"
+          },
+          {
+            "a": "LibreTexts",
+            "t": "Precálculo",
+            "c": "Cap. 7: Ecuaciones",
+            "p": "pp. 80-95"
+          },
+          {
+            "a": "OpenStax",
+            "t": "College Algebra",
+            "c": "Sec. 7.5",
+            "p": "pp. 610-625"
+          }
+        ],
+        "practice": [
+          {
+            "s": "OpenStax Precálculo Sec. 7.5, Ej. 10-45",
+            "l": "Avanzado"
+          },
+          {
+            "s": "Video: Ecuaciones cuadráticas trigonométricas (Unicoos)",
+            "l": "Avanzado"
+          },
+          {
+            "s": "Libro: Uso de fórmulas cuadráticas (OpenStax)",
+            "l": "Avanzado"
+          },
+          {
+            "s": "Video: Soluciones en [0, 2π) (Julio Profe)",
+            "l": "Intermedio"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Álgebra Lineal y Matrices",
+    "weeks": "Semanas 9 - 12",
+    "hours": 28,
+    "subtopics": [
+      {
+        "title": "3.1 Matrices y Operaciones",
+        "objective": "Efectuar suma, multiplicación por escalar y producto matricial.",
+        "videos": [
+          {
+            "t": "Operaciones con matrices y propiedades",
+            "c": "Profe Alex"
+          },
+          {
+            "t": "Multiplicación matricial",
+            "c": "Julio Profe"
+          },
+          {
+            "t": "Multiplicación de matrices",
+            "c": "Khan Academy en Español"
+          },
+          {
+            "t": "Suma y producto de matrices",
+            "c": "Unicoos"
+          }
+        ],
+        "books": [
+          {
+            "a": "OpenStax",
+            "t": "Precálculo 2ed",
+            "c": "Sec. 9.5 Matrices",
+            "p": "pp. 610-625"
+          },
+          {
+            "a": "OpenStax",
+            "t": "Álgebra y Trigonometría",
+            "c": "Sec. 11.5 Matrices",
+            "p": "pp. 980-995"
+          },
+          {
+            "a": "LibreTexts",
+            "t": "Precálculo",
+            "c": "Cap. 9: Matrices",
+            "p": "pp. 10-25"
+          },
+          {
+            "a": "OpenStax",
+            "t": "College Algebra",
+            "c": "Sec. 9.5",
+            "p": "pp. 760-775"
+          }
+        ],
+        "practice": [
+          {
+            "s": "OpenStax Precálculo Sec. 9.5, Ej. 8-34",
+            "l": "Básico"
+          },
+          {
+            "s": "Video: Propiedades del producto (Julio Profe)",
+            "l": "Intermedio"
+          },
+          {
+            "s": "Libro: Dimensiones de matrices (LibreTexts)",
+            "l": "Básico"
+          },
+          {
+            "s": "Video: Matriz transpuesta (Profe Alex)",
+            "l": "Básico"
+          }
+        ]
+      },
+      {
+        "title": "3.2 Operaciones con Gauss-Jordan",
+        "objective": "Reducir matrices mediante operaciones elementales de fila a forma escalonada.",
+        "videos": [
+          {
+            "t": "Método de Gauss-Jordan",
+            "c": "Profe Alex"
+          },
+          {
+            "t": "Eliminación por reducción de filas",
+            "c": "Khan Academy en Español"
+          },
+          {
+            "t": "Método de eliminación de Gauss",
+            "c": "Julio Profe"
+          },
+          {
+            "t": "Matriz escalonada reducida",
+            "c": "Unicoos"
+          }
+        ],
+        "books": [
+          {
+            "a": "OpenStax",
+            "t": "Precálculo 2ed",
+            "c": "Sec. 9.6 Eliminación gaussiana",
+            "p": "pp. 626-640"
+          },
+          {
+            "a": "OpenStax",
+            "t": "Álgebra y Trigonometría",
+            "c": "Sec. 11.6 Gauss",
+            "p": "pp. 1000-1015"
+          },
+          {
+            "a": "LibreTexts",
+            "t": "Precálculo",
+            "c": "Cap. 9: Gauss",
+            "p": "pp. 30-45"
+          },
+          {
+            "a": "OpenStax",
+            "t": "Precálculo 2ed",
+            "c": "Sec. 9.1 Sistemas 2x2",
+            "p": "pp. 580-590"
+          }
+        ],
+        "practice": [
+          {
+            "s": "OpenStax Precálculo Sec. 9.6, Ej. 10-38",
+            "l": "Intermedio"
+          },
+          {
+            "s": "Video: Operaciones fila (Unicoos)",
+            "l": "Intermedio"
+          },
+          {
+            "s": "Libro: Sistemas 3x3 (OpenStax)",
+            "l": "Intermedio"
+          },
+          {
+            "s": "Video: Reducción a forma RREF (Khan Academy)",
+            "l": "Avanzado"
+          }
+        ]
+      },
+      {
+        "title": "3.3 Determinantes (2x2 y 3x3)",
+        "objective": "Calcular el determinante usando la Regla de Sarrus y menores/cofactores.",
+        "videos": [
+          {
+            "t": "Determinante 3x3 por Sarrus y cofactores",
+            "c": "Julio Profe"
+          },
+          {
+            "t": "Cálculo de determinantes",
+            "c": "Unicoos"
+          },
+          {
+            "t": "Determinante de una matriz",
+            "c": "Profe Alex"
+          },
+          {
+            "t": "Menores y cofactores",
+            "c": "Khan Academy en Español"
+          }
+        ],
+        "books": [
+          {
+            "a": "OpenStax",
+            "t": "Precálculo 2ed",
+            "c": "Sec. 9.7 Determinantes",
+            "p": "pp. 641-655"
+          },
+          {
+            "a": "OpenStax",
+            "t": "Álgebra y Trigonometría",
+            "c": "Sec. 11.7 Determinantes",
+            "p": "pp. 1020-1035"
+          },
+          {
+            "a": "LibreTexts",
+            "t": "Precálculo",
+            "c": "Cap. 9: Determinantes",
+            "p": "pp. 50-65"
+          },
+          {
+            "a": "OpenStax",
+            "t": "College Algebra",
+            "c": "Sec. 9.7",
+            "p": "pp. 780-795"
+          }
+        ],
+        "practice": [
+          {
+            "s": "OpenStax Precálculo Sec. 9.7, Ej. 6-28",
+            "l": "Intermedio"
+          },
+          {
+            "s": "Video: Regla de Sarrus (Profe Alex)",
+            "l": "Básico"
+          },
+          {
+            "s": "Libro: Expansión por cofactores (OpenStax)",
+            "l": "Intermedio"
+          },
+          {
+            "s": "Video: Propiedades de determinantes (Julio Profe)",
+            "l": "Avanzado"
+          }
+        ]
+      },
+      {
+        "title": "3.4 Matriz Inversa por Gauss-Jordan",
+        "objective": "Calcular la inversa operando la matriz aumentada [A|I] hasta [I|A^-1].",
+        "videos": [
+          {
+            "t": "Matriz inversa por eliminación gaussiana",
+            "c": "Profe Alex"
+          },
+          {
+            "t": "Inversa de matrices",
+            "c": "Khan Academy en Español"
+          },
+          {
+            "t": "Cálculo de la matriz inversa (Gauss)",
+            "c": "Julio Profe"
+          },
+          {
+            "t": "Inversa por método de Gauss",
+            "c": "Unicoos"
+          }
+        ],
+        "books": [
+          {
+            "a": "OpenStax",
+            "t": "Precálculo 2ed",
+            "c": "Sec. 9.5 Inversa de una matriz",
+            "p": "pp. 630-640"
+          },
+          {
+            "a": "OpenStax",
+            "t": "Álgebra y Trigonometría",
+            "c": "Sec. 11.8 Inversas",
+            "p": "pp. 1040-1055"
+          },
+          {
+            "a": "LibreTexts",
+            "t": "Precálculo",
+            "c": "Cap. 9: Matriz Inversa",
+            "p": "pp. 70-85"
+          },
+          {
+            "a": "OpenStax",
+            "t": "College Algebra",
+            "c": "Sec. 9.8",
+            "p": "pp. 800-815"
+          }
+        ],
+        "practice": [
+          {
+            "s": "OpenStax Precálculo Sec. 9.5, Ej. 36-52",
+            "l": "Intermedio"
+          },
+          {
+            "s": "Video: Verificación de inversa (Khan Academy)",
+            "l": "Básico"
+          },
+          {
+            "s": "Libro: Matrices singulares (OpenStax)",
+            "l": "Intermedio"
+          },
+          {
+            "s": "Video: Pasos para la inversa 3x3 (Julio Profe)",
+            "l": "Avanzado"
+          }
+        ]
+      },
+      {
+        "title": "3.5 Matriz Inversa por Adjunta",
+        "objective": "Obtener la inversa mediante la fórmula A^-1 = (1/det(A)) * Adj(A).",
+        "videos": [
+          {
+            "t": "Matriz inversa mediante la adjunta",
+            "c": "Julio Profe"
+          },
+          {
+            "t": "Cálculo de la adjunta y determinante",
+            "c": "Unicoos"
+          },
+          {
+            "t": "Matriz adjunta y inversa",
+            "c": "Profe Alex"
+          },
+          {
+            "t": "Inversa por matriz de cofactores",
+            "c": "MathEasy Solutions"
+          }
+        ],
+        "books": [
+          {
+            "a": "OpenStax",
+            "t": "Álgebra y Trigonometría",
+            "c": "Sec. 11.8 Adjunta",
+            "p": "pp. 1056-1065"
+          },
+          {
+            "a": "LibreTexts",
+            "t": "Precálculo",
+            "c": "Cap. 9: Inversa por Adjunta",
+            "p": "pp. 90-105"
+          },
+          {
+            "a": "OpenStax",
+            "t": "Precálculo 2ed",
+            "c": "Sec. 9.7 Propiedades",
+            "p": "pp. 650-660"
+          },
+          {
+            "a": "OpenStax",
+            "t": "College Algebra",
+            "c": "Sec. 9.8 Cofactores",
+            "p": "pp. 810-820"
+          }
+        ],
+        "practice": [
+          {
+            "s": "OpenStax Precálculo Sec. 9.7, Ej. 30-44",
+            "l": "Avanzado"
+          },
+          {
+            "s": "Video: Matriz de cofactores (Unicoos)",
+            "l": "Intermedio"
+          },
+          {
+            "s": "Libro: Transposición de cofactores (OpenStax)",
+            "l": "Avanzado"
+          },
+          {
+            "s": "Video: Cálculo simbólico de Adj (Julio Profe)",
+            "l": "Avanzado"
+          }
+        ]
+      },
+      {
+        "title": "3.6 Solución de Sistemas Lineales",
+        "objective": "Resolver Ax=b usando Regla de Cramer, sustitución e inversa.",
+        "videos": [
+          {
+            "t": "Sistemas de ecuaciones con la Regla de Cramer",
+            "c": "Profe Alex"
+          },
+          {
+            "t": "Resolución matricial de sistemas",
+            "c": "Julio Profe"
+          },
+          {
+            "t": "Regla de Cramer",
+            "c": "Khan Academy en Español"
+          },
+          {
+            "t": "Sistemas por inversa matricial",
+            "c": "Unicoos"
+          }
+        ],
+        "books": [
+          {
+            "a": "OpenStax",
+            "t": "Precálculo 2ed",
+            "c": "Sec. 9.7 Regla de Cramer",
+            "p": "pp. 660-670"
+          },
+          {
+            "a": "OpenStax",
+            "t": "Álgebra y Trigonometría",
+            "c": "Sec. 11.9 Cramer",
+            "p": "pp. 1070-1085"
+          },
+          {
+            "a": "LibreTexts",
+            "t": "Precálculo",
+            "c": "Cap. 9: Cramer",
+            "p": "pp. 110-125"
+          },
+          {
+            "a": "OpenStax",
+            "t": "College Algebra",
+            "c": "Sec. 9.9",
+            "p": "pp. 830-845"
+          }
+        ],
+        "practice": [
+          {
+            "s": "OpenStax Precálculo Sec. 9.7, Ej. 12-35",
+            "l": "Intermedio"
+          },
+          {
+            "s": "Video: Ejercicios con Cramer 3x3 (Profe Alex)",
+            "l": "Avanzado"
+          },
+          {
+            "s": "Libro: Sistemas sin solución (OpenStax)",
+            "l": "Intermedio"
+          },
+          {
+            "s": "Video: Sistema por matriz inversa (Unicoos)",
+            "l": "Intermedio"
+          }
+        ]
+      },
+      {
+        "title": "3.7 Aplicaciones de Sistemas",
+        "objective": "Modelar problemas de redes, flujos económicos y mezclas.",
+        "videos": [
+          {
+            "t": "Aplicaciones de los sistemas lineales",
+            "c": "Khan Academy en Español"
+          },
+          {
+            "t": "Problemas de planteamiento matricial",
+            "c": "Unicoos"
+          },
+          {
+            "t": "Redes y flujos",
+            "c": "Profe Alex"
+          },
+          {
+            "t": "Aplicaciones de matrices",
+            "c": "Julio Profe"
+          }
+        ],
+        "books": [
+          {
+            "a": "OpenStax",
+            "t": "Precálculo 2ed",
+            "c": "Sec. 9.2 Sistemas 3 variables",
+            "p": "pp. 595-610"
+          },
+          {
+            "a": "OpenStax",
+            "t": "Álgebra y Trigonometría",
+            "c": "Sec. 11.2 Aplicaciones",
+            "p": "pp. 940-955"
+          },
+          {
+            "a": "OpenStax",
+            "t": "Precálculo 2ed",
+            "c": "Sec. 9.8 Modelos",
+            "p": "pp. 675-690"
+          },
+          {
+            "a": "LibreTexts",
+            "t": "Precálculo",
+            "c": "Cap. 9: Aplicaciones",
+            "p": "pp. 130-145"
+          }
+        ],
+        "practice": [
+          {
+            "s": "OpenStax Precálculo Sec. 9.2, Ej. 15-32",
+            "l": "Avanzado"
+          },
+          {
+            "s": "Video: Problemas de mezclas (Unicoos)",
+            "l": "Intermedio"
+          },
+          {
+            "s": "Libro: Modelos económicos (OpenStax)",
+            "l": "Avanzado"
+          },
+          {
+            "s": "Video: Análisis de redes (Profe Alex)",
+            "l": "Avanzado"
+          }
+        ]
+      },
+      {
+        "title": "3.8 Interpretación Geométrica",
+        "objective": "Visualizar intersecciones de rectas en R^2 y planos en R^3.",
+        "videos": [
+          {
+            "t": "Interpretación de sistemas 2x2 y 3x3",
+            "c": "Profe Alex"
+          },
+          {
+            "t": "Planos en el espacio y soluciones",
+            "c": "Julio Profe"
+          },
+          {
+            "t": "Visualización de sistemas lineales",
+            "c": "Unicoos"
+          },
+          {
+            "t": "Geometría de sistemas",
+            "c": "MathEasy Solutions"
+          }
+        ],
+        "books": [
+          {
+            "a": "OpenStax",
+            "t": "Precálculo 2ed",
+            "c": "Sec. 9.1 Geometría 2D",
+            "p": "pp. 585-595"
+          },
+          {
+            "a": "OpenStax",
+            "t": "Álgebra y Trigonometría",
+            "c": "Sec. 11.1 Geometría",
+            "p": "pp. 920-935"
+          },
+          {
+            "a": "LibreTexts",
+            "t": "Precálculo",
+            "c": "Cap. 9: Geometría Lineal",
+            "p": "pp. 15-30"
+          },
+          {
+            "a": "OpenStax",
+            "t": "College Algebra",
+            "c": "Sec. 9.1",
+            "p": "pp. 740-755"
+          }
+        ],
+        "practice": [
+          {
+            "s": "OpenStax Precálculo Sec. 9.1, Ej. 30-45",
+            "l": "Intermedio"
+          },
+          {
+            "s": "Video: Planos paralelos y coincidentes (Julio Profe)",
+            "l": "Avanzado"
+          },
+          {
+            "s": "Libro: Sistemas inconsistentes (OpenStax)",
+            "l": "Intermedio"
+          },
+          {
+            "s": "Video: Intersección de planos (Unicoos)",
+            "l": "Avanzado"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Límites de Funciones Reales y Continuidad",
+    "weeks": "Semanas 13 - 16",
+    "hours": 24,
+    "subtopics": [
+      {
+        "title": "4.1 Definición Intuitiva de Límites",
+        "objective": "Comprender el concepto de límite mediante aproximación numérica y gráfica.",
+        "videos": [
+          {
+            "t": "Definición e intuición de límite",
+            "c": "Profe Alex"
+          },
+          {
+            "t": "Concepto numérico y gráfico del límite",
+            "c": "Julio Profe"
+          },
+          {
+            "t": "Introducción a los límites",
+            "c": "Khan Academy en Español"
+          },
+          {
+            "t": "Idea informal de límite",
+            "c": "Unicoos"
+          }
+        ],
+        "books": [
+          {
+            "a": "OpenStax",
+            "t": "Cálculo Vol. 1",
+            "c": "Sec. 2.2 Límite de una función",
+            "p": "pp. 180-195"
+          },
+          {
+            "a": "OpenStax",
+            "t": "Cálculo Vol. 1",
+            "c": "Sec. 2.1 Repaso previo",
+            "p": "pp. 170-179"
+          },
+          {
+            "a": "LibreTexts",
+            "t": "Cálculo",
+            "c": "Cap. 2: Límites",
+            "p": "pp. 10-25"
+          },
+          {
+            "a": "OpenStax",
+            "t": "Precálculo 2ed",
+            "c": "Sec. 12.1 Concepto de límite",
+            "p": "pp. 800-815"
+          }
+        ],
+        "practice": [
+          {
+            "s": "OpenStax Cálculo Vol 1 Sec. 2.2, Ej. 30-50",
+            "l": "Básico"
+          },
+          {
+            "s": "Video: Estimaciones a partir de tablas (Khan Academy)",
+            "l": "Básico"
+          },
+          {
+            "s": "Libro: Lectura gráfica de límites (LibreTexts)",
+            "l": "Básico"
+          },
+          {
+            "s": "Video: Aproximaciones por la izquierda y derecha (Profe Alex)",
+            "l": "Intermedio"
+          }
+        ]
+      },
+      {
+        "title": "4.2 Límites Laterales",
+        "objective": "Evaluar límites unilaterales para determinar la existencia del límite general.",
+        "videos": [
+          {
+            "t": "Límites por izquierda y por derecha",
+            "c": "Profe Alex"
+          },
+          {
+            "t": "Límites laterales y existencia",
+            "c": "Khan Academy en Español"
+          },
+          {
+            "t": "Límites unilaterales",
+            "c": "Julio Profe"
+          },
+          {
+            "t": "Límites laterales",
+            "c": "Unicoos"
+          }
+        ],
+        "books": [
+          {
+            "a": "OpenStax",
+            "t": "Cálculo Vol. 1",
+            "c": "Sec. 2.2 Límites unilaterales",
+            "p": "pp. 196-205"
+          },
+          {
+            "a": "LibreTexts",
+            "t": "Cálculo",
+            "c": "Cap. 2: Límites Laterales",
+            "p": "pp. 30-45"
+          },
+          {
+            "a": "OpenStax",
+            "t": "Precálculo 2ed",
+            "c": "Sec. 12.2 Laterales",
+            "p": "pp. 816-825"
+          },
+          {
+            "a": "OpenStax",
+            "t": "Cálculo Vol. 1",
+            "c": "Sec. 2.3 Existencia",
+            "p": "pp. 210-215"
+          }
+        ],
+        "practice": [
+          {
+            "s": "OpenStax Cálculo Vol 1 Sec. 2.2, Ej. 51-65",
+            "l": "Intermedio"
+          },
+          {
+            "s": "Video: Comprobación de existencia (Julio Profe)",
+            "l": "Intermedio"
+          },
+          {
+            "s": "Libro: Límites en saltos (OpenStax)",
+            "l": "Intermedio"
+          },
+          {
+            "s": "Video: Tablas laterales (Khan Academy)",
+            "l": "Básico"
+          }
+        ]
+      },
+      {
+        "title": "4.3 Interpretación Geométrica",
+        "objective": "Analizar gráficamente límites, discontinuidades evitables y de salto.",
+        "videos": [
+          {
+            "t": "Interpretación gráfica de límites",
+            "c": "Julio Profe"
+          },
+          {
+            "t": "Límites sobre la gráfica de una función",
+            "c": "Unicoos"
+          },
+          {
+            "t": "Discontinuidades",
+            "c": "Khan Academy en Español"
+          },
+          {
+            "t": "Tipos de discontinuidades",
+            "c": "Profe Alex"
+          }
+        ],
+        "books": [
+          {
+            "a": "OpenStax",
+            "t": "Cálculo Vol. 1",
+            "c": "Sec. 2.4 Continuidad",
+            "p": "pp. 220-235"
+          },
+          {
+            "a": "OpenStax",
+            "t": "Cálculo Vol. 1",
+            "c": "Sec. 2.2 Interpretación",
+            "p": "pp. 200-210"
+          },
+          {
+            "a": "LibreTexts",
+            "t": "Cálculo",
+            "c": "Cap. 2: Continuidad",
+            "p": "pp. 50-65"
+          },
+          {
+            "a": "OpenStax",
+            "t": "Precálculo 2ed",
+            "c": "Sec. 12.3 Continuidad",
+            "p": "pp. 830-845"
+          }
+        ],
+        "practice": [
+          {
+            "s": "OpenStax Cálculo Vol 1 Sec. 2.4, Ej. 130-150",
+            "l": "Intermedio"
+          },
+          {
+            "s": "Video: Identificación de asíntotas en gráfica (Unicoos)",
+            "l": "Intermedio"
+          },
+          {
+            "s": "Libro: Clasificación de discontinuidades (OpenStax)",
+            "l": "Avanzado"
+          },
+          {
+            "s": "Video: Huecos en la gráfica (Profe Alex)",
+            "l": "Básico"
+          }
+        ]
+      },
+      {
+        "title": "4.4 Límites Infinitos y Asíntotas",
+        "objective": "Calcular límites al infinito y límites infinitos para identificar asíntotas.",
+        "videos": [
+          {
+            "t": "Límites al infinito e infinitos",
+            "c": "Profe Alex"
+          },
+          {
+            "t": "Límites indeterminados 0/0 e ∞/∞",
+            "c": "Julio Profe"
+          },
+          {
+            "t": "Límites al infinito",
+            "c": "Khan Academy en Español"
+          },
+          {
+            "t": "Asíntotas y límites infinitos",
+            "c": "Unicoos"
+          }
+        ],
+        "books": [
+          {
+            "a": "OpenStax",
+            "t": "Cálculo Vol. 1",
+            "c": "Sec. 2.2 Límites infinitos",
+            "p": "pp. 206-215"
+          },
+          {
+            "a": "OpenStax",
+            "t": "Cálculo Vol. 1",
+            "c": "Sec. 2.3 Leyes de los límites",
+            "p": "pp. 216-225"
+          },
+          {
+            "a": "LibreTexts",
+            "t": "Cálculo",
+            "c": "Cap. 2: Límites al Infinito",
+            "p": "pp. 70-85"
+          },
+          {
+            "a": "OpenStax",
+            "t": "Precálculo 2ed",
+            "c": "Sec. 12.4 Infinitos",
+            "p": "pp. 850-865"
+          }
+        ],
+        "practice": [
+          {
+            "s": "OpenStax Cálculo Vol 1 Sec. 2.3, Ej. 85-115",
+            "l": "Avanzado"
+          },
+          {
+            "s": "Video: Comportamiento asintótico (Profe Alex)",
+            "l": "Avanzado"
+          },
+          {
+            "s": "Libro: Cálculo de asíntotas oblicuas (OpenStax)",
+            "l": "Avanzado"
+          },
+          {
+            "s": "Video: Límites de polinomios (Julio Profe)",
+            "l": "Intermedio"
+          }
+        ]
+      }
+    ]
+  }
+];
 
         // ═══════ RENDERIZADO ═══════
         const container = document.getElementById('syllabus-container');
@@ -1637,19 +3135,19 @@
                                 <div class="resource-block">
                                     <h4>VIDEOS // TEORÍA</h4>
                                     <ul class="resource-list">
-                                        ${sub.videos.map(v => `<li><strong>${v.t}</strong><span class="meta">CANAL :: ${v.c}</span></li>`).join('')}
+                                        ${sub.videos.map(v => {const t=v.url?`<a href="${v.url}" target="_blank" rel="noopener">${v.t}</a>`:v.t;return `<li><strong>${t}</strong><span class="meta">CANAL :: ${v.c}</span></li>`}).join('')}
                                     </ul>
                                 </div>
                                 <div class="resource-block">
                                     <h4>BIBLIOGRAFÍA // O.A.</h4>
                                     <ul class="resource-list">
-                                        ${sub.books.map(b => `<li><strong>${b.t}</strong><span class="meta">${b.a} | ${b.c} | ${b.p}</span></li>`).join('')}
+                                        ${sub.books.map(b => {const t=b.url?`<a href="${b.url}" target="_blank" rel="noopener">${b.t}</a>`:b.t;return `<li><strong>${t}</strong><span class="meta">${b.a} | ${b.c} | ${b.p}</span></li>`}).join('')}
                                     </ul>
                                 </div>
                                 <div class="resource-block">
                                     <h4>PRÁCTICA // EJERCICIOS</h4>
                                     <ul class="resource-list">
-                                        ${sub.practice.map(p => `<li>${p.s} <span class="tag ${p.l.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')}">${p.l}</span></li>`).join('')}
+                                        ${sub.practice.map(p => {const t=p.url?`<a href="${p.url}" target="_blank" rel="noopener">${p.s}</a>`:p.s;return `<li>${t} <span class="tag ${p.l.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')}">${p.l}</span></li>`}).join('')}
                                     </ul>
                                 </div>
                             </div>

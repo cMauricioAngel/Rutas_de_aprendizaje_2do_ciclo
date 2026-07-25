@@ -540,6 +540,8 @@
     .unit::before { display: none; }
     .timeline { grid-template-columns: repeat(8, 1fr); }
   }
+  .res-list a{color:inherit;text-decoration:none;border-bottom:2px solid currentColor;padding-bottom:1px;transition:opacity .15s}
+  .res-list a:hover{opacity:.7}
 </style>
 </head>
 <body>
@@ -1176,7 +1178,7 @@ function renderUnits() {
             <div class="res-section">
               <div class="res-section-title">Videos de teoría</div>
               <ul class="res-list">
-                ${s.videos.map(v => `<li><strong>${v.t}</strong><span class="channel">${v.c}</span></li>`).join("")}
+                ${s.videos.map(v => {const t=v.url?`<a href="${v.url}" target="_blank" rel="noopener"><strong>${v.t}</strong></a>`:`<strong>${v.t}</strong>`;return `<li>${t}<span class="channel">${v.c}</span></li>`}).join("")}
               </ul>
             </div>
             <div class="res-section">
@@ -1188,7 +1190,7 @@ function renderUnits() {
             <div class="res-section">
               <div class="res-section-title">Ejercitación recomendada</div>
               <ul class="res-list">
-                ${s.practica.map(p => `<li>${p.t} <span class="level">${p.n}</span></li>`).join("")}
+                ${s.practica.map(p => {const t=p.url?`<a href="${p.url}" target="_blank" rel="noopener">${p.t}</a>`:p.t;return `<li>${t} <span class="level">${p.n}</span></li>`}).join("")}
               </ul>
             </div>
           </div>

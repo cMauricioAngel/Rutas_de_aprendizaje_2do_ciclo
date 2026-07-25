@@ -718,6 +718,8 @@
         .unit-accordion:nth-child(2) { animation-delay: 0.1s; }
         .unit-accordion:nth-child(3) { animation-delay: 0.15s; }
         .unit-accordion:nth-child(4) { animation-delay: 0.2s; }
+    .resource-item a{color:inherit;text-decoration:none;border-bottom:2px solid currentColor;padding-bottom:1px;transition:opacity .15s}
+    .resource-item a:hover{opacity:.7}
     </style>
 </head>
 <body>
@@ -756,360 +758,764 @@
 
     <script>
         const syllabusData = [
-            {
-                id: 'u1',
-                title: 'Definiciones y Conceptos Importantes sobre BPM',
-                hours: 28,
-                weeks: 'Semanas 1 a 4',
-                subtopics: [
-                    {
-                        id: '1.1',
-                        title: 'Introducción a la gestión por procesos (BPM)',
-                        objective: 'Comprender los fundamentos de la Gestión de Procesos de Negocio (BPM) y su valor estratégico en las organizaciones.',
-                        theory: [
-                            { title: 'What is Business Process Management (BPM)?', channel: 'Bizagi' },
-                            { title: 'Business Process Management (BPM) Introduction', channel: 'BPMN University' },
-                            { title: 'Introduction to Business Process Management', channel: 'Signavio' },
-                            { title: 'BPM Fundamentals: Overview', channel: 'AIIM' }
-                        ],
-                        bibliography: [
-                            { text: 'Dumas, M., La Rosa, M., Mendling, J., & Reijers, H. A. (2018). Fundamentals of Business Process Management (2nd ed.). Cap. 1, pp. 1-33. Springer (Acceso Abierto CC BY).' },
-                            { text: 'vom Brocke, J., & Rosemann, M. (2015). Handbook on Business Process Management 1 (2nd ed.). Cap. 1, pp. 1-21. Springer.' }
-                        ],
-                        practice: [
-                            { type: 'Video', text: 'BPM Case Study: How IBM transformed its processes (IBM Technology) - Nivel: Introductorio' },
-                            { type: 'Caso', text: 'BPM in the Public Sector: Case Studies (BPTrends Archives) - Nivel: Aplicado' },
-                            { type: 'Plantilla', text: 'Business Model Canvas descargable legalmente en Strategyzer - Nivel: Introductorio' },
-                            { type: 'Framework', text: 'BPTrends Process Maturity Framework (BPTrends Archives) - Nivel: Aplicado' }
-                        ]
-                    },
-                    {
-                        id: '1.2',
-                        title: 'Definiciones, visión funcional vs. por procesos, tipos de procesos',
-                        objective: 'Diferenciar la visión funcional de la visión por procesos, clasificando los tipos de procesos organizacionales.',
-                        theory: [
-                            { title: 'Functional vs Process View: What is the difference?', channel: 'The Business of Outcomes' },
-                            { title: 'Business Processes: Core, Support, Management', channel: 'BPMN University' },
-                            { title: 'Process Thinking and Functional Organizations', channel: 'Signavio' },
-                            { title: 'Tipos de procesos en una organización', channel: 'Gestión de Procesos' }
-                        ],
-                        bibliography: [
-                            { text: 'Dumas, M., La Rosa, M., Mendling, J., & Reijers, H. A. (2018). Fundamentals of Business Process Management (2nd ed.). Cap. 2, pp. 35-62. Springer (Acceso Abierto CC BY).' },
-                            { text: 'Palmberg, K. (2010). "Experiences of implementing process management: a multiple-case study". Business Process Management Journal, 16(1), pp. 93-113 (DiVA Portal).' }
-                        ],
-                        practice: [
-                            { type: 'Caso', text: 'BPM Adoption and Business Transformation at Snaga por Kovačič et al. (BPM Cases, Springer Open Access) - Nivel: Aplicado' },
-                            { type: 'Video', text: 'How to map core vs support processes (Real Example) (Bizagi) - Nivel: Introductorio' },
-                            { type: 'Plantilla', text: 'SIPOC Diagram Template descargable en ASQ - Nivel: Introductorio' }
-                        ]
-                    },
-                    {
-                        id: '1.3',
-                        title: 'Arquitectura empresarial & BPM',
-                        objective: 'Identificar la relación entre la Arquitectura Empresarial y la alineación de los procesos de negocio.',
-                        theory: [
-                            { title: 'Enterprise Architecture and BPM: A perfect match', channel: 'Orbus Software' },
-                            { title: 'TOGAF and Business Architecture Integration', channel: 'Conexiam' },
-                            { title: 'Business Architecture vs IT Architecture', channel: 'Conexiam' },
-                            { title: 'What is Enterprise Architecture?', channel: 'The Open Group' }
-                        ],
-                        bibliography: [
-                            { text: 'Lankhorst, M. (2017). Enterprise Architecture at Work: Modelling, Communication and Analysis (4th ed.). Cap. 4, pp. 75-92. Springer.' },
-                            { text: 'Dumas, M., La Rosa, M., Mendling, J., & Reijers, H. A. (2018). Fundamentals of Business Process Management (2nd ed.). Cap. 2, pp. 63-78. Springer (Acceso Abierto CC BY).' }
-                        ],
-                        practice: [
-                            { type: 'Caso', text: 'Integrating Enterprise Architecture and BPM: A case study from the Financial Sector (BPTrends Archives) - Nivel: Aplicado' },
-                            { type: 'Plantilla', text: 'ArchiMate Framework Quick Reference descargable en The Open Group - Nivel: Introductorio' },
-                            { type: 'Video', text: 'Real-world Enterprise Architecture mapping (Sparx Systems) - Nivel: Aplicado' }
-                        ]
-                    },
-                    {
-                        id: '1.4',
-                        title: 'Modelos de madurez de BPM y organización orientada a BPM',
-                        objective: 'Evaluar el nivel de adopción de BPM en una organización utilizando modelos de madurez estandarizados.',
-                        theory: [
-                            { title: 'BPM Maturity Models Explained', channel: 'BPMN University' },
-                            { title: 'CMMI for Business Process Management', channel: 'Software Engineering Institute' },
-                            { title: 'Understanding the BPMM Framework', channel: 'Oracle University' },
-                            { title: 'How to implement a process-oriented organization', channel: 'Bizagi' }
-                        ],
-                        bibliography: [
-                            { text: 'Rosemann, M., & vom Brocke, J. (2015). "The Six Core Elements of Business Process Management". En Handbook on BPM 1 (2nd ed.), pp. 105-122. Springer.' },
-                            { text: 'Dumas, M., La Rosa, M., Mendling, J., & Reijers, H. A. (2018). Fundamentals of Business Process Management (2nd ed.). Cap. 11, pp. 423-440. Springer (Acceso Abierto CC BY).' }
-                        ],
-                        practice: [
-                            { type: 'Caso', text: 'BPM Maturity Assessment at a Telecommunications Company (ACM Digital Library) - Nivel: Aplicado' },
-                            { type: 'Plantilla', text: 'BPM Maturity Assessment Questionnaire (BPTrends Archives) - Nivel: Aplicado' },
-                            { type: 'Video', text: 'Case Study: Measuring Process Maturity (Signavio) - Nivel: Introductorio' }
-                        ]
-                    }
-                ]
-            },
-            {
-                id: 'u2',
-                title: 'Modelamiento de Procesos Utilizando Notación BPMN',
-                hours: 32,
-                weeks: 'Semanas 5 a 8',
-                subtopics: [
-                    {
-                        id: '2.1',
-                        title: 'Introducción al modelamiento de procesos de negocios',
-                        objective: 'Comprender la utilidad y los principios del modelamiento de procesos como herramienta de comunicación.',
-                        theory: [
-                            { title: 'Business Process Modeling Explained', channel: 'Lucidchart' },
-                            { title: 'Introduction to Business Process Modeling', channel: 'Bizagi' },
-                            { title: 'Why model business processes?', channel: 'Signavio' },
-                            { title: 'Fundamentals of Process Modeling', channel: 'BPMN University' }
-                        ],
-                        bibliography: [
-                            { text: 'Dumas, M., La Rosa, M., Mendling, J., & Reijers, H. A. (2018). Fundamentals of Business Process Management (2nd ed.). Cap. 3, pp. 81-115. Springer (Acceso Abierto CC BY).' },
-                            { text: 'Ko, R. K. (2009). "A Computer Scientist\'s Introductory Guide to BPM". IEEE Technical Committee on Services Computing, 2(1), pp. 1-11.' }
-                        ],
-                        practice: [
-                            { type: 'Video', text: 'Modeling a Real-World Process from Scratch (Camunda) - Nivel: Aplicado' },
-                            { type: 'Plantilla', text: 'Basic Process Flowchart Template descargable en Lucidchart - Nivel: Introductorio' },
-                            { type: 'Caso', text: 'The Pitfalls of Process Modeling: A Real Case Analysis (BPTrends Archives) - Nivel: Aplicado' }
-                        ]
-                    },
-                    {
-                        id: '2.2',
-                        title: 'Introducción a la notación BPMN',
-                        objective: 'Identificar los elementos gráficos básicos de la notación BPMN 2.0 (eventos, actividades, compuertas).',
-                        theory: [
-                            { title: 'BPMN 2.0 Tutorial for Beginners', channel: 'BPMN University' },
-                            { title: 'BPMN 2.0 Symbols Explained', channel: 'Camunda' },
-                            { title: 'Introduction to BPMN 2.0', channel: 'Bizagi' },
-                            { title: 'Mastering BPMN 2.0: The Basics', channel: 'Signavio' }
-                        ],
-                        bibliography: [
-                            { text: 'Object Management Group (OMG). (2011). Business Process Model and Notation (BPMN), Version 2.0. Documento Oficial de la OMG.' },
-                            { text: 'Dumas, M., La Rosa, M., Mendling, J., & Reijers, H. A. (2018). Fundamentals of Business Process Management (2nd ed.). Cap. 3, pp. 117-135. Springer (Acceso Abierto CC BY).' }
-                        ],
-                        practice: [
-                            { type: 'Caso', text: 'BPMN 2.0 Syntax Check: Common Mistakes (Camunda Community en GitHub) - Nivel: Aplicado' },
-                            { type: 'Plantilla', text: 'BPMN 2.0 Poster & Quick Reference Guide descargable en OMG.org - Nivel: Introductorio' },
-                            { type: 'Video', text: 'BPMN in Action: Real Examples (Lucidchart) - Nivel: Introductorio' }
-                        ]
-                    },
-                    {
-                        id: '2.3',
-                        title: 'Modelamiento empleando el concepto de Palette BPMN',
-                        objective: 'Aplicar los elementos completos de la paleta BPMN para diseñar diagramas de procesos complejos.',
-                        theory: [
-                            { title: 'Using the BPMN Palette: Events, Gateways, and Flows', channel: 'BPMN University' },
-                            { title: 'BPMN Pools, Lanes, and Message Flows', channel: 'Bizagi' },
-                            { title: 'Advanced BPMN Palette Elements', channel: 'Camunda' },
-                            { title: 'Data Objects and Artifacts in BPMN', channel: 'Signavio' }
-                        ],
-                        bibliography: [
-                            { text: 'Allweyer, T. (2016). BPMN 2.0: Introduction to the Standard for Business Process Modeling. Cap. 3, pp. 25-58. BoD – Books on Demand.' },
-                            { text: 'Freund, J., & Rücker, B. (2019). Real-Life BPMN: With BPMN 2.0, DMN 1.2, and CMMN 1.1 (4th ed.). Cap. 2, pp. 15-45. CreateSpace.' }
-                        ],
-                        practice: [
-                            { type: 'Caso', text: 'Modeling an E-commerce Checkout Process with Full Palette (Camunda Community Hub) - Nivel: Aplicado' },
-                            { type: 'Plantilla', text: 'BPMN Pools and Lanes Template en Lucidchart - Nivel: Introductorio' },
-                            { type: 'Video', text: 'Complex Process Modeling using BPMN (Bizagi) - Nivel: Aplicado' }
-                        ]
-                    },
-                    {
-                        id: '2.4',
-                        title: 'Modelamiento jerárquico',
-                        objective: 'Diseñar procesos utilizando el modelamiento jerárquico mediante subprocesos y actividades de llamada.',
-                        theory: [
-                            { title: 'Hierarchical Process Modeling in BPMN', channel: 'Signavio' },
-                            { title: 'Subprocesses and Call Activities in BPMN', channel: 'Camunda' },
-                            { title: 'How to Structure Complex Processes (Hierarchical BPMN)', channel: 'Bizagi' },
-                            { title: 'BPMN Subprocesses Explained', channel: 'BPMN University' }
-                        ],
-                        bibliography: [
-                            { text: 'Dumas, M., La Rosa, M., Mendling, J., & Reijers, H. A. (2018). Fundamentals of Business Process Management (2nd ed.). Cap. 4, pp. 137-165. Springer (Acceso Abierto CC BY).' },
-                            { text: 'Weske, M. (2019). Business Process Management: Concepts, Languages, Architectures (3rd ed.). Cap. 3, pp. 75-102. Springer.' }
-                        ],
-                        practice: [
-                            { type: 'Video', text: 'Real-World Example: Decomposing a Massive Process (Camunda) - Nivel: Aplicado' },
-                            { type: 'Caso', text: 'Best Practices for Hierarchical Modeling (BPTrends Archives) - Nivel: Aplicado' },
-                            { type: 'Plantilla', text: 'Subprocess Template Map en Bizagi Modeler - Nivel: Introductorio' }
-                        ]
-                    }
-                ]
-            },
-            {
-                id: 'u3',
-                title: 'Análisis y Diseño de Procesos para la Automatización',
-                hours: 30,
-                weeks: 'Semanas 9 a 12',
-                subtopics: [
-                    {
-                        id: '3.1',
-                        title: 'Automatización de procesos, herramientas NoCode y LowCode',
-                        objective: 'Diferenciar las herramientas NoCode y LowCode aplicables a la automatización de procesos organizacionales.',
-                        theory: [
-                            { title: 'What is Low-Code and No-Code Automation?', channel: 'Fireship' },
-                            { title: 'Low-Code vs No-Code: BPM Perspective', channel: 'OutSystems' },
-                            { title: 'Introduction to Process Automation with No-Code', channel: 'Zapier' },
-                            { title: 'The Future of BPMS and Low-Code', channel: 'Camunda' }
-                        ],
-                        bibliography: [
-                            { text: 'Bock, A., & Frank, U. (2021). "Low-Code Development Platforms: Fundamentals, Contemporary Challenges and Research Directions". Business & Information Systems Engineering, 63(6), pp. 733-746. Springer.' },
-                            { text: 'Dumas, M., La Rosa, M., Mendling, J., & Reijers, H. A. (2018). Fundamentals of Business Process Management (2nd ed.). Cap. 9, pp. 337-370. Springer (Acceso Abierto CC BY).' }
-                        ],
-                        practice: [
-                            { type: 'Caso', text: 'Digital Transformation with Low-Code at a Banking Institution (OutSystems Case Studies) - Nivel: Aplicado' },
-                            { type: 'Plantilla', text: 'Low-Code App Canvas descargable en Mendix Community - Nivel: Introductorio' },
-                            { type: 'Video', text: 'Automating a Business Process with No-Code Tools (Real Demo) (Make) - Nivel: Aplicado' }
-                        ]
-                    },
-                    {
-                        id: '3.2',
-                        title: 'Automatización simple modelada con BPMN y BPMS',
-                        objective: 'Modelar procesos simples en BPMN listos para ser ejecutados en un Sistema de Gestión de Procesos de Negocio (BPMS).',
-                        theory: [
-                            { title: 'Executing BPMN in a BPMS', channel: 'Camunda' },
-                            { title: 'How to Automate a Process in Bizagi', channel: 'Bizagi' },
-                            { title: 'From BPMN Model to Automation', channel: 'Signavio' },
-                            { title: 'BPMS Execution Semantics Explained', channel: 'BPMN University' }
-                        ],
-                        bibliography: [
-                            { text: 'zur Muehlen, M., & Recker, J. (2013). "How Much Language Is Enough? Theoretical and Practical Use of the BPMN". Seminal Contributions to ISE, pp. 429-444. Springer.' },
-                            { text: 'Dumas, M., La Rosa, M., Mendling, J., & Reijers, H. A. (2018). Fundamentals of Business Process Management (2nd ed.). Cap. 9, pp. 371-400. Springer (Acceso Abierto CC BY).' }
-                        ],
-                        practice: [
-                            { type: 'Caso', text: 'Simple Automation: Expense Approval Process (Camunda Community Hub) - Nivel: Aplicado' },
-                            { type: 'Video', text: 'BPMS Demo: From Model to Execution (Bizagi) - Nivel: Introductorio' },
-                            { type: 'Plantilla', text: 'Camunda Implementation Checklist & Framework (Camunda Open Docs) - Nivel: Aplicado' }
-                        ]
-                    },
-                    {
-                        id: '3.3',
-                        title: 'Análisis de procesos, modelo As-Is',
-                        objective: 'Analizar la situación actual de un proceso (As-Is) para identificar ineficiencias, cuellos de botella y puntos de dolor.',
-                        theory: [
-                            { title: 'How to Analyze the As-Is Process', channel: 'Signavio' },
-                            { title: 'Process Analysis: Finding Bottlenecks', channel: 'Bizagi' },
-                            { title: 'Value-Added Analysis (As-Is)', channel: 'BPMN University' },
-                            { title: 'As-Is Process Modeling Best Practices', channel: 'Lucidchart' }
-                        ],
-                        bibliography: [
-                            { text: 'Dumas, M., et al. (2018). Fundamentals of Business Process Management (2nd ed.). Cap. 6 (Qualitative Process Analysis), pp. 217-248. Springer (Acceso Abierto CC BY).' },
-                            { text: 'Dumas, M., et al. (2018). Fundamentals of Business Process Management (2nd ed.). Cap. 7 (Quantitative Process Analysis), pp. 249-293. Springer (Acceso Abierto CC BY).' }
-                        ],
-                        practice: [
-                            { type: 'Caso', text: 'Value-Added Analysis Case Study (BPTrends Archives) - Nivel: Aplicado' },
-                            { type: 'Video', text: 'Real-Life As-Is Mapping Session (Signavio) - Nivel: Aplicado' },
-                            { type: 'Plantilla', text: 'As-Is Process Audit Template en ASQ - Nivel: Introductorio' }
-                        ]
-                    },
-                    {
-                        id: '3.4',
-                        title: 'Diseño de procesos, modelo To-Be',
-                        objective: 'Diseñar el modelo futuro (To-Be) optimizado para la automatización, eficiencia operativa y mejora continua.',
-                        theory: [
-                            { title: 'Designing the To-Be Process', channel: 'Bizagi' },
-                            { title: 'How to Transition from As-Is to To-Be', channel: 'Signavio' },
-                            { title: 'Process Redesign Principles (To-Be)', channel: 'BPMN University' },
-                            { title: 'Optimizing Processes for Automation', channel: 'Camunda' }
-                        ],
-                        bibliography: [
-                            { text: 'Dumas, M., et al. (2018). Fundamentals of Business Process Management (2nd ed.). Cap. 8 (Process Redesign), pp. 297-334. Springer (Acceso Abierto CC BY).' },
-                            { text: 'Reijers, H. A., & Mansar, S. L. (2005). "Best Practices in Business Process Redesign". Omega, 33(4), pp. 383-394 (ResearchGate).' }
-                        ],
-                        practice: [
-                            { type: 'Caso', text: 'Rapid Process Redesign at Queensland University of Technology por M. Rosemann (BPM Cases, Springer Open Access) - Nivel: Aplicado' },
-                            { type: 'Plantilla', text: 'To-Be Gap Analysis Matrix en BPTrends Archives - Nivel: Aplicado' },
-                            { type: 'Video', text: 'To-Be Process Design Walkthrough (Bizagi) - Nivel: Introductorio' }
-                        ]
-                    }
-                ]
-            },
-            {
-                id: 'u4',
-                title: 'Arquitectura de Procesos Empresariales Automatizables',
-                hours: 24,
-                weeks: 'Semanas 13 a 16',
-                subtopics: [
-                    {
-                        id: '4.1',
-                        title: 'Automatización de procesos modelados con BPMN y BPMS',
-                        objective: 'Implementar arquitecturas de procesos de negocio mediante la ejecución de BPMN en motores de automatización y orquestación de microservicios.',
-                        theory: [
-                            { title: 'End-to-End Process Automation with Camunda', channel: 'Camunda' },
-                            { title: 'Orchestrating Microservices with BPMN', channel: 'Camunda' },
-                            { title: 'Building Enterprise Apps with Bizagi BPMS', channel: 'Bizagi' },
-                            { title: 'Enterprise Process Automation Architecture', channel: 'Red Hat' }
-                        ],
-                        bibliography: [
-                            { text: 'Weske, M. (2019). Business Process Management: Concepts, Languages, Architectures (3rd ed.). Cap. 8 (Process Execution Architectures), pp. 305-338. Springer.' },
-                            { text: 'Dumas, M., et al. (2018). Fundamentals of Business Process Management (2nd ed.). Cap. 9, pp. 380-410. Springer (Acceso Abierto CC BY).' }
-                        ],
-                        practice: [
-                            { type: 'Caso', text: 'How Uber Uses BPMN for Orchestration (Camunda Case Studies / Technical Blog) - Nivel: Avanzado' },
-                            { type: 'Video', text: 'How Fintechs Automate Processes with BPMS (OutSystems) - Nivel: Aplicado' },
-                            { type: 'Plantilla', text: 'Enterprise Automation Architecture Blueprint en AWS Architecture Center - Nivel: Avanzado' }
-                        ]
-                    },
-                    {
-                        id: '4.2',
-                        title: 'Método para automatizar procesos desde cero',
-                        objective: 'Aplicar un método estructurado para automatizar un proceso de negocio desde su concepción e integración de APIs hasta el despliegue funcional.',
-                        theory: [
-                            { title: 'How to Automate a Process from Scratch', channel: 'Make' },
-                            { title: 'Building your First BPMS App', channel: 'Bizagi' },
-                            { title: 'Step-by-Step Process Automation Tutorial', channel: 'Camunda' },
-                            { title: 'Automating Business Processes with APIs and BPMN', channel: 'Zapier' }
-                        ],
-                        bibliography: [
-                            { text: 'Dumas, M., et al. (2018). Fundamentals of Business Process Management (2nd ed.). Cap. 10 (Process Implementation), pp. 411-422. Springer (Acceso Abierto CC BY).' },
-                            { text: 'Ko, R. K. (2009). "A Computer Scientist\'s Introductory Guide to BPM". Cap. 4, pp. 15-20. IEEE.' }
-                        ],
-                        practice: [
-                            { type: 'Caso', text: 'From Zero to Automation in 4 Weeks (Camunda Community Hub) - Nivel: Aplicado' },
-                            { type: 'Video', text: 'Live Coding: Automating a Process from Scratch (Fireship) - Nivel: Avanzado' },
-                            { type: 'Plantilla', text: 'Automation Project Plan Template descargable en ASQ - Nivel: Introductorio' }
-                        ]
-                    },
-                    {
-                        id: '4.3',
-                        title: 'Ciclo de vida de BPM',
-                        objective: 'Comprender el ciclo de vida continuo de BPM (identificación, descubrimiento, análisis, rediseño, implementación y monitoreo).',
-                        theory: [
-                            { title: 'The BPM Lifecycle Explained', channel: 'BPTrends' },
-                            { title: 'Business Process Management Lifecycle', channel: 'Bizagi' },
-                            { title: 'Continuous Process Improvement with BPM Lifecycle', channel: 'Signavio' },
-                            { title: 'BPM Lifecycle: From Monitoring to Optimization', channel: 'Camunda' }
-                        ],
-                        bibliography: [
-                            { text: 'Dumas, M., et al. (2018). Fundamentals of Business Process Management (2nd ed.). Cap. 1, pp. 18-24. Springer (Acceso Abierto CC BY).' },
-                            { text: 'vom Brocke, J., & Rosemann, M. (2015). Handbook on Business Process Management 1 (2nd ed.). Cap. 3, pp. 45-68. Springer.' }
-                        ],
-                        practice: [
-                            { type: 'Caso', text: 'Applying the BPM Lifecycle: A Longitudinal Study (BPTrends Archives) - Nivel: Aplicado' },
-                            { type: 'Video', text: 'Closing the Loop: Process Monitoring (Signavio) - Nivel: Aplicado' },
-                            { type: 'Framework', text: 'Deming Cycle (PDCA) Applied to BPM descargable en ASQ - Nivel: Introductorio' }
-                        ]
-                    },
-                    {
-                        id: '4.4',
-                        title: 'Otras tecnologías utilizadas en BPM',
-                        objective: 'Identificar tecnologías emergentes como RPA, Process Mining e Inteligencia Artificial dentro del ecosistema integral de BPM.',
-                        theory: [
-                            { title: 'RPA vs BPM: What\'s the Difference?', channel: 'UiPath' },
-                            { title: 'What is Process Mining?', channel: 'Celonis' },
-                            { title: 'AI in Business Process Management', channel: 'Bizagi' },
-                            { title: 'Integrating BPM with Machine Learning', channel: 'Camunda' }
-                        ],
-                        bibliography: [
-                            { text: 'van der Aalst, W. M. P. (2016). Process Mining: Data Science in Action (2nd ed.). Cap. 1, pp. 1-30. Springer.' },
-                            { text: 'Dumas, M., et al. (2018). Fundamentals of Business Process Management (2nd ed.). Cap. 10 & 11, pp. 423-450. Springer (Acceso Abierto CC BY).' }
-                        ],
-                        practice: [
-                            { type: 'Caso', text: 'How Siemens Uses Process Mining (Celonis Case Studies / Academic Alliance) - Nivel: Avanzado' },
-                            { type: 'Video', text: 'RPA Implementation Case Study (UiPath) - Nivel: Aplicado' },
-                            { type: 'Plantilla', text: 'Process Mining Data Extraction Template en Celonis Academic Alliance - Nivel: Avanzado' }
-                        ]
-                    }
-                ]
-            }
-        ];
+  {
+    "id": "u1",
+    "title": "Definiciones y Conceptos Importantes sobre BPM",
+    "hours": 28,
+    "weeks": "Semanas 1 a 4",
+    "subtopics": [
+      {
+        "id": "1.1",
+        "title": "Introducción a la gestión por procesos (BPM)",
+        "objective": "Comprender los fundamentos de la Gestión de Procesos de Negocio (BPM) y su valor estratégico en las organizaciones.",
+        "theory": [
+          {
+            "title": "What is Business Process Management (BPM)?",
+            "channel": "Bizagi"
+          },
+          {
+            "title": "Business Process Management (BPM) Introduction",
+            "channel": "BPMN University"
+          },
+          {
+            "title": "Introduction to Business Process Management",
+            "channel": "Signavio"
+          },
+          {
+            "title": "BPM Fundamentals: Overview",
+            "channel": "AIIM"
+          }
+        ],
+        "bibliography": [
+          {
+            "text": "Dumas, M., La Rosa, M., Mendling, J., & Reijers, H. A. (2018). Fundamentals of Business Process Management (2nd ed.). Cap. 1, pp. 1-33. Springer (Acceso Abierto CC BY)."
+          },
+          {
+            "text": "vom Brocke, J., & Rosemann, M. (2015). Handbook on Business Process Management 1 (2nd ed.). Cap. 1, pp. 1-21. Springer."
+          }
+        ],
+        "practice": [
+          {
+            "type": "Video",
+            "text": "BPM Case Study: How IBM transformed its processes (IBM Technology) - Nivel: Introductorio"
+          },
+          {
+            "type": "Caso",
+            "text": "BPM in the Public Sector: Case Studies (BPTrends Archives) - Nivel: Aplicado"
+          },
+          {
+            "type": "Plantilla",
+            "text": "Business Model Canvas descargable legalmente en Strategyzer - Nivel: Introductorio"
+          },
+          {
+            "type": "Framework",
+            "text": "BPTrends Process Maturity Framework (BPTrends Archives) - Nivel: Aplicado"
+          }
+        ]
+      },
+      {
+        "id": "1.2",
+        "title": "Definiciones, visión funcional vs. por procesos, tipos de procesos",
+        "objective": "Diferenciar la visión funcional de la visión por procesos, clasificando los tipos de procesos organizacionales.",
+        "theory": [
+          {
+            "title": "Functional vs Process View: What is the difference?",
+            "channel": "The Business of Outcomes"
+          },
+          {
+            "title": "Business Processes: Core, Support, Management",
+            "channel": "BPMN University"
+          },
+          {
+            "title": "Process Thinking and Functional Organizations",
+            "channel": "Signavio"
+          },
+          {
+            "title": "Tipos de procesos en una organización",
+            "channel": "Gestión de Procesos"
+          }
+        ],
+        "bibliography": [
+          {
+            "text": "Dumas, M., La Rosa, M., Mendling, J., & Reijers, H. A. (2018). Fundamentals of Business Process Management (2nd ed.). Cap. 2, pp. 35-62. Springer (Acceso Abierto CC BY)."
+          },
+          {
+            "text": "Palmberg, K. (2010). \"Experiences of implementing process management: a multiple-case study\". Business Process Management Journal, 16(1), pp. 93-113 (DiVA Portal)."
+          }
+        ],
+        "practice": [
+          {
+            "type": "Caso",
+            "text": "BPM Adoption and Business Transformation at Snaga por Kovačič et al. (BPM Cases, Springer Open Access) - Nivel: Aplicado"
+          },
+          {
+            "type": "Video",
+            "text": "How to map core vs support processes (Real Example) (Bizagi) - Nivel: Introductorio"
+          },
+          {
+            "type": "Plantilla",
+            "text": "SIPOC Diagram Template descargable en ASQ - Nivel: Introductorio"
+          }
+        ]
+      },
+      {
+        "id": "1.3",
+        "title": "Arquitectura empresarial & BPM",
+        "objective": "Identificar la relación entre la Arquitectura Empresarial y la alineación de los procesos de negocio.",
+        "theory": [
+          {
+            "title": "Enterprise Architecture and BPM: A perfect match",
+            "channel": "Orbus Software"
+          },
+          {
+            "title": "TOGAF and Business Architecture Integration",
+            "channel": "Conexiam"
+          },
+          {
+            "title": "Business Architecture vs IT Architecture",
+            "channel": "Conexiam"
+          },
+          {
+            "title": "What is Enterprise Architecture?",
+            "channel": "The Open Group"
+          }
+        ],
+        "bibliography": [
+          {
+            "text": "Lankhorst, M. (2017). Enterprise Architecture at Work: Modelling, Communication and Analysis (4th ed.). Cap. 4, pp. 75-92. Springer."
+          },
+          {
+            "text": "Dumas, M., La Rosa, M., Mendling, J., & Reijers, H. A. (2018). Fundamentals of Business Process Management (2nd ed.). Cap. 2, pp. 63-78. Springer (Acceso Abierto CC BY)."
+          }
+        ],
+        "practice": [
+          {
+            "type": "Caso",
+            "text": "Integrating Enterprise Architecture and BPM: A case study from the Financial Sector (BPTrends Archives) - Nivel: Aplicado"
+          },
+          {
+            "type": "Plantilla",
+            "text": "ArchiMate Framework Quick Reference descargable en The Open Group - Nivel: Introductorio"
+          },
+          {
+            "type": "Video",
+            "text": "Real-world Enterprise Architecture mapping (Sparx Systems) - Nivel: Aplicado"
+          }
+        ]
+      },
+      {
+        "id": "1.4",
+        "title": "Modelos de madurez de BPM y organización orientada a BPM",
+        "objective": "Evaluar el nivel de adopción de BPM en una organización utilizando modelos de madurez estandarizados.",
+        "theory": [
+          {
+            "title": "BPM Maturity Models Explained",
+            "channel": "BPMN University"
+          },
+          {
+            "title": "CMMI for Business Process Management",
+            "channel": "Software Engineering Institute"
+          },
+          {
+            "title": "Understanding the BPMM Framework",
+            "channel": "Oracle University",
+            "url": "https://docs.oracle.com/javase/tutorial/"
+          },
+          {
+            "title": "How to implement a process-oriented organization",
+            "channel": "Bizagi"
+          }
+        ],
+        "bibliography": [
+          {
+            "text": "Rosemann, M., & vom Brocke, J. (2015). \"The Six Core Elements of Business Process Management\". En Handbook on BPM 1 (2nd ed.), pp. 105-122. Springer."
+          },
+          {
+            "text": "Dumas, M., La Rosa, M., Mendling, J., & Reijers, H. A. (2018). Fundamentals of Business Process Management (2nd ed.). Cap. 11, pp. 423-440. Springer (Acceso Abierto CC BY)."
+          }
+        ],
+        "practice": [
+          {
+            "type": "Caso",
+            "text": "BPM Maturity Assessment at a Telecommunications Company (ACM Digital Library) - Nivel: Aplicado"
+          },
+          {
+            "type": "Plantilla",
+            "text": "BPM Maturity Assessment Questionnaire (BPTrends Archives) - Nivel: Aplicado"
+          },
+          {
+            "type": "Video",
+            "text": "Case Study: Measuring Process Maturity (Signavio) - Nivel: Introductorio"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "u2",
+    "title": "Modelamiento de Procesos Utilizando Notación BPMN",
+    "hours": 32,
+    "weeks": "Semanas 5 a 8",
+    "subtopics": [
+      {
+        "id": "2.1",
+        "title": "Introducción al modelamiento de procesos de negocios",
+        "objective": "Comprender la utilidad y los principios del modelamiento de procesos como herramienta de comunicación.",
+        "theory": [
+          {
+            "title": "Business Process Modeling Explained",
+            "channel": "Lucidchart"
+          },
+          {
+            "title": "Introduction to Business Process Modeling",
+            "channel": "Bizagi"
+          },
+          {
+            "title": "Why model business processes?",
+            "channel": "Signavio"
+          },
+          {
+            "title": "Fundamentals of Process Modeling",
+            "channel": "BPMN University"
+          }
+        ],
+        "bibliography": [
+          {
+            "text": "Dumas, M., La Rosa, M., Mendling, J., & Reijers, H. A. (2018). Fundamentals of Business Process Management (2nd ed.). Cap. 3, pp. 81-115. Springer (Acceso Abierto CC BY)."
+          },
+          {
+            "text": "Ko, R. K. (2009). \"A Computer Scientist's Introductory Guide to BPM\". IEEE Technical Committee on Services Computing, 2(1), pp. 1-11."
+          }
+        ],
+        "practice": [
+          {
+            "type": "Video",
+            "text": "Modeling a Real-World Process from Scratch (Camunda) - Nivel: Aplicado"
+          },
+          {
+            "type": "Plantilla",
+            "text": "Basic Process Flowchart Template descargable en Lucidchart - Nivel: Introductorio"
+          },
+          {
+            "type": "Caso",
+            "text": "The Pitfalls of Process Modeling: A Real Case Analysis (BPTrends Archives) - Nivel: Aplicado"
+          }
+        ]
+      },
+      {
+        "id": "2.2",
+        "title": "Introducción a la notación BPMN",
+        "objective": "Identificar los elementos gráficos básicos de la notación BPMN 2.0 (eventos, actividades, compuertas).",
+        "theory": [
+          {
+            "title": "BPMN 2.0 Tutorial for Beginners",
+            "channel": "BPMN University"
+          },
+          {
+            "title": "BPMN 2.0 Symbols Explained",
+            "channel": "Camunda"
+          },
+          {
+            "title": "Introduction to BPMN 2.0",
+            "channel": "Bizagi"
+          },
+          {
+            "title": "Mastering BPMN 2.0: The Basics",
+            "channel": "Signavio"
+          }
+        ],
+        "bibliography": [
+          {
+            "text": "Object Management Group (OMG). (2011). Business Process Model and Notation (BPMN), Version 2.0. Documento Oficial de la OMG."
+          },
+          {
+            "text": "Dumas, M., La Rosa, M., Mendling, J., & Reijers, H. A. (2018). Fundamentals of Business Process Management (2nd ed.). Cap. 3, pp. 117-135. Springer (Acceso Abierto CC BY)."
+          }
+        ],
+        "practice": [
+          {
+            "type": "Caso",
+            "text": "BPMN 2.0 Syntax Check: Common Mistakes (Camunda Community en GitHub) - Nivel: Aplicado"
+          },
+          {
+            "type": "Plantilla",
+            "text": "BPMN 2.0 Poster & Quick Reference Guide descargable en OMG.org - Nivel: Introductorio"
+          },
+          {
+            "type": "Video",
+            "text": "BPMN in Action: Real Examples (Lucidchart) - Nivel: Introductorio"
+          }
+        ]
+      },
+      {
+        "id": "2.3",
+        "title": "Modelamiento empleando el concepto de Palette BPMN",
+        "objective": "Aplicar los elementos completos de la paleta BPMN para diseñar diagramas de procesos complejos.",
+        "theory": [
+          {
+            "title": "Using the BPMN Palette: Events, Gateways, and Flows",
+            "channel": "BPMN University"
+          },
+          {
+            "title": "BPMN Pools, Lanes, and Message Flows",
+            "channel": "Bizagi"
+          },
+          {
+            "title": "Advanced BPMN Palette Elements",
+            "channel": "Camunda"
+          },
+          {
+            "title": "Data Objects and Artifacts in BPMN",
+            "channel": "Signavio"
+          }
+        ],
+        "bibliography": [
+          {
+            "text": "Allweyer, T. (2016). BPMN 2.0: Introduction to the Standard for Business Process Modeling. Cap. 3, pp. 25-58. BoD – Books on Demand."
+          },
+          {
+            "text": "Freund, J., & Rücker, B. (2019). Real-Life BPMN: With BPMN 2.0, DMN 1.2, and CMMN 1.1 (4th ed.). Cap. 2, pp. 15-45. CreateSpace."
+          }
+        ],
+        "practice": [
+          {
+            "type": "Caso",
+            "text": "Modeling an E-commerce Checkout Process with Full Palette (Camunda Community Hub) - Nivel: Aplicado"
+          },
+          {
+            "type": "Plantilla",
+            "text": "BPMN Pools and Lanes Template en Lucidchart - Nivel: Introductorio"
+          },
+          {
+            "type": "Video",
+            "text": "Complex Process Modeling using BPMN (Bizagi) - Nivel: Aplicado"
+          }
+        ]
+      },
+      {
+        "id": "2.4",
+        "title": "Modelamiento jerárquico",
+        "objective": "Diseñar procesos utilizando el modelamiento jerárquico mediante subprocesos y actividades de llamada.",
+        "theory": [
+          {
+            "title": "Hierarchical Process Modeling in BPMN",
+            "channel": "Signavio"
+          },
+          {
+            "title": "Subprocesses and Call Activities in BPMN",
+            "channel": "Camunda"
+          },
+          {
+            "title": "How to Structure Complex Processes (Hierarchical BPMN)",
+            "channel": "Bizagi"
+          },
+          {
+            "title": "BPMN Subprocesses Explained",
+            "channel": "BPMN University"
+          }
+        ],
+        "bibliography": [
+          {
+            "text": "Dumas, M., La Rosa, M., Mendling, J., & Reijers, H. A. (2018). Fundamentals of Business Process Management (2nd ed.). Cap. 4, pp. 137-165. Springer (Acceso Abierto CC BY)."
+          },
+          {
+            "text": "Weske, M. (2019). Business Process Management: Concepts, Languages, Architectures (3rd ed.). Cap. 3, pp. 75-102. Springer."
+          }
+        ],
+        "practice": [
+          {
+            "type": "Video",
+            "text": "Real-World Example: Decomposing a Massive Process (Camunda) - Nivel: Aplicado"
+          },
+          {
+            "type": "Caso",
+            "text": "Best Practices for Hierarchical Modeling (BPTrends Archives) - Nivel: Aplicado"
+          },
+          {
+            "type": "Plantilla",
+            "text": "Subprocess Template Map en Bizagi Modeler - Nivel: Introductorio"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "u3",
+    "title": "Análisis y Diseño de Procesos para la Automatización",
+    "hours": 30,
+    "weeks": "Semanas 9 a 12",
+    "subtopics": [
+      {
+        "id": "3.1",
+        "title": "Automatización de procesos, herramientas NoCode y LowCode",
+        "objective": "Diferenciar las herramientas NoCode y LowCode aplicables a la automatización de procesos organizacionales.",
+        "theory": [
+          {
+            "title": "What is Low-Code and No-Code Automation?",
+            "channel": "Fireship"
+          },
+          {
+            "title": "Low-Code vs No-Code: BPM Perspective",
+            "channel": "OutSystems"
+          },
+          {
+            "title": "Introduction to Process Automation with No-Code",
+            "channel": "Zapier"
+          },
+          {
+            "title": "The Future of BPMS and Low-Code",
+            "channel": "Camunda"
+          }
+        ],
+        "bibliography": [
+          {
+            "text": "Bock, A., & Frank, U. (2021). \"Low-Code Development Platforms: Fundamentals, Contemporary Challenges and Research Directions\". Business & Information Systems Engineering, 63(6), pp. 733-746. Springer."
+          },
+          {
+            "text": "Dumas, M., La Rosa, M., Mendling, J., & Reijers, H. A. (2018). Fundamentals of Business Process Management (2nd ed.). Cap. 9, pp. 337-370. Springer (Acceso Abierto CC BY)."
+          }
+        ],
+        "practice": [
+          {
+            "type": "Caso",
+            "text": "Digital Transformation with Low-Code at a Banking Institution (OutSystems Case Studies) - Nivel: Aplicado"
+          },
+          {
+            "type": "Plantilla",
+            "text": "Low-Code App Canvas descargable en Mendix Community - Nivel: Introductorio"
+          },
+          {
+            "type": "Video",
+            "text": "Automating a Business Process with No-Code Tools (Real Demo) (Make) - Nivel: Aplicado"
+          }
+        ]
+      },
+      {
+        "id": "3.2",
+        "title": "Automatización simple modelada con BPMN y BPMS",
+        "objective": "Modelar procesos simples en BPMN listos para ser ejecutados en un Sistema de Gestión de Procesos de Negocio (BPMS).",
+        "theory": [
+          {
+            "title": "Executing BPMN in a BPMS",
+            "channel": "Camunda"
+          },
+          {
+            "title": "How to Automate a Process in Bizagi",
+            "channel": "Bizagi"
+          },
+          {
+            "title": "From BPMN Model to Automation",
+            "channel": "Signavio"
+          },
+          {
+            "title": "BPMS Execution Semantics Explained",
+            "channel": "BPMN University"
+          }
+        ],
+        "bibliography": [
+          {
+            "text": "zur Muehlen, M., & Recker, J. (2013). \"How Much Language Is Enough? Theoretical and Practical Use of the BPMN\". Seminal Contributions to ISE, pp. 429-444. Springer."
+          },
+          {
+            "text": "Dumas, M., La Rosa, M., Mendling, J., & Reijers, H. A. (2018). Fundamentals of Business Process Management (2nd ed.). Cap. 9, pp. 371-400. Springer (Acceso Abierto CC BY)."
+          }
+        ],
+        "practice": [
+          {
+            "type": "Caso",
+            "text": "Simple Automation: Expense Approval Process (Camunda Community Hub) - Nivel: Aplicado"
+          },
+          {
+            "type": "Video",
+            "text": "BPMS Demo: From Model to Execution (Bizagi) - Nivel: Introductorio"
+          },
+          {
+            "type": "Plantilla",
+            "text": "Camunda Implementation Checklist & Framework (Camunda Open Docs) - Nivel: Aplicado"
+          }
+        ]
+      },
+      {
+        "id": "3.3",
+        "title": "Análisis de procesos, modelo As-Is",
+        "objective": "Analizar la situación actual de un proceso (As-Is) para identificar ineficiencias, cuellos de botella y puntos de dolor.",
+        "theory": [
+          {
+            "title": "How to Analyze the As-Is Process",
+            "channel": "Signavio"
+          },
+          {
+            "title": "Process Analysis: Finding Bottlenecks",
+            "channel": "Bizagi"
+          },
+          {
+            "title": "Value-Added Analysis (As-Is)",
+            "channel": "BPMN University"
+          },
+          {
+            "title": "As-Is Process Modeling Best Practices",
+            "channel": "Lucidchart"
+          }
+        ],
+        "bibliography": [
+          {
+            "text": "Dumas, M., et al. (2018). Fundamentals of Business Process Management (2nd ed.). Cap. 6 (Qualitative Process Analysis), pp. 217-248. Springer (Acceso Abierto CC BY)."
+          },
+          {
+            "text": "Dumas, M., et al. (2018). Fundamentals of Business Process Management (2nd ed.). Cap. 7 (Quantitative Process Analysis), pp. 249-293. Springer (Acceso Abierto CC BY)."
+          }
+        ],
+        "practice": [
+          {
+            "type": "Caso",
+            "text": "Value-Added Analysis Case Study (BPTrends Archives) - Nivel: Aplicado"
+          },
+          {
+            "type": "Video",
+            "text": "Real-Life As-Is Mapping Session (Signavio) - Nivel: Aplicado"
+          },
+          {
+            "type": "Plantilla",
+            "text": "As-Is Process Audit Template en ASQ - Nivel: Introductorio"
+          }
+        ]
+      },
+      {
+        "id": "3.4",
+        "title": "Diseño de procesos, modelo To-Be",
+        "objective": "Diseñar el modelo futuro (To-Be) optimizado para la automatización, eficiencia operativa y mejora continua.",
+        "theory": [
+          {
+            "title": "Designing the To-Be Process",
+            "channel": "Bizagi"
+          },
+          {
+            "title": "How to Transition from As-Is to To-Be",
+            "channel": "Signavio"
+          },
+          {
+            "title": "Process Redesign Principles (To-Be)",
+            "channel": "BPMN University"
+          },
+          {
+            "title": "Optimizing Processes for Automation",
+            "channel": "Camunda"
+          }
+        ],
+        "bibliography": [
+          {
+            "text": "Dumas, M., et al. (2018). Fundamentals of Business Process Management (2nd ed.). Cap. 8 (Process Redesign), pp. 297-334. Springer (Acceso Abierto CC BY)."
+          },
+          {
+            "text": "Reijers, H. A., & Mansar, S. L. (2005). \"Best Practices in Business Process Redesign\". Omega, 33(4), pp. 383-394 (ResearchGate)."
+          }
+        ],
+        "practice": [
+          {
+            "type": "Caso",
+            "text": "Rapid Process Redesign at Queensland University of Technology por M. Rosemann (BPM Cases, Springer Open Access) - Nivel: Aplicado"
+          },
+          {
+            "type": "Plantilla",
+            "text": "To-Be Gap Analysis Matrix en BPTrends Archives - Nivel: Aplicado"
+          },
+          {
+            "type": "Video",
+            "text": "To-Be Process Design Walkthrough (Bizagi) - Nivel: Introductorio"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "u4",
+    "title": "Arquitectura de Procesos Empresariales Automatizables",
+    "hours": 24,
+    "weeks": "Semanas 13 a 16",
+    "subtopics": [
+      {
+        "id": "4.1",
+        "title": "Automatización de procesos modelados con BPMN y BPMS",
+        "objective": "Implementar arquitecturas de procesos de negocio mediante la ejecución de BPMN en motores de automatización y orquestación de microservicios.",
+        "theory": [
+          {
+            "title": "End-to-End Process Automation with Camunda",
+            "channel": "Camunda"
+          },
+          {
+            "title": "Orchestrating Microservices with BPMN",
+            "channel": "Camunda"
+          },
+          {
+            "title": "Building Enterprise Apps with Bizagi BPMS",
+            "channel": "Bizagi"
+          },
+          {
+            "title": "Enterprise Process Automation Architecture",
+            "channel": "Red Hat"
+          }
+        ],
+        "bibliography": [
+          {
+            "text": "Weske, M. (2019). Business Process Management: Concepts, Languages, Architectures (3rd ed.). Cap. 8 (Process Execution Architectures), pp. 305-338. Springer."
+          },
+          {
+            "text": "Dumas, M., et al. (2018). Fundamentals of Business Process Management (2nd ed.). Cap. 9, pp. 380-410. Springer (Acceso Abierto CC BY)."
+          }
+        ],
+        "practice": [
+          {
+            "type": "Caso",
+            "text": "How Uber Uses BPMN for Orchestration (Camunda Case Studies / Technical Blog) - Nivel: Avanzado"
+          },
+          {
+            "type": "Video",
+            "text": "How Fintechs Automate Processes with BPMS (OutSystems) - Nivel: Aplicado"
+          },
+          {
+            "type": "Plantilla",
+            "text": "Enterprise Automation Architecture Blueprint en AWS Architecture Center - Nivel: Avanzado"
+          }
+        ]
+      },
+      {
+        "id": "4.2",
+        "title": "Método para automatizar procesos desde cero",
+        "objective": "Aplicar un método estructurado para automatizar un proceso de negocio desde su concepción e integración de APIs hasta el despliegue funcional.",
+        "theory": [
+          {
+            "title": "How to Automate a Process from Scratch",
+            "channel": "Make"
+          },
+          {
+            "title": "Building your First BPMS App",
+            "channel": "Bizagi"
+          },
+          {
+            "title": "Step-by-Step Process Automation Tutorial",
+            "channel": "Camunda"
+          },
+          {
+            "title": "Automating Business Processes with APIs and BPMN",
+            "channel": "Zapier"
+          }
+        ],
+        "bibliography": [
+          {
+            "text": "Dumas, M., et al. (2018). Fundamentals of Business Process Management (2nd ed.). Cap. 10 (Process Implementation), pp. 411-422. Springer (Acceso Abierto CC BY)."
+          },
+          {
+            "text": "Ko, R. K. (2009). \"A Computer Scientist's Introductory Guide to BPM\". Cap. 4, pp. 15-20. IEEE."
+          }
+        ],
+        "practice": [
+          {
+            "type": "Caso",
+            "text": "From Zero to Automation in 4 Weeks (Camunda Community Hub) - Nivel: Aplicado"
+          },
+          {
+            "type": "Video",
+            "text": "Live Coding: Automating a Process from Scratch (Fireship) - Nivel: Avanzado"
+          },
+          {
+            "type": "Plantilla",
+            "text": "Automation Project Plan Template descargable en ASQ - Nivel: Introductorio"
+          }
+        ]
+      },
+      {
+        "id": "4.3",
+        "title": "Ciclo de vida de BPM",
+        "objective": "Comprender el ciclo de vida continuo de BPM (identificación, descubrimiento, análisis, rediseño, implementación y monitoreo).",
+        "theory": [
+          {
+            "title": "The BPM Lifecycle Explained",
+            "channel": "BPTrends"
+          },
+          {
+            "title": "Business Process Management Lifecycle",
+            "channel": "Bizagi"
+          },
+          {
+            "title": "Continuous Process Improvement with BPM Lifecycle",
+            "channel": "Signavio"
+          },
+          {
+            "title": "BPM Lifecycle: From Monitoring to Optimization",
+            "channel": "Camunda"
+          }
+        ],
+        "bibliography": [
+          {
+            "text": "Dumas, M., et al. (2018). Fundamentals of Business Process Management (2nd ed.). Cap. 1, pp. 18-24. Springer (Acceso Abierto CC BY)."
+          },
+          {
+            "text": "vom Brocke, J., & Rosemann, M. (2015). Handbook on Business Process Management 1 (2nd ed.). Cap. 3, pp. 45-68. Springer."
+          }
+        ],
+        "practice": [
+          {
+            "type": "Caso",
+            "text": "Applying the BPM Lifecycle: A Longitudinal Study (BPTrends Archives) - Nivel: Aplicado"
+          },
+          {
+            "type": "Video",
+            "text": "Closing the Loop: Process Monitoring (Signavio) - Nivel: Aplicado"
+          },
+          {
+            "type": "Framework",
+            "text": "Deming Cycle (PDCA) Applied to BPM descargable en ASQ - Nivel: Introductorio"
+          }
+        ]
+      },
+      {
+        "id": "4.4",
+        "title": "Otras tecnologías utilizadas en BPM",
+        "objective": "Identificar tecnologías emergentes como RPA, Process Mining e Inteligencia Artificial dentro del ecosistema integral de BPM.",
+        "theory": [
+          {
+            "title": "RPA vs BPM: What's the Difference?",
+            "channel": "UiPath"
+          },
+          {
+            "title": "What is Process Mining?",
+            "channel": "Celonis"
+          },
+          {
+            "title": "AI in Business Process Management",
+            "channel": "Bizagi"
+          },
+          {
+            "title": "Integrating BPM with Machine Learning",
+            "channel": "Camunda"
+          }
+        ],
+        "bibliography": [
+          {
+            "text": "van der Aalst, W. M. P. (2016). Process Mining: Data Science in Action (2nd ed.). Cap. 1, pp. 1-30. Springer."
+          },
+          {
+            "text": "Dumas, M., et al. (2018). Fundamentals of Business Process Management (2nd ed.). Cap. 10 & 11, pp. 423-450. Springer (Acceso Abierto CC BY)."
+          }
+        ],
+        "practice": [
+          {
+            "type": "Caso",
+            "text": "How Siemens Uses Process Mining (Celonis Case Studies / Academic Alliance) - Nivel: Avanzado"
+          },
+          {
+            "type": "Video",
+            "text": "RPA Implementation Case Study (UiPath) - Nivel: Aplicado"
+          },
+          {
+            "type": "Plantilla",
+            "text": "Process Mining Data Extraction Template en Celonis Academic Alliance - Nivel: Avanzado"
+          }
+        ]
+      }
+    ]
+  }
+];
 
         const container = document.getElementById('syllabusContainer');
         let totalCheckboxes = 0;
@@ -1129,9 +1535,9 @@
             let subtopicsHTML = '';
             unit.subtopics.forEach(sub => {
                 totalCheckboxes++;
-                let theoryHTML = sub.theory.map(t => `<div class="resource-item"><strong>${t.title}</strong><em>Canal: ${t.channel}</em></div>`).join('');
-                let biblioHTML = sub.bibliography.map(b => `<div class="resource-item">${b.text}</div>`).join('');
-                let practiceHTML = sub.practice.map(p => `<div class="resource-item"><strong>[${p.type}]</strong> ${p.text}</div>`).join('');
+                let theoryHTML = sub.theory.map(t => {const title=t.url?`<a href="${t.url}" target="_blank" rel="noopener">${t.title}</a>`:t.title;return `<div class="resource-item"><strong>${title}</strong><em>Canal: ${t.channel}</em></div>`}).join('');
+                let biblioHTML = sub.bibliography.map(b => {const text=b.url?`<a href="${b.url}" target="_blank" rel="noopener">${b.text}</a>`:b.text;return `<div class="resource-item">${text}</div>`}).join('');
+                let practiceHTML = sub.practice.map(p => {const text=p.url?`<a href="${p.url}" target="_blank" rel="noopener">${p.text}</a>`:p.text;return `<div class="resource-item"><strong>[${p.type}]</strong> ${text}</div>`}).join('');
 
                 subtopicsHTML += `
                     <div class="subtopic-cell subtopic-accordion" id="sub-${sub.id}">

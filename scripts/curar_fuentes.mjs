@@ -322,7 +322,7 @@ function enriquecerReferencias(refs) {
   
   refs.forEach(ref => {
     const tipo = ref.seccion === "Videos" ? "videos" : ref.seccion === "Práctica" ? "practica" : "biblio";
-    const known = suggestKnown(ref, tipo);
+    const known = suggestKnown({ t: ref.titulo_visible, c: ref.autor_canal }, tipo);
     
     if (known) {
       ref.estado = "sugerido";
@@ -418,7 +418,7 @@ function guardarCSV(refs, filename) {
   return filepath;
 }
 
-function aplicarAlHTML(mapaName, data, refsVerificados) {
+function aplicarAlHTML(mapaName, varName, refsVerificados) {
   const mapaPath = path.join(ROOT, mapaName);
   const src = fs.readFileSync(mapaPath, "utf8");
   
@@ -431,61 +431,53 @@ function aplicarAlHTML(mapaName, data, refsVerificados) {
     return;
   }
   
-  // Crear un índice de referencias por ID
   const refIndex = {};
   refsParaEsteMapa.forEach(ref => {
     const parts = ref.id.split(":");
     const code = parts[1];
     const sec = parts[2];
     const idx = parseInt(parts[3]);
-    
-    const key = `${code}:${sec}:${idx}`;
-    refIndex[key] = ref.url_final;
+    refIndex[`${code}:${sec}:${idx}`] = ref.url_final;
   });
   
-  // Aplicar URLs al DATA del HTML
-  let newSrc = src.replace(
-    /(const\s+DATA\s*=\s*)(\[[\s\S]*?\])(;?\s*(?:<\/script>|$))/,
-    (match, prefix, arrayText, suffix) => {
-      try {
-        // Parsear el array
-        let cleanArray = arrayText;
-        
-        // Intentar evaluar y modificar
-        const data = eval("(" + arrayText + ")");
-        
-        data.forEach(u => {
-          (u.subs || []).forEach(s => {
-            const code = s.code || s.id;
-            
-            ["videos", "biblio", "practica"].forEach(sec => {
-              (s[sec] || []).forEach((r, idx) => {
-                const key = `${code}:${sec}:${idx}`;
-                if (refIndex[key]) {
-                  if (Array.isArray(r)) {
-                    // Formato array: convertir a objeto con url
-                    const [titulo, autor, ...rest] = r;
-                    s[sec][idx] = { t: titulo, c: autor, url: refIndex[key], ...(rest[0] ? { d: rest[0] } : {}) };
-                  } else if (typeof r === "object") {
-                    r.url = refIndex[key];
-                  }
-                }
-              });
-            });
-          });
-        });
-        
-        // Re-serializar como JSON formateado
-        return prefix + JSON.stringify(data, null, 2) + suffix;
-      } catch (e) {
-        console.error(`Error aplicando cambios a ${mapaName}: ${e.message}`);
-        return match;
-      }
-    }
-  );
+  const lit = extractDataArray(src, varName);
+  if (!lit) {
+    console.log(`   ❌ No se encontró 'const ${varName} = [...]' en ${mapaName}`);
+    return;
+  }
   
+  let data;
+  try { data = eval("(" + lit.text + ")"); }
+  catch (e) { console.log(`   ❌ Error parseando ${mapaName}: ${e.message}`); return; }
+  
+  let applied = 0;
+  data.forEach(u => {
+    const subs = u.subs || u.subtopics || [];
+    subs.forEach(s => {
+      const code = s.code || s.id || s.tag;
+      const sections = {
+        videos: s.videos || s.theory || [],
+        biblio: s.biblio || s.books || s.bibliography || [],
+        practica: s.practica || s.practice || []
+      };
+      for (const [secName, arr] of Object.entries(sections)) {
+        arr.forEach((r, idx) => {
+          const key = `${code}:${secName}:${idx}`;
+          if (!refIndex[key]) return;
+          const url = refIndex[key];
+          if (typeof r === "string") { arr[idx] = { text: r, url }; }
+          else if (Array.isArray(r)) { const o = {}; r.forEach((el, i) => { o[i] = el; }); o.url = url; arr[idx] = o; }
+          else if (typeof r === "object" && r !== null) { r.url = url; }
+          applied++;
+        });
+      }
+    });
+  });
+  
+  const newText = JSON.stringify(data, null, 2);
+  const newSrc = src.slice(0, lit.start) + newText + src.slice(lit.end);
   fs.writeFileSync(mapaPath, newSrc);
-  console.log(`✅ ${refsParaEsteMapa.length} URLs aplicadas en ${mapaName}`);
+  console.log(`✅ ${applied} URLs aplicadas en ${mapaName}`);
 }
 
 async function main() {
@@ -533,7 +525,8 @@ async function main() {
   console.log("📝 Aplicando URLs verificadas a los archivos HTML...\n");
   
   for (const [mapaName, { data }] of Object.entries(mapData)) {
-    aplicarAlHTML(mapaName, data, refsFinales);
+    const mapaInfo = MAPAS.find(m => m.file === mapaName);
+    aplicarAlHTML(mapaName, mapaInfo ? mapaInfo.var : "DATA", refsFinales);
   }
   
   // Resumen final

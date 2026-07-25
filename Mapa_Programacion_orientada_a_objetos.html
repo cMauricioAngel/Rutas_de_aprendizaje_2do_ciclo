@@ -329,6 +329,8 @@ ul li:last-child{margin-bottom:0}
     .reveal{opacity:1;transform:none}
     html{scroll-behavior:auto}
 }
+  .subtopic-section li a{color:inherit;text-decoration:none;border-bottom:2px solid currentColor;padding-bottom:1px;transition:opacity .15s}
+  .subtopic-section li a:hover{opacity:.7}
 </style>
 </head>
 <body>
@@ -457,495 +459,537 @@ ul li:last-child{margin-bottom:0}
 
 <script>
     const syllabusData = [
-        {
-            id: 1,
-            title: "PRINCIPIOS ESENCIALES DE LA PROGRAMACIÓN ORIENTADA A OBJETOS",
-            hours: 32,
-            weeks: "SEMANAS 1 A 4",
-            subtopics: [
-                {
-                    id: "1.1",
-                    title: "INTRODUCCIÓN AL PARADIGMA DE POO (MÉTODOS)",
-                    objective: "Comprender los fundamentos del paradigma orientado a objetos y su evolución desde la programación estructurada.",
-                    videos: [
-                        "Programación Orientada a Objetos en Java - MitoCode",
-                        "Curso Java POO #1 - Introducción a la Programación Orientada a Objetos - pildorasinformaticas",
-                        "Programación Orientada a Objetos en Java (POO) #1 - Introducción - HolaMundo",
-                        "Aprende POO (Programación Orientada a Objetos) en Java - Fazt",
-                        "Curso Completo de Java y POO desde Cero - MoureDev"
-                    ],
-                    biblio: [
-                        "Bruce Eckel, \"On Java 8\" / \"On Java 17\", Cap. 1 \"Introduction to Objects\", pp. 15-38.",
-                        "Oracle, \"The Java Tutorials / Dev.java: Object-Oriented Programming Concepts\", Sección \"Classes and Objects\", pp. 1-15.",
-                        "Garcia de Jalón, J. et al., \"Aprenda Java como si estuviera en primero\", Cap. 1 \"Introducción a Java\", pp. 3-10.",
-                        "GoalKicker, \"Java Notes for Professionals\", Cap. 9 \"Classes and Objects\", pp. 120-135."
-                    ],
-                    practice: [
-                        "Video: \"Ejercicios resueltos de POO en Java paso a paso\" - Canal: Charly Cimino <span class='ref-level'>[Básico]</span>",
-                        "Libro: \"Aprenda Java como si estuviera en primero\" - Ejercicios propuestos, Cap. 1, pp. 40-42 <span class='ref-level'>[Básico]</span>",
-                        "Video: \"Ejercicios de POO resueltos en Java\" - Canal: Néstor Cancino <span class='ref-level'>[Intermedio]</span>",
-                        "Libro: \"Java Notes for Professionals\" - Práctica de métodos en Java, Cap. 9, pp. 140-145 <span class='ref-level'>[Básico]</span>"
-                    ]
-                },
-                {
-                    id: "1.2",
-                    title: "CLASES, SUBCLASES, ATRIBUTOS, OPERACIONES ENCAPSULAMIENTO",
-                    objective: "Diseñar clases definiendo atributos, operaciones y niveles de encapsulamiento aplicando modificadores de acceso.",
-                    videos: [
-                        "POO en Java: Clases, Objetos, Atributos y Métodos - MitoCode",
-                        "Curso Java POO #3 - Clases y Objetos - pildorasinformaticas",
-                        "Encapsulamiento en Java (Programación Orientada a Objetos) - HolaMundo",
-                        "Atributos y Métodos en Java - La Geekipedia De Ernesto",
-                        "Curso de Java: Clases, Objetos y Modificadores de Acceso - TodoCode"
-                    ],
-                    biblio: [
-                        "Bruce Eckel, \"On Java 8\", Cap. 2 \"Everything is an Object\", pp. 40-62.",
-                        "Garcia de Jalón, J. et al., \"Aprenda Java como si estuviera en primero\", Cap. 2 \"Estructura general de un programa\", pp. 12-25.",
-                        "GoalKicker, \"Java Notes for Professionals\", Cap. 9 \"Classes and Objects\", pp. 140-155.",
-                        "Oracle, \"The Java Tutorials / Dev.java: Controlling Access to Members of a Class\", pp. 1-8."
-                    ],
-                    practice: [
-                        "Video: \"Ejercicios resueltos de Clases y Encapsulamiento en Java\" - Canal: MitoCode <span class='ref-level'>[Básico]</span>",
-                        "Video: \"Ejercicios resueltos de POO en Java - Clases y Objetos\" - Canal: Néstor Cancino <span class='ref-level'>[Intermedio]</span>",
-                        "Libro: \"Aprenda Java como si estuviera en primero\" - Ejercicios propuestos, Cap. 2, pp. 35-38 <span class='ref-level'>[Básico]</span>",
-                        "Libro: \"Java Notes for Professionals\" - Ejercicios de Encapsulamiento, Cap. 9, pp. 160-165 <span class='ref-level'>[Intermedio]</span>"
-                    ]
-                },
-                {
-                    id: "1.3",
-                    title: "JERARQUÍA DE CLASES, HERENCIA, CLASES ABSTRACTAS Y POLIMORFISMO",
-                    objective: "Aplicar conceptos de herencia y polimorfismo mediante la creación de subclases y clases abstractas en Java.",
-                    videos: [
-                        "Curso Java POO - Herencia y Polimorfismo - pildorasinformaticas",
-                        "Polimorfismo en Java (POO) - HolaMundo",
-                        "Clases Abstractas e Interfaces en Java - MitoCode",
-                        "Herencia en Java - Programación Orientada a Objetos - Fazt",
-                        "Polimorfismo y Clases Abstractas en Java - La Geekipedia De Ernesto"
-                    ],
-                    biblio: [
-                        "Bruce Eckel, \"On Java 8\", Cap. 6 \"Reusing Classes\", pp. 210-235.",
-                        "Bruce Eckel, \"On Java 8\", Cap. 7 \"Polymorphism\", pp. 240-268.",
-                        "Garcia de Jalón, J. et al., \"Aprenda Java como si estuviera en primero\", Cap. 3 \"Herencia y Polimorfismo\", pp. 45-65.",
-                        "GoalKicker, \"Java Notes for Professionals\", Cap. 30 \"Inheritance\", pp. 320-335."
-                    ],
-                    practice: [
-                        "Video: \"Ejercicios resueltos de Herencia y Polimorfismo en Java\" - Canal: MitoCode <span class='ref-level'>[Intermedio]</span>",
-                        "Video: \"Ejercicio práctico de Polimorfismo en Java\" - Canal: HolaMundo <span class='ref-level'>[Intermedio]</span>",
-                        "Libro: \"Aprenda Java como si estuviera en primero\" - Ejercicios propuestos, Cap. 3, pp. 70-75 <span class='ref-level'>[Intermedio]</span>",
-                        "Libro: \"Java Notes for Professionals\" - Ejercicios de Herencia y Polimorfismo, Cap. 30, pp. 340-345 <span class='ref-level'>[Intermedio]</span>"
-                    ]
-                },
-                {
-                    id: "1.4",
-                    title: "AGREGACIÓN Y COMPOSICIÓN",
-                    objective: "Diferenciar e implementar relaciones de agregación y composición entre clases para modelar objetos complejos.",
-                    videos: [
-                        "Agregación vs Composición en Java - MitoCode",
-                        "Agregación y Composición en POO - Néstor Cancino",
-                        "Composición en Java (Programación Orientada a Objetos) - HolaMundo",
-                        "Relaciones entre Clases: Agregación y Composición - La Geekipedia De Ernesto",
-                        "Relaciones entre Clases en Java: Composición y Agregación - Charly Cimino"
-                    ],
-                    biblio: [
-                        "Bruce Eckel, \"On Java 8\", Cap. 8 \"Interfaces and Inner Classes\", pp. 290-315.",
-                        "GoalKicker, \"Java Notes for Professionals\", Cap. 9 \"Classes and Objects\", pp. 175-180.",
-                        "Oracle, \"The Java Tutorials / Dev.java: Nested Classes\", pp. 1-10.",
-                        "Bertrand Meyer, \"Construcción de Software Orientado a Objetos\", Cap. 5 \"Relaciones entre Clases\", pp. 140-160."
-                    ],
-                    practice: [
-                        "Video: \"Ejercicio práctico: Agregación y Composición en Java\" - Canal: MitoCode <span class='ref-level'>[Avanzado]</span>",
-                        "Video: \"Ejercicios resueltos de Composición en POO\" - Canal: Néstor Cancino <span class='ref-level'>[Intermedio]</span>",
-                        "Libro: \"On Java 8\" - Ejercicios propuestos de Diseño de Clases, Cap. 8, pp. 320-325 <span class='ref-level'>[Avanzado]</span>",
-                        "Libro: \"Java Notes for Professionals\" - Ejercicios de Clases Anidadas y Composición, Cap. 9, pp. 185-190 <span class='ref-level'>[Intermedio]</span>"
-                    ]
-                },
-                {
-                    id: "1.5",
-                    title: "INSTANCIAS Y MENÚ DE OPCIONES",
-                    objective: "Desarrollar un menú interactivo en consola utilizando instancias de clases para gestionar el flujo de un programa.",
-                    videos: [
-                        "Menú de opciones en Java (Consola) - MitoCode",
-                        "Crear Menús en Java con Scanner - HolaMundo",
-                        "Menú de opciones usando Switch en Java - La Geekipedia De Ernesto",
-                        "Instanciar clases y usar menús en Java - Néstor Cancino",
-                        "Programación orientada a objetos: Menú de opciones - Fazt"
-                    ],
-                    biblio: [
-                        "GoalKicker, \"Java Notes for Professionals\", Cap. 21 \"I/O\", pp. 200-215.",
-                        "Garcia de Jalón, J. et al., \"Aprenda Java como si estuviera en primero\", Cap. 6 \"Entrada/Salida en Java\", pp. 100-120.",
-                        "Bruce Eckel, \"On Java 8\", Cap. 10 \"I/O System\", pp. 410-430.",
-                        "Oracle, \"The Java Tutorials / Dev.java: Scanning and Formatting\", pp. 1-8."
-                    ],
-                    practice: [
-                        "Video: \"Ejercicio resuelto: Crear un Menú en Java con POO\" - Canal: MitoCode <span class='ref-level'>[Básico]</span>",
-                        "Video: \"Ejercicios resueltos: Menús en consola\" - Canal: La Geekipedia De Ernesto <span class='ref-level'>[Básico]</span>",
-                        "Libro: \"Aprenda Java como si estuviera en primero\" - Ejercicios propuestos, Cap. 6, pp. 125-130 <span class='ref-level'>[Básico]</span>",
-                        "Libro: \"Java Notes for Professionals\" - Ejercicios de I/O, Cap. 21, pp. 220-225 <span class='ref-level'>[Intermedio]</span>"
-                    ]
-                }
-            ]
-        },
-        {
-            id: 2,
-            title: "INTERACCIÓN HOMBRE COMPUTADOR",
-            hours: 28,
-            weeks: "SEMANAS 5 A 8",
-            subtopics: [
-                {
-                    id: "2.1",
-                    title: "CONCEPTOS INTERACCIÓN HOMBRE COMPUTADORA Y MODELADO DE NEGOCIO",
-                    objective: "Identificar los conceptos fundamentales de la interacción humano-computadora para el modelado de procesos de negocio.",
-                    videos: [
-                        "Curso de Interacción Humano Computadora (IHC) - TecnoNautas",
-                        "Modelado de Procesos de Negocio (BPMN) desde cero - Bizagi",
-                        "Introducción a la Interacción Humano-Computadora - Javier Cantero",
-                        "Modelado de Negocio en Ingeniería de Software - UTP",
-                        "Conceptos básicos de Interacción Humano-Computadora - UTPL"
-                    ],
-                    biblio: [
-                        "Alan Dix et al., \"Human-Computer Interaction\", 3rd / 4th Editions, Cap. 1 \"The Human\", pp. 11-58.",
-                        "Jeff Johnson, \"Designing with the Mind in Mind\", Cap. 1 \"Perception and Attention\", pp. 1-22.",
-                        "OpenLibra, \"Ingeniería de Software: Una guía para crear sistemas de información\", Cap. 2 \"Modelado de Negocio\", pp. 40-60.",
-                        "Jakob Nielsen, \"Usability Engineering\", Cap. 2 \"Usability Principles\", pp. 23-48."
-                    ],
-                    practice: [
-                        "Video: \"Ejemplo práctico de Modelado de Procesos de Negocio\" - Canal: Bizagi <span class='ref-level'>[Básico]</span>",
-                        "Video: \"Ejercicios de Modelado de Negocio\" - Canal: UTP <span class='ref-level'>[Intermedio]</span>",
-                        "Libro: \"Ingeniería de Software\" (OpenLibra) - Ejercicios propuestos, Cap. 2, pp. 65-70 <span class='ref-level'>[Básico]</span>",
-                        "Libro: \"Human-Computer Interaction\" (Dix et al.) - Ejercicios de evaluación heurística, Cap. 1, pp. 45-50 <span class='ref-level'>[Intermedio]</span>"
-                    ]
-                },
-                {
-                    id: "2.2",
-                    title: "DIAGRAMAS DE CASOS DE USO Y DIAGRAMA DE CLASE ESTEREOTIPADA",
-                    objective: "Construir diagramas de casos de uso y diagramas de clases estereotipadas para representar requisitos y estructura del sistema.",
-                    videos: [
-                        "Diagramas de Casos de Uso en UML - MitoCode",
-                        "Diagrama de Clases en UML - La Geekipedia De Ernesto",
-                        "Cómo hacer Diagramas de Casos de Uso Paso a Paso - UML Gratis",
-                        "Estereotipos en Diagramas de Clases UML (Boundary, Control, Entity) - Néstor Cancino",
-                        "UML: Diagramas de Clases y Casos de Uso - Algoritmica UTH"
-                    ],
-                    biblio: [
-                        "Grady Booch et al., \"The Unified Modeling Language User Guide\", Cap. 17 \"Use Cases\", pp. 225-242.",
-                        "GoalKicker, \"UML Notes for Professionals\", Cap. 3 \"Class Diagram\", pp. 40-60.",
-                        "OpenLibra, \"Aprende UML en 24 horas\", Cap. 3 \"Diagramas de Casos de Uso\", pp. 35-50.",
-                        "OMG, \"UML Specification v2.5.1\", Cap. 18 \"Use Cases\", pp. 630-650."
-                    ],
-                    practice: [
-                        "Video: \"Ejercicio resuelto: Diagrama de Casos de Uso\" - Canal: MitoCode <span class='ref-level'>[Básico]</span>",
-                        "Video: \"Ejercicio práctico: Diagrama de Clases UML\" - Canal: La Geekipedia De Ernesto <span class='ref-level'>[Intermedio]</span>",
-                        "Libro: \"UML Notes for Professionals\" - Ejercicios propuestos, Cap. 3, pp. 45-50 <span class='ref-level'>[Intermedio]</span>",
-                        "Libro: \"Aprende UML en 24 horas\" - Ejercicios de Modelado, Cap. 3, pp. 55-60 <span class='ref-level'>[Básico]</span>"
-                    ]
-                },
-                {
-                    id: "2.3",
-                    title: "DIAGRAMAS DE ACTIVIDAD Y DIAGRAMAS DE SECUENCIA",
-                    objective: "Modelar el comportamiento dinámico del sistema mediante diagramas de actividad y secuencia.",
-                    videos: [
-                        "Diagramas de Actividad en UML - MitoCode",
-                        "Diagramas de Secuencia en UML - La Geekipedia De Ernesto",
-                        "UML: Diagrama de Actividad y Secuencia - Algoritmica UTH",
-                        "Cómo crear un Diagrama de Secuencia UML - Geekipedia",
-                        "Diagramas de Comportamiento Dinámico - UTP"
-                    ],
-                    biblio: [
-                        "GoalKicker, \"UML Notes for Professionals\", Cap. 5 \"Sequence Diagram\", pp. 80-95.",
-                        "GoalKicker, \"UML Notes for Professionals\", Cap. 6 \"Activity Diagram\", pp. 100-115.",
-                        "OpenLibra, \"Aprende UML en 24 horas\", Cap. 6 \"Diagramas de Secuencia\", pp. 90-105.",
-                        "OMG, \"UML Specification v2.5.1\", Cap. 15 \"Activities\", pp. 370-410."
-                    ],
-                    practice: [
-                        "Video: \"Ejercicio resuelto: Diagrama de Actividad\" - Canal: MitoCode <span class='ref-level'>[Básico]</span>",
-                        "Video: \"Ejercicio práctico: Diagrama de Secuencia\" - Canal: La Geekipedia De Ernesto <span class='ref-level'>[Intermedio]</span>",
-                        "Libro: \"UML Notes for Professionals\" - Ejercicios propuestos, Cap. 5, pp. 96-100 <span class='ref-level'>[Intermedio]</span>",
-                        "Libro: \"Aprende UML en 24 horas\" - Ejercicios de Diagramas, Cap. 6, pp. 110-115 <span class='ref-level'>[Básico]</span>"
-                    ]
-                },
-                {
-                    id: "2.4",
-                    title: "COHESIÓN Y ACOPLAMIENTO",
-                    objective: "Evaluar el diseño de software aplicando métricas de cohesión y acoplamiento para mejorar la mantenibilidad.",
-                    videos: [
-                        "Cohesión y Acoplamiento en Ingeniería de Software - MitoCode",
-                        "Acoplamiento y Cohesión: Principios de Diseño Clean Code - HolaMundo",
-                        "Cohesión y Acoplamiento en POO - Néstor Cancino",
-                        "Principios de Diseño de Software: Cohesión y Acoplamiento - Fazt",
-                        "Ingeniería de Software: Acoplamiento y Cohesión - UTP"
-                    ],
-                    biblio: [
-                        "Larry Constantine & Edward Yourdon, \"Structured Design\", Cap. 6-7 \"Cohesion and Coupling\", pp. 105-140.",
-                        "Robert C. Martin, \"Clean Code: A Handbook of Agile Software Craftsmanship\", Cap. 10 \"Classes\", pp. 135-152.",
-                        "OpenLibra, \"Ingeniería de Software\", Cap. 7 \"Diseño de Software\", pp. 140-160.",
-                        "GoalKicker, \"Software Architecture Notes for Professionals\", Cap. 2 \"Cohesion and Coupling\", pp. 15-25."
-                    ],
-                    practice: [
-                        "Video: \"Refactorización: Mejorar Cohesión y Acoplamiento\" - Canal: MitoCode <span class='ref-level'>[Avanzado]</span>",
-                        "Video: \"Ejercicio de Análisis de Código (Cohesión y Acoplamiento)\" - Canal: HolaMundo <span class='ref-level'>[Avanzado]</span>",
-                        "Libro: \"Ingeniería de Software\" (OpenLibra) - Ejercicios propuestos, Cap. 7, pp. 165-170 <span class='ref-level'>[Intermedio]</span>",
-                        "Libro: \"Software Architecture Notes for Professionals\" - Ejercicios de Arquitectura, Cap. 2, pp. 26-30 <span class='ref-level'>[Avanzado]</span>"
-                    ]
-                },
-                {
-                    id: "2.5",
-                    title: "DIAGRAMA ARQUITECTÓNICO",
-                    objective: "Diseñar diagramas arquitectónicos para representar la estructura general del software y sus componentes.",
-                    videos: [
-                        "Diagramas de Arquitectura de Software - MitoCode",
-                        "Arquitectura de Software: Patrones y Diagramas - HolaMundo",
-                        "Cómo diseñar Arquitectura de Software - Fazt",
-                        "Diagramas C4 para Arquitectura de Software - Néstor Cancino",
-                        "Modelado Arquitectónico de Software - UTP"
-                    ],
-                    biblio: [
-                        "Len Bass, Paul Clements & Rick Kazman, \"Software Architecture in Practice\", 4th Ed., Cap. 2, pp. 25-48.",
-                        "GoalKicker, \"Software Architecture Notes for Professionals\", Cap. 5 \"Diagrams\", pp. 60-80.",
-                        "OpenLibra, \"Fundamentos de Arquitectura de Software\", Cap. 1, pp. 15-35.",
-                        "Martin Fowler, \"Patterns of Enterprise Application Architecture\", Cap. 1 \"Architecture\", pp. 1-18."
-                    ],
-                    practice: [
-                        "Video: \"Ejercicio práctico: Diagrama C4\" - Canal: Néstor Cancino <span class='ref-level'>[Avanzado]</span>",
-                        "Video: \"Ejemplo de Diagrama de Arquitectura en Java\" - Canal: MitoCode <span class='ref-level'>[Intermedio]</span>",
-                        "Libro: \"Software Architecture Notes for Professionals\" - Ejercicios propuestos, Cap. 5, pp. 85-90 <span class='ref-level'>[Avanzado]</span>",
-                        "Libro: \"Fundamentos de Arquitectura de Software\" - Ejercicios de Modelado, Cap. 1, pp. 40-45 <span class='ref-level'>[Intermedio]</span>"
-                    ]
-                }
-            ]
-        },
-        {
-            id: 3,
-            title: "PROGRAMACIÓN VISUAL, MANEJO DE EVENTOS Y EXPRESIONES",
-            hours: 32,
-            weeks: "SEMANAS 9 A 12",
-            subtopics: [
-                {
-                    id: "3.1",
-                    title: "GESTIÓN DE ERRORES Y EXCEPCIONES",
-                    objective: "Implementar mecanismos de gestión de excepciones en Java para controlar errores en tiempo de ejecución.",
-                    videos: [
-                        "Excepciones en Java (Try-Catch-Finally) - MitoCode",
-                        "Curso Java Excepciones #1 - Introducción - pildorasinformaticas",
-                        "Gestión de Excepciones en Java - HolaMundo",
-                        "Manejo de Errores y Excepciones en Java - Fazt",
-                        "Excepciones Personalizadas en Java - La Geekipedia De Ernesto"
-                    ],
-                    biblio: [
-                        "Bruce Eckel, \"On Java 8\", Cap. 12 \"Error Handling with Exceptions\", pp. 380-412.",
-                        "GoalKicker, \"Java Notes for Professionals\", Cap. 20 \"Exceptions\", pp. 190-205.",
-                        "Garcia de Jalón, J. et al., \"Aprenda Java como si estuviera en primero\", Cap. 8 \"Excepciones\", pp. 130-150.",
-                        "Oracle, \"The Java Tutorials / Dev.java: Exceptions\", pp. 1-18."
-                    ],
-                    practice: [
-                        "Video: \"Ejercicio resuelto: Manejo de Excepciones en Java\" - Canal: MitoCode <span class='ref-level'>[Intermedio]</span>",
-                        "Video: \"Excepciones en Java: Ejemplo práctico\" - Canal: HolaMundo <span class='ref-level'>[Básico]</span>",
-                        "Libro: \"Aprenda Java como si estuviera en primero\" - Ejercicios propuestos, Cap. 8, pp. 155-160 <span class='ref-level'>[Intermedio]</span>",
-                        "Libro: \"Java Notes for Professionals\" - Ejercicios de Excepciones, Cap. 20, pp. 210-215 <span class='ref-level'>[Intermedio]</span>"
-                    ]
-                },
-                {
-                    id: "3.2",
-                    title: "EXPRESIONES LAMBDA",
-                    objective: "Programar expresiones Lambda en Java para implementar interfaces funcionales y simplificar el código.",
-                    videos: [
-                        "Expresiones Lambda en Java (y Métodos por Defecto) - MitoCode",
-                        "Curso Java Lambdas #1 - Introducción - pildorasinformaticas",
-                        "Expresiones Lambda en Java (Programación Funcional) - HolaMundo",
-                        "Java Lambda Expressions (Expresiones Lambda) - Fazt",
-                        "Funciones Lambda en Java con Ejemplos - La Geekipedia De Ernesto"
-                    ],
-                    biblio: [
-                        "Bruce Eckel, \"On Java 8\", Cap. 13 \"Functional Programming\", pp. 415-445.",
-                        "GoalKicker, \"Java Notes for Professionals\", Cap. 43 \"Lambda Expressions\", pp. 450-465.",
-                        "Oracle, \"The Java Tutorials / Dev.java: Lambda Expressions\", pp. 1-14.",
-                        "OpenLibra, \"Programación Funcional en Java\", Cap. 2, pp. 30-55."
-                    ],
-                    practice: [
-                        "Video: \"Ejercicio práctico: Expresiones Lambda en Java\" - Canal: MitoCode <span class='ref-level'>[Intermedio]</span>",
-                        "Video: \"Ejercicios resueltos: Lambdas y Streams en Java\" - Canal: HolaMundo <span class='ref-level'>[Avanzado]</span>",
-                        "Libro: \"Java Notes for Professionals\" - Ejercicios propuestos, Cap. 43, pp. 470-475 <span class='ref-level'>[Intermedio]</span>",
-                        "Libro: \"Programación Funcional en Java\" - Ejercicios de Programación Funcional, Cap. 2, pp. 60-65 <span class='ref-level'>[Intermedio]</span>"
-                    ]
-                },
-                {
-                    id: "3.3",
-                    title: "PROGRAMACIÓN DE TAREAS MULTIPROCESO (MULTIHILO)",
-                    objective: "Desarrollar aplicaciones multihilo en Java utilizando la API de concurrencia para la ejecución de tareas paralelas.",
-                    videos: [
-                        "Multihilo en Java (Threads, Concurrencia y Sincronización) - MitoCode",
-                        "Curso Java Multihilo #1 - Introducción a los Hilos - pildorasinformaticas",
-                        "Hilos en Java (Threads y Runnable) - HolaMundo",
-                        "Concurrencia y Multihilo en Java - Fazt",
-                        "Programación Multihilo en Java con Ejemplos - La Geekipedia De Ernesto"
-                    ],
-                    biblio: [
-                        "Bruce Eckel, \"On Java 8\", Cap. 15 \"Concurrent Programming\", pp. 510-550.",
-                        "GoalKicker, \"Java Notes for Professionals\", Cap. 42 \"Threads\", pp. 410-430.",
-                        "Garcia de Jalón, J. et al., \"Aprenda Java como si estuviera en primero\", Cap. 9 \"Threads\", pp. 160-180.",
-                        "Oracle, \"The Java Tutorials / Dev.java: Concurrency\", pp. 1-22."
-                    ],
-                    practice: [
-                        "Video: \"Ejercicio resuelto: Hilos en Java\" - Canal: MitoCode <span class='ref-level'>[Avanzado]</span>",
-                        "Video: \"Ejemplo de Sincronización de Hilos\" - Canal: HolaMundo <span class='ref-level'>[Avanzado]</span>",
-                        "Libro: \"Aprenda Java como si estuviera en primero\" - Ejercicios propuestos, Cap. 9, pp. 185-190 <span class='ref-level'>[Intermedio]</span>",
-                        "Libro: \"Java Notes for Professionals\" - Ejercicios de Concurrencia, Cap. 42, pp. 435-440 <span class='ref-level'>[Avanzado]</span>"
-                    ]
-                },
-                {
-                    id: "3.4",
-                    title: "TIPOS DE INTERFAZ GRÁFICA SWING, GUI, AWT",
-                    objective: "Diferenciar los frameworks AWT y Swing para la construcción de interfaces gráficas de usuario (GUI) en Java.",
-                    videos: [
-                        "Interfaces Gráficas en Java con Swing - MitoCode",
-                        "Curso Java Interfaces Gráficas #1 - Introducción a Swing - pildorasinformaticas",
-                        "Crear Interfaz Gráfica en Java con Swing - HolaMundo",
-                        "AWT vs Swing en Java (Programación Visual) - Fazt",
-                        "Java GUI: AWT y Swing desde cero - La Geekipedia De Ernesto"
-                    ],
-                    biblio: [
-                        "GoalKicker, \"Java Notes for Professionals\", Cap. 47 \"Swing\", pp. 490-510.",
-                        "Bruce Eckel, \"Thinking in Java\" (4th Ed.), Cap. 22 \"Graphical User Interfaces\", pp. 780-820.",
-                        "Garcia de Jalón, J. et al., \"Aprenda Java como si estuviera en primero\", Cap. 10, pp. 200-220.",
-                        "Oracle, \"The Java Tutorials / Dev.java: Creating a GUI with Swing\", pp. 1-25."
-                    ],
-                    practice: [
-                        "Video: \"Ejercicio práctico: Calculadora en Java Swing\" - Canal: MitoCode <span class='ref-level'>[Intermedio]</span>",
-                        "Video: \"Ejercicio resuelto: Mi primera Interfaz Gráfica en Java\" - Canal: HolaMundo <span class='ref-level'>[Básico]</span>",
-                        "Libro: \"Aprenda Java como si estuviera en primero\" - Ejercicios propuestos, Cap. 10, pp. 225-230 <span class='ref-level'>[Intermedio]</span>",
-                        "Libro: \"Java Notes for Professionals\" - Ejercicios de Swing, Cap. 47, pp. 515-520 <span class='ref-level'>[Intermedio]</span>"
-                    ]
-                },
-                {
-                    id: "3.5",
-                    title: "EXPLORANDO COMPONENTE GRÁFICO SWING PARA PROYECTO FINAL",
-                    objective: "Diseñar una interfaz gráfica completa en Java Swing integrando múltiples componentes para el proyecto final.",
-                    videos: [
-                        "Sistema de Ventas en Java Swing (Proyecto Completo) - MitoCode",
-                        "Proyecto Java Swing: Crear un CRUD completo - HolaMundo",
-                        "Diseño de Interfaz en Java Swing (Componentes Avanzados) - Fazt",
-                        "Java Swing: JTable, JTextField y JButton - La Geekipedia De Ernesto",
-                        "Construir un proyecto final con Java Swing - Néstor Cancino"
-                    ],
-                    biblio: [
-                        "GoalKicker, \"Java Notes for Professionals\", Cap. 47 \"Swing\", pp. 520-540.",
-                        "Garcia de Jalón, J. et al., \"Aprenda Java como si estuviera en primero\", Cap. 10, pp. 230-245.",
-                        "OpenLibra, \"Creación de Interfaces en Java\", Cap. 3, pp. 60-85.",
-                        "Oracle, \"The Java Tutorials / Dev.java: Using Swing Components\", pp. 25-50."
-                    ],
-                    practice: [
-                        "Video: \"Proyecto Java Swing paso a paso (Sistema de Inventario)\" - Canal: MitoCode <span class='ref-level'>[Avanzado]</span>",
-                        "Video: \"Ejercicio: Diseño de Formulario de Registro en Java\" - Canal: HolaMundo <span class='ref-level'>[Intermedio]</span>",
-                        "Libro: \"Aprenda Java como si estuviera en primero\" - Ejercicios propuestos, Cap. 10, pp. 250-255 <span class='ref-level'>[Avanzado]</span>",
-                        "Libro: \"Creación de Interfaces en Java\" - Ejercicios de Componentes, Cap. 3, pp. 90-95 <span class='ref-level'>[Intermedio]</span>"
-                    ]
-                }
-            ]
-        },
-        {
-            id: 4,
-            title: "ADMINISTRACIÓN DE INFORMACIÓN USANDO GESTOR DE BASE DE DATOS",
-            hours: 28,
-            weeks: "SEMANAS 13 A 16",
-            subtopics: [
-                {
-                    id: "4.1",
-                    title: "PUENTES ENTRE BASE DE DATOS Y PROGRAMA (CONTROL E INTERFAZ GRÁFICA)",
-                    objective: "Conectar aplicaciones Java con bases de datos utilizando JDBC para el control de información desde una interfaz gráfica.",
-                    videos: [
-                        "Conexión a Base de Datos en Java con JDBC - MitoCode",
-                        "Curso Java JDBC #1 - Conexión a MySQL - pildorasinformaticas",
-                        "Conectar Java a Base de Datos (JDBC y MySQL) - HolaMundo",
-                        "JDBC en Java: Conexión, Insert, Update, Delete - Fazt",
-                        "Conexión Java-SQL con JDBC - La Geekipedia De Ernesto"
-                    ],
-                    biblio: [
-                        "GoalKicker, \"Java Notes for Professionals\", Cap. 44 \"JDBC\", pp. 460-475.",
-                        "Garcia de Jalón, J. et al., \"Aprenda Java como si estuviera en primero\", Cap. 12, pp. 300-320.",
-                        "Oracle, \"The Java Tutorials / Dev.java: JDBC Basics\", pp. 1-20.",
-                        "OpenLibra, \"Acceso a Bases de Datos en Java\", Cap. 1, pp. 10-40."
-                    ],
-                    practice: [
-                        "Video: \"Ejercicio práctico: Conexión Java-MySQL\" - Canal: MitoCode <span class='ref-level'>[Intermedio]</span>",
-                        "Video: \"Ejercicio resuelto: Insertar datos en BD desde Java\" - Canal: HolaMundo <span class='ref-level'>[Básico]</span>",
-                        "Libro: \"Aprenda Java como si estuviera en primero\" - Ejercicios propuestos, Cap. 12, pp. 325-330 <span class='ref-level'>[Intermedio]</span>",
-                        "Libro: \"Java Notes for Professionals\" - Ejercicios de JDBC, Cap. 44, pp. 480-485 <span class='ref-level'>[Intermedio]</span>"
-                    ]
-                },
-                {
-                    id: "4.2",
-                    title: "SENTENCIAS SQL, ACCESS, ORACLE",
-                    objective: "Ejecutar sentencias SQL en motores relacionales (Oracle, Access vía UCanAccess, MySQL) desde un entorno Java para administrar datos.",
-                    videos: [
-                        "Conectar Java con Access usando conector JDBC UCanAccess - Néstor Cancino",
-                        "Conexión Java con Oracle Database vía JDBC - MitoCode",
-                        "Sentencias SQL en Java (Select, Insert, Update, Delete) - HolaMundo",
-                        "Conectar Java con Base de Datos Oracle - Fazt",
-                        "SQL para Java: CRUD completo - La Geekipedia De Ernesto"
-                    ],
-                    biblio: [
-                        "GoalKicker, \"SQL Notes for Professionals\", Cap. 1 \"Getting started with SQL\", pp. 10-30.",
-                        "OpenLibra, \"Fundamentos de Bases de Datos\", Cap. 4 \"SQL\", pp. 80-110.",
-                        "Oracle, \"The Java Tutorials / Dev.java: Processing SQL Statements with JDBC\", pp. 1-15.",
-                        "Garcia de Jalón, J. et al., \"Aprenda Java como si estuviera en primero\", Cap. 12, pp. 330-345."
-                    ],
-                    practice: [
-                        "Video: \"Ejercicio resuelto: Conexión Java con Access / UCanAccess\" - Canal: Néstor Cancino <span class='ref-level'>[Intermedio]</span>",
-                        "Video: \"Conexión a Oracle y Ejecución de Queries en Java\" - Canal: MitoCode <span class='ref-level'>[Avanzado]</span>",
-                        "Libro: \"Fundamentos de Bases de Datos\" - Ejercicios propuestos, Cap. 4, pp. 115-120 <span class='ref-level'>[Intermedio]</span>",
-                        "Libro: \"SQL Notes for Professionals\" - Ejercicios de SQL, Cap. 1, pp. 35-40 <span class='ref-level'>[Básico]</span>"
-                    ]
-                },
-                {
-                    id: "4.3",
-                    title: "ADMINISTRACIÓN DE INFORMACIÓN MEDIANTE PROGRAMA",
-                    objective: "Desarrollar un sistema de administración de datos (CRUD) integrando Java Swing y JDBC en una arquitectura por capas.",
-                    videos: [
-                        "CRUD en Java con Swing y JDBC (Arquitectura por capas) - MitoCode",
-                        "Sistema de Inventario en Java y MySQL (CRUD) - HolaMundo",
-                        "Proyecto Java CRUD + MySQL + Swing - Fazt",
-                        "Arquitectura MVC en Java con Base de Datos - La Geekipedia De Ernesto",
-                        "Administrar datos en Java con Interfaz Gráfica - Néstor Cancino"
-                    ],
-                    biblio: [
-                        "GoalKicker, \"Software Architecture Notes for Professionals\", Cap. 8 \"MVC Architecture\", pp. 120-135.",
-                        "OpenLibra, \"Ingeniería de Software: Una guía para crear sistemas de información\", Cap. 10, pp. 200-220.",
-                        "GoalKicker, \"Java Notes for Professionals\", Cap. 44 \"JDBC\", pp. 490-505.",
-                        "Garcia de Jalón, J. et al., \"Aprenda Java como si estuviera en primero\", Cap. 12, pp. 345-360."
-                    ],
-                    practice: [
-                        "Video: \"Ejercicio práctico: CRUD MVC en Java\" - Canal: MitoCode <span class='ref-level'>[Avanzado]</span>",
-                        "Video: \"Proyecto paso a paso: Sistema de Registro en Java Swing\" - Canal: HolaMundo <span class='ref-level'>[Avanzado]</span>",
-                        "Libro: \"Ingeniería de Software\" - Ejercicios propuestos, Cap. 10, pp. 225-230 <span class='ref-level'>[Avanzado]</span>",
-                        "Libro: \"Software Architecture Notes for Professionals\" - Ejercicios de Arquitectura, Cap. 8, pp. 140-145 <span class='ref-level'>[Avanzado]</span>"
-                    ]
-                },
-                {
-                    id: "4.4",
-                    title: "PROYECTO FINAL",
-                    objective: "Integrar los conocimientos de POO, interfaces gráficas y bases de datos en un proyecto final funcional.",
-                    videos: [
-                        "Proyecto Final Java Swing + MySQL (Completo) - MitoCode",
-                        "Proyecto de Gestión en Java (Desde cero hasta BD) - HolaMundo",
-                        "Cómo estructurar un Proyecto de Software en Java - Fazt",
-                        "Proyecto Integrador POO Java + BD - Néstor Cancino",
-                        "Evaluación y Estructura de Proyectos de Programación en Java - UTP"
-                    ],
-                    biblio: [
-                        "Roger S. Pressman & Bruce R. Maxim, \"Ingeniería del Software: Un enfoque práctico\", Cap. 13, pp. 340-368.",
-                        "OpenLibra, \"Gestión de Proyectos de Software\", Cap. 3 \"Ejecución y Monitoreo\", pp. 80-100.",
-                        "GoalKicker, \"Software Architecture Notes for Professionals\", Cap. 15 \"Deployment & Structure\", pp. 200-215.",
-                        "Ian Sommerville, \"Ingeniería de Software\", 10ma Ed., Cap. 2 \"Procesos de software\", pp. 42-68."
-                    ],
-                    practice: [
-                        "Video: \"Proyecto Final Java: Sistema de Ventas\" - Canal: MitoCode <span class='ref-level'>[Avanzado]</span>",
-                        "Video: \"Defensa de Proyectos de Software: Casos prácticos\" - Canal: UTP <span class='ref-level'>[Avanzado]</span>",
-                        "Libro: \"Ingeniería del Software\" (Pressman) - Ejercicios de implementación, Cap. 13, pp. 370-375 <span class='ref-level'>[Avanzado]</span>",
-                        "Libro: \"Software Architecture Notes for Professionals\" - Ejercicios de Despliegue, Cap. 15, pp. 220-225 <span class='ref-level'>[Avanzado]</span>"
-                    ]
-                }
-            ]
-        }
-    ];
+  {
+    "id": 1,
+    "title": "PRINCIPIOS ESENCIALES DE LA PROGRAMACIÓN ORIENTADA A OBJETOS",
+    "hours": 32,
+    "weeks": "SEMANAS 1 A 4",
+    "subtopics": [
+      {
+        "id": "1.1",
+        "title": "INTRODUCCIÓN AL PARADIGMA DE POO (MÉTODOS)",
+        "objective": "Comprender los fundamentos del paradigma orientado a objetos y su evolución desde la programación estructurada.",
+        "videos": [
+          "Programación Orientada a Objetos en Java - MitoCode",
+          "Curso Java POO #1 - Introducción a la Programación Orientada a Objetos - pildorasinformaticas",
+          "Programación Orientada a Objetos en Java (POO) #1 - Introducción - HolaMundo",
+          "Aprende POO (Programación Orientada a Objetos) en Java - Fazt",
+          "Curso Completo de Java y POO desde Cero - MoureDev"
+        ],
+        "biblio": [
+          "Bruce Eckel, \"On Java 8\" / \"On Java 17\", Cap. 1 \"Introduction to Objects\", pp. 15-38.",
+          {
+            "text": "Oracle, \"The Java Tutorials / Dev.java: Object-Oriented Programming Concepts\", Sección \"Classes and Objects\", pp. 1-15.",
+            "url": "https://docs.oracle.com/javase/tutorial/"
+          },
+          "Garcia de Jalón, J. et al., \"Aprenda Java como si estuviera en primero\", Cap. 1 \"Introducción a Java\", pp. 3-10.",
+          "GoalKicker, \"Java Notes for Professionals\", Cap. 9 \"Classes and Objects\", pp. 120-135."
+        ],
+        "practice": [
+          "Video: \"Ejercicios resueltos de POO en Java paso a paso\" - Canal: Charly Cimino <span class='ref-level'>[Básico]</span>",
+          "Libro: \"Aprenda Java como si estuviera en primero\" - Ejercicios propuestos, Cap. 1, pp. 40-42 <span class='ref-level'>[Básico]</span>",
+          "Video: \"Ejercicios de POO resueltos en Java\" - Canal: Néstor Cancino <span class='ref-level'>[Intermedio]</span>",
+          "Libro: \"Java Notes for Professionals\" - Práctica de métodos en Java, Cap. 9, pp. 140-145 <span class='ref-level'>[Básico]</span>"
+        ]
+      },
+      {
+        "id": "1.2",
+        "title": "CLASES, SUBCLASES, ATRIBUTOS, OPERACIONES ENCAPSULAMIENTO",
+        "objective": "Diseñar clases definiendo atributos, operaciones y niveles de encapsulamiento aplicando modificadores de acceso.",
+        "videos": [
+          "POO en Java: Clases, Objetos, Atributos y Métodos - MitoCode",
+          "Curso Java POO #3 - Clases y Objetos - pildorasinformaticas",
+          "Encapsulamiento en Java (Programación Orientada a Objetos) - HolaMundo",
+          "Atributos y Métodos en Java - La Geekipedia De Ernesto",
+          "Curso de Java: Clases, Objetos y Modificadores de Acceso - TodoCode"
+        ],
+        "biblio": [
+          "Bruce Eckel, \"On Java 8\", Cap. 2 \"Everything is an Object\", pp. 40-62.",
+          "Garcia de Jalón, J. et al., \"Aprenda Java como si estuviera en primero\", Cap. 2 \"Estructura general de un programa\", pp. 12-25.",
+          "GoalKicker, \"Java Notes for Professionals\", Cap. 9 \"Classes and Objects\", pp. 140-155.",
+          {
+            "text": "Oracle, \"The Java Tutorials / Dev.java: Controlling Access to Members of a Class\", pp. 1-8.",
+            "url": "https://docs.oracle.com/javase/tutorial/"
+          }
+        ],
+        "practice": [
+          "Video: \"Ejercicios resueltos de Clases y Encapsulamiento en Java\" - Canal: MitoCode <span class='ref-level'>[Básico]</span>",
+          "Video: \"Ejercicios resueltos de POO en Java - Clases y Objetos\" - Canal: Néstor Cancino <span class='ref-level'>[Intermedio]</span>",
+          "Libro: \"Aprenda Java como si estuviera en primero\" - Ejercicios propuestos, Cap. 2, pp. 35-38 <span class='ref-level'>[Básico]</span>",
+          "Libro: \"Java Notes for Professionals\" - Ejercicios de Encapsulamiento, Cap. 9, pp. 160-165 <span class='ref-level'>[Intermedio]</span>"
+        ]
+      },
+      {
+        "id": "1.3",
+        "title": "JERARQUÍA DE CLASES, HERENCIA, CLASES ABSTRACTAS Y POLIMORFISMO",
+        "objective": "Aplicar conceptos de herencia y polimorfismo mediante la creación de subclases y clases abstractas en Java.",
+        "videos": [
+          "Curso Java POO - Herencia y Polimorfismo - pildorasinformaticas",
+          "Polimorfismo en Java (POO) - HolaMundo",
+          "Clases Abstractas e Interfaces en Java - MitoCode",
+          "Herencia en Java - Programación Orientada a Objetos - Fazt",
+          "Polimorfismo y Clases Abstractas en Java - La Geekipedia De Ernesto"
+        ],
+        "biblio": [
+          "Bruce Eckel, \"On Java 8\", Cap. 6 \"Reusing Classes\", pp. 210-235.",
+          "Bruce Eckel, \"On Java 8\", Cap. 7 \"Polymorphism\", pp. 240-268.",
+          "Garcia de Jalón, J. et al., \"Aprenda Java como si estuviera en primero\", Cap. 3 \"Herencia y Polimorfismo\", pp. 45-65.",
+          "GoalKicker, \"Java Notes for Professionals\", Cap. 30 \"Inheritance\", pp. 320-335."
+        ],
+        "practice": [
+          "Video: \"Ejercicios resueltos de Herencia y Polimorfismo en Java\" - Canal: MitoCode <span class='ref-level'>[Intermedio]</span>",
+          "Video: \"Ejercicio práctico de Polimorfismo en Java\" - Canal: HolaMundo <span class='ref-level'>[Intermedio]</span>",
+          "Libro: \"Aprenda Java como si estuviera en primero\" - Ejercicios propuestos, Cap. 3, pp. 70-75 <span class='ref-level'>[Intermedio]</span>",
+          "Libro: \"Java Notes for Professionals\" - Ejercicios de Herencia y Polimorfismo, Cap. 30, pp. 340-345 <span class='ref-level'>[Intermedio]</span>"
+        ]
+      },
+      {
+        "id": "1.4",
+        "title": "AGREGACIÓN Y COMPOSICIÓN",
+        "objective": "Diferenciar e implementar relaciones de agregación y composición entre clases para modelar objetos complejos.",
+        "videos": [
+          "Agregación vs Composición en Java - MitoCode",
+          "Agregación y Composición en POO - Néstor Cancino",
+          "Composición en Java (Programación Orientada a Objetos) - HolaMundo",
+          "Relaciones entre Clases: Agregación y Composición - La Geekipedia De Ernesto",
+          "Relaciones entre Clases en Java: Composición y Agregación - Charly Cimino"
+        ],
+        "biblio": [
+          "Bruce Eckel, \"On Java 8\", Cap. 8 \"Interfaces and Inner Classes\", pp. 290-315.",
+          "GoalKicker, \"Java Notes for Professionals\", Cap. 9 \"Classes and Objects\", pp. 175-180.",
+          {
+            "text": "Oracle, \"The Java Tutorials / Dev.java: Nested Classes\", pp. 1-10.",
+            "url": "https://docs.oracle.com/javase/tutorial/"
+          },
+          "Bertrand Meyer, \"Construcción de Software Orientado a Objetos\", Cap. 5 \"Relaciones entre Clases\", pp. 140-160."
+        ],
+        "practice": [
+          "Video: \"Ejercicio práctico: Agregación y Composición en Java\" - Canal: MitoCode <span class='ref-level'>[Avanzado]</span>",
+          "Video: \"Ejercicios resueltos de Composición en POO\" - Canal: Néstor Cancino <span class='ref-level'>[Intermedio]</span>",
+          "Libro: \"On Java 8\" - Ejercicios propuestos de Diseño de Clases, Cap. 8, pp. 320-325 <span class='ref-level'>[Avanzado]</span>",
+          "Libro: \"Java Notes for Professionals\" - Ejercicios de Clases Anidadas y Composición, Cap. 9, pp. 185-190 <span class='ref-level'>[Intermedio]</span>"
+        ]
+      },
+      {
+        "id": "1.5",
+        "title": "INSTANCIAS Y MENÚ DE OPCIONES",
+        "objective": "Desarrollar un menú interactivo en consola utilizando instancias de clases para gestionar el flujo de un programa.",
+        "videos": [
+          "Menú de opciones en Java (Consola) - MitoCode",
+          "Crear Menús en Java con Scanner - HolaMundo",
+          "Menú de opciones usando Switch en Java - La Geekipedia De Ernesto",
+          "Instanciar clases y usar menús en Java - Néstor Cancino",
+          "Programación orientada a objetos: Menú de opciones - Fazt"
+        ],
+        "biblio": [
+          "GoalKicker, \"Java Notes for Professionals\", Cap. 21 \"I/O\", pp. 200-215.",
+          "Garcia de Jalón, J. et al., \"Aprenda Java como si estuviera en primero\", Cap. 6 \"Entrada/Salida en Java\", pp. 100-120.",
+          "Bruce Eckel, \"On Java 8\", Cap. 10 \"I/O System\", pp. 410-430.",
+          {
+            "text": "Oracle, \"The Java Tutorials / Dev.java: Scanning and Formatting\", pp. 1-8.",
+            "url": "https://docs.oracle.com/javase/tutorial/"
+          }
+        ],
+        "practice": [
+          "Video: \"Ejercicio resuelto: Crear un Menú en Java con POO\" - Canal: MitoCode <span class='ref-level'>[Básico]</span>",
+          "Video: \"Ejercicios resueltos: Menús en consola\" - Canal: La Geekipedia De Ernesto <span class='ref-level'>[Básico]</span>",
+          "Libro: \"Aprenda Java como si estuviera en primero\" - Ejercicios propuestos, Cap. 6, pp. 125-130 <span class='ref-level'>[Básico]</span>",
+          "Libro: \"Java Notes for Professionals\" - Ejercicios de I/O, Cap. 21, pp. 220-225 <span class='ref-level'>[Intermedio]</span>"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "INTERACCIÓN HOMBRE COMPUTADOR",
+    "hours": 28,
+    "weeks": "SEMANAS 5 A 8",
+    "subtopics": [
+      {
+        "id": "2.1",
+        "title": "CONCEPTOS INTERACCIÓN HOMBRE COMPUTADORA Y MODELADO DE NEGOCIO",
+        "objective": "Identificar los conceptos fundamentales de la interacción humano-computadora para el modelado de procesos de negocio.",
+        "videos": [
+          "Curso de Interacción Humano Computadora (IHC) - TecnoNautas",
+          "Modelado de Procesos de Negocio (BPMN) desde cero - Bizagi",
+          "Introducción a la Interacción Humano-Computadora - Javier Cantero",
+          "Modelado de Negocio en Ingeniería de Software - UTP",
+          "Conceptos básicos de Interacción Humano-Computadora - UTPL"
+        ],
+        "biblio": [
+          "Alan Dix et al., \"Human-Computer Interaction\", 3rd / 4th Editions, Cap. 1 \"The Human\", pp. 11-58.",
+          "Jeff Johnson, \"Designing with the Mind in Mind\", Cap. 1 \"Perception and Attention\", pp. 1-22.",
+          "OpenLibra, \"Ingeniería de Software: Una guía para crear sistemas de información\", Cap. 2 \"Modelado de Negocio\", pp. 40-60.",
+          "Jakob Nielsen, \"Usability Engineering\", Cap. 2 \"Usability Principles\", pp. 23-48."
+        ],
+        "practice": [
+          "Video: \"Ejemplo práctico de Modelado de Procesos de Negocio\" - Canal: Bizagi <span class='ref-level'>[Básico]</span>",
+          "Video: \"Ejercicios de Modelado de Negocio\" - Canal: UTP <span class='ref-level'>[Intermedio]</span>",
+          "Libro: \"Ingeniería de Software\" (OpenLibra) - Ejercicios propuestos, Cap. 2, pp. 65-70 <span class='ref-level'>[Básico]</span>",
+          "Libro: \"Human-Computer Interaction\" (Dix et al.) - Ejercicios de evaluación heurística, Cap. 1, pp. 45-50 <span class='ref-level'>[Intermedio]</span>"
+        ]
+      },
+      {
+        "id": "2.2",
+        "title": "DIAGRAMAS DE CASOS DE USO Y DIAGRAMA DE CLASE ESTEREOTIPADA",
+        "objective": "Construir diagramas de casos de uso y diagramas de clases estereotipadas para representar requisitos y estructura del sistema.",
+        "videos": [
+          "Diagramas de Casos de Uso en UML - MitoCode",
+          "Diagrama de Clases en UML - La Geekipedia De Ernesto",
+          "Cómo hacer Diagramas de Casos de Uso Paso a Paso - UML Gratis",
+          "Estereotipos en Diagramas de Clases UML (Boundary, Control, Entity) - Néstor Cancino",
+          "UML: Diagramas de Clases y Casos de Uso - Algoritmica UTH"
+        ],
+        "biblio": [
+          "Grady Booch et al., \"The Unified Modeling Language User Guide\", Cap. 17 \"Use Cases\", pp. 225-242.",
+          "GoalKicker, \"UML Notes for Professionals\", Cap. 3 \"Class Diagram\", pp. 40-60.",
+          "OpenLibra, \"Aprende UML en 24 horas\", Cap. 3 \"Diagramas de Casos de Uso\", pp. 35-50.",
+          "OMG, \"UML Specification v2.5.1\", Cap. 18 \"Use Cases\", pp. 630-650."
+        ],
+        "practice": [
+          "Video: \"Ejercicio resuelto: Diagrama de Casos de Uso\" - Canal: MitoCode <span class='ref-level'>[Básico]</span>",
+          "Video: \"Ejercicio práctico: Diagrama de Clases UML\" - Canal: La Geekipedia De Ernesto <span class='ref-level'>[Intermedio]</span>",
+          "Libro: \"UML Notes for Professionals\" - Ejercicios propuestos, Cap. 3, pp. 45-50 <span class='ref-level'>[Intermedio]</span>",
+          "Libro: \"Aprende UML en 24 horas\" - Ejercicios de Modelado, Cap. 3, pp. 55-60 <span class='ref-level'>[Básico]</span>"
+        ]
+      },
+      {
+        "id": "2.3",
+        "title": "DIAGRAMAS DE ACTIVIDAD Y DIAGRAMAS DE SECUENCIA",
+        "objective": "Modelar el comportamiento dinámico del sistema mediante diagramas de actividad y secuencia.",
+        "videos": [
+          "Diagramas de Actividad en UML - MitoCode",
+          "Diagramas de Secuencia en UML - La Geekipedia De Ernesto",
+          "UML: Diagrama de Actividad y Secuencia - Algoritmica UTH",
+          "Cómo crear un Diagrama de Secuencia UML - Geekipedia",
+          "Diagramas de Comportamiento Dinámico - UTP"
+        ],
+        "biblio": [
+          "GoalKicker, \"UML Notes for Professionals\", Cap. 5 \"Sequence Diagram\", pp. 80-95.",
+          "GoalKicker, \"UML Notes for Professionals\", Cap. 6 \"Activity Diagram\", pp. 100-115.",
+          "OpenLibra, \"Aprende UML en 24 horas\", Cap. 6 \"Diagramas de Secuencia\", pp. 90-105.",
+          "OMG, \"UML Specification v2.5.1\", Cap. 15 \"Activities\", pp. 370-410."
+        ],
+        "practice": [
+          "Video: \"Ejercicio resuelto: Diagrama de Actividad\" - Canal: MitoCode <span class='ref-level'>[Básico]</span>",
+          "Video: \"Ejercicio práctico: Diagrama de Secuencia\" - Canal: La Geekipedia De Ernesto <span class='ref-level'>[Intermedio]</span>",
+          "Libro: \"UML Notes for Professionals\" - Ejercicios propuestos, Cap. 5, pp. 96-100 <span class='ref-level'>[Intermedio]</span>",
+          "Libro: \"Aprende UML en 24 horas\" - Ejercicios de Diagramas, Cap. 6, pp. 110-115 <span class='ref-level'>[Básico]</span>"
+        ]
+      },
+      {
+        "id": "2.4",
+        "title": "COHESIÓN Y ACOPLAMIENTO",
+        "objective": "Evaluar el diseño de software aplicando métricas de cohesión y acoplamiento para mejorar la mantenibilidad.",
+        "videos": [
+          "Cohesión y Acoplamiento en Ingeniería de Software - MitoCode",
+          "Acoplamiento y Cohesión: Principios de Diseño Clean Code - HolaMundo",
+          "Cohesión y Acoplamiento en POO - Néstor Cancino",
+          "Principios de Diseño de Software: Cohesión y Acoplamiento - Fazt",
+          "Ingeniería de Software: Acoplamiento y Cohesión - UTP"
+        ],
+        "biblio": [
+          "Larry Constantine & Edward Yourdon, \"Structured Design\", Cap. 6-7 \"Cohesion and Coupling\", pp. 105-140.",
+          "Robert C. Martin, \"Clean Code: A Handbook of Agile Software Craftsmanship\", Cap. 10 \"Classes\", pp. 135-152.",
+          "OpenLibra, \"Ingeniería de Software\", Cap. 7 \"Diseño de Software\", pp. 140-160.",
+          "GoalKicker, \"Software Architecture Notes for Professionals\", Cap. 2 \"Cohesion and Coupling\", pp. 15-25."
+        ],
+        "practice": [
+          "Video: \"Refactorización: Mejorar Cohesión y Acoplamiento\" - Canal: MitoCode <span class='ref-level'>[Avanzado]</span>",
+          "Video: \"Ejercicio de Análisis de Código (Cohesión y Acoplamiento)\" - Canal: HolaMundo <span class='ref-level'>[Avanzado]</span>",
+          "Libro: \"Ingeniería de Software\" (OpenLibra) - Ejercicios propuestos, Cap. 7, pp. 165-170 <span class='ref-level'>[Intermedio]</span>",
+          "Libro: \"Software Architecture Notes for Professionals\" - Ejercicios de Arquitectura, Cap. 2, pp. 26-30 <span class='ref-level'>[Avanzado]</span>"
+        ]
+      },
+      {
+        "id": "2.5",
+        "title": "DIAGRAMA ARQUITECTÓNICO",
+        "objective": "Diseñar diagramas arquitectónicos para representar la estructura general del software y sus componentes.",
+        "videos": [
+          "Diagramas de Arquitectura de Software - MitoCode",
+          "Arquitectura de Software: Patrones y Diagramas - HolaMundo",
+          "Cómo diseñar Arquitectura de Software - Fazt",
+          "Diagramas C4 para Arquitectura de Software - Néstor Cancino",
+          "Modelado Arquitectónico de Software - UTP"
+        ],
+        "biblio": [
+          "Len Bass, Paul Clements & Rick Kazman, \"Software Architecture in Practice\", 4th Ed., Cap. 2, pp. 25-48.",
+          "GoalKicker, \"Software Architecture Notes for Professionals\", Cap. 5 \"Diagrams\", pp. 60-80.",
+          "OpenLibra, \"Fundamentos de Arquitectura de Software\", Cap. 1, pp. 15-35.",
+          "Martin Fowler, \"Patterns of Enterprise Application Architecture\", Cap. 1 \"Architecture\", pp. 1-18."
+        ],
+        "practice": [
+          "Video: \"Ejercicio práctico: Diagrama C4\" - Canal: Néstor Cancino <span class='ref-level'>[Avanzado]</span>",
+          "Video: \"Ejemplo de Diagrama de Arquitectura en Java\" - Canal: MitoCode <span class='ref-level'>[Intermedio]</span>",
+          "Libro: \"Software Architecture Notes for Professionals\" - Ejercicios propuestos, Cap. 5, pp. 85-90 <span class='ref-level'>[Avanzado]</span>",
+          "Libro: \"Fundamentos de Arquitectura de Software\" - Ejercicios de Modelado, Cap. 1, pp. 40-45 <span class='ref-level'>[Intermedio]</span>"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "title": "PROGRAMACIÓN VISUAL, MANEJO DE EVENTOS Y EXPRESIONES",
+    "hours": 32,
+    "weeks": "SEMANAS 9 A 12",
+    "subtopics": [
+      {
+        "id": "3.1",
+        "title": "GESTIÓN DE ERRORES Y EXCEPCIONES",
+        "objective": "Implementar mecanismos de gestión de excepciones en Java para controlar errores en tiempo de ejecución.",
+        "videos": [
+          "Excepciones en Java (Try-Catch-Finally) - MitoCode",
+          "Curso Java Excepciones #1 - Introducción - pildorasinformaticas",
+          "Gestión de Excepciones en Java - HolaMundo",
+          "Manejo de Errores y Excepciones en Java - Fazt",
+          "Excepciones Personalizadas en Java - La Geekipedia De Ernesto"
+        ],
+        "biblio": [
+          "Bruce Eckel, \"On Java 8\", Cap. 12 \"Error Handling with Exceptions\", pp. 380-412.",
+          "GoalKicker, \"Java Notes for Professionals\", Cap. 20 \"Exceptions\", pp. 190-205.",
+          "Garcia de Jalón, J. et al., \"Aprenda Java como si estuviera en primero\", Cap. 8 \"Excepciones\", pp. 130-150.",
+          {
+            "text": "Oracle, \"The Java Tutorials / Dev.java: Exceptions\", pp. 1-18.",
+            "url": "https://docs.oracle.com/javase/tutorial/"
+          }
+        ],
+        "practice": [
+          "Video: \"Ejercicio resuelto: Manejo de Excepciones en Java\" - Canal: MitoCode <span class='ref-level'>[Intermedio]</span>",
+          "Video: \"Excepciones en Java: Ejemplo práctico\" - Canal: HolaMundo <span class='ref-level'>[Básico]</span>",
+          "Libro: \"Aprenda Java como si estuviera en primero\" - Ejercicios propuestos, Cap. 8, pp. 155-160 <span class='ref-level'>[Intermedio]</span>",
+          "Libro: \"Java Notes for Professionals\" - Ejercicios de Excepciones, Cap. 20, pp. 210-215 <span class='ref-level'>[Intermedio]</span>"
+        ]
+      },
+      {
+        "id": "3.2",
+        "title": "EXPRESIONES LAMBDA",
+        "objective": "Programar expresiones Lambda en Java para implementar interfaces funcionales y simplificar el código.",
+        "videos": [
+          "Expresiones Lambda en Java (y Métodos por Defecto) - MitoCode",
+          "Curso Java Lambdas #1 - Introducción - pildorasinformaticas",
+          "Expresiones Lambda en Java (Programación Funcional) - HolaMundo",
+          "Java Lambda Expressions (Expresiones Lambda) - Fazt",
+          "Funciones Lambda en Java con Ejemplos - La Geekipedia De Ernesto"
+        ],
+        "biblio": [
+          "Bruce Eckel, \"On Java 8\", Cap. 13 \"Functional Programming\", pp. 415-445.",
+          "GoalKicker, \"Java Notes for Professionals\", Cap. 43 \"Lambda Expressions\", pp. 450-465.",
+          {
+            "text": "Oracle, \"The Java Tutorials / Dev.java: Lambda Expressions\", pp. 1-14.",
+            "url": "https://docs.oracle.com/javase/tutorial/"
+          },
+          "OpenLibra, \"Programación Funcional en Java\", Cap. 2, pp. 30-55."
+        ],
+        "practice": [
+          "Video: \"Ejercicio práctico: Expresiones Lambda en Java\" - Canal: MitoCode <span class='ref-level'>[Intermedio]</span>",
+          "Video: \"Ejercicios resueltos: Lambdas y Streams en Java\" - Canal: HolaMundo <span class='ref-level'>[Avanzado]</span>",
+          "Libro: \"Java Notes for Professionals\" - Ejercicios propuestos, Cap. 43, pp. 470-475 <span class='ref-level'>[Intermedio]</span>",
+          "Libro: \"Programación Funcional en Java\" - Ejercicios de Programación Funcional, Cap. 2, pp. 60-65 <span class='ref-level'>[Intermedio]</span>"
+        ]
+      },
+      {
+        "id": "3.3",
+        "title": "PROGRAMACIÓN DE TAREAS MULTIPROCESO (MULTIHILO)",
+        "objective": "Desarrollar aplicaciones multihilo en Java utilizando la API de concurrencia para la ejecución de tareas paralelas.",
+        "videos": [
+          "Multihilo en Java (Threads, Concurrencia y Sincronización) - MitoCode",
+          "Curso Java Multihilo #1 - Introducción a los Hilos - pildorasinformaticas",
+          "Hilos en Java (Threads y Runnable) - HolaMundo",
+          "Concurrencia y Multihilo en Java - Fazt",
+          "Programación Multihilo en Java con Ejemplos - La Geekipedia De Ernesto"
+        ],
+        "biblio": [
+          "Bruce Eckel, \"On Java 8\", Cap. 15 \"Concurrent Programming\", pp. 510-550.",
+          "GoalKicker, \"Java Notes for Professionals\", Cap. 42 \"Threads\", pp. 410-430.",
+          "Garcia de Jalón, J. et al., \"Aprenda Java como si estuviera en primero\", Cap. 9 \"Threads\", pp. 160-180.",
+          {
+            "text": "Oracle, \"The Java Tutorials / Dev.java: Concurrency\", pp. 1-22.",
+            "url": "https://docs.oracle.com/javase/tutorial/"
+          }
+        ],
+        "practice": [
+          "Video: \"Ejercicio resuelto: Hilos en Java\" - Canal: MitoCode <span class='ref-level'>[Avanzado]</span>",
+          "Video: \"Ejemplo de Sincronización de Hilos\" - Canal: HolaMundo <span class='ref-level'>[Avanzado]</span>",
+          "Libro: \"Aprenda Java como si estuviera en primero\" - Ejercicios propuestos, Cap. 9, pp. 185-190 <span class='ref-level'>[Intermedio]</span>",
+          "Libro: \"Java Notes for Professionals\" - Ejercicios de Concurrencia, Cap. 42, pp. 435-440 <span class='ref-level'>[Avanzado]</span>"
+        ]
+      },
+      {
+        "id": "3.4",
+        "title": "TIPOS DE INTERFAZ GRÁFICA SWING, GUI, AWT",
+        "objective": "Diferenciar los frameworks AWT y Swing para la construcción de interfaces gráficas de usuario (GUI) en Java.",
+        "videos": [
+          "Interfaces Gráficas en Java con Swing - MitoCode",
+          "Curso Java Interfaces Gráficas #1 - Introducción a Swing - pildorasinformaticas",
+          "Crear Interfaz Gráfica en Java con Swing - HolaMundo",
+          "AWT vs Swing en Java (Programación Visual) - Fazt",
+          "Java GUI: AWT y Swing desde cero - La Geekipedia De Ernesto"
+        ],
+        "biblio": [
+          "GoalKicker, \"Java Notes for Professionals\", Cap. 47 \"Swing\", pp. 490-510.",
+          "Bruce Eckel, \"Thinking in Java\" (4th Ed.), Cap. 22 \"Graphical User Interfaces\", pp. 780-820.",
+          "Garcia de Jalón, J. et al., \"Aprenda Java como si estuviera en primero\", Cap. 10, pp. 200-220.",
+          {
+            "text": "Oracle, \"The Java Tutorials / Dev.java: Creating a GUI with Swing\", pp. 1-25.",
+            "url": "https://docs.oracle.com/javase/tutorial/"
+          }
+        ],
+        "practice": [
+          "Video: \"Ejercicio práctico: Calculadora en Java Swing\" - Canal: MitoCode <span class='ref-level'>[Intermedio]</span>",
+          "Video: \"Ejercicio resuelto: Mi primera Interfaz Gráfica en Java\" - Canal: HolaMundo <span class='ref-level'>[Básico]</span>",
+          "Libro: \"Aprenda Java como si estuviera en primero\" - Ejercicios propuestos, Cap. 10, pp. 225-230 <span class='ref-level'>[Intermedio]</span>",
+          "Libro: \"Java Notes for Professionals\" - Ejercicios de Swing, Cap. 47, pp. 515-520 <span class='ref-level'>[Intermedio]</span>"
+        ]
+      },
+      {
+        "id": "3.5",
+        "title": "EXPLORANDO COMPONENTE GRÁFICO SWING PARA PROYECTO FINAL",
+        "objective": "Diseñar una interfaz gráfica completa en Java Swing integrando múltiples componentes para el proyecto final.",
+        "videos": [
+          "Sistema de Ventas en Java Swing (Proyecto Completo) - MitoCode",
+          "Proyecto Java Swing: Crear un CRUD completo - HolaMundo",
+          "Diseño de Interfaz en Java Swing (Componentes Avanzados) - Fazt",
+          "Java Swing: JTable, JTextField y JButton - La Geekipedia De Ernesto",
+          "Construir un proyecto final con Java Swing - Néstor Cancino"
+        ],
+        "biblio": [
+          "GoalKicker, \"Java Notes for Professionals\", Cap. 47 \"Swing\", pp. 520-540.",
+          "Garcia de Jalón, J. et al., \"Aprenda Java como si estuviera en primero\", Cap. 10, pp. 230-245.",
+          "OpenLibra, \"Creación de Interfaces en Java\", Cap. 3, pp. 60-85.",
+          {
+            "text": "Oracle, \"The Java Tutorials / Dev.java: Using Swing Components\", pp. 25-50.",
+            "url": "https://docs.oracle.com/javase/tutorial/"
+          }
+        ],
+        "practice": [
+          "Video: \"Proyecto Java Swing paso a paso (Sistema de Inventario)\" - Canal: MitoCode <span class='ref-level'>[Avanzado]</span>",
+          "Video: \"Ejercicio: Diseño de Formulario de Registro en Java\" - Canal: HolaMundo <span class='ref-level'>[Intermedio]</span>",
+          "Libro: \"Aprenda Java como si estuviera en primero\" - Ejercicios propuestos, Cap. 10, pp. 250-255 <span class='ref-level'>[Avanzado]</span>",
+          "Libro: \"Creación de Interfaces en Java\" - Ejercicios de Componentes, Cap. 3, pp. 90-95 <span class='ref-level'>[Intermedio]</span>"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "title": "ADMINISTRACIÓN DE INFORMACIÓN USANDO GESTOR DE BASE DE DATOS",
+    "hours": 28,
+    "weeks": "SEMANAS 13 A 16",
+    "subtopics": [
+      {
+        "id": "4.1",
+        "title": "PUENTES ENTRE BASE DE DATOS Y PROGRAMA (CONTROL E INTERFAZ GRÁFICA)",
+        "objective": "Conectar aplicaciones Java con bases de datos utilizando JDBC para el control de información desde una interfaz gráfica.",
+        "videos": [
+          "Conexión a Base de Datos en Java con JDBC - MitoCode",
+          "Curso Java JDBC #1 - Conexión a MySQL - pildorasinformaticas",
+          "Conectar Java a Base de Datos (JDBC y MySQL) - HolaMundo",
+          "JDBC en Java: Conexión, Insert, Update, Delete - Fazt",
+          "Conexión Java-SQL con JDBC - La Geekipedia De Ernesto"
+        ],
+        "biblio": [
+          "GoalKicker, \"Java Notes for Professionals\", Cap. 44 \"JDBC\", pp. 460-475.",
+          "Garcia de Jalón, J. et al., \"Aprenda Java como si estuviera en primero\", Cap. 12, pp. 300-320.",
+          {
+            "text": "Oracle, \"The Java Tutorials / Dev.java: JDBC Basics\", pp. 1-20.",
+            "url": "https://docs.oracle.com/javase/tutorial/"
+          },
+          "OpenLibra, \"Acceso a Bases de Datos en Java\", Cap. 1, pp. 10-40."
+        ],
+        "practice": [
+          "Video: \"Ejercicio práctico: Conexión Java-MySQL\" - Canal: MitoCode <span class='ref-level'>[Intermedio]</span>",
+          "Video: \"Ejercicio resuelto: Insertar datos en BD desde Java\" - Canal: HolaMundo <span class='ref-level'>[Básico]</span>",
+          "Libro: \"Aprenda Java como si estuviera en primero\" - Ejercicios propuestos, Cap. 12, pp. 325-330 <span class='ref-level'>[Intermedio]</span>",
+          "Libro: \"Java Notes for Professionals\" - Ejercicios de JDBC, Cap. 44, pp. 480-485 <span class='ref-level'>[Intermedio]</span>"
+        ]
+      },
+      {
+        "id": "4.2",
+        "title": "SENTENCIAS SQL, ACCESS, ORACLE",
+        "objective": "Ejecutar sentencias SQL en motores relacionales (Oracle, Access vía UCanAccess, MySQL) desde un entorno Java para administrar datos.",
+        "videos": [
+          "Conectar Java con Access usando conector JDBC UCanAccess - Néstor Cancino",
+          {
+            "text": "Conexión Java con Oracle Database vía JDBC - MitoCode",
+            "url": "https://docs.oracle.com/javase/tutorial/"
+          },
+          "Sentencias SQL en Java (Select, Insert, Update, Delete) - HolaMundo",
+          {
+            "text": "Conectar Java con Base de Datos Oracle - Fazt",
+            "url": "https://docs.oracle.com/javase/tutorial/"
+          },
+          "SQL para Java: CRUD completo - La Geekipedia De Ernesto"
+        ],
+        "biblio": [
+          "GoalKicker, \"SQL Notes for Professionals\", Cap. 1 \"Getting started with SQL\", pp. 10-30.",
+          "OpenLibra, \"Fundamentos de Bases de Datos\", Cap. 4 \"SQL\", pp. 80-110.",
+          {
+            "text": "Oracle, \"The Java Tutorials / Dev.java: Processing SQL Statements with JDBC\", pp. 1-15.",
+            "url": "https://docs.oracle.com/javase/tutorial/"
+          },
+          "Garcia de Jalón, J. et al., \"Aprenda Java como si estuviera en primero\", Cap. 12, pp. 330-345."
+        ],
+        "practice": [
+          "Video: \"Ejercicio resuelto: Conexión Java con Access / UCanAccess\" - Canal: Néstor Cancino <span class='ref-level'>[Intermedio]</span>",
+          {
+            "text": "Video: \"Conexión a Oracle y Ejecución de Queries en Java\" - Canal: MitoCode <span class='ref-level'>[Avanzado]</span>",
+            "url": "https://docs.oracle.com/javase/tutorial/"
+          },
+          "Libro: \"Fundamentos de Bases de Datos\" - Ejercicios propuestos, Cap. 4, pp. 115-120 <span class='ref-level'>[Intermedio]</span>",
+          "Libro: \"SQL Notes for Professionals\" - Ejercicios de SQL, Cap. 1, pp. 35-40 <span class='ref-level'>[Básico]</span>"
+        ]
+      },
+      {
+        "id": "4.3",
+        "title": "ADMINISTRACIÓN DE INFORMACIÓN MEDIANTE PROGRAMA",
+        "objective": "Desarrollar un sistema de administración de datos (CRUD) integrando Java Swing y JDBC en una arquitectura por capas.",
+        "videos": [
+          "CRUD en Java con Swing y JDBC (Arquitectura por capas) - MitoCode",
+          "Sistema de Inventario en Java y MySQL (CRUD) - HolaMundo",
+          "Proyecto Java CRUD + MySQL + Swing - Fazt",
+          "Arquitectura MVC en Java con Base de Datos - La Geekipedia De Ernesto",
+          "Administrar datos en Java con Interfaz Gráfica - Néstor Cancino"
+        ],
+        "biblio": [
+          "GoalKicker, \"Software Architecture Notes for Professionals\", Cap. 8 \"MVC Architecture\", pp. 120-135.",
+          "OpenLibra, \"Ingeniería de Software: Una guía para crear sistemas de información\", Cap. 10, pp. 200-220.",
+          "GoalKicker, \"Java Notes for Professionals\", Cap. 44 \"JDBC\", pp. 490-505.",
+          "Garcia de Jalón, J. et al., \"Aprenda Java como si estuviera en primero\", Cap. 12, pp. 345-360."
+        ],
+        "practice": [
+          "Video: \"Ejercicio práctico: CRUD MVC en Java\" - Canal: MitoCode <span class='ref-level'>[Avanzado]</span>",
+          "Video: \"Proyecto paso a paso: Sistema de Registro en Java Swing\" - Canal: HolaMundo <span class='ref-level'>[Avanzado]</span>",
+          "Libro: \"Ingeniería de Software\" - Ejercicios propuestos, Cap. 10, pp. 225-230 <span class='ref-level'>[Avanzado]</span>",
+          "Libro: \"Software Architecture Notes for Professionals\" - Ejercicios de Arquitectura, Cap. 8, pp. 140-145 <span class='ref-level'>[Avanzado]</span>"
+        ]
+      },
+      {
+        "id": "4.4",
+        "title": "PROYECTO FINAL",
+        "objective": "Integrar los conocimientos de POO, interfaces gráficas y bases de datos en un proyecto final funcional.",
+        "videos": [
+          "Proyecto Final Java Swing + MySQL (Completo) - MitoCode",
+          "Proyecto de Gestión en Java (Desde cero hasta BD) - HolaMundo",
+          "Cómo estructurar un Proyecto de Software en Java - Fazt",
+          "Proyecto Integrador POO Java + BD - Néstor Cancino",
+          "Evaluación y Estructura de Proyectos de Programación en Java - UTP"
+        ],
+        "biblio": [
+          "Roger S. Pressman & Bruce R. Maxim, \"Ingeniería del Software: Un enfoque práctico\", Cap. 13, pp. 340-368.",
+          "OpenLibra, \"Gestión de Proyectos de Software\", Cap. 3 \"Ejecución y Monitoreo\", pp. 80-100.",
+          "GoalKicker, \"Software Architecture Notes for Professionals\", Cap. 15 \"Deployment & Structure\", pp. 200-215.",
+          "Ian Sommerville, \"Ingeniería de Software\", 10ma Ed., Cap. 2 \"Procesos de software\", pp. 42-68."
+        ],
+        "practice": [
+          "Video: \"Proyecto Final Java: Sistema de Ventas\" - Canal: MitoCode <span class='ref-level'>[Avanzado]</span>",
+          "Video: \"Defensa de Proyectos de Software: Casos prácticos\" - Canal: UTP <span class='ref-level'>[Avanzado]</span>",
+          "Libro: \"Ingeniería del Software\" (Pressman) - Ejercicios de implementación, Cap. 13, pp. 370-375 <span class='ref-level'>[Avanzado]</span>",
+          "Libro: \"Software Architecture Notes for Professionals\" - Ejercicios de Despliegue, Cap. 15, pp. 220-225 <span class='ref-level'>[Avanzado]</span>"
+        ]
+      }
+    ]
+  }
+];
 
     const container = document.getElementById('syllabusContainer');
     let totalSubtopics = 0;
@@ -1008,15 +1052,15 @@ ul li:last-child{margin-bottom:0}
                                 </div>
                                 <section class="subtopic-section">
                                     <h4><span class="star">★</span> <span>REFERENCIAS EN VIDEO</span> <span class="count">${subtopic.videos.length}</span></h4>
-                                    <ul>${subtopic.videos.map(v => `<li>${v}</li>`).join('')}</ul>
+                                    <ul>${subtopic.videos.map(v => {const txt=typeof v==='object'?(v.text||v.t||''):v;const url=typeof v==='object'?(v.url||''):'';return `<li>${url?`<a href="${url}" target="_blank" rel="noopener">${txt}</a>`:txt}</li>`}).join('')}</ul>
                                 </section>
                                 <section class="subtopic-section">
                                     <h4><span class="star">★</span> <span>REFERENCIAS BIBLIOGRÁFICAS</span> <span class="count">${subtopic.biblio.length}</span></h4>
-                                    <ul>${subtopic.biblio.map(b => `<li>${b}</li>`).join('')}</ul>
+                                    <ul>${subtopic.biblio.map(b => {const txt=typeof b==='object'?(b.text||b.t||''):b;const url=typeof b==='object'?(b.url||''):'';return `<li>${url?`<a href="${url}" target="_blank" rel="noopener">${txt}</a>`:txt}</li>`}).join('')}</ul>
                                 </section>
                                 <section class="subtopic-section">
                                     <h4><span class="star">★</span> <span>REFERENCIAS DE PRÁCTICA</span> <span class="count">${subtopic.practice.length}</span></h4>
-                                    <ul>${subtopic.practice.map(p => `<li>${p}</li>`).join('')}</ul>
+                                    <ul>${subtopic.practice.map(p => {const txt=typeof p==='object'?(p.text||p.t||''):p;const url=typeof p==='object'?(p.url||''):'';return `<li>${url?`<a href="${url}" target="_blank" rel="noopener">${txt}</a>`:txt}</li>`}).join('')}</ul>
                                 </section>
                             </div>
                         </div>
