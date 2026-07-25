@@ -698,7 +698,7 @@
     </div>
     <div>
       <h4>Accesibilidad</h4>
-      Contraste AAA (blanco sobre #0D1B2A). Subrayado grueso en enlaces. Navegación por teclado operativa en acordeones y checkboxes.
+      Contraste AAA (blanco sobre #1B2A3A). Subrayado grueso en enlaces. Navegación por teclado operativa en acordeones y checkboxes.
     </div>
   </footer>
 
@@ -1328,7 +1328,7 @@ function animate() {
     const wave = Math.sin(t + p.x * 0.007 + p.y * 0.004 + p.phase) * 0.5 + 0.5;
     const alpha = 0.12 + wave * 0.45;
     const size = 1.2 + wave * 2;
-    ctx.fillStyle = wave > 0.78 ? "#0047AB" : `rgba(255,255,255,${alpha})`;
+    ctx.fillStyle = wave > 0.78 ? "#2C4A6E" : `rgba(237,239,242,${alpha})`;
     ctx.beginPath();
     ctx.arc(p.x, p.y, size, 0, Math.PI * 2);
     ctx.fill();
