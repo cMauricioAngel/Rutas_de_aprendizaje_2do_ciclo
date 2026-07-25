@@ -16,10 +16,11 @@ const DATA_DIR = path.join(ROOT, "data");
 const MAPAS = [
   { file: "Mapa_Java.html", var: "DATA" },
   { file: "Mapa_Javascript.html", var: "DATA" },
+  { file: "Mapa_Algebra_LIneal_y_Geo._Analitica.html", var: "DATA" },
   { file: "Mapa_Mate_superior.html", var: "syllabusData" },
   { file: "Mapa_Modelado_de_negocios.html", var: "syllabusData" },
   { file: "Mapa_Programacion_orientada_a_objetos.html", var: "syllabusData" }
-  // Nota: Mapa_Algebra y Mapa_Mate_discreta2 no tienen estructura DATA exportable
+  // Mapa_Mate_discreta2: referencias en HTML plano (sin DATA), requiere enfoque regex
 ];
 
 /* ---------- utilidades HTTP ---------- */
