@@ -18,8 +18,9 @@ const MAPAS = [
   { file: "Mapa_Javascript.html", var: "DATA" },
   { file: "Mapa_Mate_superior.html", var: "syllabusData" },
   { file: "Mapa_Modelado_de_negocios.html", var: "syllabusData" },
-  { file: "Mapa_Programacion_orientada_a_objetos.html", var: "syllabusData" }
-  // Nota: Mapa_Algebra y Mapa_Mate_discreta2 no tienen estructura DATA exportable
+  { file: "Mapa_Programacion_orientada_a_objetos.html", var: "syllabusData" },
+  { file: "Mapa_Algebra_LIneal_y_Geo._Analitica.html", var: "DATA" },
+  { file: "Mapa_Mate_discreta2.html", var: null, parseHTML: true }
 ];
 
 /* ---------- utilidades HTTP ---------- */

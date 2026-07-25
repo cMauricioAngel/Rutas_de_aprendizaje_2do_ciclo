@@ -1,7 +1,5 @@
 ```
-# Logs
 *.log
-
-# Data files that might be temporary or generated
-curacion_log.txt
+curacion_*.log
+curacion_*.txt
 ```
