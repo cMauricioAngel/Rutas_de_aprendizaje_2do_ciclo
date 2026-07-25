@@ -8,11 +8,13 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource-variable/inter@5.0.0/index.css">
 <style>
   :root {
-    --midnight: #0D1B2A;
-    --white: #FFFFFF;
-    --cobalt: #0047AB;
-    --steel: #415A77;
-    --steel-soft: #5a7290;
+    --midnight: #1B2A3A;
+    --midnight-soft: #2A3D52;
+    --white: #EDEFF2;
+    --cobalt: #2C4A6E;
+    --cobalt-light: #4A6A8E;
+    --steel: #6A8AA8;
+    --steel-soft: #8AA0BE;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
   html, body {
@@ -20,6 +22,7 @@
     color: var(--white);
     font-family: 'Helvetica Now Display', 'Inter', Helvetica, Arial, sans-serif;
     font-weight: 300;
+    font-size: 1rem;
     line-height: 1.6;
     overflow-x: hidden;
   }
@@ -57,28 +60,30 @@
   .polyhedron-svg line { stroke: var(--cobalt); stroke-width: 1.5; }
   .polyhedron-svg circle { fill: var(--white); }
 
-  /* Layout asimétrico brutalista */
+  /* Layout alineado a Modelado (sin scroll largo) */
   .shell {
     position: relative;
     z-index: 2;
     min-height: 100vh;
-    padding: 80px 12vw 160px;
+    padding: 2rem 1.5rem 5rem;
+    max-width: 1280px;
+    margin: 0 auto;
   }
 
-  /* HEADER - espacio negativo radical */
+  /* HEADER - alineado a tamaños de Modelado */
   .hero {
     display: grid;
     grid-template-columns: 1.2fr 1fr;
-    gap: 120px;
+    gap: 2.5rem;
     align-items: start;
-    margin-bottom: 180px;
+    margin-bottom: 2.5rem;
     position: relative;
   }
   .hero-title {
-    font-size: clamp(4rem, 10vw, 10rem);
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
     font-weight: 900;
-    line-height: 0.8;
-    letter-spacing: -0.06em;
+    line-height: 0.9;
+    letter-spacing: -0.04em;
     text-transform: uppercase;
   }
   .hero-title span {
@@ -95,20 +100,20 @@
   }
   .hero-meta {
     border-left: 3px solid var(--cobalt);
-    padding: 24px 0 24px 40px;
+    padding: 1rem 0 1rem 1.5rem;
     font-size: 1rem;
     font-weight: 300;
     max-width: 380px;
-    margin-top: 60px;
+    margin-top: 1.5rem;
   }
   .hero-meta strong {
     display: block;
     font-weight: 900;
     font-size: 1.3rem;
-    margin-bottom: 12px;
+    margin-bottom: 0.6rem;
     letter-spacing: 0.05em;
   }
-  .hero-meta div { margin-bottom: 20px; }
+  .hero-meta div { margin-bottom: 1rem; }
   .hero-meta .label {
     color: var(--steel-soft);
     font-size: 0.7rem;
@@ -199,9 +204,9 @@
   .graph-edge { stroke: var(--steel); stroke-width: 1.5; }
   .graph-edge.active { stroke: var(--cobalt); stroke-width: 2.5; }
 
-  /* TIMELINE brutalista */
+  /* TIMELINE */
   .timeline-section {
-    margin: 100px 0 160px;
+    margin: 2.5rem 0 3rem;
     position: relative;
   }
   .timeline-title {
@@ -277,13 +282,13 @@
   .unit-head {
     display: grid;
     grid-template-columns: 1fr auto;
-    gap: 60px;
+    gap: 2rem;
     align-items: end;
     cursor: pointer;
-    padding-bottom: 40px;
+    padding-bottom: 1.25rem;
   }
   .unit-name {
-    font-size: clamp(2.2rem, 5vw, 4rem);
+    font-size: 1.6rem;
     font-weight: 900;
     line-height: 0.95;
     max-width: 900px;
