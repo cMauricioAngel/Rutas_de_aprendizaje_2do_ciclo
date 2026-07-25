@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<title>ARCHIVO SOVIÉTICO xd: PROGRAMACIÓN ORIENTADA A OBJETOS</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link href="https://cdn.jsdelivr.net/fontsource/fonts/ibm-plex-mono@latest/latin-400-normal.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/fontsource/fonts/ibm-plex-mono@latest/latin-500-normal.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/fontsource/fonts/ibm-plex-mono@latest/latin-700-normal.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/fontsource/fonts/ibm-plex-sans@latest/latin-400-normal.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/fontsource/fonts/ibm-plex-sans@latest/latin-600-normal.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/fontsource/fonts/ibm-plex-sans@latest/latin-700-normal.css" rel="stylesheet">
+<style>
+:root{
+    --concrete:#A8A8A8;
+    --concrete-hi:#BDBDBD;
+    --concrete-lo:#8F8F8F;
+    --ink:#000000;
+    --steel:#2E2E2E;
+    --steel-line:#565656;
+    --paper:#EDEDED;
+    --safety:#FF5F1F;
+    --bd:3px;
+    --cut:16px;
+    --mono:'IBM Plex Mono',ui-monospace,monospace;
+    --sans:'IBM Plex Sans',system-ui,sans-serif;
+    --chamfer:polygon(var(--cut) 0, calc(100% - var(--cut)) 0, 100% var(--cut), 100% 100%, 0 100%, 0 var(--cut));
+    --chamfer-in:polygon(calc(var(--cut) - 4px) 0, calc(100% - var(--cut) + 4px) 0, 100% calc(var(--cut) - 4px), 100% 100%, 0 100%, 0 calc(var(--cut) - 4px));
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+    background:var(--concrete);
+    color:var(--ink);
+    font-family:var(--sans);
+    line-height:1.45;
+    padding:clamp(12px,2.5vw,28px);
+    overflow-x:hidden;
+}
+::selection{background:var(--ink);color:var(--concrete)}
+
+/* ============ FONDO MAQUINARIA ============ */
+.machinery{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.m-grid{
+    position:absolute;top:0;bottom:0;left:-192px;width:calc(100% + 192px);
+    background-image:
+        repeating-linear-gradient(90deg, rgba(0,0,0,.08) 0 1px, transparent 1px 96px),
+        repeating-linear-gradient(0deg, rgba(0,0,0,.055) 0 1px, transparent 1px 96px);
+    animation:gridDrift 13s linear infinite;
+}
+@keyframes gridDrift{from{transform:translateX(0)}to{transform:translateX(96px)}}
+.m-panel{
+    position:absolute;left:0;width:52vw;
+    background:rgba(0,0,0,.05);
+    border-top:1px solid rgba(0,0,0,.15);
+    border-bottom:1px solid rgba(0,0,0,.15);
+    animation:panelSlide var(--d,80s) linear infinite;
+    animation-delay:var(--dl,0s);
+}
+.m-panel::before{
+    content:"";position:absolute;left:12px;right:12px;top:50%;height:6px;transform:translateY(-50%);
+    background-image:radial-gradient(rgba(0,0,0,.28) 2.4px, transparent 3px);
+    background-size:36px 6px;background-repeat:repeat-x;
+}
+.m-panel.striped{background:repeating-linear-gradient(45deg, rgba(0,0,0,.075) 0 14px, rgba(0,0,0,.028) 14px 28px)}
+.m-p1{top:7%;height:58px;--d:72s;--dl:-8s}
+.m-p2{top:24%;height:118px;--d:105s;--dl:-46s}
+.m-p3{top:47%;height:40px;--d:58s;--dl:-22s}
+.m-p4{top:63%;height:150px;--d:120s;--dl:-80s}
+.m-p5{top:88%;height:72px;--d:84s;--dl:-35s}
+@keyframes panelSlide{from{transform:translateX(-60vw)}to{transform:translateX(112vw)}}
+
+/* ============ MARCO GENERAL ============ */
+.container{
+    position:relative;z-index:1;
+    max-width:1200px;margin:0 auto;
+    border:var(--bd) solid var(--ink);
+    padding:clamp(14px,3vw,30px);
+}
+.bolt{position:absolute;width:11px;height:11px;background:var(--ink);z-index:5}
+.bolt.tl{top:6px;left:6px}.bolt.tr{top:6px;right:6px}
+.bolt.bl{bottom:6px;left:6px}.bolt.br{bottom:6px;right:6px}
+
+.conveyor{height:12px;border:var(--bd) solid var(--ink);overflow:hidden;margin-bottom:24px;background:var(--concrete)}
+.conveyor-belt{
+    height:100%;width:calc(100% + 34px);margin-left:-34px;
+    background:repeating-linear-gradient(45deg, var(--ink) 0 10px, transparent 10px 24px);
+    animation:beltMove 2.8s linear infinite;
+}
+@keyframes beltMove{from{transform:translateX(0)}to{transform:translateX(33.94px)}}
+
+/* ============ BLOQUES PESADOS (clip-path 45°) ============ */
+.plate{
+    background:var(--ink);
+    clip-path:var(--chamfer);
+    padding:var(--bd);
+    filter:drop-shadow(5px 5px 0 rgba(0,0,0,.24));
+    transition:transform .18s ease, filter .18s ease;
+}
+.plate-in{background:var(--concrete);clip-path:var(--chamfer-in)}
+.slab{
+    background:var(--ink);color:var(--concrete);
+    clip-path:var(--chamfer);
+    filter:drop-shadow(6px 6px 0 rgba(0,0,0,.26));
+}
+
+/* ============ CABECERA / PLANO TÉCNICO ============ */
+.meta-cells{display:grid;grid-template-columns:1fr 1.3fr 1fr auto;border:var(--bd) solid var(--ink);background:var(--concrete)}
+.meta-cells .cell{
+    font:600 11.5px/1.3 var(--mono);letter-spacing:.09em;text-transform:uppercase;
+    padding:12px 14px;border-right:var(--bd) solid var(--ink);
+    display:flex;align-items:center;
+}
+.cell.barcode{padding:8px 14px;border-right:0}
+.masthead{display:grid;grid-template-columns:1.35fr .95fr;gap:28px;align-items:stretch;margin:28px 0 8px}
+.seal{
+    display:inline-block;border:var(--bd) solid var(--ink);background:var(--concrete);
+    padding:7px 16px;font:700 13px var(--mono);letter-spacing:.24em;text-transform:uppercase;
+    transform:rotate(-2.5deg);box-shadow:4px 4px 0 rgba(0,0,0,.28);
+    transition:transform .2s ease;
+}
+.seal:hover{transform:rotate(0deg) scale(1.03)}
+h1{
+    font:700 clamp(38px,6.6vw,74px)/0.98 var(--mono);
+    text-transform:uppercase;letter-spacing:-.02em;margin:20px 0 18px;text-wrap:balance;
+}
+h1 .hollow{color:var(--ink)}
+@supports (-webkit-text-stroke:2px black){
+    h1 .hollow{color:transparent;-webkit-text-stroke:2.5px var(--ink)}
+}
+.lede{
+    display:inline-block;background:var(--ink);color:var(--concrete);
+    --cut:10px;clip-path:var(--chamfer);
+    font:600 12.5px/1.6 var(--mono);letter-spacing:.07em;text-transform:uppercase;
+    padding:11px 18px;
+}
+.mast-right{display:flex;flex-direction:column;gap:0}
+.mast-right .plate{flex:1}
+.mast-right .plate-in{height:100%;display:flex;flex-direction:column}
+.uml-fig{padding:14px 12px 6px}
+.uml-fig svg{width:100%;height:auto;display:block}
+.fig-caption{
+    background:var(--ink);color:var(--concrete);
+    font:600 10.5px var(--mono);letter-spacing:.16em;text-transform:uppercase;
+    padding:9px 14px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;
+}
+.legend{display:flex;gap:18px;align-items:center;padding:11px 14px;border-top:var(--bd) solid var(--ink);flex-wrap:wrap}
+.lg-item{display:inline-flex;gap:8px;align-items:center;font:600 10.5px var(--mono);letter-spacing:.12em}
+.vis-chip{
+    width:22px;height:22px;background:var(--ink);color:var(--safety);
+    display:inline-grid;place-items:center;font:700 14px/1 var(--mono);
+}
+/* SVG UML */
+.u-rect{fill:var(--concrete);stroke:var(--ink);stroke-width:3}
+.u-head{fill:var(--ink)}
+.u-stereo{fill:#9E9E9E;font:600 9.5px var(--mono);letter-spacing:.16em}
+.u-name{fill:var(--paper);font:700 14px var(--mono);letter-spacing:.02em}
+.u-attr{fill:var(--ink);font:500 11.5px var(--mono)}
+.u-chip{fill:var(--ink)}
+.u-vis{fill:var(--safety);font:700 10.5px var(--mono)}
+.u-line{stroke:var(--ink);stroke-width:4}
+.u-tri{fill:var(--concrete);stroke:var(--ink);stroke-width:4;stroke-linejoin:miter}
+.u-mult{fill:var(--ink);font:700 10px var(--mono)}
+.u-dim{stroke:var(--ink);stroke-width:1.5}
+
+/* ============ TIPOGRAFÍA ============ */
+h2{font:700 clamp(20px,3.2vw,30px)/1.05 var(--mono);text-transform:uppercase}
+h3{font:700 15px/1.3 var(--mono);text-transform:uppercase}
+p,li{font-size:15px}
+strong{font:700 12.5px var(--mono);letter-spacing:.14em}
+.stereo{display:block;font:600 10px var(--mono);letter-spacing:.2em;color:var(--concrete-lo);margin-bottom:4px}
+
+/* ============ AVANCE GLOBAL ============ */
+.global-progress-section{margin:30px 0 34px;padding:clamp(18px,3vw,26px)}
+.global-progress-section h2{color:var(--paper)}
+.global-progress-section h2 .star{color:var(--concrete)}
+.global-progress-section>p{color:#C4C4C4;font:400 14px var(--sans);margin-top:6px}
+.gp-gauge{display:grid;grid-template-columns:1fr auto;gap:22px;align-items:center;margin-top:18px}
+.gp-track{position:relative;height:46px;background:var(--steel);border:2px solid var(--steel-line);overflow:hidden}
+.global-progress-bar{
+    height:100%;width:0%;
+    background:var(--concrete);
+    background-image:repeating-linear-gradient(45deg, rgba(0,0,0,.22) 0 10px, transparent 10px 20px);
+    transition:width .5s cubic-bezier(.2,.8,.2,1);
+}
+.gp-ticks{position:absolute;inset:0;pointer-events:none;
+    background:repeating-linear-gradient(90deg, transparent 0 calc(10% - 2px), rgba(0,0,0,.45) calc(10% - 2px) 10%)}
+.gp-read{text-align:right}
+.gp-read .pct{font:700 clamp(42px,6vw,64px)/1 var(--mono);color:var(--paper);display:block;min-width:3ch}
+.gp-read .sub{font:600 10.5px var(--mono);letter-spacing:.18em;color:var(--concrete);display:block;margin-top:6px}
+
+/* ============ ACORDEÓN ============ */
+.acc{display:grid;grid-template-rows:0fr;transition:grid-template-rows .42s cubic-bezier(.2,.8,.2,1)}
+.acc.open{grid-template-rows:1fr}
+.acc-in{overflow:hidden;min-height:0}
+
+/* ============ UNIDAD ============ */
+.unit-block{margin-bottom:34px}
+.unit-header{
+    display:grid;grid-template-columns:auto 1fr auto auto;align-items:stretch;
+    cursor:pointer;user-select:none;
+    transition:transform .18s ease, filter .18s ease;
+}
+.unit-header:hover{transform:translate(-2px,-2px);filter:drop-shadow(9px 9px 0 rgba(0,0,0,.3))}
+.unit-header:focus-visible{outline:none;box-shadow:inset 0 0 0 3px var(--concrete)}
+.unit-index{
+    display:flex;align-items:center;padding:16px 8px 16px 22px;
+    font:700 clamp(34px,4.6vw,52px)/1 var(--mono);
+    color:var(--concrete);
+}
+@supports (-webkit-text-stroke:2px black){
+    .unit-index{color:transparent;-webkit-text-stroke:2px var(--concrete)}
+}
+.unit-title{padding:16px 12px 16px 12px;min-width:0;display:flex;flex-direction:column;justify-content:center}
+.unit-title .stereo{color:#8A8A8A}
+.unit-title h2{color:var(--paper);font-size:clamp(15px,2.2vw,21px);letter-spacing:.01em}
+.unit-title h2 .uid{color:var(--concrete)}
+.unit-meta{
+    padding:14px 10px 14px 16px;border-left:2px solid var(--steel);
+    display:flex;flex-direction:column;justify-content:center;gap:3px;
+    font:600 11.5px/1.5 var(--mono);letter-spacing:.08em;text-align:right;color:#C9C9C9;
+}
+.unit-meta .meta-star{color:var(--concrete)}
+.unit-progress-container{width:150px;height:12px;background:var(--steel);border:2px solid var(--steel-line);margin-top:7px;margin-left:auto}
+.unit-progress-bar{height:100%;width:0%;background:var(--concrete);transition:width .45s cubic-bezier(.2,.8,.2,1)}
+.unit-done{
+    width:22px;height:22px;margin-left:auto;margin-top:6px;
+    border:2px solid var(--concrete);background:var(--ink);color:var(--safety);
+    display:grid;place-items:center;font:700 14px/1 var(--mono);
+    opacity:0;transform:scale(.4) rotate(-14deg);transition:opacity .25s ease,transform .25s ease;
+}
+.unit-done.show{opacity:1;transform:none}
+.toggle-icon{display:flex;align-items:center;padding:0 20px;font:700 22px/1 var(--mono);color:var(--concrete);transition:color .2s}
+.unit-header.active .toggle-icon{color:var(--paper)}
+.unit-well{
+    border:var(--bd) solid var(--ink);border-top:0;
+    background:rgba(0,0,0,.05);
+    padding:20px 16px 22px;display:flex;flex-direction:column;gap:18px;
+}
+
+/* ============ SUBTEMA ============ */
+.subtopic-block{--cut:14px}
+.subtopic-block .plate:hover{transform:translate(-2px,-2px);filter:drop-shadow(8px 8px 0 rgba(0,0,0,.28))}
+.subtopic-header{
+    display:flex;align-items:center;gap:14px;padding:14px 16px;
+    cursor:pointer;user-select:none;background:var(--concrete);
+    transition:background .2s ease;
+}
+.subtopic-header:hover{background:var(--concrete-hi)}
+.subtopic-header:focus-visible{outline:3px dashed var(--ink);outline-offset:-6px}
+.subtopic-header.active{background:var(--ink)}
+.subtopic-header.active h3{color:var(--paper)}
+.subtopic-header.active .stereo{color:#8A8A8A}
+.subtopic-checkbox{
+    appearance:none;-webkit-appearance:none;width:30px;height:30px;flex-shrink:0;
+    border:var(--bd) solid var(--ink);background:var(--concrete);cursor:pointer;
+    position:relative;transition:background .15s ease,transform .1s ease;
+}
+.subtopic-checkbox::after{
+    content:"−";position:absolute;inset:0;display:grid;place-items:center;
+    color:var(--ink);font:700 17px/1 var(--mono);
+}
+.subtopic-checkbox:checked{background:var(--ink)}
+.subtopic-checkbox:checked::after{content:"+";color:var(--safety)}
+.subtopic-checkbox:active{transform:scale(.86)}
+.subtopic-checkbox:focus-visible{outline:3px dashed var(--ink);outline-offset:3px}
+.subtopic-title{flex:1;min-width:0}
+.sub-toggle{
+    width:34px;height:34px;flex-shrink:0;display:grid;place-items:center;
+    border:var(--bd) solid var(--ink);background:var(--concrete);
+    font:700 19px/1 var(--mono);transition:background .2s,color .2s,transform .25s;
+}
+.subtopic-header:hover .sub-toggle{transform:rotate(90deg)}
+.subtopic-header.active .sub-toggle{background:var(--ink);color:var(--paper);border-color:var(--concrete);transform:rotate(180deg)}
+.subtopic-body{padding:16px;display:flex;flex-direction:column;gap:16px;border-top:var(--bd) solid var(--ink)}
+.objective-box{
+    background:var(--ink);color:#D6D6D6;border-left:10px solid var(--concrete);
+    padding:14px 16px;font:400 15px/1.55 var(--sans);
+}
+.objective-box strong{color:var(--paper)}
+.subtopic-section{border:var(--bd) solid var(--ink);background:var(--concrete);box-shadow:5px 5px 0 rgba(0,0,0,.18)}
+.subtopic-section h4{
+    display:flex;align-items:center;gap:10px;background:var(--ink);color:var(--paper);
+    font:700 12.5px var(--mono);letter-spacing:.14em;text-transform:uppercase;padding:10px 14px;
+}
+.subtopic-section h4 .star{color:var(--concrete);font-size:11px}
+.count{margin-left:auto;border:2px solid var(--steel-line);color:#C9C9C9;font:700 10.5px var(--mono);padding:2px 8px}
+ul{list-style:none;padding:14px 16px}
+ul li{margin-bottom:10px;padding-left:22px;position:relative;font:400 15px/1.5 var(--sans)}
+ul li::before{content:"▸";position:absolute;left:2px;top:2px;color:var(--ink);font:700 13px var(--mono);transition:transform .15s ease}
+ul li:hover::before{transform:translateX(3px)}
+ul li:last-child{margin-bottom:0}
+.ref-level{
+    display:inline-block;background:var(--ink);color:var(--concrete);
+    font:700 10.5px var(--mono);letter-spacing:.08em;padding:2px 8px;margin-left:6px;
+    white-space:nowrap;transform:translateY(-1px);
+}
+
+/* ============ PIE ============ */
+.footer-archive{
+    margin-top:44px;padding:18px;text-align:center;
+    font:700 12px var(--mono);letter-spacing:.24em;text-transform:uppercase;
+}
+.footer-archive .star{color:var(--concrete)}
+
+/* ============ REVEAL ============ */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .55s ease,transform .55s ease}
+.reveal.in{opacity:1;transform:none}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:980px){
+    .masthead{grid-template-columns:1fr}
+}
+@media (max-width:768px){
+    .meta-cells{grid-template-columns:1fr}
+    .meta-cells .cell{border-right:0;border-bottom:var(--bd) solid var(--ink)}
+    .cell.barcode{border-bottom:0;justify-content:center}
+    .unit-header{grid-template-columns:auto 1fr auto}
+    .unit-meta{grid-column:1/-1;border-left:0;border-top:2px solid var(--steel);text-align:left;align-items:flex-start}
+    .unit-progress-container{margin-left:0;width:100%}
+    .unit-done{margin-left:0}
+    .gp-gauge{grid-template-columns:1fr}
+    .gp-read{text-align:left}
+}
+@media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation:none!important;transition:none!important}
+    .reveal{opacity:1;transform:none}
+    html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<!-- MAQUINARIA DE FONDO -->
+<div class="machinery" aria-hidden="true">
+    <div class="m-grid"></div>
+    <div class="m-panel m-p1"></div>
+    <div class="m-panel m-p2 striped"></div>
+    <div class="m-panel m-p3"></div>
+    <div class="m-panel m-p4 striped"></div>
+    <div class="m-panel m-p5"></div>
+</div>
+
+<div class="container">
+    <span class="bolt tl" aria-hidden="true"></span><span class="bolt tr" aria-hidden="true"></span>
+    <span class="bolt bl" aria-hidden="true"></span><span class="bolt br" aria-hidden="true"></span>
+
+    <div class="conveyor" aria-hidden="true"><div class="conveyor-belt"></div></div>
+
+    <div class="meta-cells reveal">
+        <span class="cell">DOCUMENTO N° 001</span>
+        <span class="cell">CLASIFICADO: NIVEL ACADEMICO</span>
+        <span class="cell">FIRMA: ARQUITECTO UI/UX</span>
+        <span class="cell barcode" aria-hidden="true">
+            <svg width="92" height="24" viewBox="0 0 92 24"><g fill="#000"><rect x="0" width="3" height="24"/><rect x="5" width="2" height="24"/><rect x="10" width="5" height="24"/><rect x="18" width="2" height="24"/><rect x="23" width="3" height="24"/><rect x="29" width="6" height="24"/><rect x="38" width="2" height="24"/><rect x="43" width="4" height="24"/><rect x="50" width="2" height="24"/><rect x="55" width="6" height="24"/><rect x="64" width="3" height="24"/><rect x="70" width="2" height="24"/><rect x="75" width="5" height="24"/><rect x="83" width="2" height="24"/><rect x="88" width="4" height="24"/></g></svg>
+        </span>
+    </div>
+
+    <header class="masthead">
+        <div class="reveal">
+            <div class="seal">★ ARCHIVO EDUCATIVO ★</div>
+            <h1>PROGRAMACIÓN ORIENTADA A <span class="hollow">OBJETOS</span></h1>
+            <p class="lede">RUTA DE APRENDIZAJE ESTRATÉGICA / DURACIÓN TOTAL: 16 SEMANAS / 4 MESES</p>
+        </div>
+        <div class="mast-right reveal">
+            <div class="plate"><div class="plate-in">
+                <div class="uml-fig">
+                    <svg viewBox="0 0 340 452" role="img" aria-label="Diagrama UML de herencia: ARCHIVO_POO hereda a UNIDAD y UNIDAD hereda a SUBTEMA">
+                        <!-- cota lateral -->
+                        <line class="u-dim" x1="42" y1="12" x2="42" y2="424"/>
+                        <line class="u-dim" x1="36" y1="12" x2="48" y2="12"/>
+                        <line class="u-dim" x1="36" y1="424" x2="48" y2="424"/>
+                        <!-- CAJA 1 : ARCHIVO_POO -->
+                        <rect class="u-rect" x="70" y="12" width="200" height="88"/>
+                        <rect class="u-head" x="71.5" y="13.5" width="197" height="44"/>
+                        <text class="u-stereo" x="82" y="31">«documento»</text>
+                        <text class="u-name" x="82" y="49">ARCHIVO_POO</text>
+                        <rect class="u-chip" x="80" y="65" width="14" height="14"/><text class="u-vis" x="87" y="76" text-anchor="middle">+</text>
+                        <text class="u-attr" x="102" y="76">abrir(): void</text>
+                        <rect class="u-chip" x="80" y="83" width="14" height="14"/><text class="u-vis" x="87" y="94" text-anchor="middle">−</text>
+                        <text class="u-attr" x="102" y="94">sellar(): void</text>
+                        <!-- flecha herencia 1 -->
+                        <path class="u-tri" d="M170,100 L158,118 L182,118 Z"/>
+                        <line class="u-line" x1="170" y1="118" x2="170" y2="152"/>
+                        <text class="u-mult" x="188" y="114">1</text>
+                        <text class="u-mult" x="178" y="148">n</text>
+                        <!-- CAJA 2 : UNIDAD -->
+                        <rect class="u-rect" x="70" y="152" width="200" height="110"/>
+                        <rect class="u-head" x="71.5" y="153.5" width="197" height="44"/>
+                        <text class="u-stereo" x="82" y="171">«unidad»</text>
+                        <text class="u-name" x="82" y="189">UNIDAD</text>
+                        <rect class="u-chip" x="80" y="205" width="14" height="14"/><text class="u-vis" x="87" y="216" text-anchor="middle">+</text>
+                        <text class="u-attr" x="102" y="216">id: int</text>
+                        <rect class="u-chip" x="80" y="225" width="14" height="14"/><text class="u-vis" x="87" y="236" text-anchor="middle">+</text>
+                        <text class="u-attr" x="102" y="236">horas: int</text>
+                        <rect class="u-chip" x="80" y="245" width="14" height="14"/><text class="u-vis" x="87" y="256" text-anchor="middle">+</text>
+                        <text class="u-attr" x="102" y="256">progreso(): %</text>
+                        <!-- flecha herencia 2 -->
+                        <path class="u-tri" d="M170,262 L158,280 L182,280 Z"/>
+                        <line class="u-line" x1="170" y1="280" x2="170" y2="314"/>
+                        <text class="u-mult" x="188" y="276">1</text>
+                        <text class="u-mult" x="178" y="310">n</text>
+                        <!-- CAJA 3 : SUBTEMA -->
+                        <rect class="u-rect" x="70" y="314" width="200" height="110"/>
+                        <rect class="u-head" x="71.5" y="315.5" width="197" height="44"/>
+                        <text class="u-stereo" x="82" y="333">«subtema»</text>
+                        <text class="u-name" x="82" y="351">SUBTEMA</text>
+                        <rect class="u-chip" x="80" y="367" width="14" height="14"/><text class="u-vis" x="87" y="378" text-anchor="middle">+</text>
+                        <text class="u-attr" x="102" y="378">objetivo: String</text>
+                        <rect class="u-chip" x="80" y="387" width="14" height="14"/><text class="u-vis" x="87" y="398" text-anchor="middle">+</text>
+                        <text class="u-attr" x="102" y="398">marcar(): void</text>
+                        <rect class="u-chip" x="80" y="407" width="14" height="14"/><text class="u-vis" x="87" y="418" text-anchor="middle">−</text>
+                        <text class="u-attr" x="102" y="418">completado: bool</text>
+                        <!-- suelo técnico -->
+                        <line class="u-dim" x1="60" y1="440" x2="280" y2="440"/>
+                        <line class="u-dim" x1="70" y1="440" x2="62" y2="448"/>
+                        <line class="u-dim" x1="110" y1="440" x2="102" y2="448"/>
+                        <line class="u-dim" x1="150" y1="440" x2="142" y2="448"/>
+                        <line class="u-dim" x1="190" y1="440" x2="182" y2="448"/>
+                        <line class="u-dim" x1="230" y1="440" x2="222" y2="448"/>
+                        <line class="u-dim" x1="270" y1="440" x2="262" y2="448"/>
+                    </svg>
+                </div>
+                <div class="fig-caption"><span>FIG. 01 — DIAGRAMA DE CLASES</span><span>RELACIÓN: HERENCIA</span></div>
+                <div class="legend">
+                    <span class="lg-item"><span class="vis-chip">+</span> PÚBLICO</span>
+                    <span class="lg-item"><span class="vis-chip">−</span> PRIVADO</span>
+                </div>
+            </div></div>
+        </div>
+    </header>
+
+    <section class="global-progress-section slab reveal" aria-live="polite">
+        <h2>AVANCE GENERAL DEL PLAN <span class="star">★</span></h2>
+        <p>Progreso acumulado de todas las unidades archivadas:</p>
+        <div class="gp-gauge">
+            <div class="gp-track">
+                <div class="global-progress-bar" id="globalProgressBar"></div>
+                <div class="gp-ticks" aria-hidden="true"></div>
+            </div>
+            <div class="gp-read">
+                <span class="pct" id="globalProgressText">0%</span>
+                <span class="sub" id="globalProgressCount">0 / 0 SUBTEMAS</span>
+            </div>
+        </div>
+    </section>
+
+    <div id="syllabusContainer"></div>
+
+    <footer class="footer-archive slab reveal">
+        <p>FIN DEL DOCUMENTO / PROHIBIDA SU DISPERSIÓN / <span class="star">★ ★ ★</span></p>
+    </footer>
+</div>
+
+<script>
+    const syllabusData = [
+        {
+            id: 1,
+            title: "PRINCIPIOS ESENCIALES DE LA PROGRAMACIÓN ORIENTADA A OBJETOS",
+            hours: 32,
+            weeks: "SEMANAS 1 A 4",
+            subtopics: [
+                {
+                    id: "1.1",
+                    title: "INTRODUCCIÓN AL PARADIGMA DE POO (MÉTODOS)",
+                    objective: "Comprender los fundamentos del paradigma orientado a objetos y su evolución desde la programación estructurada.",
+                    videos: [
+                        "Programación Orientada a Objetos en Java - MitoCode",
+                        "Curso Java POO #1 - Introducción a la Programación Orientada a Objetos - pildorasinformaticas",
+                        "Programación Orientada a Objetos en Java (POO) #1 - Introducción - HolaMundo",
+                        "Aprende POO (Programación Orientada a Objetos) en Java - Fazt",
+                        "Curso Completo de Java y POO desde Cero - MoureDev"
+                    ],
+                    biblio: [
+                        "Bruce Eckel, \"On Java 8\" / \"On Java 17\", Cap. 1 \"Introduction to Objects\", pp. 15-38.",
+                        "Oracle, \"The Java Tutorials / Dev.java: Object-Oriented Programming Concepts\", Sección \"Classes and Objects\", pp. 1-15.",
+                        "Garcia de Jalón, J. et al., \"Aprenda Java como si estuviera en primero\", Cap. 1 \"Introducción a Java\", pp. 3-10.",
+                        "GoalKicker, \"Java Notes for Professionals\", Cap. 9 \"Classes and Objects\", pp. 120-135."
+                    ],
+                    practice: [
+                        "Video: \"Ejercicios resueltos de POO en Java paso a paso\" - Canal: Charly Cimino <span class='ref-level'>[Básico]</span>",
+                        "Libro: \"Aprenda Java como si estuviera en primero\" - Ejercicios propuestos, Cap. 1, pp. 40-42 <span class='ref-level'>[Básico]</span>",
+                        "Video: \"Ejercicios de POO resueltos en Java\" - Canal: Néstor Cancino <span class='ref-level'>[Intermedio]</span>",
+                        "Libro: \"Java Notes for Professionals\" - Práctica de métodos en Java, Cap. 9, pp. 140-145 <span class='ref-level'>[Básico]</span>"
+                    ]
+                },
+                {
+                    id: "1.2",
+                    title: "CLASES, SUBCLASES, ATRIBUTOS, OPERACIONES ENCAPSULAMIENTO",
+                    objective: "Diseñar clases definiendo atributos, operaciones y niveles de encapsulamiento aplicando modificadores de acceso.",
+                    videos: [
+                        "POO en Java: Clases, Objetos, Atributos y Métodos - MitoCode",
+                        "Curso Java POO #3 - Clases y Objetos - pildorasinformaticas",
+                        "Encapsulamiento en Java (Programación Orientada a Objetos) - HolaMundo",
+                        "Atributos y Métodos en Java - La Geekipedia De Ernesto",
+                        "Curso de Java: Clases, Objetos y Modificadores de Acceso - TodoCode"
+                    ],
+                    biblio: [
+                        "Bruce Eckel, \"On Java 8\", Cap. 2 \"Everything is an Object\", pp. 40-62.",
+                        "Garcia de Jalón, J. et al., \"Aprenda Java como si estuviera en primero\", Cap. 2 \"Estructura general de un programa\", pp. 12-25.",
+                        "GoalKicker, \"Java Notes for Professionals\", Cap. 9 \"Classes and Objects\", pp. 140-155.",
+                        "Oracle, \"The Java Tutorials / Dev.java: Controlling Access to Members of a Class\", pp. 1-8."
+                    ],
+                    practice: [
+                        "Video: \"Ejercicios resueltos de Clases y Encapsulamiento en Java\" - Canal: MitoCode <span class='ref-level'>[Básico]</span>",
+                        "Video: \"Ejercicios resueltos de POO en Java - Clases y Objetos\" - Canal: Néstor Cancino <span class='ref-level'>[Intermedio]</span>",
+                        "Libro: \"Aprenda Java como si estuviera en primero\" - Ejercicios propuestos, Cap. 2, pp. 35-38 <span class='ref-level'>[Básico]</span>",
+                        "Libro: \"Java Notes for Professionals\" - Ejercicios de Encapsulamiento, Cap. 9, pp. 160-165 <span class='ref-level'>[Intermedio]</span>"
+                    ]
+                },
+                {
+                    id: "1.3",
+                    title: "JERARQUÍA DE CLASES, HERENCIA, CLASES ABSTRACTAS Y POLIMORFISMO",
+                    objective: "Aplicar conceptos de herencia y polimorfismo mediante la creación de subclases y clases abstractas en Java.",
+                    videos: [
+                        "Curso Java POO - Herencia y Polimorfismo - pildorasinformaticas",
+                        "Polimorfismo en Java (POO) - HolaMundo",
+                        "Clases Abstractas e Interfaces en Java - MitoCode",
+                        "Herencia en Java - Programación Orientada a Objetos - Fazt",
+                        "Polimorfismo y Clases Abstractas en Java - La Geekipedia De Ernesto"
+                    ],
+                    biblio: [
+                        "Bruce Eckel, \"On Java 8\", Cap. 6 \"Reusing Classes\", pp. 210-235.",
+                        "Bruce Eckel, \"On Java 8\", Cap. 7 \"Polymorphism\", pp. 240-268.",
+                        "Garcia de Jalón, J. et al., \"Aprenda Java como si estuviera en primero\", Cap. 3 \"Herencia y Polimorfismo\", pp. 45-65.",
+                        "GoalKicker, \"Java Notes for Professionals\", Cap. 30 \"Inheritance\", pp. 320-335."
+                    ],
+                    practice: [
+                        "Video: \"Ejercicios resueltos de Herencia y Polimorfismo en Java\" - Canal: MitoCode <span class='ref-level'>[Intermedio]</span>",
+                        "Video: \"Ejercicio práctico de Polimorfismo en Java\" - Canal: HolaMundo <span class='ref-level'>[Intermedio]</span>",
+                        "Libro: \"Aprenda Java como si estuviera en primero\" - Ejercicios propuestos, Cap. 3, pp. 70-75 <span class='ref-level'>[Intermedio]</span>",
+                        "Libro: \"Java Notes for Professionals\" - Ejercicios de Herencia y Polimorfismo, Cap. 30, pp. 340-345 <span class='ref-level'>[Intermedio]</span>"
+                    ]
+                },
+                {
+                    id: "1.4",
+                    title: "AGREGACIÓN Y COMPOSICIÓN",
+                    objective: "Diferenciar e implementar relaciones de agregación y composición entre clases para modelar objetos complejos.",
+                    videos: [
+                        "Agregación vs Composición en Java - MitoCode",
+                        "Agregación y Composición en POO - Néstor Cancino",
+                        "Composición en Java (Programación Orientada a Objetos) - HolaMundo",
+                        "Relaciones entre Clases: Agregación y Composición - La Geekipedia De Ernesto",
+                        "Relaciones entre Clases en Java: Composición y Agregación - Charly Cimino"
+                    ],
+                    biblio: [
+                        "Bruce Eckel, \"On Java 8\", Cap. 8 \"Interfaces and Inner Classes\", pp. 290-315.",
+                        "GoalKicker, \"Java Notes for Professionals\", Cap. 9 \"Classes and Objects\", pp. 175-180.",
+                        "Oracle, \"The Java Tutorials / Dev.java: Nested Classes\", pp. 1-10.",
+                        "Bertrand Meyer, \"Construcción de Software Orientado a Objetos\", Cap. 5 \"Relaciones entre Clases\", pp. 140-160."
+                    ],
+                    practice: [
+                        "Video: \"Ejercicio práctico: Agregación y Composición en Java\" - Canal: MitoCode <span class='ref-level'>[Avanzado]</span>",
+                        "Video: \"Ejercicios resueltos de Composición en POO\" - Canal: Néstor Cancino <span class='ref-level'>[Intermedio]</span>",
+                        "Libro: \"On Java 8\" - Ejercicios propuestos de Diseño de Clases, Cap. 8, pp. 320-325 <span class='ref-level'>[Avanzado]</span>",
+                        "Libro: \"Java Notes for Professionals\" - Ejercicios de Clases Anidadas y Composición, Cap. 9, pp. 185-190 <span class='ref-level'>[Intermedio]</span>"
+                    ]
+                },
+                {
+                    id: "1.5",
+                    title: "INSTANCIAS Y MENÚ DE OPCIONES",
+                    objective: "Desarrollar un menú interactivo en consola utilizando instancias de clases para gestionar el flujo de un programa.",
+                    videos: [
+                        "Menú de opciones en Java (Consola) - MitoCode",
+                        "Crear Menús en Java con Scanner - HolaMundo",
+                        "Menú de opciones usando Switch en Java - La Geekipedia De Ernesto",
+                        "Instanciar clases y usar menús en Java - Néstor Cancino",
+                        "Programación orientada a objetos: Menú de opciones - Fazt"
+                    ],
+                    biblio: [
+                        "GoalKicker, \"Java Notes for Professionals\", Cap. 21 \"I/O\", pp. 200-215.",
+                        "Garcia de Jalón, J. et al., \"Aprenda Java como si estuviera en primero\", Cap. 6 \"Entrada/Salida en Java\", pp. 100-120.",
+                        "Bruce Eckel, \"On Java 8\", Cap. 10 \"I/O System\", pp. 410-430.",
+                        "Oracle, \"The Java Tutorials / Dev.java: Scanning and Formatting\", pp. 1-8."
+                    ],
+                    practice: [
+                        "Video: \"Ejercicio resuelto: Crear un Menú en Java con POO\" - Canal: MitoCode <span class='ref-level'>[Básico]</span>",
+                        "Video: \"Ejercicios resueltos: Menús en consola\" - Canal: La Geekipedia De Ernesto <span class='ref-level'>[Básico]</span>",
+                        "Libro: \"Aprenda Java como si estuviera en primero\" - Ejercicios propuestos, Cap. 6, pp. 125-130 <span class='ref-level'>[Básico]</span>",
+                        "Libro: \"Java Notes for Professionals\" - Ejercicios de I/O, Cap. 21, pp. 220-225 <span class='ref-level'>[Intermedio]</span>"
+                    ]
+                }
+            ]
+        },
+        {
+            id: 2,
+            title: "INTERACCIÓN HOMBRE COMPUTADOR",
+            hours: 28,
+            weeks: "SEMANAS 5 A 8",
+            subtopics: [
+                {
+                    id: "2.1",
+                    title: "CONCEPTOS INTERACCIÓN HOMBRE COMPUTADORA Y MODELADO DE NEGOCIO",
+                    objective: "Identificar los conceptos fundamentales de la interacción humano-computadora para el modelado de procesos de negocio.",
+                    videos: [
+                        "Curso de Interacción Humano Computadora (IHC) - TecnoNautas",
+                        "Modelado de Procesos de Negocio (BPMN) desde cero - Bizagi",
+                        "Introducción a la Interacción Humano-Computadora - Javier Cantero",
+                        "Modelado de Negocio en Ingeniería de Software - UTP",
+                        "Conceptos básicos de Interacción Humano-Computadora - UTPL"
+                    ],
+                    biblio: [
+                        "Alan Dix et al., \"Human-Computer Interaction\", 3rd / 4th Editions, Cap. 1 \"The Human\", pp. 11-58.",
+                        "Jeff Johnson, \"Designing with the Mind in Mind\", Cap. 1 \"Perception and Attention\", pp. 1-22.",
+                        "OpenLibra, \"Ingeniería de Software: Una guía para crear sistemas de información\", Cap. 2 \"Modelado de Negocio\", pp. 40-60.",
+                        "Jakob Nielsen, \"Usability Engineering\", Cap. 2 \"Usability Principles\", pp. 23-48."
+                    ],
+                    practice: [
+                        "Video: \"Ejemplo práctico de Modelado de Procesos de Negocio\" - Canal: Bizagi <span class='ref-level'>[Básico]</span>",
+                        "Video: \"Ejercicios de Modelado de Negocio\" - Canal: UTP <span class='ref-level'>[Intermedio]</span>",
+                        "Libro: \"Ingeniería de Software\" (OpenLibra) - Ejercicios propuestos, Cap. 2, pp. 65-70 <span class='ref-level'>[Básico]</span>",
+                        "Libro: \"Human-Computer Interaction\" (Dix et al.) - Ejercicios de evaluación heurística, Cap. 1, pp. 45-50 <span class='ref-level'>[Intermedio]</span>"
+                    ]
+                },
+                {
+                    id: "2.2",
+                    title: "DIAGRAMAS DE CASOS DE USO Y DIAGRAMA DE CLASE ESTEREOTIPADA",
+                    objective: "Construir diagramas de casos de uso y diagramas de clases estereotipadas para representar requisitos y estructura del sistema.",
+                    videos: [
+                        "Diagramas de Casos de Uso en UML - MitoCode",
+                        "Diagrama de Clases en UML - La Geekipedia De Ernesto",
+                        "Cómo hacer Diagramas de Casos de Uso Paso a Paso - UML Gratis",
+                        "Estereotipos en Diagramas de Clases UML (Boundary, Control, Entity) - Néstor Cancino",
+                        "UML: Diagramas de Clases y Casos de Uso - Algoritmica UTH"
+                    ],
+                    biblio: [
+                        "Grady Booch et al., \"The Unified Modeling Language User Guide\", Cap. 17 \"Use Cases\", pp. 225-242.",
+                        "GoalKicker, \"UML Notes for Professionals\", Cap. 3 \"Class Diagram\", pp. 40-60.",
+                        "OpenLibra, \"Aprende UML en 24 horas\", Cap. 3 \"Diagramas de Casos de Uso\", pp. 35-50.",
+                        "OMG, \"UML Specification v2.5.1\", Cap. 18 \"Use Cases\", pp. 630-650."
+                    ],
+                    practice: [
+                        "Video: \"Ejercicio resuelto: Diagrama de Casos de Uso\" - Canal: MitoCode <span class='ref-level'>[Básico]</span>",
+                        "Video: \"Ejercicio práctico: Diagrama de Clases UML\" - Canal: La Geekipedia De Ernesto <span class='ref-level'>[Intermedio]</span>",
+                        "Libro: \"UML Notes for Professionals\" - Ejercicios propuestos, Cap. 3, pp. 45-50 <span class='ref-level'>[Intermedio]</span>",
+                        "Libro: \"Aprende UML en 24 horas\" - Ejercicios de Modelado, Cap. 3, pp. 55-60 <span class='ref-level'>[Básico]</span>"
+                    ]
+                },
+                {
+                    id: "2.3",
+                    title: "DIAGRAMAS DE ACTIVIDAD Y DIAGRAMAS DE SECUENCIA",
+                    objective: "Modelar el comportamiento dinámico del sistema mediante diagramas de actividad y secuencia.",
+                    videos: [
+                        "Diagramas de Actividad en UML - MitoCode",
+                        "Diagramas de Secuencia en UML - La Geekipedia De Ernesto",
+                        "UML: Diagrama de Actividad y Secuencia - Algoritmica UTH",
+                        "Cómo crear un Diagrama de Secuencia UML - Geekipedia",
+                        "Diagramas de Comportamiento Dinámico - UTP"
+                    ],
+                    biblio: [
+                        "GoalKicker, \"UML Notes for Professionals\", Cap. 5 \"Sequence Diagram\", pp. 80-95.",
+                        "GoalKicker, \"UML Notes for Professionals\", Cap. 6 \"Activity Diagram\", pp. 100-115.",
+                        "OpenLibra, \"Aprende UML en 24 horas\", Cap. 6 \"Diagramas de Secuencia\", pp. 90-105.",
+                        "OMG, \"UML Specification v2.5.1\", Cap. 15 \"Activities\", pp. 370-410."
+                    ],
+                    practice: [
+                        "Video: \"Ejercicio resuelto: Diagrama de Actividad\" - Canal: MitoCode <span class='ref-level'>[Básico]</span>",
+                        "Video: \"Ejercicio práctico: Diagrama de Secuencia\" - Canal: La Geekipedia De Ernesto <span class='ref-level'>[Intermedio]</span>",
+                        "Libro: \"UML Notes for Professionals\" - Ejercicios propuestos, Cap. 5, pp. 96-100 <span class='ref-level'>[Intermedio]</span>",
+                        "Libro: \"Aprende UML en 24 horas\" - Ejercicios de Diagramas, Cap. 6, pp. 110-115 <span class='ref-level'>[Básico]</span>"
+                    ]
+                },
+                {
+                    id: "2.4",
+                    title: "COHESIÓN Y ACOPLAMIENTO",
+                    objective: "Evaluar el diseño de software aplicando métricas de cohesión y acoplamiento para mejorar la mantenibilidad.",
+                    videos: [
+                        "Cohesión y Acoplamiento en Ingeniería de Software - MitoCode",
+                        "Acoplamiento y Cohesión: Principios de Diseño Clean Code - HolaMundo",
+                        "Cohesión y Acoplamiento en POO - Néstor Cancino",
+                        "Principios de Diseño de Software: Cohesión y Acoplamiento - Fazt",
+                        "Ingeniería de Software: Acoplamiento y Cohesión - UTP"
+                    ],
+                    biblio: [
+                        "Larry Constantine & Edward Yourdon, \"Structured Design\", Cap. 6-7 \"Cohesion and Coupling\", pp. 105-140.",
+                        "Robert C. Martin, \"Clean Code: A Handbook of Agile Software Craftsmanship\", Cap. 10 \"Classes\", pp. 135-152.",
+                        "OpenLibra, \"Ingeniería de Software\", Cap. 7 \"Diseño de Software\", pp. 140-160.",
+                        "GoalKicker, \"Software Architecture Notes for Professionals\", Cap. 2 \"Cohesion and Coupling\", pp. 15-25."
+                    ],
+                    practice: [
+                        "Video: \"Refactorización: Mejorar Cohesión y Acoplamiento\" - Canal: MitoCode <span class='ref-level'>[Avanzado]</span>",
+                        "Video: \"Ejercicio de Análisis de Código (Cohesión y Acoplamiento)\" - Canal: HolaMundo <span class='ref-level'>[Avanzado]</span>",
+                        "Libro: \"Ingeniería de Software\" (OpenLibra) - Ejercicios propuestos, Cap. 7, pp. 165-170 <span class='ref-level'>[Intermedio]</span>",
+                        "Libro: \"Software Architecture Notes for Professionals\" - Ejercicios de Arquitectura, Cap. 2, pp. 26-30 <span class='ref-level'>[Avanzado]</span>"
+                    ]
+                },
+                {
+                    id: "2.5",
+                    title: "DIAGRAMA ARQUITECTÓNICO",
+                    objective: "Diseñar diagramas arquitectónicos para representar la estructura general del software y sus componentes.",
+                    videos: [
+                        "Diagramas de Arquitectura de Software - MitoCode",
+                        "Arquitectura de Software: Patrones y Diagramas - HolaMundo",
+                        "Cómo diseñar Arquitectura de Software - Fazt",
+                        "Diagramas C4 para Arquitectura de Software - Néstor Cancino",
+                        "Modelado Arquitectónico de Software - UTP"
+                    ],
+                    biblio: [
+                        "Len Bass, Paul Clements & Rick Kazman, \"Software Architecture in Practice\", 4th Ed., Cap. 2, pp. 25-48.",
+                        "GoalKicker, \"Software Architecture Notes for Professionals\", Cap. 5 \"Diagrams\", pp. 60-80.",
+                        "OpenLibra, \"Fundamentos de Arquitectura de Software\", Cap. 1, pp. 15-35.",
+                        "Martin Fowler, \"Patterns of Enterprise Application Architecture\", Cap. 1 \"Architecture\", pp. 1-18."
+                    ],
+                    practice: [
+                        "Video: \"Ejercicio práctico: Diagrama C4\" - Canal: Néstor Cancino <span class='ref-level'>[Avanzado]</span>",
+                        "Video: \"Ejemplo de Diagrama de Arquitectura en Java\" - Canal: MitoCode <span class='ref-level'>[Intermedio]</span>",
+                        "Libro: \"Software Architecture Notes for Professionals\" - Ejercicios propuestos, Cap. 5, pp. 85-90 <span class='ref-level'>[Avanzado]</span>",
+                        "Libro: \"Fundamentos de Arquitectura de Software\" - Ejercicios de Modelado, Cap. 1, pp. 40-45 <span class='ref-level'>[Intermedio]</span>"
+                    ]
+                }
+            ]
+        },
+        {
+            id: 3,
+            title: "PROGRAMACIÓN VISUAL, MANEJO DE EVENTOS Y EXPRESIONES",
+            hours: 32,
+            weeks: "SEMANAS 9 A 12",
+            subtopics: [
+                {
+                    id: "3.1",
+                    title: "GESTIÓN DE ERRORES Y EXCEPCIONES",
+                    objective: "Implementar mecanismos de gestión de excepciones en Java para controlar errores en tiempo de ejecución.",
+                    videos: [
+                        "Excepciones en Java (Try-Catch-Finally) - MitoCode",
+                        "Curso Java Excepciones #1 - Introducción - pildorasinformaticas",
+                        "Gestión de Excepciones en Java - HolaMundo",
+                        "Manejo de Errores y Excepciones en Java - Fazt",
+                        "Excepciones Personalizadas en Java - La Geekipedia De Ernesto"
+                    ],
+                    biblio: [
+                        "Bruce Eckel, \"On Java 8\", Cap. 12 \"Error Handling with Exceptions\", pp. 380-412.",
+                        "GoalKicker, \"Java Notes for Professionals\", Cap. 20 \"Exceptions\", pp. 190-205.",
+                        "Garcia de Jalón, J. et al., \"Aprenda Java como si estuviera en primero\", Cap. 8 \"Excepciones\", pp. 130-150.",
+                        "Oracle, \"The Java Tutorials / Dev.java: Exceptions\", pp. 1-18."
+                    ],
+                    practice: [
+                        "Video: \"Ejercicio resuelto: Manejo de Excepciones en Java\" - Canal: MitoCode <span class='ref-level'>[Intermedio]</span>",
+                        "Video: \"Excepciones en Java: Ejemplo práctico\" - Canal: HolaMundo <span class='ref-level'>[Básico]</span>",
+                        "Libro: \"Aprenda Java como si estuviera en primero\" - Ejercicios propuestos, Cap. 8, pp. 155-160 <span class='ref-level'>[Intermedio]</span>",
+                        "Libro: \"Java Notes for Professionals\" - Ejercicios de Excepciones, Cap. 20, pp. 210-215 <span class='ref-level'>[Intermedio]</span>"
+                    ]
+                },
+                {
+                    id: "3.2",
+                    title: "EXPRESIONES LAMBDA",
+                    objective: "Programar expresiones Lambda en Java para implementar interfaces funcionales y simplificar el código.",
+                    videos: [
+                        "Expresiones Lambda en Java (y Métodos por Defecto) - MitoCode",
+                        "Curso Java Lambdas #1 - Introducción - pildorasinformaticas",
+                        "Expresiones Lambda en Java (Programación Funcional) - HolaMundo",
+                        "Java Lambda Expressions (Expresiones Lambda) - Fazt",
+                        "Funciones Lambda en Java con Ejemplos - La Geekipedia De Ernesto"
+                    ],
+                    biblio: [
+                        "Bruce Eckel, \"On Java 8\", Cap. 13 \"Functional Programming\", pp. 415-445.",
+                        "GoalKicker, \"Java Notes for Professionals\", Cap. 43 \"Lambda Expressions\", pp. 450-465.",
+                        "Oracle, \"The Java Tutorials / Dev.java: Lambda Expressions\", pp. 1-14.",
+                        "OpenLibra, \"Programación Funcional en Java\", Cap. 2, pp. 30-55."
+                    ],
+                    practice: [
+                        "Video: \"Ejercicio práctico: Expresiones Lambda en Java\" - Canal: MitoCode <span class='ref-level'>[Intermedio]</span>",
+                        "Video: \"Ejercicios resueltos: Lambdas y Streams en Java\" - Canal: HolaMundo <span class='ref-level'>[Avanzado]</span>",
+                        "Libro: \"Java Notes for Professionals\" - Ejercicios propuestos, Cap. 43, pp. 470-475 <span class='ref-level'>[Intermedio]</span>",
+                        "Libro: \"Programación Funcional en Java\" - Ejercicios de Programación Funcional, Cap. 2, pp. 60-65 <span class='ref-level'>[Intermedio]</span>"
+                    ]
+                },
+                {
+                    id: "3.3",
+                    title: "PROGRAMACIÓN DE TAREAS MULTIPROCESO (MULTIHILO)",
+                    objective: "Desarrollar aplicaciones multihilo en Java utilizando la API de concurrencia para la ejecución de tareas paralelas.",
+                    videos: [
+                        "Multihilo en Java (Threads, Concurrencia y Sincronización) - MitoCode",
+                        "Curso Java Multihilo #1 - Introducción a los Hilos - pildorasinformaticas",
+                        "Hilos en Java (Threads y Runnable) - HolaMundo",
+                        "Concurrencia y Multihilo en Java - Fazt",
+                        "Programación Multihilo en Java con Ejemplos - La Geekipedia De Ernesto"
+                    ],
+                    biblio: [
+                        "Bruce Eckel, \"On Java 8\", Cap. 15 \"Concurrent Programming\", pp. 510-550.",
+                        "GoalKicker, \"Java Notes for Professionals\", Cap. 42 \"Threads\", pp. 410-430.",
+                        "Garcia de Jalón, J. et al., \"Aprenda Java como si estuviera en primero\", Cap. 9 \"Threads\", pp. 160-180.",
+                        "Oracle, \"The Java Tutorials / Dev.java: Concurrency\", pp. 1-22."
+                    ],
+                    practice: [
+                        "Video: \"Ejercicio resuelto: Hilos en Java\" - Canal: MitoCode <span class='ref-level'>[Avanzado]</span>",
+                        "Video: \"Ejemplo de Sincronización de Hilos\" - Canal: HolaMundo <span class='ref-level'>[Avanzado]</span>",
+                        "Libro: \"Aprenda Java como si estuviera en primero\" - Ejercicios propuestos, Cap. 9, pp. 185-190 <span class='ref-level'>[Intermedio]</span>",
+                        "Libro: \"Java Notes for Professionals\" - Ejercicios de Concurrencia, Cap. 42, pp. 435-440 <span class='ref-level'>[Avanzado]</span>"
+                    ]
+                },
+                {
+                    id: "3.4",
+                    title: "TIPOS DE INTERFAZ GRÁFICA SWING, GUI, AWT",
+                    objective: "Diferenciar los frameworks AWT y Swing para la construcción de interfaces gráficas de usuario (GUI) en Java.",
+                    videos: [
+                        "Interfaces Gráficas en Java con Swing - MitoCode",
+                        "Curso Java Interfaces Gráficas #1 - Introducción a Swing - pildorasinformaticas",
+                        "Crear Interfaz Gráfica en Java con Swing - HolaMundo",
+                        "AWT vs Swing en Java (Programación Visual) - Fazt",
+                        "Java GUI: AWT y Swing desde cero - La Geekipedia De Ernesto"
+                    ],
+                    biblio: [
+                        "GoalKicker, \"Java Notes for Professionals\", Cap. 47 \"Swing\", pp. 490-510.",
+                        "Bruce Eckel, \"Thinking in Java\" (4th Ed.), Cap. 22 \"Graphical User Interfaces\", pp. 780-820.",
+                        "Garcia de Jalón, J. et al., \"Aprenda Java como si estuviera en primero\", Cap. 10, pp. 200-220.",
+                        "Oracle, \"The Java Tutorials / Dev.java: Creating a GUI with Swing\", pp. 1-25."
+                    ],
+                    practice: [
+                        "Video: \"Ejercicio práctico: Calculadora en Java Swing\" - Canal: MitoCode <span class='ref-level'>[Intermedio]</span>",
+                        "Video: \"Ejercicio resuelto: Mi primera Interfaz Gráfica en Java\" - Canal: HolaMundo <span class='ref-level'>[Básico]</span>",
+                        "Libro: \"Aprenda Java como si estuviera en primero\" - Ejercicios propuestos, Cap. 10, pp. 225-230 <span class='ref-level'>[Intermedio]</span>",
+                        "Libro: \"Java Notes for Professionals\" - Ejercicios de Swing, Cap. 47, pp. 515-520 <span class='ref-level'>[Intermedio]</span>"
+                    ]
+                },
+                {
+                    id: "3.5",
+                    title: "EXPLORANDO COMPONENTE GRÁFICO SWING PARA PROYECTO FINAL",
+                    objective: "Diseñar una interfaz gráfica completa en Java Swing integrando múltiples componentes para el proyecto final.",
+                    videos: [
+                        "Sistema de Ventas en Java Swing (Proyecto Completo) - MitoCode",
+                        "Proyecto Java Swing: Crear un CRUD completo - HolaMundo",
+                        "Diseño de Interfaz en Java Swing (Componentes Avanzados) - Fazt",
+                        "Java Swing: JTable, JTextField y JButton - La Geekipedia De Ernesto",
+                        "Construir un proyecto final con Java Swing - Néstor Cancino"
+                    ],
+                    biblio: [
+                        "GoalKicker, \"Java Notes for Professionals\", Cap. 47 \"Swing\", pp. 520-540.",
+                        "Garcia de Jalón, J. et al., \"Aprenda Java como si estuviera en primero\", Cap. 10, pp. 230-245.",
+                        "OpenLibra, \"Creación de Interfaces en Java\", Cap. 3, pp. 60-85.",
+                        "Oracle, \"The Java Tutorials / Dev.java: Using Swing Components\", pp. 25-50."
+                    ],
+                    practice: [
+                        "Video: \"Proyecto Java Swing paso a paso (Sistema de Inventario)\" - Canal: MitoCode <span class='ref-level'>[Avanzado]</span>",
+                        "Video: \"Ejercicio: Diseño de Formulario de Registro en Java\" - Canal: HolaMundo <span class='ref-level'>[Intermedio]</span>",
+                        "Libro: \"Aprenda Java como si estuviera en primero\" - Ejercicios propuestos, Cap. 10, pp. 250-255 <span class='ref-level'>[Avanzado]</span>",
+                        "Libro: \"Creación de Interfaces en Java\" - Ejercicios de Componentes, Cap. 3, pp. 90-95 <span class='ref-level'>[Intermedio]</span>"
+                    ]
+                }
+            ]
+        },
+        {
+            id: 4,
+            title: "ADMINISTRACIÓN DE INFORMACIÓN USANDO GESTOR DE BASE DE DATOS",
+            hours: 28,
+            weeks: "SEMANAS 13 A 16",
+            subtopics: [
+                {
+                    id: "4.1",
+                    title: "PUENTES ENTRE BASE DE DATOS Y PROGRAMA (CONTROL E INTERFAZ GRÁFICA)",
+                    objective: "Conectar aplicaciones Java con bases de datos utilizando JDBC para el control de información desde una interfaz gráfica.",
+                    videos: [
+                        "Conexión a Base de Datos en Java con JDBC - MitoCode",
+                        "Curso Java JDBC #1 - Conexión a MySQL - pildorasinformaticas",
+                        "Conectar Java a Base de Datos (JDBC y MySQL) - HolaMundo",
+                        "JDBC en Java: Conexión, Insert, Update, Delete - Fazt",
+                        "Conexión Java-SQL con JDBC - La Geekipedia De Ernesto"
+                    ],
+                    biblio: [
+                        "GoalKicker, \"Java Notes for Professionals\", Cap. 44 \"JDBC\", pp. 460-475.",
+                        "Garcia de Jalón, J. et al., \"Aprenda Java como si estuviera en primero\", Cap. 12, pp. 300-320.",
+                        "Oracle, \"The Java Tutorials / Dev.java: JDBC Basics\", pp. 1-20.",
+                        "OpenLibra, \"Acceso a Bases de Datos en Java\", Cap. 1, pp. 10-40."
+                    ],
+                    practice: [
+                        "Video: \"Ejercicio práctico: Conexión Java-MySQL\" - Canal: MitoCode <span class='ref-level'>[Intermedio]</span>",
+                        "Video: \"Ejercicio resuelto: Insertar datos en BD desde Java\" - Canal: HolaMundo <span class='ref-level'>[Básico]</span>",
+                        "Libro: \"Aprenda Java como si estuviera en primero\" - Ejercicios propuestos, Cap. 12, pp. 325-330 <span class='ref-level'>[Intermedio]</span>",
+                        "Libro: \"Java Notes for Professionals\" - Ejercicios de JDBC, Cap. 44, pp. 480-485 <span class='ref-level'>[Intermedio]</span>"
+                    ]
+                },
+                {
+                    id: "4.2",
+                    title: "SENTENCIAS SQL, ACCESS, ORACLE",
+                    objective: "Ejecutar sentencias SQL en motores relacionales (Oracle, Access vía UCanAccess, MySQL) desde un entorno Java para administrar datos.",
+                    videos: [
+                        "Conectar Java con Access usando conector JDBC UCanAccess - Néstor Cancino",
+                        "Conexión Java con Oracle Database vía JDBC - MitoCode",
+                        "Sentencias SQL en Java (Select, Insert, Update, Delete) - HolaMundo",
+                        "Conectar Java con Base de Datos Oracle - Fazt",
+                        "SQL para Java: CRUD completo - La Geekipedia De Ernesto"
+                    ],
+                    biblio: [
+                        "GoalKicker, \"SQL Notes for Professionals\", Cap. 1 \"Getting started with SQL\", pp. 10-30.",
+                        "OpenLibra, \"Fundamentos de Bases de Datos\", Cap. 4 \"SQL\", pp. 80-110.",
+                        "Oracle, \"The Java Tutorials / Dev.java: Processing SQL Statements with JDBC\", pp. 1-15.",
+                        "Garcia de Jalón, J. et al., \"Aprenda Java como si estuviera en primero\", Cap. 12, pp. 330-345."
+                    ],
+                    practice: [
+                        "Video: \"Ejercicio resuelto: Conexión Java con Access / UCanAccess\" - Canal: Néstor Cancino <span class='ref-level'>[Intermedio]</span>",
+                        "Video: \"Conexión a Oracle y Ejecución de Queries en Java\" - Canal: MitoCode <span class='ref-level'>[Avanzado]</span>",
+                        "Libro: \"Fundamentos de Bases de Datos\" - Ejercicios propuestos, Cap. 4, pp. 115-120 <span class='ref-level'>[Intermedio]</span>",
+                        "Libro: \"SQL Notes for Professionals\" - Ejercicios de SQL, Cap. 1, pp. 35-40 <span class='ref-level'>[Básico]</span>"
+                    ]
+                },
+                {
+                    id: "4.3",
+                    title: "ADMINISTRACIÓN DE INFORMACIÓN MEDIANTE PROGRAMA",
+                    objective: "Desarrollar un sistema de administración de datos (CRUD) integrando Java Swing y JDBC en una arquitectura por capas.",
+                    videos: [
+                        "CRUD en Java con Swing y JDBC (Arquitectura por capas) - MitoCode",
+                        "Sistema de Inventario en Java y MySQL (CRUD) - HolaMundo",
+                        "Proyecto Java CRUD + MySQL + Swing - Fazt",
+                        "Arquitectura MVC en Java con Base de Datos - La Geekipedia De Ernesto",
+                        "Administrar datos en Java con Interfaz Gráfica - Néstor Cancino"
+                    ],
+                    biblio: [
+                        "GoalKicker, \"Software Architecture Notes for Professionals\", Cap. 8 \"MVC Architecture\", pp. 120-135.",
+                        "OpenLibra, \"Ingeniería de Software: Una guía para crear sistemas de información\", Cap. 10, pp. 200-220.",
+                        "GoalKicker, \"Java Notes for Professionals\", Cap. 44 \"JDBC\", pp. 490-505.",
+                        "Garcia de Jalón, J. et al., \"Aprenda Java como si estuviera en primero\", Cap. 12, pp. 345-360."
+                    ],
+                    practice: [
+                        "Video: \"Ejercicio práctico: CRUD MVC en Java\" - Canal: MitoCode <span class='ref-level'>[Avanzado]</span>",
+                        "Video: \"Proyecto paso a paso: Sistema de Registro en Java Swing\" - Canal: HolaMundo <span class='ref-level'>[Avanzado]</span>",
+                        "Libro: \"Ingeniería de Software\" - Ejercicios propuestos, Cap. 10, pp. 225-230 <span class='ref-level'>[Avanzado]</span>",
+                        "Libro: \"Software Architecture Notes for Professionals\" - Ejercicios de Arquitectura, Cap. 8, pp. 140-145 <span class='ref-level'>[Avanzado]</span>"
+                    ]
+                },
+                {
+                    id: "4.4",
+                    title: "PROYECTO FINAL",
+                    objective: "Integrar los conocimientos de POO, interfaces gráficas y bases de datos en un proyecto final funcional.",
+                    videos: [
+                        "Proyecto Final Java Swing + MySQL (Completo) - MitoCode",
+                        "Proyecto de Gestión en Java (Desde cero hasta BD) - HolaMundo",
+                        "Cómo estructurar un Proyecto de Software en Java - Fazt",
+                        "Proyecto Integrador POO Java + BD - Néstor Cancino",
+                        "Evaluación y Estructura de Proyectos de Programación en Java - UTP"
+                    ],
+                    biblio: [
+                        "Roger S. Pressman & Bruce R. Maxim, \"Ingeniería del Software: Un enfoque práctico\", Cap. 13, pp. 340-368.",
+                        "OpenLibra, \"Gestión de Proyectos de Software\", Cap. 3 \"Ejecución y Monitoreo\", pp. 80-100.",
+                        "GoalKicker, \"Software Architecture Notes for Professionals\", Cap. 15 \"Deployment & Structure\", pp. 200-215.",
+                        "Ian Sommerville, \"Ingeniería de Software\", 10ma Ed., Cap. 2 \"Procesos de software\", pp. 42-68."
+                    ],
+                    practice: [
+                        "Video: \"Proyecto Final Java: Sistema de Ventas\" - Canal: MitoCode <span class='ref-level'>[Avanzado]</span>",
+                        "Video: \"Defensa de Proyectos de Software: Casos prácticos\" - Canal: UTP <span class='ref-level'>[Avanzado]</span>",
+                        "Libro: \"Ingeniería del Software\" (Pressman) - Ejercicios de implementación, Cap. 13, pp. 370-375 <span class='ref-level'>[Avanzado]</span>",
+                        "Libro: \"Software Architecture Notes for Professionals\" - Ejercicios de Despliegue, Cap. 15, pp. 220-225 <span class='ref-level'>[Avanzado]</span>"
+                    ]
+                }
+            ]
+        }
+    ];
+
+    const container = document.getElementById('syllabusContainer');
+    let totalSubtopics = 0;
+
+    syllabusData.forEach(unit => {
+        totalSubtopics += unit.subtopics.length;
+        const unitIdx = String(unit.id).padStart(2, '0');
+        const unitBlock = document.createElement('div');
+        unitBlock.className = 'unit-block reveal';
+        unitBlock.innerHTML = `
+            <header class="unit-header slab" role="button" tabindex="0" aria-expanded="false"
+                    aria-controls="unit-content-${unit.id}"
+                    onclick="toggleAccordion(this)" onkeydown="headerKey(event)">
+                <div class="unit-index" aria-hidden="true">${unitIdx}</div>
+                <div class="unit-title">
+                    <span class="stereo">«unidad»</span>
+                    <h2><span class="uid">${unit.id}.</span> ${unit.title}</h2>
+                </div>
+                <div class="unit-meta">
+                    <span><span class="meta-star">★</span> ${unit.hours} HORAS</span>
+                    <span>${unit.weeks}</span>
+                    <div class="unit-progress-container" aria-hidden="true">
+                        <div class="unit-progress-bar" id="unit-progress-${unit.id}"></div>
+                    </div>
+                    <div class="unit-done" id="unit-done-${unit.id}" title="Unidad verificada: +">+</div>
+                </div>
+                <div class="toggle-icon" aria-hidden="true">▼</div>
+            </header>
+            <div class="acc" id="unit-content-${unit.id}">
+                <div class="acc-in"><div class="unit-well"></div></div>
+            </div>
+        `;
+        container.appendChild(unitBlock);
+
+        const unitWell = unitBlock.querySelector('.unit-well');
+
+        unit.subtopics.forEach(subtopic => {
+            const subtopicBlock = document.createElement('div');
+            subtopicBlock.className = 'subtopic-block';
+            subtopicBlock.innerHTML = `
+                <div class="plate"><div class="plate-in">
+                    <header class="subtopic-header" role="button" tabindex="0" aria-expanded="false"
+                            aria-controls="sub-acc-${subtopic.id.replace('.', '-')}"
+                            onclick="toggleAccordion(this)" onkeydown="headerKey(event)">
+                        <input type="checkbox" class="subtopic-checkbox" data-unit="${unit.id}"
+                               aria-label="Completar subtema ${subtopic.id}"
+                               onclick="event.stopPropagation(); updateProgress()"
+                               onkeydown="event.stopPropagation()">
+                        <div class="subtopic-title">
+                            <span class="stereo">«subtema»</span>
+                            <h3>${subtopic.id} ${subtopic.title}</h3>
+                        </div>
+                        <div class="sub-toggle" aria-hidden="true">+</div>
+                    </header>
+                    <div class="acc" id="sub-acc-${subtopic.id.replace('.', '-')}">
+                        <div class="acc-in">
+                            <div class="subtopic-body">
+                                <div class="objective-box">
+                                    <strong>OBJETIVO:</strong> ${subtopic.objective}
+                                </div>
+                                <section class="subtopic-section">
+                                    <h4><span class="star">★</span> <span>REFERENCIAS EN VIDEO</span> <span class="count">${subtopic.videos.length}</span></h4>
+                                    <ul>${subtopic.videos.map(v => `<li>${v}</li>`).join('')}</ul>
+                                </section>
+                                <section class="subtopic-section">
+                                    <h4><span class="star">★</span> <span>REFERENCIAS BIBLIOGRÁFICAS</span> <span class="count">${subtopic.biblio.length}</span></h4>
+                                    <ul>${subtopic.biblio.map(b => `<li>${b}</li>`).join('')}</ul>
+                                </section>
+                                <section class="subtopic-section">
+                                    <h4><span class="star">★</span> <span>REFERENCIAS DE PRÁCTICA</span> <span class="count">${subtopic.practice.length}</span></h4>
+                                    <ul>${subtopic.practice.map(p => `<li>${p}</li>`).join('')}</ul>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div></div>
+            `;
+            unitWell.appendChild(subtopicBlock);
+        });
+    });
+
+    function toggleAccordion(element) {
+        const content = element.nextElementSibling;
+        const open = content.classList.toggle('open');
+        element.classList.toggle('active', open);
+        element.setAttribute('aria-expanded', open);
+        const icon = element.querySelector('.toggle-icon, .sub-toggle');
+        if (icon) {
+            if (icon.classList.contains('toggle-icon')) icon.textContent = open ? '▲' : '▼';
+            else icon.textContent = open ? '−' : '+';
+        }
+    }
+
+    function headerKey(e) {
+        if (e.target.tagName === 'INPUT') return;
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            toggleAccordion(e.currentTarget);
+        }
+    }
+
+    function updateProgress() {
+        let totalChecked = 0;
+
+        syllabusData.forEach(unit => {
+            const checkboxes = document.querySelectorAll(`.subtopic-checkbox[data-unit="${unit.id}"]`);
+            const checkedCount = Array.from(checkboxes).filter(cb => cb.checked).length;
+            const percent = Math.round((checkedCount / checkboxes.length) * 100);
+
+            document.getElementById(`unit-progress-${unit.id}`).style.width = percent + '%';
+            document.getElementById(`unit-done-${unit.id}`).classList.toggle('show', percent === 100);
+            totalChecked += checkedCount;
+        });
+
+        const globalPercent = Math.round((totalChecked / totalSubtopics) * 100);
+        document.getElementById('globalProgressBar').style.width = globalPercent + '%';
+        document.getElementById('globalProgressText').textContent = globalPercent + '%';
+        document.getElementById('globalProgressCount').textContent = `${totalChecked} / ${totalSubtopics} SUBTEMAS`;
+
+        try {
+            const state = {};
+            document.querySelectorAll('.subtopic-checkbox').forEach((cb, i) => state[i] = cb.checked);
+            localStorage.setItem('poo-archive-progress', JSON.stringify(state));
+        } catch (err) { /* almacenamiento no disponible */ }
+    }
+
+    (function restoreProgress() {
+        try {
+            const saved = JSON.parse(localStorage.getItem('poo-archive-progress') || '{}');
+            document.querySelectorAll('.subtopic-checkbox').forEach((cb, i) => cb.checked = !!saved[i]);
+        } catch (err) { /* sin estado previo */ }
+        updateProgress();
+    })();
+
+    const revealObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('in');
+                revealObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.06 });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+</script>
+
+</body>
+</html>
