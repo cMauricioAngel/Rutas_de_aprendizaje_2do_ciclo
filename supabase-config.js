@@ -12,6 +12,6 @@
  *     escritura acotada por RLS). NO pegues la "service_role".
  * ============================================================ */
 window.RUTAS_SUPABASE = {
-  url: "",
-  anonKey: ""
+  url: "https://poamzozohuvmalqayodl.supabase.co",
+  anonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBvYW16b3pvaHV2bWFscWF5b2RsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ5NzgwNzcsImV4cCI6MjEwMDU1NDA3N30.6VPHMMu8p8o1aYIbkr6ox_JN8EejvkpDumnUaeJn9Qc"
 };
