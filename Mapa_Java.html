@@ -189,6 +189,10 @@
   }
   .badge.adv{background:var(--accent)}
   .badge.mid{background:#444}
+
+  /* enlaces a fuentes curadas */
+  .ref-list a{color:inherit;text-decoration:none;border-bottom:2px solid var(--accent);transition:color .15s ease}
+  .ref-list a:hover{color:var(--accent)}
   
   /* FOOTER */
   footer{
@@ -862,9 +866,18 @@ function renderUnit(u, idx){
 
 function renderSub(s){
   const checked = !!state[s.code];
-  const videosHTML = s.videos.map((v,i)=>`<li><span class="idx">V${i+1}</span><span>${v.t}<span class="meta">${v.c}</span></span></li>`).join("");
-  const bibHTML = s.biblio.map((b,i)=>`<li><span class="idx">B${i+1}</span><span><b>${b.t}</b><span class="meta">${b.a} · ${b.d}</span></span></li>`).join("");
-  const pracHTML = s.practica.map((p,i)=>`<li><span class="idx">P${i+1}</span><span>${p.t}${badgeFor(p.lvl)}<span class="meta">${p.c}</span></span></li>`).join("");
+  const videosHTML = s.videos.map((v,i)=>{
+    const t = v.url ? `<a href="${v.url}" target="_blank" rel="noopener">${v.t}</a>` : v.t;
+    return `<li><span class="idx">V${i+1}</span><span>${t}<span class="meta">${v.c}</span></span></li>`;
+  }).join("");
+  const bibHTML = s.biblio.map((b,i)=>{
+    const t = b.url ? `<a href="${b.url}" target="_blank" rel="noopener">${b.t}</a>` : b.t;
+    return `<li><span class="idx">B${i+1}</span><span><b>${t}</b><span class="meta">${b.a} · ${b.d}</span></span></li>`;
+  }).join("");
+  const pracHTML = s.practica.map((p,i)=>{
+    const t = p.url ? `<a href="${p.url}" target="_blank" rel="noopener">${p.t}</a>` : p.t;
+    return `<li><span class="idx">P${i+1}</span><span>${t}${badgeFor(p.lvl)}<span class="meta">${p.c}</span></span></li>`;
+  }).join("");
 
   return `
   <article class="sub" data-code="${s.code}">

@@ -81,3 +81,56 @@ schema.sql            Esquema de la tabla route_progress + RLS
 
 Es HTML estático: abre `index.html` directamente o sirve la carpeta con
 `python3 -m http.server` / cualquier servidor estático.
+
+---
+
+## Curación de fuentes (pipeline)
+
+Las referencias (videos, libros, práctica) originalmente eran **solo texto** y muchas
+no coincidían con fuentes reales. Este pipeline las convierte en **enlaces verificados
+a la fuente exacta**. Sigue 6 fases reproducibles, con scripts Node **sin dependencias**.
+
+> Piloto: **Java** (`Mapa_Java.html`, 300 referencias). El resto de mapas se escala
+> agregando un adaptador por archivo en `scripts/inventario.mjs`.
+
+### Archivos
+
+| Archivo | Rol |
+|---|---|
+| `scripts/lib.mjs` | Utilidades (extractor de `DATA`, CSV, `httpStatus`, sugeridor de URLs canónicas). |
+| `scripts/inventario.mjs` | **Fase 1**: extrae todas las refs → `data/referencias_raw.csv` + inicializa `data/referencias_curadas.csv` (sembrada con URLs canónicas conocidas y `busqueda_url` preconstruida). |
+| `scripts/validar.mjs` | **Fase 6**: HEAD a cada URL → actualiza `status_http` y `ultima_revision`. |
+| `scripts/aplicar.mjs` | **Fase 5**: parcha los campos `url` (y `titulo_canonico`) en `DATA` del HTML. Idempotente. |
+| `data/referencias_curadas.csv` | **Fuente única de gobierno** (fase 6). Una fila por referencia. |
+
+### Flujo de trabajo
+
+```bash
+# 1) Generar inventario (sembrado con ~92 URLs canónicas ya verificadas)
+node scripts/inventario.mjs
+
+# 2) Curar en data/referencias_curadas.csv (Excel/Sheets/VS Code):
+#    - abre la columna busqueda_url (búsqueda YouTube/Google ya armada)
+#    - pega la URL exacta en url_directa_final
+#    - cambia estado: sugerido -> verificado (o no_existe)
+
+# 3) Validar que ningún enlace esté roto
+node scripts/validar.mjs
+
+# 4) Integrar al HTML (sólo filas con estado=verificado)
+node scripts/aplicar.mjs
+```
+
+Columnas de `data/referencias_curadas.csv`:
+`id, archivo, unidad, subtema, seccion, tipo, titulo_visible, autor_canal, cita,
+url_actual, busqueda_url, estado, titulo_canonico, url_directa_final, dominio_fuente,
+nivel_confianza, status_http, ultima_revision, notas`
+
+### Regla editorial (obligatoria para recursos nuevos)
+
+> **Todo recurso nuevo debe tener: título canónico + fuente oficial + URL directa verificada.**
+> Sin `url_directa_final` verificada, el recurso se muestra como texto plano (sin enlace)
+> y con etiqueta *pendiente*.
+
+El `id` es estable (`archivo:subtema:seccion:indice`) y el render del mapa muestra `<a href>`
+sólo si el objeto tiene `url`; por eso se puede curar de forma incremental sin romper nada.
