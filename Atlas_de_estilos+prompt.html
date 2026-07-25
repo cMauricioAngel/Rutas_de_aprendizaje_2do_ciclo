@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atlas de Estilos — Brutalismo × Minimalismo × Matemáticas × Humanidades</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Archivo+Black&family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Caveat:wght@400;700&family=Crimson+Pro:ital,wght@0,400;0,500;0,600;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0a;
+  --fg: #f5f5f0;
+  --muted: #6b6b66;
+  --border: #1f1f1d;
+  --accent: #e7ff00;
+}
+* { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'Space Grotesk', sans-serif;
+  margin: 0;
+  overflow-x: hidden;
+}
+.grain {
+  position: fixed; inset: 0; pointer-events: none; z-index: 9999;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  opacity: 0.04; mix-blend-mode: overlay;
+}
+.f-grotesk{font-family:'Space Grotesk',sans-serif}
+.f-mono{font-family:'JetBrains Mono',monospace}
+.f-plex{font-family:'IBM Plex Mono',monospace}
+.f-archivo{font-family:'Archivo Black',sans-serif}
+.f-bebas{font-family:'Bebas Neue',sans-serif}
+.f-garamond{font-family:'EB Garamond',serif}
+.f-crimson{font-family:'Crimson Pro',serif}
+.f-caveat{font-family:'Caveat',cursive}
+.f-inter{font-family:'Inter',sans-serif}
+.f-space-mono{font-family:'Space Mono',monospace}
+
+.topnav{position:sticky;top:0;z-index:100;background:rgba(10,10,10,0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.hero-title{font-family:'Archivo Black',sans-serif;font-size:clamp(64px,16vw,260px);line-height:0.82;letter-spacing:-0.04em}
+.sec-num{font-family:'Archivo Black',sans-serif;font-size:clamp(80px,14vw,200px);line-height:0.85;letter-spacing:-0.04em}
+.stroke-text{color:transparent;-webkit-text-stroke:1.5px var(--fg)}
+
+.demo-frame{border:1px solid var(--border);background:#161614;border-radius:4px;overflow:hidden;transition:transform .4s ease, border-color .4s ease}
+.demo-frame:hover{border-color:#3a3a36;transform:translateY(-2px)}
+.demo-bar{display:flex;align-items:center;gap:8px;padding:10px 14px;background:#1a1a18;border-bottom:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:11px;color:#888}
+.demo-dot{width:8px;height:8px;border-radius:50%;background:#333}
+
+.swatch{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:11px}
+.swatch:last-child{border-bottom:none}
+.swatch-color{width:32px;height:32px;border:1px solid rgba(255,255,255,0.1);flex-shrink:0}
+
+/* ====== DEMO 1: Pizarra y Tiza Flúor ====== */
+.demo-pizarra{background:#1D2B22;position:relative;overflow:hidden;color:#fff;font-family:'JetBrains Mono',monospace}
+.demo-pizarra::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.05) 1px,transparent 1px);background-size:32px 32px;pointer-events:none}
+.btn-fluor{background:#E7FF00;color:#000;border:3px solid #000;padding:10px 18px;font-weight:700;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.05em;cursor:pointer;transition:transform .15s}
+.btn-fluor:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 #000}
+.btn-ghost-w{background:transparent;color:#fff;border:3px solid #fff;padding:10px 18px;font-weight:700;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.05em;cursor:pointer}
+
+/* ====== DEMO 2: Papel Milimetrado Crudo ====== */
+.demo-milimetrado{background:#E8E4D0;color:#111E6C;position:relative;overflow:hidden;font-family:'JetBrains Mono',monospace}
+.demo-milimetrado::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(17,30,108,0.15) 1px,transparent 1px),linear-gradient(90deg,rgba(17,30,108,0.15) 1px,transparent 1px);background-size:20px 20px;pointer-events:none}
+.demo-milimetrado::after{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(17,30,108,0.08) 1px,transparent 1px),linear-gradient(90deg,rgba(17,30,108,0.08) 1px,transparent 1px);background-size:4px 4px;pointer-events:none}
+.mili-box{border:2.5px solid #000;background:#E8E4D0;position:relative;z-index:2}
+.var-red{color:#D11E1E;font-weight:700}
+
+/* ====== DEMO 3: Archivo Soviético ====== */
+.demo-soviet{background:#A3A3A3;color:#0A0A0A;position:relative;overflow:hidden;font-family:'Archivo Black',sans-serif}
+.soviet-block{background:#0A0A0A;color:#A3A3A3}
+.soviet-red{background:#D01C1C;color:#fff}
+.soviet-star{clip-path:polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)}
+
+/* ====== DEMO 4: Zine Literario ====== */
+.demo-zine{background:#F4F4F0;color:#1A1A1A;position:relative;overflow:hidden;font-family:'IBM Plex Mono',monospace}
+.zine-tape{background:#C66B3D;color:#F4F4F0;padding:2px 8px;display:inline-block;transform:rotate(-2deg)}
+.zine-box{border:2px solid #1A1A1A;background:#F4F4F0}
+.zine-cut{background:#1A1A1A;color:#F4F4F0;padding:14px 16px;transform:rotate(1.5deg);box-shadow:4px 4px 0 #C66B3D}
+
+/* ====== DEMO 5: Geometría Suiza ====== */
+.demo-swiss{background:#FAFAFA;color:#2B2B2B;position:relative;overflow:hidden;font-family:'Inter',sans-serif}
+.swiss-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,0,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,0.03) 1px,transparent 1px);background-size:48px 48px;pointer-events:none}
+.swiss-accent{color:#0047AB}
+.swiss-bar{background:#2B2B2B;height:8px}
+
+/* ====== DEMO 6: Topológico ====== */
+.demo-topo{background:#EDEDED;color:#191970;position:relative;overflow:hidden;font-family:'Inter',sans-serif}
+.topo-node{fill:#191970}
+.topo-line{stroke:#B0B0B0;stroke-width:1.5}
+.topo-label{font-family:'JetBrains Mono',monospace;font-size:10px;fill:#191970}
+
+/* ====== DEMO 7: Biblioteca de Roble ====== */
+.demo-oak{background:#F4EFE9;color:#2F241D;position:relative;overflow:hidden;font-family:'EB Garamond',serif}
+.oak-salvia{color:#8A9A86}
+.oak-dropcap::first-letter{font-size:64px;float:left;line-height:0.85;padding:6px 8px 0 0;color:#8A9A86;font-weight:600;font-family:'EB Garamond',serif}
+.oak-note{background:#8A9A86;color:#F4EFE9;padding:10px 12px;font-size:12px;font-family:'EB Garamond',serif;font-style:italic}
+
+/* ====== DEMO 8: Poesía Nórdica ====== */
+.demo-poetry{background:#FFFDF5;color:#333333;position:relative;overflow:hidden;font-family:'Crimson Pro',serif}
+.poetry-accent{color:#A6715A}
+.poetry-rule{height:1px;background:#A6715A;width:60px}
+
+/* prompts */
+.prompt-card{background:#131311;border:1px solid var(--border);padding:24px;border-radius:4px;transition:border-color .3s}
+.prompt-card:hover{border-color:#3a3a36}
+.prompt-code{background:#0a0a0a;border:1px solid var(--border);padding:18px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.7;color:#c5c5b8;white-space:pre-wrap;word-break:break-word;max-height:340px;overflow-y:auto}
+.copy-btn{background:transparent;border:1px solid var(--border);color:#a5a59a;padding:6px 12px;font-family:'JetBrains Mono',monospace;font-size:11px;cursor:pointer;transition:all .2s;letter-spacing:0.05em}
+.copy-btn:hover{background:var(--accent);color:#000;border-color:var(--accent)}
+.copy-btn.copied{background:var(--accent);color:#000;border-color:var(--accent)}
+
+/* scroll reveal */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .8s ease, transform .8s ease}
+.reveal.in{opacity:1;transform:none}
+
+/* nav links */
+.nav-link{color:#a5a59a;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.05em;transition:color .2s}
+.nav-link:hover{color:var(--accent)}
+
+/* scrollbar */
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:#0a0a0a}
+::-webkit-scrollbar-thumb{background:#2a2a28}
+::-webkit-scrollbar-thumb:hover{background:#3a3a36}
+
+/* responsive */
+@media (max-width:768px){
+  .demo-frame{margin-bottom:20px}
+}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+
+<!-- TOP NAV -->
+<nav class="topnav">
+  <div class="max-w-[1400px] mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="#top" class="f-archivo text-lg tracking-tight">ATLAS<span style="color:var(--accent)">.</span></a>
+    <div class="hidden md:flex items-center gap-6">
+      <a href="#s1" class="nav-link">01 / BRUT×MAT</a>
+      <a href="#s2" class="nav-link">02 / BRUT×HUM</a>
+      <a href="#s3" class="nav-link">03 / MIN×MAT</a>
+      <a href="#s4" class="nav-link">04 / MIN×HUM</a>
+      <a href="#prompts" class="nav-link" style="color:var(--accent)">05 / PROMPTS</a>
+    </div>
+    <div class="f-mono text-[11px]" style="color:var(--muted)">v.1.0 / 8 paletas</div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header id="top" class="max-w-[1400px] mx-auto px-6 pt-24 pb-32 relative">
+  <div class="f-mono text-xs tracking-widest mb-8" style="color:var(--muted)">
+    04 EJES · 08 PALETAS · 01 BIBLIOTECA DE PROMPTS
+  </div>
+  <h1 class="hero-title">
+    ATLAS<br>
+    DE<br>
+    <span style="color:var(--accent)">ESTILOS</span>
+  </h1>
+  <div class="grid md:grid-cols-2 gap-12 mt-20 max-w-5xl">
+    <p class="text-lg md:text-xl leading-relaxed" style="color:#c5c5b8">
+      Una colección de <strong style="color:#fff">sistemas visuales armónicos</strong> donde el brutalismo y el minimalismo se cruzan con las matemáticas y las humanidades. Cada paleta está implementada como una interfaz real, no como un swatch.
+    </p>
+    <div class="f-mono text-sm space-y-3" style="color:#a5a59a">
+      <div class="flex justify-between border-b border-[var(--border)] pb-2"><span>01</span><span>Brutalismo × Matemáticas</span><span style="color:var(--accent)">→</span></div>
+      <div class="flex justify-between border-b border-[var(--border)] pb-2"><span>02</span><span>Brutalismo × Humanidades</span><span style="color:var(--accent)">→</span></div>
+      <div class="flex justify-between border-b border-[var(--border)] pb-2"><span>03</span><span>Minimalismo × Matemáticas</span><span style="color:var(--accent)">→</span></div>
+      <div class="flex justify-between border-b border-[var(--border)] pb-2"><span>04</span><span>Minimalismo × Humanidades</span><span style="color:var(--accent)">→</span></div>
+      <div class="flex justify-between pb-2"><span>05</span><span>Biblioteca de prompts</span><span style="color:var(--accent)">→</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ SECCIÓN 1: BRUTALISMO × MATEMÁTICAS ============ -->
+<section id="s1" class="max-w-[1400px] mx-auto px-6 py-24 reveal">
+  <div class="flex items-end justify-between mb-12 flex-wrap gap-4">
+    <div>
+      <div class="f-mono text-xs tracking-widest mb-3" style="color:var(--muted)">SECCIÓN 01</div>
+      <h2 class="f-archivo text-4xl md:text-6xl leading-none">BRUTALISMO<br><span style="color:var(--accent)">× MATEMÁTICAS</span></h2>
+    </div>
+    <div class="sec-num stroke-text">01</div>
+  </div>
+  <p class="max-w-3xl text-lg leading-relaxed mb-16" style="color:#c5c5b8">
+    Lógica pura, pizarras de tiza, arquitectura de los datos. La armonía no busca ser suave sino de contraste estructural extremo: bordes de 3px, grids cartesianas explícitas, acentos flúor como el subrayado de una prueba.
+  </p>
+
+  <div class="grid lg:grid-cols-2 gap-8">
+    <!-- DEMO 1: Pizarra y Tiza Flúor -->
+    <div>
+      <div class="demo-frame mb-5">
+        <div class="demo-bar">
+          <div class="demo-dot"></div><div class="demo-dot"></div><div class="demo-dot"></div>
+          <span class="ml-2">demo-01-pizarra-tiza-fluor.html</span>
+        </div>
+        <div class="demo-pizarra p-8 md:p-10 min-h-[520px]">
+          <div class="relative z-10">
+            <div class="flex justify-between items-start mb-8">
+              <div>
+                <div class="f-mono text-[10px] tracking-widest opacity-60">TEOREMA / 03.14</div>
+                <div class="f-mono text-xs mt-1 opacity-80">DEMOSTRACIÓN · ÁLGEBRA SUPERIOR</div>
+              </div>
+              <div style="background:#E7FF00;color:#000;padding:4px 10px;font-size:10px;font-weight:700" class="f-mono">EUREKA</div>
+            </div>
+
+            <div class="border-[3px] border-white p-6 mb-6" style="background:rgba(0,0,0,0.15)">
+              <div class="f-mono text-[10px] opacity-60 mb-3">PROPOSICIÓN</div>
+              <div class="text-2xl md:text-3xl text-center font-bold tracking-tight" style="font-family:'Space Mono',monospace">
+                ∫₀<sup>∞</sup> e<sup>−x²</sup> dx = <span style="color:#E7FF00">√π / 2</span>
+              </div>
+              <div class="f-mono text-[10px] opacity-60 mt-3 text-center">GAUSS · 1809</div>
+            </div>
+
+            <div class="grid grid-cols-3 gap-3 mb-6">
+              <div class="border-[3px] border-white p-3 text-center">
+                <div class="f-mono text-[9px] opacity-60">VARIABLE</div>
+                <div class="text-2xl font-bold" style="color:#E7FF00">x</div>
+              </div>
+              <div class="border-[3px] border-white p-3 text-center">
+                <div class="f-mono text-[9px] opacity-60">LÍMITE</div>
+                <div class="text-2xl font-bold">0→∞</div>
+              </div>
+              <div class="border-[3px] border-white p-3 text-center">
+                <div class="f-mono text-[9px] opacity-60">RESULTADO</div>
+                <div class="text-2xl font-bold" style="color:#E7FF00">0.886</div>
+              </div>
+            </div>
+
+            <div class="flex flex-wrap gap-3 mb-6">
+              <button class="btn-fluor">▸ RESOLVER</button>
+              <button class="btn-ghost-w">▸ VER PASOS</button>
+              <button class="btn-ghost-w">▸ EXPORTAR</button>
+            </div>
+
+            <div class="border-t-[3px] border-white pt-4 flex justify-between f-mono text-[10px] opacity-60">
+              <span>NOTACIÓN: LEIBNIZ</span>
+              <span>BASE: ℝ</span>
+              <span>CHECKSUM: ✓</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex items-baseline justify-between mb-3">
+        <h3 class="f-archivo text-xl">01.A · Pizarra y Tiza Flúor</h3>
+        <span class="f-mono text-[10px]" style="color:var(--muted)">BRUT × MAT</span>
+      </div>
+      <p class="text-sm leading-relaxed mb-4" style="color:#a5a59a">
+        Verde pizarra oscuro con bordes brutales de 3px. El amarillo flúor actúa como el subrayado de una prueba matemática.
+      </p>
+      <div class="border-t border-[var(--border)] pt-2">
+        <div class="swatch"><div class="swatch-color" style="background:#1D2B22"></div><span class="flex-1">Fondo · Verde Pizarra</span><span>#1D2B22</span></div>
+        <div class="swatch"><div class="swatch-color" style="background:#FFFFFF"></div><span class="flex-1">Texto · Blanco Puro</span><span>#FFFFFF</span></div>
+        <div class="swatch"><div class="swatch-color" style="background:#000000"></div><span class="flex-1">Bordes · Negro Carbón</span><span>#000000</span></div>
+        <div class="swatch"><div class="swatch-color" style="background:#E7FF00"></div><span class="flex-1">Acento · Amarillo Flúor</span><span>#E7FF00</span></div>
+      </div>
+    </div>
+
+    <!-- DEMO 2: Papel Milimetrado Crudo -->
+    <div>
+      <div class="demo-frame mb-5">
+        <div class="demo-bar">
+          <div class="demo-dot"></div><div class="demo-dot"></div><div class="demo-dot"></div>
+          <span class="ml-2">demo-02-papel-milimetrado-crudo.html</span>
+        </div>
+        <div class="demo-milimetrado p-8 md:p-10 min-h-[520px]">
+          <div class="relative z-10">
+            <div class="flex justify-between items-start mb-6">
+              <div>
+                <div class="f-mono text-[10px] tracking-widest opacity-60">CUADERNO / 14</div>
+                <div class="text-2xl font-bold mt-1" style="font-family:'Space Mono',monospace">f(x) = ax² + bx + c</div>
+              </div>
+              <div class="f-caveat text-xl var-red" style="color:#D11E1E;transform:rotate(-4deg)">¡revisar!</div>
+            </div>
+
+            <div class="mili-box p-5 mb-5">
+              <div class="f-mono text-[10px] opacity-70 mb-3">TABLA DE VALORES</div>
+              <div class="grid grid-cols-4 gap-0 f-mono text-sm">
+                <div class="border border-black/40 p-2 font-bold" style="background:rgba(17,30,108,0.05)">x</div>
+                <div class="border border-black/40 p-2 font-bold" style="background:rgba(17,30,108,0.05)">f(x)</div>
+                <div class="border border-black/40 p-2 font-bold" style="background:rgba(17,30,108,0.05)">f'(x)</div>
+                <div class="border border-black/40 p-2 font-bold" style="background:rgba(17,30,108,0.05)">Σ</div>
+                <div class="border border-black/40 p-2">0</div>
+                <div class="border border-black/40 p-2">3</div>
+                <div class="border border-black/40 p-2">−2</div>
+                <div class="border border-black/40 p-2 var-red" style="color:#D11E1E">3</div>
+                <div class="border border-black/40 p-2">1</div>
+                <div class="border border-black/40 p-2">6</div>
+                <div class="border border-black/40 p-2">0</div>
+                <div class="border border-black/40 p-2 var-red" style="color:#D11E1E">9</div>
+                <div class="border border-black/40 p-2">2</div>
+                <div class="border border-black/40 p-2">11</div>
+                <div class="border border-black/40 p-2">4</div>
+                <div class="border border-black/40 p-2 var-red" style="color:#D11E1E">20</div>
+              </div>
+            </div>
+
+            <div class="mili-box p-4 mb-5" style="background:#111E6C;color:#E8E4D0">
+              <div class="f-mono text-[10px] opacity-70 mb-2">DISCRIMINANTE</div>
+              <div class="text-xl font-bold f-mono">Δ = b² − 4ac = <span style="color:#E7FF00">16 &gt; 0</span></div>
+              <div class="f-mono text-[10px] opacity-70 mt-2">→ dos raíces reales distintas</div>
+            </div>
+
+            <div class="flex justify-between items-end">
+              <div class="f-caveat text-2xl" style="color:#D11E1E;transform:rotate(-2deg)">→ vértice en x = −b/2a</div>
+              <div class="f-mono text-[10px] opacity-60">p. 14 / 87</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex items-baseline justify-between mb-3">
+        <h3 class="f-archivo text-xl">01.B · Papel Milimetrado Crudo</h3>
+        <span class="f-mono text-[10px]" style="color:var(--muted)">BRUT × MAT</span>
+      </div>
+      <p class="text-sm leading-relaxed mb-4" style="color:#a5a59a">
+        Beige crudo con grid de milímetros. Azul tinta de pluma para datos, rojo cadmio para variables clave y errores.
+      </p>
+      <div class="border-t border-[var(--border)] pt-2">
+        <div class="swatch"><div class="swatch-color" style="background:#E8E4D0"></div><span class="flex-1">Fondo · Beige Crudo</span><span>#E8E4D0</span></div>
+        <div class="swatch"><div class="swatch-color" style="background:#111E6C"></div><span class="flex-1">Texto · Azul Tinta</span><span>#111E6C</span></div>
+        <div class="swatch"><div class="swatch-color" style="background:#000000"></div><span class="flex-1">Bordes · Negro</span><span>#000000</span></div>
+        <div class="swatch"><div class="swatch-color" style="background:#D11E1E"></div><span class="flex-1">Acento · Rojo Cadmio</span><span>#D11E1E</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECCIÓN 2: BRUTALISMO × HUMANIDADES ============ -->
+<section id="s2" class="max-w-[1400px] mx-auto px-6 py-24 reveal">
+  <div class="flex items-end justify-between mb-12 flex-wrap gap-4">
+    <div>
+      <div class="f-mono text-xs tracking-widest mb-3" style="color:var(--muted)">SECCIÓN 02</div>
+      <h2 class="f-archivo text-4xl md:text-6xl leading-none">BRUTALISMO<br><span style="color:#E7FF00">× HUMANIDADES</span></h2>
+    </div>
+    <div class="sec-num stroke-text">02</div>
+  </div>
+  <p class="max-w-3xl text-lg leading-relaxed mb-16" style="color:#c5c5b8">
+    Manifiestos, fotocopias de archivo, máquinas de escribir, punk literario. La armonía nace de la monotonía rota por cortes de tensión: gris cemento, negro tinta, rojo cartelista, blanco roto.
+  </p>
+
+  <div class="grid lg:grid-cols-2 gap-8">
+    <!-- DEMO 3: Archivo Soviético -->
+    <div>
+      <div class="demo-frame mb-5">
+        <div class="demo-bar">
+          <div class="demo-dot"></div><div class="demo-dot"></div><div class="demo-dot"></div>
+          <span class="ml-2">demo-03-archivo-sovietico.html</span>
+        </div>
+        <div class="demo-soviet p-8 md:p-10 min-h-[520px]">
+          <div class="flex justify-between items-start mb-8">
+            <div class="f-mono text-[10px] tracking-widest opacity-70">DOCUMENTO N° 007 / 1923</div>
+            <div class="soviet-star w-8 h-8" style="background:#D01C1C"></div>
+          </div>
+
+          <div class="soviet-block p-6 mb-6">
+            <div class="f-mono text-[10px] tracking-widest opacity-60 mb-3">MANIFIESTO</div>
+            <h3 class="text-4xl md:text-5xl leading-none mb-4">SOBRE LA<br>CONCIENCIA<br>HISTÓRICA</h3>
+            <div class="f-mono text-xs opacity-60">CAP. III · SECCIÓN 2</div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3 mb-6">
+            <div class="soviet-red p-4">
+              <div class="f-mono text-[9px] tracking-widest opacity-80 mb-2">TESIS</div>
+              <div class="text-lg font-bold leading-tight">La historia la escriben los que trabajan.</div>
+            </div>
+            <div class="border-[3px] border-black p-4 bg-transparent">
+              <div class="f-mono text-[9px] tracking-widest opacity-70 mb-2">ANTÍTESIS</div>
+              <div class="text-lg font-bold leading-tight">Toda escritura es un acto de poder.</div>
+            </div>
+          </div>
+
+          <div class="flex justify-between items-center pt-4 border-t-[3px] border-black">
+            <div class="f-mono text-[10px] opacity-70">FIRMA: K. P. / ARCHIVO CENTRAL</div>
+            <div class="soviet-red px-3 py-1 f-mono text-[10px] font-bold">CLASIFICADO</div>
+          </div>
+        </div>
+      </div>
+      <div class="flex items-baseline justify-between mb-3">
+        <h3 class="f-archivo text-xl">02.A · Archivo Soviético</h3>
+        <span class="f-mono text-[10px]" style="color:var(--muted)">BRUT × HUM</span>
+      </div>
+      <p class="text-sm leading-relaxed mb-4" style="color:#a5a59a">
+        Gris cemento y negro tinta con rojo cartelista. Tipografía pesada, bloques densos, peso emocional e histórico.
+      </p>
+      <div class="border-t border-[var(--border)] pt-2">
+        <div class="swatch"><div class="swatch-color" style="background:#A3A3A3"></div><span class="flex-1">Fondo · Gris Cemento</span><span>#A3A3A3</span></div>
+        <div class="swatch"><div class="swatch-color" style="background:#0A0A0A"></div><span class="flex-1">Texto · Negro Tinta</span><span>#0A0A0A</span></div>
+        <div class="swatch"><div class="swatch-color" style="background:#D01C1C"></div><span class="flex-1">Acento · Rojo Cartelista</span><span>#D01C1C</span></div>
+      </div>
+    </div>
+
+    <!-- DEMO 4: Zine Literario -->
+    <div>
+      <div class="demo-frame mb-5">
+        <div class="demo-bar">
+          <div class="demo-dot"></div><div class="demo-dot"></div><div class="demo-dot"></div>
+          <span class="ml-2">demo-04-zine-literario.html</span>
+        </div>
+        <div class="demo-zine p-8 md:p-10 min-h-[520px]">
+          <div class="flex justify-between items-start mb-6">
+            <div class="f-plex text-[10px] tracking-widest opacity-60">VOL. 3 · EDICIÓN 7 · INVIERNO</div>
+            <div class="zine-tape f-plex text-[10px] font-bold">N°007</div>
+          </div>
+
+          <h3 class="f-archivo text-5xl md:text-6xl leading-none mb-2">PROSA<br>SUBTERRÁNEA</h3>
+          <div class="f-plex text-xs mb-6 opacity-70">— un manifiesto en tres fragmentos —</div>
+
+          <div class="grid grid-cols-2 gap-4 mb-6">
+            <div>
+              <div class="zine-box p-4 mb-3">
+                <div class="f-plex text-[9px] tracking-widest mb-2 opacity-60">FRAGMENTO I</div>
+                <p class="text-sm leading-relaxed">Escribimos en los márgenes porque el centro ya fue comprado. La página es el último territorio común.</p>
+              </div>
+              <div class="f-plex text-[10px] opacity-60">— Ana T., 23</div>
+            </div>
+            <div>
+              <div class="zine-cut mb-3">
+                <div class="f-plex text-[9px] tracking-widest mb-2 opacity-70">FRAGMENTO II</div>
+                <p class="text-sm leading-relaxed">La fotocopiadora es nuestra imprenta. El toner, nuestra tinta. Distribuir es resistir.</p>
+              </div>
+              <div class="f-plex text-[10px] opacity-60">— Colectivo 12</div>
+            </div>
+          </div>
+
+          <div class="border-t-2 border-black pt-4 flex justify-between items-end">
+            <div>
+              <div class="f-plex text-[10px] opacity-60">PRÓXIMA ENTREGA</div>
+              <div class="f-archivo text-xl">PRIMAVERA / 24</div>
+            </div>
+            <div class="text-right">
+              <div class="f-plex text-[10px] opacity-60">COPIAS</div>
+              <div class="f-archivo text-xl">∞</div>
+            </div>
+            <div class="text-right">
+              <div class="f-plex text-[10px] opacity-60">PÁGINA</div>
+              <div class="f-archivo text-xl">07</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex items-baseline justify-between mb-3">
+        <h3 class="f-archivo text-xl">02.B · Zine Literario</h3>
+        <span class="f-mono text-[10px]" style="color:var(--muted)">BRUT × HUM</span>
+      </div>
+      <p class="text-sm leading-relaxed mb-4" style="color:#a5a59a">
+        Blanco roto de fotocopiadora con naranja óxido y mostaza apagado. Calidez de las ciencias sociales y la antropología.
+      </p>
+      <div class="border-t border-[var(--border)] pt-2">
+        <div class="swatch"><div class="swatch-color" style="background:#F4F4F0"></div><span class="flex-1">Fondo · Blanco Roto</span><span>#F4F4F0</span></div>
+        <div class="swatch"><div class="swatch-color" style="background:#1A1A1A"></div><span class="flex-1">Texto · Negro Mate</span><span>#1A1A1A</span></div>
+        <div class="swatch"><div class="swatch-color" style="background:#C66B3D"></div><span class="flex-1">Acento · Naranja Óxido</span><span>#C66B3D</span></div>
+        <div class="swatch"><div class="swatch-color" style="background:#C7A008"></div><span class="flex-1">Acento 2 · Mostaza Apagado</span><span>#C7A008</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECCIÓN 3: MINIMALISMO × MATEMÁTICAS ============ -->
+<section id="s3" class="max-w-[1400px] mx-auto px-6 py-24 reveal">
+  <div class="flex items-end justify-between mb-12 flex-wrap gap-4">
+    <div>
+      <div class="f-mono text-xs tracking-widest mb-3" style="color:var(--muted)">SECCIÓN 03</div>
+      <h2 class="f-archivo text-4xl md:text-6xl leading-none">MINIMALISMO<br><span style="color:#0047AB">× MATEMÁTICAS</span></h2>
+    </div>
+    <div class="sec-num stroke-text">03</div>
+  </div>
+  <p class="max-w-3xl text-lg leading-relaxed mb-16" style="color:#c5c5b8">
+    La matemática se vuelve elegante, espacial y topológica. Equilibrio asintótico: los colores casi se tocan pero mantienen una distancia perfecta. Proporciones ínfimas de acento.
+  </p>
+
+  <div class="grid lg:grid-cols-2 gap-8">
+    <!-- DEMO 5: Geometría Suiza -->
+    <div>
+      <div class="demo-frame mb-5">
+        <div class="demo-bar">
+          <div class="demo-dot"></div><div class="demo-dot"></div><div class="demo-dot"></div>
+          <span class="ml-2">demo-05-geometria-suiza.html</span>
+        </div>
+        <div class="demo-swiss p-8 md:p-10 min-h-[520px] relative">
+          <div class="swiss-grid"></div>
+          <div class="relative z-10">
+            <div class="flex justify-between items-start mb-12">
+              <div>
+                <div class="f-mono text-[10px] tracking-widest" style="color:#8a8a85">MÉTRICA / Q3 · 2024</div>
+                <div class="text-xs mt-1" style="color:#8a8a85">Informe trimestral · v.2</div>
+              </div>
+              <div class="f-mono text-[10px] tracking-widest" style="color:#8a8a85">03 / 12</div>
+            </div>
+
+            <div class="mb-12">
+              <div class="text-[10px] tracking-widest f-mono mb-3" style="color:#8a8a85">DISTRIBUCIÓN</div>
+              <div class="text-6xl md:text-7xl font-light leading-none tracking-tight">
+                72<span class="text-2xl align-top" style="color:#8a8a85">.4%</span>
+              </div>
+              <div class="text-sm mt-3" style="color:#8a8a85">de los casos se resuelven en ≤ 3 iteraciones</div>
+            </div>
+
+            <div class="mb-10">
+              <div class="text-[10px] tracking-widest f-mono mb-3" style="color:#8a8a85">BARRAS · DESEMPEÑO POR CUATRIMESTRE</div>
+              <div class="space-y-3">
+                <div class="flex items-center gap-4">
+                  <div class="f-mono text-xs w-12" style="color:#8a8a85">Q1</div>
+                  <div class="flex-1"><div class="swiss-bar" style="width:38%"></div></div>
+                  <div class="f-mono text-xs w-10 text-right">38</div>
+                </div>
+                <div class="flex items-center gap-4">
+                  <div class="f-mono text-xs w-12" style="color:#8a8a85">Q2</div>
+                  <div class="flex-1"><div class="swiss-bar" style="width:54%"></div></div>
+                  <div class="f-mono text-xs w-10 text-right">54</div>
+                </div>
+                <div class="flex items-center gap-4">
+                  <div class="f-mono text-xs w-12" style="color:#8a8a85">Q3</div>
+                  <div class="flex-1"><div class="swiss-bar" style="width:72%;background:#0047AB"></div></div>
+                  <div class="f-mono text-xs w-10 text-right swiss-accent font-medium">72</div>
+                </div>
+                <div class="flex items-center gap-4">
+                  <div class="f-mono text-xs w-12" style="color:#8a8a85">Q4</div>
+                  <div class="flex-1"><div class="swiss-bar" style="width:0%"></div></div>
+                  <div class="f-mono text-xs w-10 text-right" style="color:#ccc">—</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="border-t pt-4 flex justify-between" style="border-color:#e0e0e0">
+              <div class="f-mono text-[10px]" style="color:#8a8a85">FUENTE · DATOS INTERNOS</div>
+              <div class="f-mono text-[10px] swiss-accent">▸ VER COMPLETO</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex items-baseline justify-between mb-3">
+        <h3 class="f-archivo text-xl">03.A · Geometría Suiza</h3>
+        <span class="f-mono text-[10px]" style="color:var(--muted)">MIN × MAT</span>
+      </div>
+      <p class="text-sm leading-relaxed mb-4" style="color:#a5a59a">
+        Blanco alabastro con grafito profundo. Azul cobalto en proporciones ínfimas (~5%) para subrayar teoremas o datos clave.
+      </p>
+      <div class="border-t border-[var(--border)] pt-2">
+        <div class="swatch"><div class="swatch-color" style="background:#FAFAFA"></div><span class="flex-1">Fondo · Blanco Alabastro</span><span>#FAFAFA</span></div>
+        <div class="swatch"><div class="swatch-color" style="background:#2B2B2B"></div><span class="flex-1">Texto · Grafito Profundo</span><span>#2B2B2B</span></div>
+        <div class="swatch"><div class="swatch-color" style="background:#0047AB"></div><span class="flex-1">Acento · Azul Cobalto</span><span>#0047AB</span></div>
+        <div class="swatch"><div class="swatch-color" style="background:#0F3D2E"></div><span class="flex-1">Acento 2 · Verde Esmeralda</span><span>#0F3D2E</span></div>
+      </div>
+    </div>
+
+    <!-- DEMO 6: Espacio Negativo Topológico -->
+    <div>
+      <div class="demo-frame mb-5">
+        <div class="demo-bar">
+          <div class="demo-dot"></div><div class="demo-dot"></div><div class="demo-dot"></div>
+          <span class="ml-2">demo-06-espacio-topologico.html</span>
+        </div>
+        <div class="demo-topo p-8 md:p-10 min-h-[520px]">
+          <div class="flex justify-between items-start mb-8">
+            <div>
+              <div class="f-mono text-[10px] tracking-widest opacity-60">GRAFO · TOPOLOGÍA</div>
+              <div class="text-2xl font-light mt-1">Red de afinidad</div>
+            </div>
+            <div class="f-mono text-[10px] opacity-60">v.1.4 / 6 nodos</div>
+          </div>
+
+          <div class="relative mb-8" style="height:280px">
+            <svg viewBox="0 0 400 280" class="w-full h-full">
+              <!-- aristas -->
+              <line x1="80" y1="80" x2="200" y2="60" class="topo-line"/>
+              <line x1="80" y1="80" x2="140" y2="180" class="topo-line"/>
+              <line x1="200" y1="60" x2="320" y2="100" class="topo-line"/>
+              <line x1="200" y1="60" x2="140" y2="180" class="topo-line"/>
+              <line x1="320" y1="100" x2="280" y2="200" class="topo-line"/>
+              <line x1="140" y1="180" x2="280" y2="200" class="topo-line"/>
+              <line x1="280" y1="200" x2="350" y2="240" class="topo-line"/>
+              <!-- nodos principales -->
+              <circle cx="80" cy="80" r="8" class="topo-node"/>
+              <circle cx="200" cy="60" r="12" class="topo-node"/>
+              <circle cx="320" cy="100" r="8" class="topo-node"/>
+              <circle cx="140" cy="180" r="10" class="topo-node"/>
+              <circle cx="280" cy="200" r="8" class="topo-node"/>
+              <circle cx="350" cy="240" r="6" class="topo-node"/>
+              <!-- etiquetas -->
+              <text x="60" y="105" class="topo-label">α</text>
+              <text x="185" y="40" class="topo-label">β · nodo raíz</text>
+              <text x="330" y="95" class="topo-label">γ</text>
+              <text x="115" y="205" class="topo-label">δ</text>
+              <text x="295" y="225" class="topo-label">ε</text>
+              <text x="355" y="260" class="topo-label">ζ</text>
+            </svg>
+          </div>
+
+          <div class="grid grid-cols-3 gap-6 pt-6" style="border-top:1px solid #B0B0B0">
+            <div>
+              <div class="f-mono text-[10px] opacity-60 mb-1">NODOS</div>
+              <div class="text-2xl font-light">06</div>
+            </div>
+            <div>
+              <div class="f-mono text-[10px] opacity-60 mb-1">ARISTAS</div>
+              <div class="text-2xl font-light">07</div>
+            </div>
+            <div>
+              <div class="f-mono text-[10px] opacity-60 mb-1">CLUSTER</div>
+              <div class="text-2xl font-light">02</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex items-baseline justify-between mb-3">
+        <h3 class="f-archivo text-xl">03.B · Espacio Negativo Topológico</h3>
+        <span class="f-mono text-[10px]" style="color:var(--muted)">MIN × MAT</span>
+      </div>
+      <p class="text-sm leading-relaxed mb-4" style="color:#a5a59a">
+        Gris niebla con azul medianoche y plata pálida. Profundidad visual tridimensional sin bordes duros, ideal para geometría y topología.
+      </p>
+      <div class="border-t border-[var(--border)] pt-2">
+        <div class="swatch"><div class="swatch-color" style="background:#EDEDED"></div><span class="flex-1">Fondo · Gris Niebla</span><span>#EDEDED</span></div>
+        <div class="swatch"><div class="swatch-color" style="background:#191970"></div><span class="flex-1">Texto · Azul Medianoche</span><span>#191970</span></div>
+        <div class="swatch"><div class="swatch-color" style="background:#B0B0B0"></div><span class="flex-1">Acento · Plata Pálido</span><span>#B0B0B0</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECCIÓN 4: MINIMALISMO × HUMANIDADES ============ -->
+<section id="s4" class="max-w-[1400px] mx-auto px-6 py-24 reveal">
+  <div class="flex items-end justify-between mb-12 flex-wrap gap-4">
+    <div>
+      <div class="f-mono text-xs tracking-widest mb-3" style="color:var(--muted)">SECCIÓN 04</div>
+      <h2 class="f-archivo text-4xl md:text-6xl leading-none">MINIMALISMO<br><span style="color:#8A9A86">× HUMANIDADES</span></h2>
+    </div>
+    <div class="sec-num stroke-text">04</div>
+  </div>
+  <p class="max-w-3xl text-lg leading-relaxed mb-16" style="color:#c5c5b8">
+    Calma de biblioteca, paciencia de la lectura, elegancia del papel envejecido. Armonía análoga, cálida y envolvente. Los colores nunca compiten con el texto.
+  </p>
+
+  <div class="grid lg:grid-cols-2 gap-8">
+    <!-- DEMO 7: Biblioteca de Roble -->
+    <div>
+      <div class="demo-frame mb-5">
+        <div class="demo-bar">
+          <div class="demo-dot"></div><div class="demo-dot"></div><div class="demo-dot"></div>
+          <span class="ml-2">demo-07-biblioteca-de-roble.html</span>
+        </div>
+        <div class="demo-oak p-8 md:p-12 min-h-[520px]">
+          <div class="flex justify-between items-start mb-8">
+            <div>
+              <div class="f-mono text-[10px] tracking-widest opacity-60" style="color:#8A9A86">CAPÍTULO III</div>
+              <div class="text-xs mt-1" style="color:#8a8a85">De la memoria y sus ruinas</div>
+            </div>
+            <div class="f-mono text-[10px] opacity-60">p. 47</div>
+          </div>
+
+          <h3 class="text-3xl md:text-4xl mb-6 leading-tight" style="font-family:'EB Garamond',serif;font-weight:500">El archivo como forma de duelo</h3>
+
+          <p class="oak-dropcap text-base leading-relaxed mb-4" style="font-family:'EB Garamond',serif">
+            Toda biblioteca es, en su origen, un intento de resistir el olvido. No el olvido grandioso de las civilizaciones, sino el olvido modesto de las tardes, de los nombres propios, de los objetos que un día estuvieron sobre la mesa y al siguiente ya no estaban.
+          </p>
+
+          <p class="text-base leading-relaxed mb-6" style="font-family:'EB Garamond',serif">
+            El lector que vuelve a un libro años después no encuentra el mismo libro: encuentra el rastro de quien fue. Leer es, en este sentido, un acto <span class="oak-salvia" style="font-style:italic">arqueológico</span>.
+          </p>
+
+          <div class="grid grid-cols-3 gap-4 mb-6">
+            <div class="border-t pt-3" style="border-color:#8A9A86">
+              <div class="f-mono text-[10px] opacity-60 mb-1">AUTOR</div>
+              <div class="text-sm">M. Halbwachs</div>
+            </div>
+            <div class="border-t pt-3" style="border-color:#8A9A86">
+              <div class="f-mono text-[10px] opacity-60 mb-1">AÑO</div>
+              <div class="text-sm">1925</div>
+            </div>
+            <div class="border-t pt-3" style="border-color:#8A9A86">
+              <div class="f-mono text-[10px] opacity-60 mb-1">PÁGS</div>
+              <div class="text-sm">47—62</div>
+            </div>
+          </div>
+
+          <div class="oak-note">
+            <span style="font-weight:600">Nota al margen —</span> Halbwachs introduce aquí la noción de "memoria colectiva" que reaparecerá en el capítulo V.
+          </div>
+        </div>
+      </div>
+      <div class="flex items-baseline justify-between mb-3">
+        <h3 class="f-archivo text-xl">04.A · Biblioteca de Roble</h3>
+        <span class="f-mono text-[10px]" style="color:var(--muted)">MIN × HUM</span>
+      </div>
+      <p class="text-sm leading-relaxed mb-4" style="color:#a5a59a">
+        Lino con marrón espresso y verde salvia. Armonía análoga de tonos tierra que transmite seriedad académica sin ser fría.
+      </p>
+      <div class="border-t border-[var(--border)] pt-2">
+        <div class="swatch"><div class="swatch-color" style="background:#F4EFE9"></div><span class="flex-1">Fondo · Arena / Lino</span><span>#F4EFE9</span></div>
+        <div class="swatch"><div class="swatch-color" style="background:#2F241D"></div><span class="flex-1">Texto · Marrón Espresso</span><span>#2F241D</span></div>
+        <div class="swatch"><div class="swatch-color" style="background:#8A9A86"></div><span class="flex-1">Acento · Verde Salvia</span><span>#8A9A86</span></div>
+      </div>
+    </div>
+
+    <!-- DEMO 8: Poesía Nórdica -->
+    <div>
+      <div class="demo-frame mb-5">
+        <div class="demo-bar">
+          <div class="demo-dot"></div><div class="demo-dot"></div><div class="demo-dot"></div>
+          <span class="ml-2">demo-08-poesia-nordica.html</span>
+        </div>
+        <div class="demo-poetry p-8 md:p-12 min-h-[520px] flex flex-col justify-between">
+          <div class="flex justify-between items-start">
+            <div class="f-mono text-[10px] tracking-widest opacity-50">POEMA / 14</div>
+            <div class="f-mono text-[10px] opacity-50">VII</div>
+          </div>
+
+          <div class="text-center my-12">
+            <div class="poetry-rule mx-auto mb-10"></div>
+
+            <p class="text-2xl md:text-3xl leading-relaxed mb-3" style="font-family:'Crimson Pro',serif;font-weight:300">
+              La luz de noviembre
+            </p>
+            <p class="text-2xl md:text-3xl leading-relaxed mb-3" style="font-family:'Crimson Pro',serif;font-weight:300">
+              no ilumina: <span class="poetry-accent" style="font-style:italic">recuerda</span>.
+            </p>
+            <p class="text-2xl md:text-3xl leading-relaxed" style="font-family:'Crimson Pro',serif;font-weight:300">
+              Y en su recordar, se pierde.
+            </p>
+
+            <div class="poetry-rule mx-auto mt-10"></div>
+          </div>
+
+          <div class="flex justify-between items-end">
+            <div>
+              <div class="f-mono text-[10px] opacity-50 mb-1">DE</div>
+              <div class="text-sm" style="font-family:'Crimson Pro',serif;font-style:italic">T. Tranströmer</div>
+            </div>
+            <div class="text-center">
+              <div class="f-mono text-[10px] opacity-50 mb-1">OBRA</div>
+              <div class="text-sm" style="font-family:'Crimson Pro',serif">Los balcones</div>
+            </div>
+            <div class="text-right">
+              <div class="f-mono text-[10px] opacity-50 mb-1">AÑO</div>
+              <div class="text-sm" style="font-family:'Crimson Pro',serif">1971</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex items-baseline justify-between mb-3">
+        <h3 class="f-archivo text-xl">04.B · Poesía Nórdica</h3>
+        <span class="f-mono text-[10px]" style="color:var(--muted)">MIN × HUM</span>
+      </div>
+      <p class="text-sm leading-relaxed mb-4" style="color:#a5a59a">
+        Blanco hueso con gris antracita y terracota desaturado. Alto contraste pero emocionalmente suave, ideal para lectura prolongada.
+      </p>
+      <div class="border-t border-[var(--border)] pt-2">
+        <div class="swatch"><div class="swatch-color" style="background:#FFFDF5"></div><span class="flex-1">Fondo · Blanco Hueso</span><span>#FFFDF5</span></div>
+        <div class="swatch"><div class="swatch-color" style="background:#333333"></div><span class="flex-1">Texto · Gris Antracita</span><span>#333333</span></div>
+        <div class="swatch"><div class="swatch-color" style="background:#A6715A"></div><span class="flex-1">Acento · Terracota Desaturado</span><span>#A6715A</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECCIÓN 5: BIBLIOTECA DE PROMPTS ============ -->
+<section id="prompts" class="max-w-[1400px] mx-auto px-6 py-24 reveal">
+  <div class="flex items-end justify-between mb-12 flex-wrap gap-4">
+    <div>
+      <div class="f-mono text-xs tracking-widest mb-3" style="color:var(--muted)">SECCIÓN 05</div>
+      <h2 class="f-archivo text-4xl md:text-6xl leading-none">BIBLIOTECA<br><span style="color:var(--accent)">DE PROMPTS</span></h2>
+    </div>
+    <div class="sec-num stroke-text">05</div>
+  </div>
+  <p class="max-w-3xl text-lg leading-relaxed mb-12" style="color:#c5c5b8">
+    Fragmentos listos para copiar y pegar en cualquier generador de UI/UX. Cada prompt codifica la paleta, los bordes, la tipografía y la intención armónica del estilo. Reemplaza el contenido entre <code style="color:var(--accent);background:#1a1a18;padding:2px 6px">[corchetes]</code> por tu caso concreto.
+  </p>
+
+  <div class="grid md:grid-cols-2 gap-6">
+
+    <!-- PROMPT 1 -->
+    <div class="prompt-card">
+      <div class="flex items-baseline justify-between mb-3">
+        <div>
+          <div class="f-mono text-[10px] tracking-widest" style="color:var(--muted)">01.A · BRUT × MAT</div>
+          <h4 class="f-archivo text-lg mt-1">Pizarra y Tiza Flúor</h4>
+        </div>
+        <button class="copy-btn" data-target="p1">COPIAR</button>
+      </div>
+      <pre class="prompt-code" id="p1">Estilo: brutalismo matemático "Pizarra y Tiza Flúor".
+Fondo principal: #1D2B22 (verde pizarra oscuro).
+Texto y estructuras: #FFFFFF (blanco puro) con bordes brutales sólidos de 3px en #000000 (negro carbón), sin border-radius.
+Acento armónico (~8% del área): #E7FF00 (amarillo flúor), usado solo para resaltar resultados, variables clave y botones primarios.
+Tipografía: monoespaciada (JetBrains Mono / Space Mono) para datos, ecuaciones y etiquetas; sans grotesca pesada para titulares.
+Estructura: grid cartesiana visible como fondo (líneas blancas al 5% opacidad, módulo 32px). Componentes en bloques rectangulares con bordes negros de 3px.
+Sin gradientes. Sin sombras suaves. Botones con efecto hover de desplazamiento (-2px,-2px) y sombra dura de 4px en negro.
+Contenido a generar: [DESCRIBIR AQUÍ LA INTERFAZ: panel de cálculo, dashboard matemático, visualización de teorema, etc.]</pre>
+    </div>
+
+    <!-- PROMPT 2 -->
+    <div class="prompt-card">
+      <div class="flex items-baseline justify-between mb-3">
+        <div>
+          <div class="f-mono text-[10px] tracking-widest" style="color:var(--muted)">01.B · BRUT × MAT</div>
+          <h4 class="f-archivo text-lg mt-1">Papel Milimetrado Crudo</h4>
+        </div>
+        <button class="copy-btn" data-target="p2">COPIAR</button>
+      </div>
+      <pre class="prompt-code" id="p2">Estilo: brutalismo matemático "Papel Milimetrado Crudo".
+Fondo principal: #E8E4D0 (beige crudo) con textura de papel milimetrado: grid mayor cada 20px en #111E6C al 15% opacidad y grid menor cada 4px al 8%.
+Texto principal: #111E6C (azul tinta de pluma).
+Acento armónico: #D11E1E (rojo cadmio) reservado exclusivamente para variables clave, errores y anotaciones marginales manuscritas.
+Bordes: 2.5px sólidos en #000000, sin border-radius.
+Tipografía: monoespaciada para datos tabulados y fórmulas; tipografía manuscrita (Caveat) para anotaciones al margen en rojo, con ligera rotación (-2° a -4°).
+Estética de cuaderno de matemáticas: tablas con celdas separadas por líneas finas, recuadros con datos cruciales en fondo azul tinta y texto beige.
+Contenido a generar: [DESCRIBIR AQUÍ LA INTERFAZ]</pre>
+    </div>
+
+    <!-- PROMPT 3 -->
+    <div class="prompt-card">
+      <div class="flex items-baseline justify-between mb-3">
+        <div>
+          <div class="f-mono text-[10px] tracking-widest" style="color:var(--muted)">02.A · BRUT × HUM</div>
+          <h4 class="f-archivo text-lg mt-1">Archivo Soviético</h4>
+        </div>
+        <button class="copy-btn" data-target="p3">COPIAR</button>
+      </div>
+      <pre class="prompt-code" id="p3">Estilo: brutalismo en humanidades "Archivo Soviético".
+Fondo principal: #A3A3A3 (gris cemento).
+Texto y bloques: #0A0A0A (negro tinta) con tipografía pesada ultra-condensada (Archivo Black / Bebas Neue).
+Acento armónico: #D01C1C (rojo cartelista) para sellos, banderas, estrellas, numeración de documentos y bloques de énfasis.
+Bordes: sólidos de 3px en negro. Sin border-radius.
+Composición: bloques densos y pesados, justificación estricta, tipografía a gran escala en titulares (60px+). Numeración tipo archivo (DOCUMENTO N°, CLASIFICADO, FIRMA).
+Incluir símbolos geométricos rojos (estrella, círculo sello) como elementos de identidad.
+Sin gradientes. Sin cursivas. Solo mayúsculas en titulares.
+Contenido a generar: [DESCRIBIR AQUÍ LA INTERFAZ]</pre>
+    </div>
+
+    <!-- PROMPT 4 -->
+    <div class="prompt-card">
+      <div class="flex items-baseline justify-between mb-3">
+        <div>
+          <div class="f-mono text-[10px] tracking-widest" style="color:var(--muted)">02.B · BRUT × HUM</div>
+          <h4 class="f-archivo text-lg mt-1">Zine Literario</h4>
+        </div>
+        <button class="copy-btn" data-target="p4">COPIAR</button>
+      </div>
+      <pre class="prompt-code" id="p4">Estilo: brutalismo en humanidades "Zine Literario".
+Fondo principal: #F4F4F0 (blanco roto / papel periódico).
+Texto: #1A1A1A (negro mate).
+Acentos armónicos: #C66B3D (naranja óxido) para cintas, etiquetas y subrayados; #C7A008 (mostaza apagado) como acento secundario.
+Tipografía: monoespaciada (IBM Plex Mono / Courier) para cuerpo y metadatos; sans pesada (Archivo Black) para titulares gigantes.
+Bordes: 2px en negro mate. Sin border-radius.
+Estética de fotocopiadora y collage: bloques con ligera rotación (1°-2°), sombras duras de 4px en naranja óxido, cintas adhesivas simuladas con rotación -2°.
+Numeración de página grande, volúmenes, ediciones. Sensación de publicación autogestionada.
+Contenido a generar: [DESCRIBIR AQUÍ LA INTERFAZ]</pre>
+    </div>
+
+    <!-- PROMPT 5 -->
+    <div class="prompt-card">
+      <div class="flex items-baseline justify-between mb-3">
+        <div>
+          <div class="f-mono text-[10px] tracking-widest" style="color:var(--muted)">03.A · MIN × MAT</div>
+          <h4 class="f-archivo text-lg mt-1">Geometría Suiza</h4>
+        </div>
+        <button class="copy-btn" data-target="p5">COPIAR</button>
+      </div>
+      <pre class="prompt-code" id="p5">Estilo: minimalismo matemático "Geometría Suiza".
+Fondo principal: #FAFAFA (blanco alabastro) con grid sutil de 48px al 3% opacidad.
+Texto y datos: #2B2B2B (grafito profundo), nunca negro puro para evitar fatiga visual.
+Acento armónico (~5% del área, estricto): #0047AB (azul cobalto) o #0F3D2E (verde esmeralda oscuro), reservado para un único elemento de énfasis (dato clave, barra, enlace).
+Tipografía: Inter / Helvetica Neue con jerarquía por peso (300 light, 500 medium). Tamaños extremos: titular 72px light, cuerpo 14px regular.
+Espaciado generoso, alineación estricta a la grid. Mucho espacio negativo.
+Líneas finas de 1px en #e0e0e0 como separadores. Sin bordes pesados. Sin sombras.
+Contenido a generar: [DESCRIBIR AQUÍ LA INTERFAZ]</pre>
+    </div>
+
+    <!-- PROMPT 6 -->
+    <div class="prompt-card">
+      <div class="flex items-baseline justify-between mb-3">
+        <div>
+          <div class="f-mono text-[10px] tracking-widest" style="color:var(--muted)">03.B · MIN × MAT</div>
+          <h4 class="f-archivo text-lg mt-1">Espacio Negativo Topológico</h4>
+        </div>
+        <button class="copy-btn" data-target="p6">COPIAR</button>
+      </div>
+      <pre class="prompt-code" id="p6">Estilo: minimalismo matemático "Espacio Negativo Topológico".
+Fondo principal: #EDEDED (gris niebla muy claro).
+Texto: #191970 (azul medianoche) con jerarquía por tamaño y peso, no por color.
+Acento: #B0B0B0 (plata pálida / gris metálico) para líneas, aristas, separadores y elementos secundarios.
+Composición tridimensional sin bordes duros: nodos, grafos y formas que flotan sobre el fondo creando profundidad visual.
+Tipografía: Inter light para titulares (32-48px), monoespaciada pequeña (10-11px) para etiquetas y metadatos.
+Líneas conectoras de 1.5px en plata pálido. Círculos sólidos en azul medianoche (6-12px de radio).
+Mucho aire. Sin recuadros. Sin sombras. La jerarquía se logra solo con posición y tamaño.
+Contenido a generar: [DESCRIBIR AQUÍ LA INTERFAZ]</pre>
+    </div>
+
+    <!-- PROMPT 7 -->
+    <div class="prompt-card">
+      <div class="flex items-baseline justify-between mb-3">
+        <div>
+          <div class="f-mono text-[10px] tracking-widest" style="color:var(--muted)">04.A · MIN × HUM</div>
+          <h4 class="f-archivo text-lg mt-1">Biblioteca de Roble</h4>
+        </div>
+        <button class="copy-btn" data-target="p7">COPIAR</button>
+      </div>
+      <pre class="prompt-code" id="p7">Estilo: minimalismo en humanidades "Biblioteca de Roble".
+Fondo principal: #F4EFE9 (arena / lino) que simula papel de algodón envejecido.
+Texto: #2F241D (marrón espresso) en lugar de negro para dar organicidad.
+Acento armónico: #8A9A86 (verde salvia apagado) para drop caps, notas al margen, subrayados sutiles y separadores.
+Tipografía: serif elegante (EB Garamond / Crimson Pro) con peso 400-500. Cuerpo justificado, interlineado 1.7.
+Drop cap de 64px en verde salvia al inicio de cada sección. Notas al margen en bloques verde salvia con texto crema.
+Sin bordes visibles. Separadores: líneas finas de 1px en verde salvia al 60% opacidad.
+Textura sutil de papel. Transmite seriedad académica cálida.
+Contenido a generar: [DESCRIBIR AQUÍ LA INTERFAZ]</pre>
+    </div>
+
+    <!-- PROMPT 8 -->
+    <div class="prompt-card">
+      <div class="flex items-baseline justify-between mb-3">
+        <div>
+          <div class="f-mono text-[10px] tracking-widest" style="color:var(--muted)">04.B · MIN × HUM</div>
+          <h4 class="f-archivo text-lg mt-1">Poesía Nórdica</h4>
+        </div>
+        <button class="copy-btn" data-target="p8">COPIAR</button>
+      </div>
+      <pre class="prompt-code" id="p8">Estilo: minimalismo en humanidades "Poesía Nórdica".
+Fondo principal: #FFFDF5 (blanco hueso / crema).
+Texto: #333333 (gris antracita) con peso 300 (light) para invitar a lectura prolongada.
+Acento armónico: #A6715A (terracota desaturado) para UN único elemento de énfasis por vista: una palabra clave en cursiva, una línea decorativa de 60px, un metadato.
+Tipografía: serif delgada (Crimson Pro / EB Garamond) light, tamaños generosos (24-32px en cuerpo, 14px en metadatos).
+Composición centrada con cantidades extremas de espacio negativo (mínimo 80px de aire alrededor del contenido).
+Reglas decorativas: una línea horizontal de 1px × 60px en terracota como único elemento gráfico.
+Sin bordes. Sin sombras. Sin iconos. La tipografía y el aire cargan todo el peso visual.
+Contenido a generar: [DESCRIBIR AQUÍ LA INTERFAZ]</pre>
+    </div>
+
+  </div>
+
+  <!-- Plantilla maestra -->
+  <div class="mt-12 prompt-card" style="border-color:var(--accent)">
+    <div class="flex items-baseline justify-between mb-3">
+      <div>
+        <div class="f-mono text-[10px] tracking-widest" style="color:var(--accent)">PLANTILLA MAESTRA</div>
+        <h4 class="f-archivo text-lg mt-1">Estructura universal para generar cualquier estilo</h4>
+      </div>
+      <button class="copy-btn" data-target="p9">COPIAR</button>
+    </div>
+    <pre class="prompt-code" id="p9">Estilo: [BRUTALISMO o MINIMALISMO] × [MATEMÁTICAS o HUMANIDADES], combinación "[NOMBRE DE LA PALETA]".
+Fondo principal: #[HEX] ([descripción]).
+Texto principal: #[HEX] ([descripción]).
+Bordes: [3px sólidos en brutalismo / 1px sutiles o sin bordes en minimalismo] en color #[HEX], border-radius [0px en brutalismo / 4px sutil en minimalismo].
+Acento armónico (~[5-8]% del área visual): #[HEX] ([descripción]), reservado para [resultado clave / variable / nota / único elemento de énfasis].
+Tipografía: [mono / grotesca / serif elegante / serif delgada] con jerarquía por [peso / tamaño / color].
+Textura o grid de fondo: [cartesiana 32px / milimétrica 20px / sutil 48px / papel / ninguna].
+Principio armónico: [CONTRASTE ESTRUCTURAL EXTREMO / MONOTONÍA ROTA POR CORTES / EQUILIBRIO ASINTÓTICO / ARMONÍA ANÁLOGA CÁLIDA].
+Prohibido: [GRADIENTES / SOMBRAS SUAVES / BORDES REDONDEADOS / ICONOS DECORATIVOS / más de un acento].
+Contenido a generar: [DESCRIBIR AQUÍ LA INTERFAZ: tipo, sección, datos, función].</pre>
+  </div>
+
+</section>
+
+<!-- FOOTER -->
+<footer class="border-t border-[var(--border)] mt-24">
+  <div class="max-w-[1400px] mx-auto px-6 py-12">
+    <div class="grid md:grid-cols-3 gap-8">
+      <div>
+        <div class="f-archivo text-2xl mb-2">ATLAS<span style="color:var(--accent)">.</span></div>
+        <div class="text-sm" style="color:#a5a59a">Una colección de sistemas visuales armónicos para diseñar interfaces con intención.</div>
+      </div>
+      <div class="f-mono text-xs space-y-2" style="color:#a5a59a">
+        <div class="opacity-60 mb-3">ÍNDICE</div>
+        <a href="#s1" class="block hover:text-white">01 / Brutalismo × Matemáticas</a>
+        <a href="#s2" class="block hover:text-white">02 / Brutalismo × Humanidades</a>
+        <a href="#s3" class="block hover:text-white">03 / Minimalismo × Matemáticas</a>
+        <a href="#s4" class="block hover:text-white">04 / Minimalismo × Humanidades</a>
+        <a href="#prompts" class="block" style="color:var(--accent)">05 / Biblioteca de Prompts</a>
+      </div>
+      <div class="f-mono text-xs space-y-2" style="color:#a5a59a">
+        <div class="opacity-60 mb-3">METADATOS</div>
+        <div>8 paletas implementadas</div>
+        <div>4 cruces estilísticos</div>
+        <div>9 prompts copiables</div>
+        <div>v.1.0 / documento único</div>
+      </div>
+    </div>
+    <div class="border-t border-[var(--border)] mt-12 pt-6 flex justify-between items-center f-mono text-[11px]" style="color:var(--muted)">
+      <span>ATLAS DE ESTILOS · 2024</span>
+      <span>FIN DEL DOCUMENTO</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  reveals.forEach(r => io.observe(r));
+
+  // Copy buttons
+  document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const target = btn.dataset.target;
+      const text = document.getElementById(target).innerText;
+      try {
+        await navigator.clipboard.writeText(text);
+        const original = btn.innerText;
+        btn.innerText = '✓ COPIADO';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.innerText = original;
+          btn.classList.remove('copied');
+        }, 1800);
+      } catch (err) {
+        // fallback
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        btn.innerText = '✓ COPIADO';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.innerText = 'COPIAR';
+          btn.classList.remove('copied');
+        }, 1800);
+      }
+    });
+  });
+</script>
+</body>
+</html>
