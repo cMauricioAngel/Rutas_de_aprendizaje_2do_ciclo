@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rutas de Aprendizaje · Índice</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@5.0.18/index.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter@5.0.16/index.min.css">
+<style>
+  :root{
+    --bg:#F0F0F0;
+    --ink:#000;
+    --paper:#fff;
+    --accent:#E76F00;
+    --mute:#6b6b6b;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;font-weight:500;font-size:15px;line-height:1.5}
+  .mono{font-family:'JetBrains Mono',monospace}
+  .container{max-width:1180px;margin:0 auto;padding:24px 20px 80px}
+
+  /* HEADER */
+  header.hero{
+    border:4px solid var(--ink);
+    background:var(--accent);
+    color:#000;
+    padding:28px 28px 22px;
+    box-shadow:8px 8px 0 var(--ink);
+    margin-bottom:24px;
+  }
+  header.hero h1{margin:0 0 8px;font-family:'JetBrains Mono',monospace;font-weight:800;font-size:28px;letter-spacing:-1px}
+  header.hero p{margin:0;font-family:'JetBrains Mono',monospace;font-size:13px;opacity:.78}
+  header.hero .bar{display:inline-block;background:#000;color:var(--accent);padding:2px 8px;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:14px}
+
+  /* CONTROLS */
+  .controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:20px}
+  .controls input{
+    flex:1;min-width:220px;border:3px solid var(--ink);background:var(--paper);
+    padding:12px 14px;font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:500;
+    box-shadow:4px 4px 0 var(--ink);outline:none;
+  }
+  .controls input:focus{background:#fff8ef}
+  .controls .count{font-family:'JetBrains Mono',monospace;font-size:12px;background:#000;color:var(--accent);padding:8px 12px;font-weight:700;border:3px solid var(--ink)}
+
+  /* GRID */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px}
+  a.card{
+    display:flex;flex-direction:column;text-decoration:none;color:inherit;
+    border:4px solid var(--ink);background:var(--paper);
+    box-shadow:6px 6px 0 var(--ink);
+    transition:transform .08s ease-out, box-shadow .08s ease-out;
+    position:relative;overflow:hidden;
+  }
+  a.card:hover{transform:translate(-2px,-2px);box-shadow:10px 10px 0 var(--ink)}
+  a.card:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink)}
+  .card-strip{height:14px;background:repeating-linear-gradient(45deg,var(--accent),var(--accent) 10px,#000 10px,#000 20px)}
+  .card-body{padding:18px 18px 20px;display:flex;flex-direction:column;gap:8px;flex:1}
+  .card-tag{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;letter-spacing:1px;color:var(--accent);text-transform:uppercase}
+  .card-title{font-family:'JetBrains Mono',monospace;font-weight:800;font-size:18px;line-height:1.25;letter-spacing:-.3px;margin:0}
+  .card-meta{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--mute);margin-top:auto;padding-top:8px;border-top:2px solid #e5e5e5;display:flex;justify-content:space-between;align-items:center}
+  .card-arrow{position:absolute;top:18px;right:18px;width:30px;height:30px;border:3px solid #000;background:#fff;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-weight:800;font-size:18px}
+  a.card:hover .card-arrow{background:var(--accent)}
+
+  mark{background:var(--accent);color:#000;padding:0 2px}
+
+  /* FOOTER */
+  footer{
+    margin-top:40px;border-top:4px solid var(--ink);padding-top:16px;
+    font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--mute);
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+  }
+  footer .chip{background:#000;color:var(--accent);padding:3px 8px;font-weight:700}
+
+  .empty{display:none;text-align:center;padding:60px 20px;font-family:'JetBrains Mono',monospace;color:var(--mute)}
+  .empty.show{display:block}
+
+  @media (max-width:560px){
+    header.hero h1{font-size:22px}
+    .card-arrow{width:26px;height:26px;font-size:16px}
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <header class="hero">
+    <span class="bar">RUTAS//INDEX</span>
+    <h1>Rutas de Aprendizaje</h1>
+    <p>8 mapas · acceso rápido · brútalista</p>
+  </header>
+
+  <div class="controls">
+    <input id="q" type="search" placeholder="Filtrar por título..." aria-label="Filtrar rutas"/>
+    <span class="count" id="count">8 / 8</span>
+  </div>
+
+  <div class="grid" id="grid"></div>
+  <div class="empty" id="empty">Sin coincidencias · probá otro término</div>
+
+  <footer>
+    <span><span class="chip">RUTAS//INDEX</span> · estático · sin backend</span>
+    <span>Estilo brutalista · #E76F00</span>
+  </footer>
+</div>
+
+<script>
+const RUTAS = [
+  {tag:"Estilos",   title:"Atlas de Estilos — Brutalismo × Minimalismo × Matemáticas × Humanidades", file:"Atlas_de_estilos+prompt.html", meta:"Atlas"},
+  {tag:"Matemática",title:"Álgebra Lineal y Geometría Analítica — Ruta Topológica", file:"Mapa_Algebra_LIneal_y_Geo._Analitica.html", meta:"Álgebra Lineal"},
+  {tag:"Programación",title:"Java · Ruta de Aprendizaje · 8 Semanas", file:"Mapa_Java.html", meta:"Java · 8 sem"},
+  {tag:"Programación",title:"RUTA::JAVASCRIPT // 8 SEMANAS", file:"Mapa_Javascript.html", meta:"JavaScript · 8 sem"},
+  {tag:"Matemática",title:"MATEMÁTICA DISCRETA (2DA PARTE)", file:"Mapa_Mate_discreta2.html", meta:"Discreta II"},
+  {tag:"Matemática",title:"Matemática Superior | Arquitectura Visual", file:"Mapa_Mate_superior.html", meta:"Mat. Superior"},
+  {tag:"Negocios",  title:"MODELO DE NEGOCIOS // RUTA BPM", file:"Mapa_Modelado_de_negocios.html", meta:"BPM"},
+  {tag:"Programación",title:"PROGRAMACIÓN ORIENTADA A OBJETOS", file:"Mapa_Programacion_orientada_a_objetos.html", meta:"POO"},
+];
+
+const grid  = document.getElementById('grid');
+const empty = document.getElementById('empty');
+const count = document.getElementById('count');
+const q     = document.getElementById('q');
+
+function escapeHtml(s){return s.replace(/[&<>"']/g,c=>({"&":"&","<":"<",">":">",'"':""","'":"&#39;"}[c]))}
+function highlight(text, query){
+  if(!query) return escapeHtml(text);
+  const safe = escapeHtml(text);
+  const q = query.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+  return safe.replace(new RegExp('('+q+')','gi'),'<mark>$1</mark>');
+}
+
+function render(query){
+  query = (query||'').trim().toLowerCase();
+  const filtered = RUTAS.filter(r => r.title.toLowerCase().includes(query) || r.tag.toLowerCase().includes(query));
+  grid.innerHTML = filtered.map((r,i) => `
+    <a class="card" href="./${encodeURIComponent(r.file)}" style="animation-delay:${i*30}ms">
+      <div class="card-strip"></div>
+      <div class="card-body">
+        <div class="card-arrow">↗</div>
+        <span class="card-tag">${highlight(r.tag, query)}</span>
+        <h2 class="card-title">${highlight(r.title, query)}</h2>
+        <div class="card-meta">
+          <span>${r.meta}</span>
+          <span class="mono">${String(i+1).padStart(2,'0')}/08</span>
+        </div>
+      </div>
+    </a>
+  `).join('');
+  empty.classList.toggle('show', filtered.length===0);
+  count.textContent = `${filtered.length} / ${RUTAS.length}`;
+}
+
+q.addEventListener('input', e => render(e.target.value));
+render('');
+</script>
+</body>
+</html>
