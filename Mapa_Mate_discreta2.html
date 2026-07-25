@@ -1,0 +1,1842 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MATEMÁTICA DISCRETA (2DA PARTE)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-mate: #111111;
+            --blanco-puro: #FFFFFF;
+            --amarillo-neon: #E7FF00;
+            --azul-electrico: #0F0FFF;
+            --gris-oscuro: #1a1a1a;
+            --gris-texto: #888888;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-mate);
+            color: var(--blanco-puro);
+            font-family: 'Space Mono', 'Courier New', monospace;
+            text-transform: uppercase;
+            overflow-x: hidden;
+            line-height: 1.3;
+            font-weight: 700;
+        }
+
+        /* FONDO ANIMADO BINARIO */
+        #binary-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        /* TIPOGRAFÍA BRUTALISTA BINARIA */
+        h1, h2, h3, h4, p, span, li, a, small {
+            font-family: 'Space Mono', 'Courier New', monospace;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        h1 {
+            font-size: clamp(3rem, 10vw, 8rem);
+            line-height: 0.85;
+            margin-bottom: 2rem;
+            letter-spacing: -0.08em;
+            font-weight: 700;
+        }
+
+        h2 {
+            font-size: clamp(2rem, 6vw, 4rem);
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.05em;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            letter-spacing: -0.03em;
+        }
+
+        h4 {
+            font-size: 1.1rem;
+            letter-spacing: -0.02em;
+        }
+
+        p, li {
+            font-size: 0.85rem;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        small {
+            font-size: 0.65rem;
+            color: var(--gris-texto);
+            letter-spacing: 0.1em;
+        }
+
+        /* ESTRUCTURA PRINCIPAL */
+        header {
+            position: relative;
+            padding: 6rem 2rem;
+            border-bottom: 6px solid var(--blanco-puro);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+            min-height: 500px;
+        }
+
+        .venn-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 500px;
+            z-index: 1;
+            opacity: 0.25;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            background: rgba(17, 17, 17, 0.85);
+            padding: 3rem;
+            border: 4px solid var(--blanco-puro);
+        }
+
+        main {
+            padding: 3rem 2rem;
+            max-width: 1300px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* PROGRESO GLOBAL */
+        .global-progress-container {
+            margin-bottom: 4rem;
+            border: 6px solid var(--blanco-puro);
+            padding: 2rem;
+            background: var(--bg-mate);
+            position: relative;
+        }
+
+        .global-progress-container::before {
+            content: '∑';
+            position: absolute;
+            top: -40px;
+            right: -40px;
+            font-size: 8rem;
+            color: var(--amarillo-neon);
+            opacity: 0.3;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .progress-bar-bg {
+            width: 100%;
+            height: 40px;
+            background: var(--bg-mate);
+            border: 3px solid var(--blanco-puro);
+            margin-top: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--amarillo-neon);
+            width: 0%;
+            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .progress-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--bg-mate);
+            mix-blend-mode: difference;
+            z-index: 2;
+        }
+
+        /* ACORDEÓN UNIDAD */
+        .unit-accordion {
+            border: 6px solid var(--blanco-puro);
+            margin-bottom: 3rem;
+            background: var(--bg-mate);
+            position: relative;
+            overflow: visible;
+        }
+
+        .unit-header {
+            padding: 2rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--azul-electrico);
+            color: var(--blanco-puro);
+            transition: all 0.3s;
+            position: relative;
+            z-index: 2;
+        }
+
+        .unit-header:hover {
+            background: #0000dd;
+        }
+
+        .unit-header::before {
+            content: '⊂';
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            font-size: 6rem;
+            color: var(--amarillo-neon);
+            opacity: 0.4;
+            font-weight: 700;
+            line-height: 1;
+            z-index: 1;
+        }
+
+        .unit-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+        }
+
+        .unit-meta {
+            text-align: right;
+            font-size: 0.75rem;
+            margin-top: 0.8rem;
+        }
+
+        .unit-progress-mini {
+            width: 120px;
+            height: 12px;
+            background: var(--bg-mate);
+            border: 2px solid var(--blanco-puro);
+            margin-top: 0.8rem;
+            margin-left: auto;
+        }
+
+        .unit-progress-fill {
+            height: 100%;
+            background: var(--amarillo-neon);
+            width: 0%;
+            transition: width 0.4s;
+        }
+
+        .unit-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 0 2rem;
+        }
+
+        .unit-accordion.open .unit-content {
+            max-height: 200000px;
+            padding: 2rem;
+        }
+
+        .unit-accordion.open .unit-header {
+            background: var(--amarillo-neon);
+            color: var(--bg-mate);
+        }
+
+        .unit-accordion.open .unit-header::before {
+            color: var(--azul-electrico);
+        }
+
+        /* ACORDEÓN SUBTEMA */
+        .subtopic-accordion {
+            border: 3px solid var(--gris-texto);
+            margin-bottom: 1.5rem;
+            background: #181818;
+            transition: border-color 0.3s;
+        }
+
+        .subtopic-accordion:hover {
+            border-color: var(--blanco-puro);
+        }
+
+        .subtopic-header {
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            transition: background 0.2s;
+        }
+
+        .subtopic-header:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .subtopic-checkbox {
+            width: 24px;
+            height: 24px;
+            accent-color: var(--amarillo-neon);
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .subtopic-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            flex-grow: 1;
+            letter-spacing: -0.02em;
+        }
+
+        .toggle-icon {
+            font-size: 1.5rem;
+            font-weight: 700;
+            transition: transform 0.3s;
+        }
+
+        .subtopic-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 0 2rem;
+        }
+
+        .subtopic-accordion.open .subtopic-content {
+            max-height: 5000px;
+            padding: 2rem;
+            border-top: 3px solid var(--gris-texto);
+        }
+
+        .subtopic-accordion.open .toggle-icon {
+            color: var(--amarillo-neon);
+            transform: rotate(45deg);
+        }
+
+        /* CONTENIDO SUBTEMA */
+        .content-block {
+            margin-bottom: 2.5rem;
+            padding: 1.5rem;
+            border-left: 5px solid var(--azul-electrico);
+            background: rgba(15, 15, 255, 0.03);
+        }
+
+        .content-block h4 {
+            color: var(--amarillo-neon);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            border-bottom: 2px solid var(--gris-texto);
+            padding-bottom: 0.8rem;
+            letter-spacing: 0.05em;
+        }
+
+        .content-block ul {
+            list-style: none;
+        }
+
+        .content-block li {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .content-block li::before {
+            content: '∩';
+            position: absolute;
+            left: 0;
+            color: var(--azul-electrico);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .level-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            margin-right: 10px;
+            border: 2px solid var(--blanco-puro);
+            letter-spacing: 0.05em;
+        }
+
+        .basico { 
+            background: var(--azul-electrico); 
+            color: var(--blanco-puro); 
+            border-color: var(--azul-electrico);
+        }
+        .intermedio { 
+            background: transparent; 
+            color: var(--blanco-puro); 
+        }
+        .avanzado { 
+            background: var(--amarillo-neon); 
+            color: var(--bg-mate); 
+            border-color: var(--amarillo-neon); 
+        }
+
+        /* SVG STYLING */
+        svg {
+            overflow: visible;
+        }
+
+        .circle-blue { fill: var(--azul-electrico); }
+        .circle-white { fill: var(--blanco-puro); }
+        .intersection-yellow { fill: var(--amarillo-neon); }
+
+        .operator-giant {
+            font-size: 12rem;
+            font-weight: 700;
+            line-height: 1;
+            opacity: 0.15;
+        }
+
+        footer {
+            margin-top: 5rem;
+            padding: 3rem 2rem;
+            text-align: center;
+            border-top: 6px solid var(--blanco-puro);
+            color: var(--gris-texto);
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: '∪';
+            position: absolute;
+            bottom: -60px;
+            left: -60px;
+            font-size: 10rem;
+            color: var(--azul-electrico);
+            opacity: 0.2;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        footer::after {
+            content: '∩';
+            position: absolute;
+            top: -60px;
+            right: -60px;
+            font-size: 10rem;
+            color: var(--amarillo-neon);
+            opacity: 0.2;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        @media (max-width: 768px) {
+            .unit-header { 
+                flex-direction: column; 
+                align-items: flex-start; 
+                gap: 1.5rem; 
+            }
+            .unit-meta { 
+                text-align: left; 
+            }
+            .unit-progress-mini { 
+                margin-left: 0; 
+            }
+            .venn-container { 
+                opacity: 0.15; 
+                width: 100%; 
+            }
+            .header-content {
+                padding: 2rem 1rem;
+            }
+            h1 {
+                font-size: clamp(2.5rem, 8vw, 5rem);
+            }
+            .unit-header::before,
+            .global-progress-container::before {
+                display: none;
+            }
+        }
+
+        /* Decorative elements */
+        .decorative-operator {
+            position: absolute;
+            font-size: 15rem;
+            font-weight: 700;
+            opacity: 0.08;
+            line-height: 1;
+            z-index: 0;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- FONDO ANIMADO BINARIO -->
+    <canvas id="binary-bg"></canvas>
+
+    <!-- SVG VENN HEADER -->
+    <header>
+        <div class="venn-container">
+            <svg width="100%" height="100%" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <clipPath id="clip-circle-left">
+                        <circle cx="300" cy="250" r="180" />
+                    </clipPath>
+                    <clipPath id="clip-circle-right">
+                        <circle cx="500" cy="250" r="180" />
+                    </clipPath>
+                </defs>
+                
+                <!-- Círculo Izquierdo (Azul) -->
+                <circle cx="300" cy="250" r="180" class="circle-blue" opacity="0.9" />
+                
+                <!-- Círculo Derecho (Blanco) -->
+                <circle cx="500" cy="250" r="180" class="circle-white" opacity="0.9" />
+                
+                <!-- Intersección (Amarillo Neón) -->
+                <circle cx="500" cy="250" r="180" class="intersection-yellow" clip-path="url(#clip-circle-left)" opacity="1" />
+                
+                <!-- Operadores Lógicos Gigantes -->
+                <text x="80" y="120" fill="#FFFFFF" font-size="80" font-weight="700" font-family="'Space Mono', monospace">∪</text>
+                <text x="680" y="120" fill="#E7FF00" font-size="80" font-weight="700" font-family="'Space Mono', monospace">∩</text>
+                <text x="80" y="450" fill="#0F0FFF" font-size="80" font-weight="700" font-family="'Space Mono', monospace">⊂</text>
+                <text x="680" y="450" fill="#FFFFFF" font-size="80" font-weight="700" font-family="'Space Mono', monospace">∈</text>
+                
+                <!-- Líneas de cuadrícula sutiles -->
+                <line x1="0" y1="250" x2="800" y2="250" stroke="#FFFFFF" stroke-width="1" opacity="0.1" />
+                <line x1="400" y1="0" x2="400" y2="500" stroke="#FFFFFF" stroke-width="1" opacity="0.1" />
+            </svg>
+        </div>
+
+        <div class="header-content">
+            <small>ASIGNATURA: [SÍLABO]</small>
+            <h1>MATEMÁTICA<br>DISCRETA<br>(2DA PARTE)</h1>
+            <small>RUTA DE APRENDIZAJE | DURACIÓN: 4 MESES (~16 SEMANAS)</small>
+        </div>
+    </header>
+
+    <main>
+        <!-- PROGRESO GLOBAL -->
+        <div class="global-progress-container">
+            <h3>AVANCE GLOBAL DEL CURSO</h3>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="global-progress-fill"></div>
+                <span class="progress-text" id="global-progress-text">0% COMPLETADO</span>
+            </div>
+        </div>
+
+        <!-- UNIDAD 1 -->
+        <div class="unit-accordion" id="unit-1">
+            <div class="unit-header" onclick="toggleAccordion('unit-1')">
+                <div>
+                    <div class="unit-title">UNIDAD 1: TEORÍA DE GRAFOS</div>
+                    <small style="color: #fff;">SEMANAS 1 - 4 | CARGA HORARIA: 32 HORAS</small>
+                </div>
+                <div class="unit-meta">
+                    PROGRESO UNIDAD
+                    <div class="unit-progress-mini">
+                        <div class="unit-progress-fill" id="unit-1-progress"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="unit-content">
+                
+                <!-- SUBTEMA 1.1 -->
+                <div class="subtopic-accordion" id="u1-s1">
+                    <div class="subtopic-header" onclick="toggleAccordion('u1-s1')">
+                        <input type="checkbox" class="subtopic-checkbox" onchange="updateProgress('unit-1')">
+                        <span class="subtopic-title">1.1 DEFINICIONES, TIPOS Y PROPIEDADES</span>
+                        <span class="toggle-icon">[ + ]</span>
+                    </div>
+                    <div class="subtopic-content">
+                        <div class="content-block">
+                            <h4>OBJETIVO DE APRENDIZAJE</h4>
+                            <p>DEFINIR FORMALMENTE UN GRAFO SIMPLE G = (V, E), IDENTIFICANDO CONJUNTOS DE VÉRTICES Y ARISTAS, CLASIFICÁNDOLOS SEGÚN SU DIRIGIBILIDAD, REGULARIDAD Y CONEXIDAD, Y DEMOSTRANDO EL LEMA DEL APRETÓN DE MANOS (∑DEG(V) = 2|E|).</p>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS BIBLIOGRÁFICAS</h4>
+                            <ul>
+                                <li>KENNETH H. ROSEN - DISCRETE MATHEMATICS AND ITS APPLICATIONS (8ª ED.), CAP. 10.1-10.2, PP. 641-660</li>
+                                <li>RICHARD JOHNSONBAUGH - MATEMÁTICAS DISCRETAS (7ª ED.), CAP. 8.1-8.2, PP. 325-335</li>
+                                <li>OSCAR LEVIN - DISCRETE MATHEMATICS: AN OPEN INTRODUCTION (3ª ED.), CAP. 4.1, PP. 240-250</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS EN VIDEO</h4>
+                            <ul>
+                                <li>NESO ACADEMY: INTRODUCTION TO GRAPH THEORY AND TERMINOLOGY</li>
+                                <li>ABDUL BARI: INTRODUCTION TO GRAPH THEORY AND TYPES OF GRAPHS</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS DE PRÁCTICA</h4>
+                            <ul>
+                                <li><span class="level-badge basico">BÁSICO</span> OSCAR LEVIN - CAP. 4.1, EJERCICIOS 1-8 (VERIFICACIÓN EMPÍRICA DE SUMATORIA DE GRADOS).</li>
+                                <li><span class="level-badge intermedio">INTERMEDIO</span> JOHNSONBAUGH - CAP. 8.2, PP. 334-335, PROBLEMAS 12-25.</li>
+                                <li><span class="level-badge avanzado">AVANZADO</span> ROSEN - CAP. 10.2, PP. 665-667, PROBLEMAS 35-48 (DEMOSTRACIONES ALGEBRAICAS DE GRADOS EN GRAFOS REGULARES).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUBTEMA 1.2 -->
+                <div class="subtopic-accordion" id="u1-s2">
+                    <div class="subtopic-header" onclick="toggleAccordion('u1-s2')">
+                        <input type="checkbox" class="subtopic-checkbox" onchange="updateProgress('unit-1')">
+                        <span class="subtopic-title">1.2 SUBGRAFOS Y COMPLEMENTOS</span>
+                        <span class="toggle-icon">[ + ]</span>
+                    </div>
+                    <div class="subtopic-content">
+                        <div class="content-block">
+                            <h4>OBJETIVO DE APRENDIZAJE</h4>
+                            <p>CONSTRUIR E IDENTIFICAR SUBGRAFOS H ⊆ G, SUBGRAFOS INDUCIDOS Y EL COMPLEMENTO DE UN GRAFO G_BAR = (V, E'), EVALUANDO LA CONSERVACIÓN DE INVARIANTES ESTRUCTURALES.</p>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS BIBLIOGRÁFICAS</h4>
+                            <ul>
+                                <li>KENNETH H. ROSEN - CAP. 10.2, PP. 655-660</li>
+                                <li>RICHARD JOHNSONBAUGH - CAP. 8.2, PP. 336-340</li>
+                                <li>NORMAN L. BIGGS - DISCRETE MATHEMATICS (2ª ED.), CAP. 15.1-15.2, PP. 210-215</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS EN VIDEO</h4>
+                            <ul>
+                                <li>NESO ACADEMY: SUBGRAPHS AND INDUCED SUBGRAPHS</li>
+                                <li>ABDUL BARI: COMPLEMENT OF A GRAPH AND GRAPH OPERATIONS</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS DE PRÁCTICA</h4>
+                            <ul>
+                                <li><span class="level-badge basico">BÁSICO</span> OSCAR LEVIN - CAP. 4.1, EJERCICIOS DE IDENTIFICACIÓN DE SUBGRAFOS INDUCIDOS.</li>
+                                <li><span class="level-badge intermedio">INTERMEDIO</span> ROSEN - CAP. 10.2, PP. 667-668, PROBLEMAS 49-58.</li>
+                                <li><span class="level-badge avanzado">AVANZADO</span> BIGGS - CAP. 15.2, PROBLEMAS TEÓRICOS SOBRE CARACTERIZACIÓN DE GRAFOS AUTOCOMPLEMENTARIOS.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUBTEMA 1.3 -->
+                <div class="subtopic-accordion" id="u1-s3">
+                    <div class="subtopic-header" onclick="toggleAccordion('u1-s3')">
+                        <input type="checkbox" class="subtopic-checkbox" onchange="updateProgress('unit-1')">
+                        <span class="subtopic-title">1.3 REPRESENTACIÓN COMPUTACIONAL DE GRAFOS</span>
+                        <span class="toggle-icon">[ + ]</span>
+                    </div>
+                    <div class="subtopic-content">
+                        <div class="content-block">
+                            <h4>OBJETIVO DE APRENDIZAJE</h4>
+                            <p>IMPLEMENTAR COMPUTACIONALMENTE ESTRUCTURAS DE GRAFOS MEDIANTE MATRICES DE ADYACENCIA, MATRICES DE INCIDENCIA Y LISTAS DE ADYACENCIA, ANALIZANDO LA COMPLEJIDAD TEMPORAL Y ESPACIAL.</p>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS BIBLIOGRÁFICAS</h4>
+                            <ul>
+                                <li>THOMAS H. CORMEN ET AL. - INTRODUCTION TO ALGORITHMS (4ª ED.), CAP. 20.1, PP. 589-596</li>
+                                <li>MARK ALLEN WEISS - DATA STRUCTURES AND ALGORITHM ANALYSIS IN C++ (4ª ED.), CAP. 9.1, PP. 381-387</li>
+                                <li>KENNETH H. ROSEN - CAP. 10.3, PP. 660-667</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS EN VIDEO</h4>
+                            <ul>
+                                <li>ABDUL BARI: GRAPH REPRESENTATIONS - ADJACENCY MATRIX AND ADJACENCY LIST</li>
+                                <li>FREECODECAMP: GRAPH DATA STRUCTURE ALGORITHMS FOR BEGINNERS</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS DE PRÁCTICA</h4>
+                            <ul>
+                                <li><span class="level-badge basico">BÁSICO</span> TRANSFORMACIÓN MANUAL DE MATRIZ DE ADYACENCIA A LISTA DE ADYACENCIA PARA DIGRAFOS P. 668 (ROSEN).</li>
+                                <li><span class="level-badge intermedio">INTERMEDIO</span> WEISS - CAP. 9, EJERCICIOS DE PROGRAMACIÓN 9.1-9.4 (IMPLEMENTACIÓN DINÁMICA DE LISTA DE ADYACENCIA).</li>
+                                <li><span class="level-badge avanzado">AVANZADO</span> CORMEN ET AL. - CAP. 20.1, PROBLEMAS 20.1-1 A 20.1-6 (ANÁLISIS DE EFICIENCIA SINTÁCTICA EN MATRICES DISPERSAS).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUBTEMA 1.4 -->
+                <div class="subtopic-accordion" id="u1-s4">
+                    <div class="subtopic-header" onclick="toggleAccordion('u1-s4')">
+                        <input type="checkbox" class="subtopic-checkbox" onchange="updateProgress('unit-1')">
+                        <span class="subtopic-title">1.4 ISOMORFISMO DE GRAFOS</span>
+                        <span class="toggle-icon">[ + ]</span>
+                    </div>
+                    <div class="subtopic-content">
+                        <div class="content-block">
+                            <h4>OBJETIVO DE APRENDIZAJE</h4>
+                            <p>DETERMINAR LA EXISTENCIA DE UN ISOMORFISMO ENTRE DOS GRAFOS MEDIANTE LA COMPROBACIÓN DE INVARIANTES Y LA CONSTRUCCIÓN DE BIYECCIONES F: V1 → V2.</p>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS BIBLIOGRÁFICAS</h4>
+                            <ul>
+                                <li>KENNETH H. ROSEN - CAP. 10.3, PP. 667-675</li>
+                                <li>NORMAN L. BIGGS - CAP. 15.3, PP. 220-230</li>
+                                <li>RICHARD JOHNSONBAUGH - CAP. 8.4, PP. 345-350</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS EN VIDEO</h4>
+                            <ul>
+                                <li>NESO ACADEMY: GRAPH ISOMORPHISM WITH EXAMPLES</li>
+                                <li>TREVTUTOR: GRAPH ISOMORPHISM PROBLEM AND INVARIANTS</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS DE PRÁCTICA</h4>
+                            <ul>
+                                <li><span class="level-badge basico">BÁSICO</span> COMPROBACIÓN DE INVARIANTES EN PARES DE GRAFOS SIMPLES DE ORDEN 5.</li>
+                                <li><span class="level-badge intermedio">INTERMEDIO</span> JOHNSONBAUGH - CAP. 8.4, EJERCICIOS 1-15 (CONSTRUCCIÓN DE FUNCIONES BIYECTIVAS).</li>
+                                <li><span class="level-badge avanzado">AVANZADO</span> ROSEN - CAP. 10.3, PP. 675-677, PROBLEMAS 34-45 (DEMOSTRACIÓN DE NO-ISOMORFISMO).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUBTEMA 1.5 -->
+                <div class="subtopic-accordion" id="u1-s5">
+                    <div class="subtopic-header" onclick="toggleAccordion('u1-s5')">
+                        <input type="checkbox" class="subtopic-checkbox" onchange="updateProgress('unit-1')">
+                        <span class="subtopic-title">1.5 CAMINOS HAMILTONIANOS Y EULERIANOS</span>
+                        <span class="toggle-icon">[ + ]</span>
+                    </div>
+                    <div class="subtopic-content">
+                        <div class="content-block">
+                            <h4>OBJETIVO DE APRENDIZAJE</h4>
+                            <p>IDENTIFICAR LA PRESENCIA DE CAMINOS Y CIRCUITOS EULERIANOS Y HAMILTONIANOS, APLICANDO EL TEOREMA DE EULER Y LOS TEOREMAS DE DIRAC Y ORE.</p>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS BIBLIOGRÁFICAS</h4>
+                            <ul>
+                                <li>KENNETH H. ROSEN - CAP. 10.5, PP. 676-691</li>
+                                <li>RICHARD JOHNSONBAUGH - CAP. 8.5, PP. 355-365</li>
+                                <li>OSCAR LEVIN - CAP. 4.5, PP. 265-275</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS EN VIDEO</h4>
+                            <ul>
+                                <li>DERIVANDO: EL PROBLEMA DE LOS PUENTES DE KÖNIGSBERG</li>
+                                <li>ABDUL BARI: EULERIAN AND HAMILTONIAN PATHS AND CIRCUITS</li>
+                                <li>NESO ACADEMY: EULER AND HAMILTON GRAPHS</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS DE PRÁCTICA</h4>
+                            <ul>
+                                <li><span class="level-badge basico">BÁSICO</span> ALGORITMO DE FLEURY PARA LA EXTRACCIÓN PROCEDIMENTAL DE UN CIRCUITO EULERIANO.</li>
+                                <li><span class="level-badge intermedio">INTERMEDIO</span> LEVIN - CAP. 4.5, PROBLEMAS 1-10.</li>
+                                <li><span class="level-badge avanzado">AVANZADO</span> ROSEN - CAP. 10.5, PP. 692-695, PROBLEMAS 40-52 (APLICACIÓN DEL TEOREMA DE ORE).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUBTEMA 1.6 -->
+                <div class="subtopic-accordion" id="u1-s6">
+                    <div class="subtopic-header" onclick="toggleAccordion('u1-s6')">
+                        <input type="checkbox" class="subtopic-checkbox" onchange="updateProgress('unit-1')">
+                        <span class="subtopic-title">1.6 GRAFOS PLANOS</span>
+                        <span class="toggle-icon">[ + ]</span>
+                    </div>
+                    <div class="subtopic-content">
+                        <div class="content-block">
+                            <h4>OBJETIVO DE APRENDIZAJE</h4>
+                            <p>EVALUAR LA PLANARIDAD DE UNA ESTRUCTURA MEDIANTE LA FÓRMULA DE EULER (V - E + R = 2), LOS COROLARIOS DE FRONTERA DE ARISTAS Y LA DETECCIÓN DE MENORES DE KURATOWSKI (K5 Y K3,3).</p>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS BIBLIOGRÁFICAS</h4>
+                            <ul>
+                                <li>KENNETH H. ROSEN - CAP. 10.7, PP. 695-705</li>
+                                <li>RICHARD JOHNSONBAUGH - CAP. 8.6, PP. 370-380</li>
+                                <li>NORMAN L. BIGGS - CAP. 15.4, PP. 250-260</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS EN VIDEO</h4>
+                            <ul>
+                                <li>NUMBERPHILE: PLANAR GRAPHS AND KURATOWSKI'S THEOREM</li>
+                                <li>NESO ACADEMY: PLANAR GRAPHS AND EULER'S FORMULA</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS DE PRÁCTICA</h4>
+                            <ul>
+                                <li><span class="level-badge basico">BÁSICO</span> VERIFICACIÓN DE LA CONSTANTE DE EULER EN POLIEDROS CONVEXOS SIMPLES.</li>
+                                <li><span class="level-badge intermedio">INTERMEDIO</span> JOHNSONBAUGH - CAP. 8.6, EJERCICIOS 10-22 (DEMOSTRACIÓN DE NO-PLANARIDAD PARA K3,3).</li>
+                                <li><span class="level-badge avanzado">AVANZADO</span> ROSEN - CAP. 10.7, PP. 705-707, PROBLEMAS 25-36 (IDENTIFICACIÓN DE SUBGRAFOS HOMEOMORFOS A K5).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUBTEMA 1.7 -->
+                <div class="subtopic-accordion" id="u1-s7">
+                    <div class="subtopic-header" onclick="toggleAccordion('u1-s7')">
+                        <input type="checkbox" class="subtopic-checkbox" onchange="updateProgress('unit-1')">
+                        <span class="subtopic-title">1.7 COLOREO DE GRAFOS</span>
+                        <span class="toggle-icon">[ + ]</span>
+                    </div>
+                    <div class="subtopic-content">
+                        <div class="content-block">
+                            <h4>OBJETIVO DE APRENDIZAJE</h4>
+                            <p>CALCULAR EL NÚMERO CROMÁTICO Χ(G) Y APLICAR ALGORITMOS GLOTONES DE COLORACIÓN PARA RESOLVER PROBLEMAS REALES DE PLANIFICACIÓN, ASIGNACIÓN DE TAREAS Y GESTIÓN DE FRECUENCIAS.</p>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS BIBLIOGRÁFICAS</h4>
+                            <ul>
+                                <li>KENNETH H. ROSEN - CAP. 10.8, PP. 705-715</li>
+                                <li>RICHARD JOHNSONBAUGH - CAP. 8.7, PP. 381-385</li>
+                                <li>OSCAR LEVIN - CAP. 4.4, PP. 255-264</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS EN VIDEO</h4>
+                            <ul>
+                                <li>DERIVANDO: EL TEOREMA DE LOS CUATRO COLORES</li>
+                                <li>NESO ACADEMY: GRAPH COLORING AND CHROMATIC NUMBER</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS DE PRÁCTICA</h4>
+                            <ul>
+                                <li><span class="level-badge basico">BÁSICO</span> DETERMINACIÓN DIRECTA DE Χ(G) EN FAMILIAS DE GRAFOS CICLO, RUEDAS Y BIPARTITOS COMPLETOS.</li>
+                                <li><span class="level-badge intermedio">INTERMEDIO</span> LEVIN - CAP. 4.4, EJERCICIOS 1-12 (MODELADO DE INCOMPATIBILIDAD DE EXÁMENES).</li>
+                                <li><span class="level-badge avanzado">AVANZADO</span> ROSEN - CAP. 10.8, PP. 715-718, PROBLEMAS 18-31 (DEMOSTRACIÓN DEL TEOREMA DE LOS CINCO COLORES).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUBTEMA 1.8 -->
+                <div class="subtopic-accordion" id="u1-s8">
+                    <div class="subtopic-header" onclick="toggleAccordion('u1-s8')">
+                        <input type="checkbox" class="subtopic-checkbox" onchange="updateProgress('unit-1')">
+                        <span class="subtopic-title">1.8 PROBLEMAS DE CAMINOS MÍNIMOS: DIJKSTRA Y FLOYD-WARSHALL</span>
+                        <span class="toggle-icon">[ + ]</span>
+                    </div>
+                    <div class="subtopic-content">
+                        <div class="content-block">
+                            <h4>OBJETIVO DE APRENDIZAJE</h4>
+                            <p>DISEÑAR E IMPLEMENTAR LOS ALGORITMOS DE DIJKSTRA Y FLOYD-WARSHALL PARA LA RESOLUCIÓN DE CAMINOS MÍNIMOS EN GRAFOS PONDERADOS, COMPARANDO LA COMPLEJIDAD TEMPORAL.</p>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS BIBLIOGRÁFICAS</h4>
+                            <ul>
+                                <li>THOMAS H. CORMEN ET AL. - CAP. 21.3 (DIJKSTRA) Y CAP. 22.2 (FLOYD-WARSHALL), PP. 620-655</li>
+                                <li>MARK ALLEN WEISS - CAP. 9.3, PP. 390-410</li>
+                                <li>KENNETH H. ROSEN - CAP. 10.6, PP. 715-725</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS EN VIDEO</h4>
+                            <ul>
+                                <li>ABDUL BARI: 3.6 DIJKSTRA ALGORITHM - SINGLE SOURCE SHORTEST PATH</li>
+                                <li>ABDUL BARI: 4.2 FLOYD WARSHALL ALL PAIRS SHORTEST PATH ALGORITHM</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS DE PRÁCTICA</h4>
+                            <ul>
+                                <li><span class="level-badge basico">BÁSICO</span> TRAZA MANUAL DE DIJKSTRA SOBRE UNA RED DE 6 NODOS UTILIZANDO VECTORES DE DISTANCIA Y PREDECESORES.</li>
+                                <li><span class="level-badge intermedio">INTERMEDIO</span> CORMEN ET AL. - CAP. 22.2, PROBLEMAS 22.2-1 A 22.2-6 (CONSTRUCCIÓN DE SECUENCIAS DE MATRICES D^(K) EN FLOYD-WARSHALL).</li>
+                                <li><span class="level-badge avanzado">AVANZADO</span> WEISS - CAP. 9, EJERCICIOS DE PROGRAMACIÓN 9.15-9.20 (IMPLEMENTACIÓN DEL ALGORITMO DE RECONSTRUCCIÓN DE RUTAS EN C++).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- UNIDAD 2 -->
+        <div class="unit-accordion" id="unit-2">
+            <div class="unit-header" onclick="toggleAccordion('unit-2')">
+                <div>
+                    <div class="unit-title">UNIDAD 2: TEORÍA DE ÁRBOLES</div>
+                    <small style="color: #fff;">SEMANAS 5 - 8 | CARGA HORARIA: 28 HORAS</small>
+                </div>
+                <div class="unit-meta">
+                    PROGRESO UNIDAD
+                    <div class="unit-progress-mini">
+                        <div class="unit-progress-fill" id="unit-2-progress"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="unit-content">
+                
+                <!-- SUBTEMA 2.1 -->
+                <div class="subtopic-accordion" id="u2-s1">
+                    <div class="subtopic-header" onclick="toggleAccordion('u2-s1')">
+                        <input type="checkbox" class="subtopic-checkbox" onchange="updateProgress('unit-2')">
+                        <span class="subtopic-title">2.1 DEFINICIONES, TIPOS Y PROPIEDADES</span>
+                        <span class="toggle-icon">[ + ]</span>
+                    </div>
+                    <div class="subtopic-content">
+                        <div class="content-block">
+                            <h4>OBJETIVO DE APRENDIZAJE</h4>
+                            <p>DEFINIR FORMALMENTE UN ÁRBOL COMO UN GRAFO ACÍCLICO CONEXO Y DEMOSTRAR SUS EQUIVALENCIAS ESTRUCTURALES, EN PARTICULAR LA PROPIEDAD |E| = |V| - 1 Y LA EXISTENCIA DE UN ÚNICO CAMINO SIMPLE.</p>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS BIBLIOGRÁFICAS</h4>
+                            <ul>
+                                <li>KENNETH H. ROSEN - CAP. 11.1, PP. 745-755</li>
+                                <li>RICHARD JOHNSONBAUGH - CAP. 9.1, PP. 400-410</li>
+                                <li>OSCAR LEVIN - CAP. 4.2, PP. 250-255</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS EN VIDEO</h4>
+                            <ul>
+                                <li>NESO ACADEMY: TREES IN GRAPH THEORY - PROPERTIES AND DEFINITIONS</li>
+                                <li>ABDUL BARI: INTRODUCTION TO TREES AND TREE PROPERTIES</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS DE PRÁCTICA</h4>
+                            <ul>
+                                <li><span class="level-badge basico">BÁSICO</span> VERIFICACIÓN DE LA RELACIÓN ENTRE VÉRTICES Y ARISTAS EN UN BOSQUE DE K COMPONENTES.</li>
+                                <li><span class="level-badge intermedio">INTERMEDIO</span> LEVIN - CAP. 4.2, PROBLEMAS 1-9 (DEMOSTRACIONES INDUCTIVAS SOBRE EL NÚMERO DE HOJAS).</li>
+                                <li><span class="level-badge avanzado">AVANZADO</span> ROSEN - CAP. 11.1, PP. 755-757, PROBLEMAS 21-35 (DEMOSTRACIÓN RIGUROSA DE LAS EQUIVALENCIAS).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUBTEMA 2.2 -->
+                <div class="subtopic-accordion" id="u2-s2">
+                    <div class="subtopic-header" onclick="toggleAccordion('u2-s2')">
+                        <input type="checkbox" class="subtopic-checkbox" onchange="updateProgress('unit-2')">
+                        <span class="subtopic-title">2.2 ÁRBOLES CON RAÍZ</span>
+                        <span class="toggle-icon">[ + ]</span>
+                    </div>
+                    <div class="subtopic-content">
+                        <div class="content-block">
+                            <h4>OBJETIVO DE APRENDIZAJE</h4>
+                            <p>CLASIFICAR ÁRBOLES CON RAÍZ, EVALUANDO NIVELES, ALTURA, GRADO DE LOS NODOS Y RELACIONES JERÁRQUICAS EN ÁRBOLES M-ARIOS COMPLETOS Y BALANCEADOS.</p>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS BIBLIOGRÁFICAS</h4>
+                            <ul>
+                                <li>KENNETH H. ROSEN - CAP. 11.2, PP. 755-765</li>
+                                <li>RICHARD JOHNSONBAUGH - CAP. 9.2, PP. 415-420</li>
+                                <li>NORMAN L. BIGGS - CAP. 16.1-16.2, PP. 290-295</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS EN VIDEO</h4>
+                            <ul>
+                                <li>NESO ACADEMY: ROOTED TREES, M-ARY TREES, AND HEIGHT</li>
+                                <li>TREVTUTOR: ROOTED TREES AND PROPERTIES</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS DE PRÁCTICA</h4>
+                            <ul>
+                                <li><span class="level-badge basico">BÁSICO</span> CÁLCULO DE ALTURA, NIVEL Y RELACIÓN DE ANCESTROS EN UNA JERARQUÍA DADA.</li>
+                                <li><span class="level-badge intermedio">INTERMEDIO</span> JOHNSONBAUGH - CAP. 9.2, EJERCICIOS 8-20 (DEMOSTRACIÓN DE LA COTA MÁXIMA DE HOJAS L ≤ M^H).</li>
+                                <li><span class="level-badge avanzado">AVANZADO</span> ROSEN - CAP. 11.2, PP. 767-769, PROBLEMAS 28-39 (RESOLUCIÓN DE ECUACIONES TEÓRICAS DE ÁRBOLES M-ARIOS).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUBTEMA 2.3 -->
+                <div class="subtopic-accordion" id="u2-s3">
+                    <div class="subtopic-header" onclick="toggleAccordion('u2-s3')">
+                        <input type="checkbox" class="subtopic-checkbox" onchange="updateProgress('unit-2')">
+                        <span class="subtopic-title">2.3 REPRESENTACIÓN DE ÁRBOLES BINARIOS POSICIONALES EN COMPUTADORAS</span>
+                        <span class="toggle-icon">[ + ]</span>
+                    </div>
+                    <div class="subtopic-content">
+                        <div class="content-block">
+                            <h4>OBJETIVO DE APRENDIZAJE</h4>
+                            <p>IMPLEMENTAR ÁRBOLES BINARIOS MEDIANTE PUNTEROS DINÁMICOS EN MEMORIA Y MEDIANTE ASIGNACIÓN SECUENCIAL EN ARREGLOS, EVALUANDO LA EFICIENCIA DE ESPACIO SEGÚN LA DENSIDAD.</p>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS BIBLIOGRÁFICAS</h4>
+                            <ul>
+                                <li>THOMAS H. CORMEN ET AL. - CAP. 10.3, PP. 265-272</li>
+                                <li>MARK ALLEN WEISS - CAP. 4.1-4.2, PP. 121-135</li>
+                                <li>KENNETH H. ROSEN - CAP. 11.2, PP. 765-770</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS EN VIDEO</h4>
+                            <ul>
+                                <li>ABDUL BARI: BINARY TREE DATA STRUCTURE AND REPRESENTATION</li>
+                                <li>MYCODESCHOOL: BINARY TREE - ARRAY AND LINKED LIST IMPLEMENTATION</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS DE PRÁCTICA</h4>
+                            <ul>
+                                <li><span class="level-badge basico">BÁSICO</span> MAPEO MANUAL DE UN ÁRBOL BINARIO COMPLETO A UN ARREGLO UNIDIMENSIONAL.</li>
+                                <li><span class="level-badge intermedio">INTERMEDIO</span> WEISS - EJERCICIOS 4.1-4.10 (CODIFICACIÓN DE ESTRUCTURAS NODALES CON PUNTEROS DOBLES EN C++).</li>
+                                <li><span class="level-badge avanzado">AVANZADO</span> CORMEN ET AL. - EJERCICIO 10.3-4 (REPRESENTACIÓN PRIMER-HIJO / HERMANO-DERECHO).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUBTEMA 2.4 -->
+                <div class="subtopic-accordion" id="u2-s4">
+                    <div class="subtopic-header" onclick="toggleAccordion('u2-s4')">
+                        <input type="checkbox" class="subtopic-checkbox" onchange="updateProgress('unit-2')">
+                        <span class="subtopic-title">2.4 ISOMORFISMO DE ÁRBOLES</span>
+                        <span class="toggle-icon">[ + ]</span>
+                    </div>
+                    <div class="subtopic-content">
+                        <div class="content-block">
+                            <h4>OBJETIVO DE APRENDIZAJE</h4>
+                            <p>DETERMINAR SI DOS ÁRBOLES SON ISOMORFOS ANALIZANDO ESTRUCTURAS DE RAMIFICACIÓN NO ENRAIZADAS Y UTILIZANDO CÓDIGOS CANÓNICOS DE ORDENAMIENTO SECUENCIAL.</p>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS BIBLIOGRÁFICAS</h4>
+                            <ul>
+                                <li>KENNETH H. ROSEN - CAP. 11.3, PP. 770-775</li>
+                                <li>RICHARD JOHNSONBAUGH - CAP. 9.4, PP. 425-430</li>
+                                <li>NORMAN L. BIGGS - CAP. 16.3, PP. 300-305</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS EN VIDEO</h4>
+                            <ul>
+                                <li>NESO ACADEMY: TREE ISOMORPHISM</li>
+                                <li>EASY THEORY: ROOTED TREE ISOMORPHISM ALGORITHM</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS DE PRÁCTICA</h4>
+                            <ul>
+                                <li><span class="level-badge basico">BÁSICO</span> GENERACIÓN DE TODOS LOS ÁRBOLES LIBRES NO ISOMORFOS DE ORDEN 6.</li>
+                                <li><span class="level-badge intermedio">INTERMEDIO</span> JOHNSONBAUGH - CAP. 9.4, EJERCICIOS 1-12 (CODIFICACIÓN NIVEL POR NIVEL PARA VERIFICACIÓN).</li>
+                                <li><span class="level-badge avanzado">AVANZADO</span> ROSEN - CAP. 11.3, PP. 775-777, PROBLEMAS 15-24 (EJECUCIÓN DEL ALGORITMO AHU).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUBTEMA 2.5 -->
+                <div class="subtopic-accordion" id="u2-s5">
+                    <div class="subtopic-header" onclick="toggleAccordion('u2-s5')">
+                        <input type="checkbox" class="subtopic-checkbox" onchange="updateProgress('unit-2')">
+                        <span class="subtopic-title">2.5 ÁRBOL BINARIO DE BÚSQUEDA (ABB)</span>
+                        <span class="toggle-icon">[ + ]</span>
+                    </div>
+                    <div class="subtopic-content">
+                        <div class="content-block">
+                            <h4>OBJETIVO DE APRENDIZAJE</h4>
+                            <p>CONSTRUIR E ITERAR ÁRBOLES BINARIOS DE BÚSQUEDA Y EJECUTAR RECORRIDOS PROFUNDIDAD (INORDEN, PREORDEN, POSTORDEN), EVALUANDO EL IMPACTO DEL DESBALANCE EN LA COMPLEJIDAD.</p>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS BIBLIOGRÁFICAS</h4>
+                            <ul>
+                                <li>THOMAS H. CORMEN ET AL. - CAP. 12.1-12.3, PP. 312-335</li>
+                                <li>MARK ALLEN WEISS - CAP. 4.3, PP. 136-158</li>
+                                <li>KENNETH H. ROSEN - CAP. 11.3, PP. 775-785</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS EN VIDEO</h4>
+                            <ul>
+                                <li>ABDUL BARI: BINARY SEARCH TREE (BST) - INSERTION, DELETION, AND TRAVERSALS</li>
+                                <li>FREECODECAMP: BINARY SEARCH TREE OPERATIONS</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS DE PRÁCTICA</h4>
+                            <ul>
+                                <li><span class="level-badge basico">BÁSICO</span> TRAZA DE UN ABB TRAS UNA SERIE DE INSERCIONES Y POSTERIOR ELIMINACIÓN DE UN NODO CON DOS SUBÁRBOLES.</li>
+                                <li><span class="level-badge intermedio">INTERMEDIO</span> WEISS - EJERCICIOS 4.11-4.25 (IMPLEMENTACIÓN DEL RECORRIDO INORDEN NO RECURSIVO AUXILIADO POR UNA PILA).</li>
+                                <li><span class="level-badge avanzado">AVANZADO</span> CORMEN ET AL. - CAP. 12.3, PROBLEMAS 12.3-1 A 12.3-6 (ANÁLISIS DEL NÚMERO PROMEDIO DE COMPARACIONES).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUBTEMA 2.6 -->
+                <div class="subtopic-accordion" id="u2-s6">
+                    <div class="subtopic-header" onclick="toggleAccordion('u2-s6')">
+                        <input type="checkbox" class="subtopic-checkbox" onchange="updateProgress('unit-2')">
+                        <span class="subtopic-title">2.6 ÁRBOLES DE EXPANSIÓN</span>
+                        <span class="toggle-icon">[ + ]</span>
+                    </div>
+                    <div class="subtopic-content">
+                        <div class="content-block">
+                            <h4>OBJETIVO DE APRENDIZAJE</h4>
+                            <p>EXTRAER ÁRBOLES DE EXPANSIÓN A PARTIR DE GRAFOS CONEXOS ARBITRARIOS MEDIANTE ESTRATEGIAS SISTEMÁTICAS DE BÚSQUEDA EN PROFUNDIDAD (DFS) Y BÚSQUEDA EN ANCHURA (BFS).</p>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS BIBLIOGRÁFICAS</h4>
+                            <ul>
+                                <li>KENNETH H. ROSEN - CAP. 11.4, PP. 785-795</li>
+                                <li>RICHARD JOHNSONBAUGH - CAP. 9.5, PP. 435-440</li>
+                                <li>OSCAR LEVIN - CAP. 4.3, PP. 255-260</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS EN VIDEO</h4>
+                            <ul>
+                                <li>ABDUL BARI: GRAPH TRAVERSALS - BREADTH FIRST SEARCH (BFS) AND DEPTH FIRST SEARCH (DFS)</li>
+                                <li>NESO ACADEMY: SPANNING TREES AND BREADTH/DEPTH FIRST SEARCH</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS DE PRÁCTICA</h4>
+                            <ul>
+                                <li><span class="level-badge basico">BÁSICO</span> OBTENCIÓN EXPLÍCITA DEL ÁRBOL RECUBRIDOR DFS Y BFS PARA UN GRAFO NO DIRIGIDO DE 8 VÉRTICES.</li>
+                                <li><span class="level-badge intermedio">INTERMEDIO</span> LEVIN - CAP. 4.3, PROBLEMAS 1-8.</li>
+                                <li><span class="level-badge avanzado">AVANZADO</span> ROSEN - CAP. 11.4, PP. 795-798, PROBLEMAS 22-35 (PROPIEDADES DE CORTES Y CICLOS FUNDAMENTALES).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUBTEMA 2.7 -->
+                <div class="subtopic-accordion" id="u2-s7">
+                    <div class="subtopic-header" onclick="toggleAccordion('u2-s7')">
+                        <input type="checkbox" class="subtopic-checkbox" onchange="updateProgress('unit-2')">
+                        <span class="subtopic-title">2.7 ÁRBOLES DE EXPANSIÓN MINIMALES: PRIM Y KRUSKAL</span>
+                        <span class="toggle-icon">[ + ]</span>
+                    </div>
+                    <div class="subtopic-content">
+                        <div class="content-block">
+                            <h4>OBJETIVO DE APRENDIZAJE</h4>
+                            <p>APLICAR LOS ALGORITMOS VORACES DE PRIM Y KRUSKAL PARA CONSTRUIR EL ÁRBOL DE EXPANSIÓN MÍNIMO (MST) EN GRAFOS PONDERADOS, ANALIZANDO LA ESTRUCTURA DE DATOS UNION-FIND.</p>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS BIBLIOGRÁFICAS</h4>
+                            <ul>
+                                <li>THOMAS H. CORMEN ET AL. - CAP. 20.1-20.2, PP. 562-588</li>
+                                <li>MARK ALLEN WEISS - CAP. 9.5, PP. 412-425</li>
+                                <li>KENNETH H. ROSEN - CAP. 11.5, PP. 795-805</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS EN VIDEO</h4>
+                            <ul>
+                                <li>ABDUL BARI: 3.5 PRIM'S AND KRUSKAL'S ALGORITHMS - GREEDY METHOD</li>
+                                <li>NESO ACADEMY: MINIMUM SPANNING TREE - PRIM'S & KRUSKAL'S</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS DE PRÁCTICA</h4>
+                            <ul>
+                                <li><span class="level-badge basico">BÁSICO</span> EJECUCIÓN MANUAL COMPARATIVA DE PRIM Y KRUSKAL SOBRE UNA RED PONDERADA NO ORIENTADA.</li>
+                                <li><span class="level-badge intermedio">INTERMEDIO</span> CORMEN ET AL. - CAP. 20.2, PROBLEMAS 20.2-1 A 20.2-8 (PROPIEDAD DEL CORTE).</li>
+                                <li><span class="level-badge avanzado">AVANZADO</span> WEISS - CAP. 9, EJERCICIOS 9.28-9.35 (IMPLEMENTACIÓN ÓPTIMA DE KRUSKAL UTILIZANDO COMPRESIÓN DE CAMINOS).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- UNIDAD 3 -->
+        <div class="unit-accordion" id="unit-3">
+            <div class="unit-header" onclick="toggleAccordion('unit-3')">
+                <div>
+                    <div class="unit-title">UNIDAD 3: LENGUAJES Y GRAMÁTICAS FORMALES</div>
+                    <small style="color: #fff;">SEMANAS 9 - 12 | CARGA HORARIA: 32 HORAS</small>
+                </div>
+                <div class="unit-meta">
+                    PROGRESO UNIDAD
+                    <div class="unit-progress-mini">
+                        <div class="unit-progress-fill" id="unit-3-progress"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="unit-content">
+                
+                <!-- SUBTEMA 3.1 -->
+                <div class="subtopic-accordion" id="u3-s1">
+                    <div class="subtopic-header" onclick="toggleAccordion('u3-s1')">
+                        <input type="checkbox" class="subtopic-checkbox" onchange="updateProgress('unit-3')">
+                        <span class="subtopic-title">3.1 DEFINICIONES PREVIAS</span>
+                        <span class="toggle-icon">[ + ]</span>
+                    </div>
+                    <div class="subtopic-content">
+                        <div class="content-block">
+                            <h4>OBJETIVO DE APRENDIZAJE</h4>
+                            <p>FORMALIZAR LOS CONCEPTOS DE ALFABETO (Σ), CADENA (W), LONGITUD (|W|), CADENA VACÍA (Ε), PREFIJOS, SUFIJOS, CONCATENACIÓN, POTENCIA (W^K), Y LA DEFINICIÓN DE LAS CLAUSURAS DE KLEENE (Σ*) Y POSITIVA (Σ+).</p>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS BIBLIOGRÁFICAS</h4>
+                            <ul>
+                                <li>PETER LINZ Y SUSAN H. RODGER - AN INTRODUCTION TO FORMAL LANGUAGES AND AUTOMATA (7ª ED.), CAP. 1.1, PP. 1-14</li>
+                                <li>JOHN E. HOPCROFT ET AL. - INTRODUCTION TO AUTOMATA THEORY, LANGUAGES, AND COMPUTATION (3ª ED.), CAP. 1.5, PP. 19-28</li>
+                                <li>KENNETH H. ROSEN - CAP. 13.1, PP. 847-852</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS EN VIDEO</h4>
+                            <ul>
+                                <li>NESO ACADEMY: TOC: SYMBOLS, ALPHABETS, AND STRINGS</li>
+                                <li>EASY THEORY: FORMAL LANGUAGES - ALPHABETS, STRINGS AND LANGUAGES</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS DE PRÁCTICA</h4>
+                            <ul>
+                                <li><span class="level-badge basico">BÁSICO</span> NESO ACADEMY - EJERCICIOS RESUELTOS DE INDUCCIÓN SOBRE LONGITUD DE CADENAS Y CONCATENACIÓN.</li>
+                                <li><span class="level-badge intermedio">INTERMEDIO</span> LINZ & RODGER - CAP. 1.1, PP. 14-16, EJERCICIOS 1-15 (DEMOSTRACIÓN INDUCTIVA DE LA REVERSIÓN).</li>
+                                <li><span class="level-badge avanzado">AVANZADO</span> HOPCROFT ET AL. - CAP. 1.5, EJERCICIOS SOBRE INDUCCIÓN ESTRUCTURAL EN LENGUAJES INFINITOS.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUBTEMA 3.2 -->
+                <div class="subtopic-accordion" id="u3-s2">
+                    <div class="subtopic-header" onclick="toggleAccordion('u3-s2')">
+                        <input type="checkbox" class="subtopic-checkbox" onchange="updateProgress('unit-3')">
+                        <span class="subtopic-title">3.2 DEFINICIÓN FORMAL DE GRAMÁTICA</span>
+                        <span class="toggle-icon">[ + ]</span>
+                    </div>
+                    <div class="subtopic-content">
+                        <div class="content-block">
+                            <h4>OBJETIVO DE APRENDIZAJE</h4>
+                            <p>DEFINIR FORMALMENTE UNA GRAMÁTICA GENERATIVA COMO LA CUÁDRUPLA G = (V, T, S, P), CLASIFICANDO EL CONJUNTO DE VARIABLES NO TERMINALES, SÍMBOLOS TERMINALES, AXIOMA INICIAL Y REGLAS DE PRODUCCIÓN.</p>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS BIBLIOGRÁFICAS</h4>
+                            <ul>
+                                <li>PETER LINZ Y SUSAN H. RODGER - CAP. 1.2, PP. 15-22</li>
+                                <li>JOHN E. HOPCROFT ET AL. - CAP. 5.1, PP. 171-179</li>
+                                <li>KENNETH H. ROSEN - CAP. 13.1, PP. 852-857</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS EN VIDEO</h4>
+                            <ul>
+                                <li>NESO ACADEMY: TOC: INTRODUCTION TO GRAMMARS AND LANGUAGES</li>
+                                <li>EASY THEORY: FORMAL DEFINITION OF GRAMMARS</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS DE PRÁCTICA</h4>
+                            <ul>
+                                <li><span class="level-badge basico">BÁSICO</span> FORMULACIÓN DE CUÁDRUPLAS G PARA REPRESENTAR LENGUAJES FINITOS EXPLÍCITOS.</li>
+                                <li><span class="level-badge intermedio">INTERMEDIO</span> LINZ & RODGER - CAP. 1.2, PP. 22-25, EJERCICIOS 16-25 (DISEÑO DE PRODUCCIONES PARA PATRONES A^N B^N).</li>
+                                <li><span class="level-badge avanzado">AVANZADO</span> HOPCROFT ET AL. - CAP. 5.1, PROBLEMAS 5.1.1 A 5.1.5 (GRAMÁTICAS LIBRES DE CONTEXTO PARA EXPRESIONES BIEN FORMADAS).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUBTEMA 3.3 -->
+                <div class="subtopic-accordion" id="u3-s3">
+                    <div class="subtopic-header" onclick="toggleAccordion('u3-s3')">
+                        <input type="checkbox" class="subtopic-checkbox" onchange="updateProgress('unit-3')">
+                        <span class="subtopic-title">3.3 RELACIONES ENTRE CADENAS</span>
+                        <span class="toggle-icon">[ + ]</span>
+                    </div>
+                    <div class="subtopic-content">
+                        <div class="content-block">
+                            <h4>OBJETIVO DE APRENDIZAJE</h4>
+                            <p>MODELAR LA DERIVACIÓN EN UN PASO (⇒), DERIVACIÓN EN MÚLTIPLES PASOS (⇒*) Y DERIVACIONES LEFTMOST/RIGHTMOST, REPRESENTANDO LA ESTRUCTURA MEDIANTE ÁRBOLES DE DERIVACIÓN SINTÁCTICA.</p>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS BIBLIOGRÁFICAS</h4>
+                            <ul>
+                                <li>PETER LINZ Y SUSAN H. RODGER - CAP. 5.1, PP. 125-135</li>
+                                <li>JOHN E. HOPCROFT ET AL. - CAP. 5.2, PP. 180-190</li>
+                                <li>KENNETH H. ROSEN - CAP. 13.1, PP. 858-862</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS EN VIDEO</h4>
+                            <ul>
+                                <li>NESO ACADEMY: DERIVATION TREES (PARSE TREES) WITH EXAMPLES</li>
+                                <li>EASY THEORY: LEFTMOST AND RIGHTMOST DERIVATIONS</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS DE PRÁCTICA</h4>
+                            <ul>
+                                <li><span class="level-badge basico">BÁSICO</span> CONSTRUCCIÓN DEL ÁRBOL DE DERIVACIÓN PARA EXPRESIONES ARITMÉTICAS SIMPLES.</li>
+                                <li><span class="level-badge intermedio">INTERMEDIO</span> LINZ & RODGER - CAP. 5.1, EJERCICIOS 1-12 (DEMOSTRACIÓN DE EQUIVALENCIA ENTRE DERIVACIONES Y ÁRBOLES).</li>
+                                <li><span class="level-badge avanzado">AVANZADO</span> HOPCROFT ET AL. - CAP. 5.2, PROBLEMAS 5.2.1 A 5.2.7 (DETECCIÓN DE AMBIGÜEDAD GRAMATICAL).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUBTEMA 3.4 -->
+                <div class="subtopic-accordion" id="u3-s4">
+                    <div class="subtopic-header" onclick="toggleAccordion('u3-s4')">
+                        <input type="checkbox" class="subtopic-checkbox" onchange="updateProgress('unit-3')">
+                        <span class="subtopic-title">3.4 SENTENCIAS O INSTRUCCIONES</span>
+                        <span class="toggle-icon">[ + ]</span>
+                    </div>
+                    <div class="subtopic-content">
+                        <div class="content-block">
+                            <h4>OBJETIVO DE APRENDIZAJE</h4>
+                            <p>DISTINGUIR ENTRE FORMAS SENTENCIALES CUALESQUIERA Y SENTENCIAS VÁLIDAS (CADENAS COMPUESTAS ÚNICAMENTE POR SÍMBOLOS TERMINALES) GENERADAS POR UNA GRAMÁTICA G.</p>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS BIBLIOGRÁFICAS</h4>
+                            <ul>
+                                <li>PETER LINZ Y SUSAN H. RODGER - CAP. 5.1-5.2, PP. 136-142</li>
+                                <li>JOHN E. HOPCROFT ET AL. - CAP. 5.2, PP. 191-198</li>
+                                <li>KENNETH H. ROSEN - CAP. 13.1, PP. 863-867</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS EN VIDEO</h4>
+                            <ul>
+                                <li>NESO ACADEMY: SENTENTIAL FORMS VS SENTENCES</li>
+                                <li>JFLAP TUTORIALS: GRAMMAR DERIVATION AND LANGUAGE TESTING</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS DE PRÁCTICA</h4>
+                            <ul>
+                                <li><span class="level-badge basico">BÁSICO</span> SIMULACIÓN PROCEDIMENTAL DE LA PERTENENCIA DE SENTENCIAS MEDIANTE EL MOTOR DE DERIVACIÓN DE JFLAP.</li>
+                                <li><span class="level-badge intermedio">INTERMEDIO</span> LINZ & RODGER - CAP. 5.2, EJERCICIOS 13-22 (EVALUACIÓN FORMAL DE PERTENENCIA W ∈ L(G)).</li>
+                                <li><span class="level-badge avanzado">AVANZADO</span> ROSEN - CAP. 13.1, PP. 867-869, PROBLEMAS 25-34 (VALIDACIÓN DE ESTRUCTURAS SINTÁCTICAS).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUBTEMA 3.5 -->
+                <div class="subtopic-accordion" id="u3-s5">
+                    <div class="subtopic-header" onclick="toggleAccordion('u3-s5')">
+                        <input type="checkbox" class="subtopic-checkbox" onchange="updateProgress('unit-3')">
+                        <span class="subtopic-title">3.5 DEFINICIÓN FORMAL DE LENGUAJE</span>
+                        <span class="toggle-icon">[ + ]</span>
+                    </div>
+                    <div class="subtopic-content">
+                        <div class="content-block">
+                            <h4>OBJETIVO DE APRENDIZAJE</h4>
+                            <p>DEFINIR FORMALMENTE UN LENGUAJE L(G) = { W ∈ T* | S ⇒* W } Y CALCULAR LAS OPERACIONES ALGEBRAICAS BÁSICAS ENTRE LENGUAJES (UNIÓN, INTERSECCIÓN, CONCATENACIÓN, COMPLEMENTO Y ESTRELLA DE KLEENE).</p>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS BIBLIOGRÁFICAS</h4>
+                            <ul>
+                                <li>PETER LINZ Y SUSAN H. RODGER - CAP. 1.2, PP. 23-30</li>
+                                <li>JOHN E. HOPCROFT ET AL. - CAP. 1.5, PP. 28-35</li>
+                                <li>KENNETH H. ROSEN - CAP. 13.1, PP. 868-872</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS EN VIDEO</h4>
+                            <ul>
+                                <li>NESO ACADEMY: FORMAL LANGUAGES AND OPERATIONS ON LANGUAGES</li>
+                                <li>EASY THEORY: CLOSURE PROPERTIES OF FORMAL LANGUAGES</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS DE PRÁCTICA</h4>
+                            <ul>
+                                <li><span class="level-badge basico">BÁSICO</span> OPERACIONES DIRECTAS DE CONCATENACIÓN E INTERSECCIÓN SOBRE CONJUNTOS FINITOS DE CADENAS.</li>
+                                <li><span class="level-badge intermedio">INTERMEDIO</span> LINZ & RODGER - CAP. 1.2, EJERCICIOS 1-18 (CARACTERIZACIÓN POR TEORÍA DE CONJUNTOS).</li>
+                                <li><span class="level-badge avanzado">AVANZADO</span> HOPCROFT ET AL. - CAP. 1.5, DEMOSTRACIÓN DE LAS PROPIEDADES DE CLAUSURA DE LOS LENGUAJES.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUBTEMA 3.6 -->
+                <div class="subtopic-accordion" id="u3-s6">
+                    <div class="subtopic-header" onclick="toggleAccordion('u3-s6')">
+                        <input type="checkbox" class="subtopic-checkbox" onchange="updateProgress('unit-3')">
+                        <span class="subtopic-title">3.6 JERARQUÍA DE LAS GRAMÁTICAS (CHOMSKY)</span>
+                        <span class="toggle-icon">[ + ]</span>
+                    </div>
+                    <div class="subtopic-content">
+                        <div class="content-block">
+                            <h4>OBJETIVO DE APRENDIZAJE</h4>
+                            <p>CLASIFICAR GRAMÁTICAS Y LENGUAJES EN LA JERARQUÍA DE CHOMSKY (TIPO 0: IRRESTRICTAS, TIPO 1: SENSIBLES AL CONTEXTO, TIPO 2: LIBRES DE CONTEXTO, TIPO 3: REGULARES) SEGÚN EL FORMATO RESTRICTIVO DE SUS PRODUCCIONES Α → Β.</p>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS BIBLIOGRÁFICAS</h4>
+                            <ul>
+                                <li>PETER LINZ Y SUSAN H. RODGER - CAP. 11.1, PP. 275-290</li>
+                                <li>JOHN E. HOPCROFT ET AL. - CAP. 9.2, PP. 385-395</li>
+                                <li>KENNETH H. ROSEN - CAP. 13.2, PP. 873-878</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS EN VIDEO</h4>
+                            <ul>
+                                <li>NESO ACADEMY: CHOMSKY HIERARCHY IN THEORY OF COMPUTATION</li>
+                                <li>COMPUTERPHILE: CHOMSKY HIERARCHY AND AUTOMATA</li>
+                                <li>EASY THEORY: TYPE 0, 1, 2, 3 GRAMMARS EXPLAINED</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS DE PRÁCTICA</h4>
+                            <ul>
+                                <li><span class="level-badge basico">BÁSICO</span> CLASIFICACIÓN FORMAL DE LISTAS DE PRODUCCIONES SEGÚN LAS RESTRICCIONES DE LA JERARQUÍA.</li>
+                                <li><span class="level-badge intermedio">INTERMEDIO</span> LINZ & RODGER - CAP. 11.1, EJERCICIOS 1-14 (TRANSFORMACIÓN DE GRAMÁTICAS).</li>
+                                <li><span class="level-badge avanzado">AVANZADO</span> HOPCROFT ET AL. - CAP. 9.2, DEMOSTRACIÓN DE LAS DIFERENCIAS DE POTENCIA EXPRESIVA.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUBTEMA 3.7 -->
+                <div class="subtopic-accordion" id="u3-s7">
+                    <div class="subtopic-header" onclick="toggleAccordion('u3-s7')">
+                        <input type="checkbox" class="subtopic-checkbox" onchange="updateProgress('unit-3')">
+                        <span class="subtopic-title">3.7 CORRESPONDENCIAS ENTRE GRAMÁTICAS Y LENGUAJES</span>
+                        <span class="toggle-icon">[ + ]</span>
+                    </div>
+                    <div class="subtopic-content">
+                        <div class="content-block">
+                            <h4>OBJETIVO DE APRENDIZAJE</h4>
+                            <p>ESTABLECER EL MAPEO BIYECTIVO ENTRE LOS NIVELES DE LA JERARQUÍA DE CHOMSKY Y SUS MODELOS ABSTRACTOS DE RECONOCIMIENTO (AUTÓMATAS FINITOS, AUTÓMATAS CON PILA, AUTÓMATAS CON ACOTACIÓN LINEAL Y MÁQUINAS DE TURING).</p>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS BIBLIOGRÁFICAS</h4>
+                            <ul>
+                                <li>PETER LINZ Y SUSAN H. RODGER - CAP. 3.3, 5.2 Y 11.1, PP. 70-100, 130-160, 290-305</li>
+                                <li>JOHN E. HOPCROFT ET AL. - CAP. 5 Y 6, PP. 200-245</li>
+                                <li>KENNETH H. ROSEN - CAP. 13.3, PP. 879-884</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS EN VIDEO</h4>
+                            <ul>
+                                <li>NESO ACADEMY: GRAMMAR AND AUTOMATA EQUIVALENCES</li>
+                                <li>PROF. SHAI SIMONSON: EQUIVALENCE OF REGULAR GRAMMARS AND FINITE AUTOMATA</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS DE PRÁCTICA</h4>
+                            <ul>
+                                <li><span class="level-badge basico">BÁSICO</span> CONSTRUCCIÓN DEL CUADRO SINTÉTICO DE CORRESPONDENCIAS MODELO-GRAMÁTICA-LENGUAJE.</li>
+                                <li><span class="level-badge intermedio">INTERMEDIO</span> LINZ & RODGER - CAP. 3.3, EJERCICIOS DE CONVERSIÓN DE GRAMÁTICA REGULAR A DFA.</li>
+                                <li><span class="level-badge avanzado">AVANZADO</span> HOPCROFT ET AL. - CAP. 6.3, DEMOSTRACIÓN FORMAL DE EQUIVALENCIA ENTRE AUTÓMATAS CON PILA Y GRAMÁTICAS CFL.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUBTEMA 3.8 -->
+                <div class="subtopic-accordion" id="u3-s8">
+                    <div class="subtopic-header" onclick="toggleAccordion('u3-s8')">
+                        <input type="checkbox" class="subtopic-checkbox" onchange="updateProgress('unit-3')">
+                        <span class="subtopic-title">3.8 EXPRESIONES REGULARES</span>
+                        <span class="toggle-icon">[ + ]</span>
+                    </div>
+                    <div class="subtopic-content">
+                        <div class="content-block">
+                            <h4>OBJETIVO DE APRENDIZAJE</h4>
+                            <p>CONSTRUIR EXPRESIONES REGULARES (REGEX) SOBRE UN ALFABETO APLICANDO LOS OPERADORES (+, ·, *) Y DEMOSTRANDO LA EQUIVALENCIA ALGEBRAICO-FORMAL CON LOS AUTÓMATAS FINITOS (TEOREMA DE KLEENE).</p>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS BIBLIOGRÁFICAS</h4>
+                            <ul>
+                                <li>PETER LINZ Y SUSAN H. RODGER - CAP. 3.1-3.2, PP. 70-88</li>
+                                <li>JOHN E. HOPCROFT ET AL. - CAP. 3.1-3.2, PP. 91-108</li>
+                                <li>KENNETH H. ROSEN - CAP. 13.3, PP. 885-890</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS EN VIDEO</h4>
+                            <ul>
+                                <li>NESO ACADEMY: REGULAR EXPRESSIONS IN TOC WITH EXAMPLES</li>
+                                <li>EASY THEORY: CONVERTING REGULAR EXPRESSIONS TO FINITE AUTOMATA</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS DE PRÁCTICA</h4>
+                            <ul>
+                                <li><span class="level-badge basico">BÁSICO</span> DISEÑO DE REGEX PARA LENGUAJES REGULARES SENCILLOS.</li>
+                                <li><span class="level-badge intermedio">INTERMEDIO</span> LINZ & RODGER - CAP. 3.1, PP. 88-91, EJERCICIOS 1-20.</li>
+                                <li><span class="level-badge avanzado">AVANZADO</span> HOPCROFT ET AL. - CAP. 3.2, CONVERSIÓN ALGORÍTMICA DE EXPRESIÓN REGULAR A Ε-NFA (CONSTRUCCIÓN DE THOMPSON).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- UNIDAD 4 -->
+        <div class="unit-accordion" id="unit-4">
+            <div class="unit-header" onclick="toggleAccordion('unit-4')">
+                <div>
+                    <div class="unit-title">UNIDAD 4: MÁQUINAS DE ESTADO FINITO</div>
+                    <small style="color: #fff;">SEMANAS 13 - 16 | CARGA HORARIA: 28 HORAS</small>
+                </div>
+                <div class="unit-meta">
+                    PROGRESO UNIDAD
+                    <div class="unit-progress-mini">
+                        <div class="unit-progress-fill" id="unit-4-progress"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="unit-content">
+                
+                <!-- SUBTEMA 4.1 -->
+                <div class="subtopic-accordion" id="u4-s1">
+                    <div class="subtopic-header" onclick="toggleAccordion('u4-s1')">
+                        <input type="checkbox" class="subtopic-checkbox" onchange="updateProgress('unit-4')">
+                        <span class="subtopic-title">4.1 ASPECTOS GENÉRICOS DE LA TEORÍA DE SISTEMAS</span>
+                        <span class="toggle-icon">[ + ]</span>
+                    </div>
+                    <div class="subtopic-content">
+                        <div class="content-block">
+                            <h4>OBJETIVO DE APRENDIZAJE</h4>
+                            <p>APLICAR LOS FUNDAMENTOS DE LA TEORÍA GENERAL DE SISTEMAS AL MODELADO LÓGICO COMPUTACIONAL, IDENTIFICANDO DOMINIOS DE ENTRADA, ESTADOS INTERNOS, FUNCIONES DE TRANSICIÓN Y ALFABETOS DE SALIDA.</p>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS BIBLIOGRÁFICAS</h4>
+                            <ul>
+                                <li>PETER LINZ Y SUSAN H. RODGER - CAP. 2.1, PP. 37-45</li>
+                                <li>JOHN E. HOPCROFT ET AL. - CAP. 2.1, PP. 45-52</li>
+                                <li>KENNETH H. ROSEN - CAP. 13.2, PP. 891-895</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS EN VIDEO</h4>
+                            <ul>
+                                <li>NESO ACADEMY: INTRODUCTION TO DISCRETE STATE SYSTEMS</li>
+                                <li>EASY THEORY: SYSTEM MODELING WITH STATE MACHINES</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS DE PRÁCTICA</h4>
+                            <ul>
+                                <li><span class="level-badge basico">BÁSICO</span> DIAGRAMACIÓN FORMAL DE ESTADOS PARA UN SISTEMA ELECTROMECÁNICO DISCRETO (EJ. CONTROL DE SEMÁFORO).</li>
+                                <li><span class="level-badge intermedio">INTERMEDIO</span> LINZ & RODGER - CAP. 2.1, EJERCICIOS 1-8 (DEFINICIÓN DE FUNCIONES DE TRANSICIÓN).</li>
+                                <li><span class="level-badge avanzado">AVANZADO</span> ROSEN - CAP. 13.2, PROBLEMAS DE ESPECIFICACIÓN FORMAL DE SISTEMAS REACTIVOS SÍNCRONOS.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUBTEMA 4.2 -->
+                <div class="subtopic-accordion" id="u4-s2">
+                    <div class="subtopic-header" onclick="toggleAccordion('u4-s2')">
+                        <input type="checkbox" class="subtopic-checkbox" onchange="updateProgress('unit-4')">
+                        <span class="subtopic-title">4.2 INTRODUCCIÓN A LAS MÁQUINAS DE ESTADOS</span>
+                        <span class="toggle-icon">[ + ]</span>
+                    </div>
+                    <div class="subtopic-content">
+                        <div class="content-block">
+                            <h4>OBJETIVO DE APRENDIZAJE</h4>
+                            <p>DEFINIR EL CONCEPTO DE MÁQUINA DE ESTADOS COMO ACEPTADOR Y COMO TRANSDUCTOR, COMPARANDO FORMALMENTE LA GENERACIÓN DE SALIDAS EN LOS MODELOS DE MEALY (Λ: Q × Σ → Δ) Y MOORE (Λ: Q → Δ).</p>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS BIBLIOGRÁFICAS</h4>
+                            <ul>
+                                <li>PETER LINZ Y SUSAN H. RODGER - CAP. 2.1, PP. 46-55 (Y APÉNDICE A)</li>
+                                <li>JOHN F. WAKERLY - DIGITAL DESIGN: PRINCIPLES AND PRACTICES (5ª ED.), CAP. 10.1-10.2, PP. 450-465</li>
+                                <li>KENNETH H. ROSEN - CAP. 13.2, PP. 895-900</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS EN VIDEO</h4>
+                            <ul>
+                                <li>NESO ACADEMY: MEALY AND MOORE MACHINES WITH EXAMPLES</li>
+                                <li>NESO ACADEMY: CONVERSION BETWEEN MEALY AND MOORE MACHINES</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS DE PRÁCTICA</h4>
+                            <ul>
+                                <li><span class="level-badge basico">BÁSICO</span> IMPLEMENTACIÓN EN JFLAP DE UN DETECTOR DE SECUENCIA "1011" MEDIANTE MODELO DE MOORE.</li>
+                                <li><span class="level-badge intermedio">INTERMEDIO</span> WAKERLY - CAP. 10.2, EJERCICIOS 10.5-10.15 (ANÁLISIS DE TABLAS DE EXCITACIÓN Y SALIDAS).</li>
+                                <li><span class="level-badge avanzado">AVANZADO</span> LINZ & RODGER - APÉNDICE A, EJERCICIOS DE TRANSFORMACIÓN ESTRUCTURAL DE MÁQUINAS DE MEALY A MOORE Y VICEVERSA.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUBTEMA 4.3 -->
+                <div class="subtopic-accordion" id="u4-s3">
+                    <div class="subtopic-header" onclick="toggleAccordion('u4-s3')">
+                        <input type="checkbox" class="subtopic-checkbox" onchange="updateProgress('unit-4')">
+                        <span class="subtopic-title">4.3 CLASIFICACIÓN DE LAS MÁQUINAS DE ESTADOS</span>
+                        <span class="toggle-icon">[ + ]</span>
+                    </div>
+                    <div class="subtopic-content">
+                        <div class="content-block">
+                            <h4>OBJETIVO DE APRENDIZAJE</h4>
+                            <p>FORMALIZAR LA QUÍNTUPLA M = (Q, Σ, Δ, Q0, F) PARA AUTÓMATAS FINITOS DETERMINISTAS (DFA) Y NO DETERMINISTAS (NFA), CONTRASTANDO SUS FUNCIONES DE TRANSICIÓN.</p>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS BIBLIOGRÁFICAS</h4>
+                            <ul>
+                                <li>PETER LINZ Y SUSAN H. RODGER - CAP. 2.1-2.2, PP. 56-68</li>
+                                <li>JOHN E. HOPCROFT ET AL. - CAP. 2.2-2.3, PP. 53-70</li>
+                                <li>KENNETH H. ROSEN - CAP. 13.3, PP. 900-905</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS EN VIDEO</h4>
+                            <ul>
+                                <li>NESO ACADEMY: DETERMINISTIC FINITE AUTOMATA (DFA)</li>
+                                <li>NESO ACADEMY: NON-DETERMINISTIC FINITE AUTOMATA (NFA)</li>
+                                <li>EASY THEORY: DFA VS NFA CONCEPTUALLY</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS DE PRÁCTICA</h4>
+                            <ul>
+                                <li><span class="level-badge basico">BÁSICO</span> DEFINICIÓN DE LA QUÍNTUPLA FORMAL PARA UN DFA QUE ACEPTE CADENAS CON CANTIDAD PAR DE UNOS.</li>
+                                <li><span class="level-badge intermedio">INTERMEDIO</span> LINZ & RODGER - CAP. 2.1 Y 2.2, PP. 68-71, EJERCICIOS 1-18.</li>
+                                <li><span class="level-badge avanzado">AVANZADO</span> HOPCROFT ET AL. - CAP. 2.3, PROBLEMAS 2.3.1 A 2.3.8 (DEMOSTRACIÓN INDUCTIVA DE LA EQUIVALENCIA).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUBTEMA 4.4 -->
+                <div class="subtopic-accordion" id="u4-s4">
+                    <div class="subtopic-header" onclick="toggleAccordion('u4-s4')">
+                        <input type="checkbox" class="subtopic-checkbox" onchange="updateProgress('unit-4')">
+                        <span class="subtopic-title">4.4 DIAGRAMAS DE ESTADOS Y TABLAS DE TRANSICIÓN</span>
+                        <span class="toggle-icon">[ + ]</span>
+                    </div>
+                    <div class="subtopic-content">
+                        <div class="content-block">
+                            <h4>OBJETIVO DE APRENDIZAJE</h4>
+                            <p>REPRESENTAR AUTÓMATAS MEDIANTE GRAFOS DE TRANSICIÓN DE ESTADOS Y MATRICES DE TRANSICIÓN, CALCULANDO EL PROCESAMIENTO DE CADENAS MEDIANTE LA FUNCIÓN DE TRANSICIÓN EXTENDIDA Δ*.</p>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS BIBLIOGRÁFICAS</h4>
+                            <ul>
+                                <li>PETER LINZ Y SUSAN H. RODGER - CAP. 2.1, PP. 69-78</li>
+                                <li>JOHN E. HOPCROFT ET AL. - CAP. 2.2, PP. 71-78</li>
+                                <li>KENNETH H. ROSEN - CAP. 13.3, PP. 906-910</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS EN VIDEO</h4>
+                            <ul>
+                                <li>NESO ACADEMY: STATE TRANSITION DIAGRAM AND TABLE</li>
+                                <li>JFLAP TUTORIALS: BUILDING AND SIMULATING DFAS INTERACTIVELY</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS DE PRÁCTICA</h4>
+                            <ul>
+                                <li><span class="level-badge basico">BÁSICO</span> SIMULACIÓN GRÁFICA DEL RECORRIDO DE CADENAS SOBRE EL DIAGRAMA DE TRANSICIÓN EN JFLAP.</li>
+                                <li><span class="level-badge intermedio">INTERMEDIO</span> LINZ & RODGER - CAP. 2.1, EJERCICIOS DE TRADUCCIÓN BIDIRECCIONAL TABLA-DIAGRAMA.</li>
+                                <li><span class="level-badge avanzado">AVANZADO</span> HOPCROFT ET AL. - CAP. 2.2, DEMOSTRACIÓN FORMAL DE LA PROPIEDAD ASOCIATIVA DE LA FUNCIÓN EXTENDIDA.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUBTEMA 4.5 -->
+                <div class="subtopic-accordion" id="u4-s5">
+                    <div class="subtopic-header" onclick="toggleAccordion('u4-s5')">
+                        <input type="checkbox" class="subtopic-checkbox" onchange="updateProgress('unit-4')">
+                        <span class="subtopic-title">4.5 CIRCUITOS SECUENCIALES Y MÁQUINAS DE ESTADO FINITO</span>
+                        <span class="toggle-icon">[ + ]</span>
+                    </div>
+                    <div class="subtopic-content">
+                        <div class="content-block">
+                            <h4>OBJETIVO DE APRENDIZAJE</h4>
+                            <p>MAPEAR LA ESPECIFICACIÓN FORMAL DE UN AUTÓMATA FINITO A HARDWARE DIGITAL SECUENCIAL UTILIZANDO REGISTROS, FLIP-FLOPS (D Y JK) Y LÓGICA COMBINACIONAL PARA LA FUNCIÓN DE PRÓXIMO ESTADO.</p>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS BIBLIOGRÁFICAS</h4>
+                            <ul>
+                                <li>JOHN F. WAKERLY - CAP. 7.1 Y 10.4, PP. 320-350, 470-500</li>
+                                <li>M. MORRIS MANO - DIGITAL DESIGN (6ª ED.), CAP. 5.1-5.6, PP. 180-230</li>
+                                <li>KENNETH H. ROSEN - CAP. 13.4, PP. 910-915</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS EN VIDEO</h4>
+                            <ul>
+                                <li>NESO ACADEMY: SEQUENTIAL CIRCUITS AND STATE MACHINE SYNTHESIS</li>
+                                <li>NESO ACADEMY: FLIP-FLOP EXCITATION TABLES AND FSM IMPLEMENTATION</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS DE PRÁCTICA</h4>
+                            <ul>
+                                <li><span class="level-badge basico">BÁSICO</span> CONSTRUCCIÓN DE LA TABLA DE EXCITACIÓN PARA UN CONTADOR SECUENCIAL DE 2 BITS CON FLIP-FLOPS D.</li>
+                                <li><span class="level-badge intermedio">INTERMEDIO</span> WAKERLY - CAP. 10.4, EJERCICIOS 10.20-10.35 (SÍNTESIS DE UNA FSM A PARTIR DE ECUACIONES).</li>
+                                <li><span class="level-badge avanzado">AVANZADO</span> MANO - CAP. 5, PROBLEMAS DE OPTIMIZACIÓN DE ASIGNACIÓN DE ESTADOS (STATE ASSIGNMENT).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUBTEMA 4.6 -->
+                <div class="subtopic-accordion" id="u4-s6">
+                    <div class="subtopic-header" onclick="toggleAccordion('u4-s6')">
+                        <input type="checkbox" class="subtopic-checkbox" onchange="updateProgress('unit-4')">
+                        <span class="subtopic-title">4.6 EL PROCESO DE MINIMIZACIÓN</span>
+                        <span class="toggle-icon">[ + ]</span>
+                    </div>
+                    <div class="subtopic-content">
+                        <div class="content-block">
+                            <h4>OBJETIVO DE APRENDIZAJE</h4>
+                            <p>REDUCIR UN DFA A SU ESTADO MÍNIMO EQUIVALENTE APLICANDO EL ALGORITMO DE PARTICIÓN DE ESTADOS INDISTINGUIBLES FUNDAMENTADO EN EL TEOREMA DE MYHILL-NERODE.</p>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS BIBLIOGRÁFICAS</h4>
+                            <ul>
+                                <li>PETER LINZ Y SUSAN H. RODGER - CAP. 2.4, PP. 81-95</li>
+                                <li>JOHN E. HOPCROFT ET AL. - CAP. 4.4, PP. 154-165</li>
+                                <li>KENNETH H. ROSEN - CAP. 13.4, PP. 915-920</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS EN VIDEO</h4>
+                            <ul>
+                                <li>NESO ACADEMY: DFA MINIMIZATION USING EQUIVALENCE PARTITIONING METHOD</li>
+                                <li>EASY THEORY: DFA MINIMIZATION STEP-BY-STEP WITH EXAMPLE</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS DE PRÁCTICA</h4>
+                            <ul>
+                                <li><span class="level-badge basico">BÁSICO</span> DETECCIÓN Y ELIMINACIÓN DIRECTA DE ESTADOS INACCESIBLES EN UN AUTÓMATA EXPLÍCITO.</li>
+                                <li><span class="level-badge intermedio">INTERMEDIO</span> LINZ & RODGER - CAP. 2.4, PP. 95-97, EJERCICIOS 1-15 (ALGORITMO DE PARTICIÓN POR CLASES DE EQUIVALENCIA).</li>
+                                <li><span class="level-badge avanzado">AVANZADO</span> HOPCROFT ET AL. - CAP. 4.4, DEMOSTRACIÓN DE LA UNICIDAD DEL AUTÓMATA MÍNIMO SALVO ISOMORFISMO.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUBTEMA 4.7 -->
+                <div class="subtopic-accordion" id="u4-s7">
+                    <div class="subtopic-header" onclick="toggleAccordion('u4-s7')">
+                        <input type="checkbox" class="subtopic-checkbox" onchange="updateProgress('unit-4')">
+                        <span class="subtopic-title">4.7 CONVERSIÓN ENTRE AUTÓMATAS DETERMINISTAS Y NO DETERMINISTAS</span>
+                        <span class="toggle-icon">[ + ]</span>
+                    </div>
+                    <div class="subtopic-content">
+                        <div class="content-block">
+                            <h4>OBJETIVO DE APRENDIZAJE</h4>
+                            <p>APLICAR CON RIGOR EL ALGORITMO DE CONSTRUCCIÓN DE SUBCONJUNTOS (POWERSET CONSTRUCTION) PARA TRANSFORMAR NFAS Y Ε-NFAS EN DFAS EQUIVALENTES QUE RECONOZCAN EXACTAMENTE EL MISMO LENGUAJE L.</p>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS BIBLIOGRÁFICAS</h4>
+                            <ul>
+                                <li>PETER LINZ Y SUSAN H. RODGER - CAP. 2.2-2.3, PP. 96-110</li>
+                                <li>JOHN E. HOPCROFT ET AL. - CAP. 2.3 Y 2.5, PP. 79-90</li>
+                                <li>KENNETH H. ROSEN - CAP. 13.4, PP. 920-925</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS EN VIDEO</h4>
+                            <ul>
+                                <li>NESO ACADEMY: CONVERSION OF NFA TO DFA WITH EXAMPLE</li>
+                                <li>EASY THEORY: NFA TO DFA POWERSET CONSTRUCTION</li>
+                                <li>JFLAP: NFA TO DFA AUTOMATIC CONVERSION ENGINE</li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <h4>REFERENCIAS DE PRÁCTICA</h4>
+                            <ul>
+                                <li><span class="level-badge basico">BÁSICO</span> CÁLCULO FORMAL DE LA Ε-CLAUSURA PARA CONJUNTOS DE ESTADOS EN AUTÓMATAS CON TRANSICIONES NULAS.</li>
+                                <li><span class="level-badge intermedio">INTERMEDIO</span> CONVERSIÓN MANUAL PASO A PASO DE UN NFA DE 5 ESTADOS Y VERIFICACIÓN EN JFLAP.</li>
+                                <li><span class="level-badge avanzado">AVANZADO</span> LINZ & RODGER - CAP. 2.3, EJERCICIOS 10-22 (DEMOSTRACIÓN DE LA COTA SUPERIOR DEL PEOR CASO).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <footer>
+        <p>DESARROLLO FULL-STACK | ARQUITECTURA UI/UX</p>
+        <p>∑(PROGRESO ACADÉMICO) = 100%</p>
+    </footer>
+
+    <script>
+        // FUNCIONALIDAD DE ACORDEÓN
+        function toggleAccordion(id) {
+            const element = document.getElementById(id);
+            element.classList.toggle('open');
+        }
+
+        // LÓGICA DE PROGRESO
+        function updateProgress(unitId) {
+            // Progreso de la Unidad
+            const unit = document.getElementById(unitId);
+            const checkboxes = unit.querySelectorAll('.subtopic-checkbox');
+            const checkedCount = Array.from(checkboxes).filter(cb => cb.checked).length;
+            const progress = (checkedCount / checkboxes.length) * 100;
+            
+            document.getElementById(`${unitId}-progress`).style.width = `${progress}%`;
+
+            // Progreso Global
+            const allCheckboxes = document.querySelectorAll('.subtopic-checkbox');
+            const totalChecked = Array.from(allCheckboxes).filter(cb => cb.checked).length;
+            const globalProgress = (totalChecked / allCheckboxes.length) * 100;
+            
+            document.getElementById('global-progress-fill').style.width = `${globalProgress}%`;
+            document.getElementById('global-progress-text').innerText = `${Math.round(globalProgress)}% COMPLETADO`;
+        }
+
+        // FONDO ANIMADO BINARIO (CANVAS)
+        const canvas = document.getElementById('binary-bg');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        const binaryChars = ['0', '1'];
+        const fontSize = 12;
+        let columns = Math.floor(canvas.width / fontSize);
+        let drops = Array(columns).fill(1);
+
+        // Ajustar columnas en resize
+        window.addEventListener('resize', () => {
+            columns = Math.floor(canvas.width / fontSize);
+            drops = Array(columns).fill(1);
+        });
+
+        function drawBinary() {
+            // Fondo semi-transparente para efecto de desvanecimiento
+            ctx.fillStyle = 'rgba(17, 17, 17, 0.08)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#2a2a2a'; // Gris muy oscuro y sutil
+            ctx.font = `${fontSize}px 'Space Mono', monospace`;
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = binaryChars[Math.floor(Math.random() * binaryChars.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.98) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        setInterval(drawBinary, 60);
+
+    </script>
+</body>
+</html>
