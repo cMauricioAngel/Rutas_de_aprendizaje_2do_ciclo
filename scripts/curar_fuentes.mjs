@@ -485,6 +485,22 @@ async function main() {
   const args = process.argv.slice(2);
   const mapaFilter = args.find(a => a.startsWith("--mapa="))?.split("=")[1];
   const doVerify = args.includes("--verificar") || args.includes("-v");
+  const csvPath = args.find(a => a.startsWith("--csv="))?.split("=")[1];
+  
+  // === MODO --csv=: leer CSV curado y aplicar directamente ===
+  if (csvPath) {
+    const fullPath = path.resolve(csvPath);
+    if (!fs.existsSync(fullPath)) { console.error(`❌ No se encontró: ${fullPath}`); process.exit(1); }
+    console.log("📝 Aplicando CSV curado a los mapas...\n");
+    const refs = parseCSV(fs.readFileSync(fullPath, "utf8").replace(/^\uFEFF/, ""));
+    const verificados = refs.filter(r => r.estado === "verificado" && (r.url_final || "").trim());
+    console.log(`📊 ${verificados.length} URLs verificadas de ${refs.length} filas\n`);
+    for (const mapaInfo of MAPAS) {
+      aplicarAlHTML(mapaInfo.file, mapaInfo.var, refs);
+    }
+    console.log("\n✅ ¡Aplicación completada!\n");
+    return;
+  }
   
   console.log("🚀 Pipeline de Curación de Fuentes para Rutas de Aprendizaje\n");
   console.log("=" .repeat(60) + "\n");
