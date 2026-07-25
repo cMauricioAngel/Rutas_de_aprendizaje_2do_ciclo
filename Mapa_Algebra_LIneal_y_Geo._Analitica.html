@@ -1,0 +1,1353 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Álgebra Lineal y Geometría Analítica — Ruta Topológica</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter@5.0.0/index.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource-variable/inter@5.0.0/index.css">
+<style>
+  :root {
+    --midnight: #0D1B2A;
+    --white: #FFFFFF;
+    --cobalt: #0047AB;
+    --steel: #415A77;
+    --steel-soft: #5a7290;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body {
+    background: var(--midnight);
+    color: var(--white);
+    font-family: 'Helvetica Now Display', 'Inter', Helvetica, Arial, sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  h1, h2, h3, h4 {
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    line-height: 0.9;
+    text-transform: uppercase;
+  }
+  a {
+    color: var(--white);
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
+  }
+  a:hover { color: var(--cobalt); text-decoration-color: var(--cobalt); }
+  button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+
+  /* Fondo animado topológico brutalista */
+  #topo-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.35;
+  }
+
+  /* SVG Poliedros decorativos */
+  .polyhedron-svg {
+    position: fixed;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.15;
+  }
+  .polyhedron-svg line { stroke: var(--cobalt); stroke-width: 1.5; }
+  .polyhedron-svg circle { fill: var(--white); }
+
+  /* Layout asimétrico brutalista */
+  .shell {
+    position: relative;
+    z-index: 2;
+    min-height: 100vh;
+    padding: 80px 12vw 160px;
+  }
+
+  /* HEADER - espacio negativo radical */
+  .hero {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 120px;
+    align-items: start;
+    margin-bottom: 180px;
+    position: relative;
+  }
+  .hero-title {
+    font-size: clamp(4rem, 10vw, 10rem);
+    font-weight: 900;
+    line-height: 0.8;
+    letter-spacing: -0.06em;
+    text-transform: uppercase;
+  }
+  .hero-title span {
+    display: block;
+    color: var(--cobalt);
+    font-style: normal;
+    font-weight: 300;
+    text-transform: none;
+    font-size: 0.28em;
+    letter-spacing: 0.05em;
+    line-height: 1.6;
+    margin-top: 2em;
+    max-width: 600px;
+  }
+  .hero-meta {
+    border-left: 3px solid var(--cobalt);
+    padding: 24px 0 24px 40px;
+    font-size: 1rem;
+    font-weight: 300;
+    max-width: 380px;
+    margin-top: 60px;
+  }
+  .hero-meta strong {
+    display: block;
+    font-weight: 900;
+    font-size: 1.3rem;
+    margin-bottom: 12px;
+    letter-spacing: 0.05em;
+  }
+  .hero-meta div { margin-bottom: 20px; }
+  .hero-meta .label {
+    color: var(--steel-soft);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  /* PROGRESO GLOBAL - brutalista */
+  .global-progress {
+    position: fixed;
+    top: 60px;
+    right: 6vw;
+    z-index: 10;
+    text-align: right;
+    background: rgba(13,27,42,0.95);
+    backdrop-filter: blur(12px);
+    padding: 28px 32px;
+    border: 2px solid var(--cobalt);
+  }
+  .global-progress .num {
+    font-size: 4.5rem;
+    font-weight: 900;
+    line-height: 1;
+    color: var(--white);
+    letter-spacing: -0.05em;
+  }
+  .global-progress .num::after {
+    content: "%";
+    color: var(--cobalt);
+    font-size: 1.8rem;
+    vertical-align: super;
+  }
+  .global-progress .tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--steel-soft);
+    margin-top: 6px;
+  }
+  .gp-bar {
+    margin-top: 16px;
+    width: 200px;
+    height: 3px;
+    background: var(--steel);
+    position: relative;
+    overflow: hidden;
+  }
+  .gp-bar-fill {
+    position: absolute;
+    inset: 0;
+    background: var(--cobalt);
+    width: 0%;
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* GRAFO SVG - lateral izquierdo brutalista */
+  .graph-side {
+    position: fixed;
+    left: 3vw;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 5;
+    pointer-events: auto;
+  }
+  .graph-side svg { display: block; }
+  .graph-node {
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .graph-node circle {
+    fill: var(--midnight);
+    stroke: var(--white);
+    stroke-width: 2;
+    transition: all 0.3s ease;
+  }
+  .graph-node:hover circle { fill: var(--cobalt); stroke: var(--cobalt); }
+  .graph-node.active circle { fill: var(--cobalt); stroke: var(--cobalt); }
+  .graph-node text {
+    fill: var(--white);
+    font-size: 11px;
+    font-weight: 900;
+    text-anchor: middle;
+    pointer-events: none;
+    letter-spacing: 0.05em;
+  }
+  .graph-edge { stroke: var(--steel); stroke-width: 1.5; }
+  .graph-edge.active { stroke: var(--cobalt); stroke-width: 2.5; }
+
+  /* TIMELINE brutalista */
+  .timeline-section {
+    margin: 100px 0 160px;
+    position: relative;
+  }
+  .timeline-title {
+    font-size: 0.75rem;
+    letter-spacing: 0.35em;
+    color: var(--cobalt);
+    margin-bottom: 50px;
+    text-transform: uppercase;
+    font-weight: 900;
+  }
+  .timeline {
+    display: grid;
+    grid-template-columns: repeat(16, 1fr);
+    gap: 3px;
+    height: 160px;
+    position: relative;
+    border-top: 2px solid var(--cobalt);
+    border-bottom: 2px solid var(--cobalt);
+    padding: 24px 0;
+  }
+  .t-week {
+    border-right: 1px solid rgba(65,90,119,0.4);
+    position: relative;
+    padding-top: 12px;
+  }
+  .t-week::before {
+    content: attr(data-w);
+    position: absolute;
+    top: -32px;
+    left: 0;
+    font-size: 0.65rem;
+    color: var(--steel-soft);
+    font-weight: 900;
+    letter-spacing: 0.1em;
+  }
+  .t-block {
+    position: absolute;
+    bottom: 12px;
+    left: 3px;
+    right: 3px;
+    height: 56px;
+    background: var(--cobalt);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.65rem;
+    font-weight: 900;
+    letter-spacing: 0.15em;
+    clip-path: polygon(0 0, 100% 10%, 100% 100%, 0 90%);
+  }
+
+  /* UNIDADES - brutalismo topológico */
+  .units-wrap {
+    max-width: 1200px;
+    margin-left: 8vw;
+  }
+  .unit {
+    border-top: 2px solid var(--cobalt);
+    padding: 60px 0 40px;
+    margin-bottom: 40px;
+    position: relative;
+  }
+  .unit::before {
+    content: attr(data-num);
+    position: absolute;
+    left: -8vw;
+    top: 60px;
+    font-size: 0.65rem;
+    color: var(--cobalt);
+    letter-spacing: 0.35em;
+    font-weight: 900;
+  }
+  .unit-head {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 60px;
+    align-items: end;
+    cursor: pointer;
+    padding-bottom: 40px;
+  }
+  .unit-name {
+    font-size: clamp(2.2rem, 5vw, 4rem);
+    font-weight: 900;
+    line-height: 0.95;
+    max-width: 900px;
+    letter-spacing: -0.04em;
+  }
+  .unit-meta {
+    text-align: right;
+    font-size: 0.9rem;
+  }
+  .unit-meta .hours {
+    font-weight: 900;
+    font-size: 2rem;
+    color: var(--cobalt);
+    letter-spacing: -0.02em;
+  }
+  .unit-meta .hours::after {
+    content: "H";
+    font-size: 0.85rem;
+    margin-left: 4px;
+  }
+  .unit-meta .weeks {
+    color: var(--steel-soft);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-top: 6px;
+  }
+  .unit-progress {
+    margin-top: 28px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .up-bar {
+    flex: 1;
+    height: 3px;
+    background: var(--steel);
+    position: relative;
+    max-width: 450px;
+  }
+  .up-bar-fill {
+    position: absolute;
+    inset: 0;
+    background: var(--cobalt);
+    width: 0%;
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .up-pct {
+    font-weight: 900;
+    font-size: 1.1rem;
+    min-width: 55px;
+    letter-spacing: -0.02em;
+  }
+  .unit-toggle {
+    font-size: 2.2rem;
+    color: var(--cobalt);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-left: 12px;
+    font-weight: 900;
+  }
+  .unit.open .unit-toggle { transform: rotate(45deg); }
+
+  .unit-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .unit.open .unit-body { max-height: 25000px; }
+  .unit-desc {
+    font-size: 1.1rem;
+    color: var(--steel-soft);
+    max-width: 750px;
+    margin-bottom: 40px;
+    padding-left: 24px;
+    border-left: 3px solid var(--cobalt);
+    line-height: 1.7;
+  }
+
+  /* SUBTEMAS - brutalista */
+  .subtopic {
+    border-left: 2px solid var(--steel);
+    margin-left: 24px;
+    padding: 32px 0 32px 36px;
+    position: relative;
+  }
+  .subtopic::before {
+    content: "";
+    position: absolute;
+    left: -7px;
+    top: 40px;
+    width: 12px;
+    height: 12px;
+    background: var(--midnight);
+    border: 2px solid var(--steel);
+    transform: rotate(45deg);
+  }
+  .subtopic.done::before { background: var(--cobalt); border-color: var(--cobalt); }
+  .sub-head {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 20px;
+    align-items: center;
+    cursor: pointer;
+    margin-bottom: 20px;
+  }
+  .sub-checkbox {
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    flex-shrink: 0;
+  }
+  .sub-checkbox.checked {
+    background: var(--cobalt);
+    border-color: var(--cobalt);
+  }
+  .sub-checkbox.checked::after {
+    content: "";
+    width: 11px;
+    height: 6px;
+    border-left: 2px solid var(--white);
+    border-bottom: 2px solid var(--white);
+    transform: rotate(-45deg) translate(2px, -2px);
+  }
+  .sub-title {
+    font-size: 1.5rem;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+  }
+  .sub-toggle-icon {
+    color: var(--cobalt);
+    font-size: 1.4rem;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .sub-objective {
+    font-size: 1rem;
+    color: var(--white);
+    font-style: italic;
+    margin-bottom: 24px;
+    padding-left: 44px;
+    max-width: 850px;
+    line-height: 1.7;
+  }
+  .sub-content {
+    display: none;
+    padding-left: 44px;
+  }
+  .subtopic.open .sub-content { display: block; }
+  .subtopic.open .sub-toggle-icon { transform: rotate(180deg); }
+
+  .res-section {
+    margin-bottom: 40px;
+  }
+  .res-section-title {
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    color: var(--cobalt);
+    font-weight: 900;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .res-section-title::after {
+    content: "";
+    flex: 1;
+    height: 2px;
+    background: var(--steel);
+    max-width: 220px;
+  }
+  .res-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .res-list li {
+    font-size: 0.95rem;
+    padding: 14px 0 14px 22px;
+    border-left: 3px solid var(--steel);
+    transition: border-color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    line-height: 1.6;
+  }
+  .res-list li:hover { border-left-color: var(--cobalt); }
+  .res-list .channel {
+    color: var(--steel-soft);
+    font-size: 0.85rem;
+    display: block;
+    margin-top: 4px;
+  }
+  .res-list .level {
+    display: inline-block;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--midnight);
+    background: var(--cobalt);
+    padding: 3px 10px;
+    margin-left: 12px;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  /* CLIP-PATH DECORATIVO BRUTALISTA */
+  .clip-decor {
+    position: absolute;
+    width: 350px;
+    height: 350px;
+    background: var(--cobalt);
+    clip-path: polygon(15% 0%, 100% 12%, 88% 100%, 0% 65%);
+    opacity: 0.1;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .clip-decor.d2 {
+    clip-path: polygon(45% 0%, 100% 35%, 85% 100%, 15% 100%, 0% 35%);
+  }
+  .clip-decor.d3 {
+    clip-path: polygon(20% 0%, 80% 0%, 100% 45%, 80% 100%, 20% 100%, 0% 45%);
+  }
+
+  /* FOOTER brutalista */
+  footer {
+    margin-top: 160px;
+    padding: 60px 0;
+    border-top: 2px solid var(--cobalt);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    font-size: 0.85rem;
+    color: var(--steel-soft);
+  }
+  footer h4 {
+    color: var(--white);
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    margin-bottom: 16px;
+  }
+
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; gap: 60px; }
+    .graph-side { display: none; }
+    .global-progress { position: relative; top: auto; right: auto; margin-bottom: 60px; }
+    .units-wrap { margin-left: 0; }
+    .unit::before { display: none; }
+    .timeline { grid-template-columns: repeat(8, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="topo-bg"></canvas>
+
+<!-- Poliedros SVG decorativos -->
+<svg class="polyhedron-svg" style="top: 15%; right: 8%; width: 280px; height: 280px;" viewBox="0 0 280 280">
+  <line x1="140" y1="40" x2="220" y2="100"/>
+  <line x1="220" y1="100" x2="200" y2="200"/>
+  <line x1="200" y1="200" x2="100" y2="220"/>
+  <line x1="100" y1="220" x2="60" y2="140"/>
+  <line x1="60" y1="140" x2="140" y2="40"/>
+  <line x1="140" y1="40" x2="200" y2="200"/>
+  <line x1="220" y1="100" x2="100" y2="220"/>
+  <line x1="60" y1="140" x2="200" y2="200"/>
+  <circle cx="140" cy="40" r="4"/>
+  <circle cx="220" cy="100" r="4"/>
+  <circle cx="200" cy="200" r="4"/>
+  <circle cx="100" cy="220" r="4"/>
+  <circle cx="60" cy="140" r="4"/>
+</svg>
+
+<svg class="polyhedron-svg" style="bottom: 20%; left: 6%; width: 320px; height: 320px;" viewBox="0 0 320 320">
+  <line x1="160" y1="30" x2="260" y2="90"/>
+  <line x1="260" y1="90" x2="280" y2="200"/>
+  <line x1="280" y1="200" x2="180" y2="280"/>
+  <line x1="180" y1="280" x2="80" y2="240"/>
+  <line x1="80" y1="240" x2="40" y2="130"/>
+  <line x1="40" y1="130" x2="160" y2="30"/>
+  <line x1="160" y1="30" x2="280" y2="200"/>
+  <line x1="260" y1="90" x2="180" y2="280"/>
+  <line x1="80" y1="240" x2="260" y2="90"/>
+  <line x1="40" y1="130" x2="180" y2="280"/>
+  <circle cx="160" cy="30" r="5"/>
+  <circle cx="260" cy="90" r="5"/>
+  <circle cx="280" cy="200" r="5"/>
+  <circle cx="180" cy="280" r="5"/>
+  <circle cx="80" cy="240" r="5"/>
+  <circle cx="40" cy="130" r="5"/>
+</svg>
+
+<svg class="polyhedron-svg" style="top: 55%; right: 12%; width: 240px; height: 240px;" viewBox="0 0 240 240">
+  <line x1="120" y1="20" x2="200" y2="80"/>
+  <line x1="200" y1="80" x2="180" y2="180"/>
+  <line x1="180" y1="180" x2="80" y2="200"/>
+  <line x1="80" y1="200" x2="40" y2="120"/>
+  <line x1="40" y1="120" x2="120" y2="20"/>
+  <line x1="120" y1="20" x2="180" y2="180"/>
+  <line x1="200" y1="80" x2="80" y2="200"/>
+  <line x1="40" y1="120" x2="180" y2="180"/>
+  <circle cx="120" cy="20" r="3.5"/>
+  <circle cx="200" cy="80" r="3.5"/>
+  <circle cx="180" cy="180" r="3.5"/>
+  <circle cx="80" cy="200" r="3.5"/>
+  <circle cx="40" cy="120" r="3.5"/>
+</svg>
+
+<!-- Grafo lateral SVG -->
+<div class="graph-side" aria-label="Grafo de unidades">
+  <svg width="110" height="420" viewBox="0 0 110 420">
+    <line class="graph-edge" id="e1" x1="55" y1="70" x2="55" y2="160"/>
+    <line class="graph-edge" id="e2" x1="55" y1="160" x2="55" y2="250"/>
+    <line class="graph-edge" id="e3" x1="55" y1="250" x2="55" y2="340"/>
+    <line class="graph-edge" x1="20" y1="70" x2="55" y2="70"/>
+    <line class="graph-edge" x1="90" y1="160" x2="55" y2="160"/>
+    <line class="graph-edge" x1="20" y1="250" x2="55" y2="250"/>
+    <line class="graph-edge" x1="90" y1="340" x2="55" y2="340"/>
+    <g class="graph-node" data-unit="1" onclick="scrollUnit(1)">
+      <circle cx="55" cy="70" r="20"/>
+      <text x="55" y="75">01</text>
+    </g>
+    <g class="graph-node" data-unit="2" onclick="scrollUnit(2)">
+      <circle cx="55" cy="160" r="20"/>
+      <text x="55" y="165">02</text>
+    </g>
+    <g class="graph-node" data-unit="3" onclick="scrollUnit(3)">
+      <circle cx="55" cy="250" r="20"/>
+      <text x="55" y="255">03</text>
+    </g>
+    <g class="graph-node" data-unit="4" onclick="scrollUnit(4)">
+      <circle cx="55" cy="340" r="20"/>
+      <text x="55" y="345">04</text>
+    </g>
+  </svg>
+</div>
+
+<!-- Progreso global -->
+<div class="global-progress">
+  <div class="num" id="globalNum">0</div>
+  <div class="tag">Progreso del Curso</div>
+  <div class="gp-bar"><div class="gp-bar-fill" id="globalBar"></div></div>
+</div>
+
+<div class="shell">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div>
+      <h1 class="hero-title">
+        Álgebra<br>Lineal<br>y Geometría<br>Analítica
+        <span>Ruta de aprendizaje — 16 semanas · 4 unidades · 112 horas</span>
+      </h1>
+      <div class="hero-meta">
+        <div>
+          <span class="label">Enfoque</span>
+          <strong>Brutalismo topológico</strong>
+          Vectores, rectas, planos, cónicas y coordenadas polares. Una travesía geométrica estructurada como un grafo: cada nodo, un concepto; cada arista, una conexión lógica.
+        </div>
+        <div>
+          <span class="label">Modalidad</span>
+          Libre — todos los subtemas accesibles sin bloqueo.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section class="timeline-section">
+    <div class="timeline-title">Distribución temporal · 16 semanas</div>
+    <div class="timeline">
+      <div class="t-week" data-w="S1"></div>
+      <div class="t-week" data-w="S2"></div>
+      <div class="t-week" data-w="S3"></div>
+      <div class="t-week" data-w="S4"></div>
+      <div class="t-week" data-w="S5"></div>
+      <div class="t-week" data-w="S6"></div>
+      <div class="t-week" data-w="S7"></div>
+      <div class="t-week" data-w="S8"></div>
+      <div class="t-week" data-w="S9"></div>
+      <div class="t-week" data-w="S10"></div>
+      <div class="t-week" data-w="S11"></div>
+      <div class="t-week" data-w="S12"></div>
+      <div class="t-week" data-w="S13"></div>
+      <div class="t-week" data-w="S14"></div>
+      <div class="t-week" data-w="S15"></div>
+      <div class="t-week" data-w="S16"></div>
+
+      <div class="t-block" style="grid-column: 1 / span 4;">U1 · VECTORES</div>
+      <div class="t-block" style="grid-column: 5 / span 4;">U2 · RECTAS Y PLANOS</div>
+      <div class="t-block" style="grid-column: 9 / span 4;">U3 · CÓNICAS</div>
+      <div class="t-block" style="grid-column: 13 / span 4;">U4 · ROTACIÓN Y POLAR</div>
+    </div>
+  </section>
+
+  <!-- UNIDADES -->
+  <div class="units-wrap">
+    <div id="units-container"></div>
+  </div>
+
+  <footer>
+    <div>
+      <h4>Arquitectura pedagógica</h4>
+      Ruta auto-dirigida. Las marcas de avance son opcionales y locales al navegador. Todos los recursos apuntan a fuentes abiertas y gratuitas.
+    </div>
+    <div>
+      <h4>Accesibilidad</h4>
+      Contraste AAA (blanco sobre #0D1B2A). Subrayado grueso en enlaces. Navegación por teclado operativa en acordeones y checkboxes.
+    </div>
+  </footer>
+
+</div>
+
+<!-- Decoraciones clip-path -->
+<div class="clip-decor" style="top: 1400px; right: 10vw;"></div>
+<div class="clip-decor d2" style="top: 2800px; left: 5vw;"></div>
+<div class="clip-decor d3" style="top: 4200px; right: 8vw;"></div>
+
+<script>
+/* ======= DATOS ======= */
+const DATA = [
+  {
+    num: 1,
+    title: "Vectores en el plano y en el espacio",
+    hours: 28,
+    weeks: "Semanas 1 – 4",
+    desc: "Fundamentos del espacio ℝ² y ℝ³, vectores, operaciones básicas, magnitud, dirección, ángulos y descomposición vectorial.",
+    subtopics: [
+      {
+        id: "1-1",
+        title: "1.1 Espacio bidimensional ℝ² y tridimensional ℝ³",
+        objective: "Identificar las estructuras algebraicas y geométricas de los espacios ℝ² y ℝ³.",
+        videos: [
+          { t: "El Plano Cartesiano y Espacios R2 R3", c: "MateFacil" },
+          { t: "Geometría Analítica: Espacio R3", c: "Javier Santos" },
+          { t: "Vectores en el plano y en el espacio (Clase Completa)", c: "Unicoos" },
+          { t: "Espacios Vectoriales — Introducción detallada", c: "Eduardo Espinoza" },
+          { t: "Sistemas de Coordenadas en R2 y R3", c: "Mathias Kolczyn" }
+        ],
+        lecturas: [
+          "Larson, R. — Fundamentos de Álgebra Lineal, Cap. 1, pp. 12-28",
+          "Grossman, S. — Álgebra Lineal, Cap. 3, pp. 110-125",
+          "OpenStax — Álgebra y Trigonometría, Cap. 8, pp. 560-575",
+          "Hefferon, J. — Álgebra Lineal, Cap. 1, pp. 20-35"
+        ],
+        practica: [
+          { t: "OpenStax — Álgebra y Trigonometría, Ejercicios Cap. 8, pp. 580-582", n: "Básico" },
+          { t: "Taller práctico de Geometría Analítica — Espacios R² y R³", n: "Básico" },
+          { t: "Problemas resueltos de ℝ² y ℝ³ (videos MateFacil)", n: "Intermedio" },
+          { t: "Hefferon, J. — Álgebra Lineal, Ejercicios Sección 1.1, pp. 35-38", n: "Avanzado" },
+          { t: "Ejercicios propuestos — Grossman, Cap. 3, pp. 145-148", n: "Intermedio" }
+        ]
+      },
+      {
+        id: "1-2",
+        title: "1.2 Vectores en ℝ² y en ℝ³",
+        objective: "Definir vectores y calcular sus operaciones básicas en el plano y el espacio.",
+        videos: [
+          { t: "Vectores en R3 — Toda la teoría", c: "MateFacil" },
+          { t: "Álgebra de Vectores (Clase Universitaria)", c: "Eduardo Espinoza" },
+          { t: "Vectores: Concepto y Operaciones", c: "Unicoos" },
+          { t: "Introducción a los Vectores en el Espacio", c: "Tareasplus" },
+          { t: "Suma, Resta y Producto por Escalar de Vectores", c: "Profe Alex" }
+        ],
+        lecturas: [
+          "Larson, R. — Fundamentos de Álgebra Lineal, Cap. 1, pp. 30-45",
+          "Anton, H. — Elementary Linear Algebra, Cap. 1, pp. 15-30",
+          "Lehmann, C. — Geometría Analítica, Cap. 5, pp. 180-195",
+          "Beezer, R. — A First Course in Linear Algebra, Cap. 2, pp. 80-95"
+        ],
+        practica: [
+          { t: "Larson, R. — Ejercicios 1.2, pp. 45-47", n: "Básico" },
+          { t: "Ejercicios resueltos de suma y producto por escalar (MateFacil)", n: "Básico" },
+          { t: "Beezer, R. — Ejercicios Sección 2, pp. 95-98", n: "Intermedio" },
+          { t: "Lehmann, C. — Problemas Cap. 5, pp. 196-198", n: "Intermedio" },
+          { t: "Taller de operaciones vectoriales en R³ (Unicoos)", n: "Intermedio" }
+        ]
+      },
+      {
+        id: "1-3",
+        title: "1.3 Características y propiedades de los vectores",
+        objective: "Calcular la magnitud, dirección y aplicar propiedades de los vectores.",
+        videos: [
+          { t: "Magnitud y dirección de un vector", c: "Profe Alex" },
+          { t: "Propiedades de los Vectores (Clase Completa)", c: "Mathias Kolczyn" },
+          { t: "Norma de un vector en R2 y R3", c: "MateFacil" },
+          { t: "Teoría de Vectores y sus Aplicaciones", c: "Eduardo Espinoza" },
+          { t: "Vector Unitario — Teoría y Ejercicios", c: "Unicoos" }
+        ],
+        lecturas: [
+          "Larson, R. — Fundamentos de Álgebra Lineal, Cap. 1, pp. 48-60",
+          "OpenStax — Álgebra y Trigonometría, Cap. 8, pp. 576-590",
+          "Grossman, S. — Álgebra Lineal, Cap. 3, pp. 126-140",
+          "Beezer, R. — A First Course in Linear Algebra, Cap. 2, pp. 96-110"
+        ],
+        practica: [
+          { t: "OpenStax — Ejercicios de norma y dirección, pp. 590-592", n: "Básico" },
+          { t: "Ejercicios de norma y vector unitario (videos MateFacil)", n: "Intermedio" },
+          { t: "Taller de propiedades vectoriales (Eduardo Espinoza)", n: "Intermedio" },
+          { t: "Grossman, S. — Ejercicios 3.3, pp. 140-142", n: "Avanzado" },
+          { t: "Problemas de vectores unitarios en R³ — Larson, pp. 61-64", n: "Avanzado" }
+        ]
+      },
+      {
+        id: "1-4",
+        title: "1.4 Ángulo entre vectores y descomposición",
+        objective: "Determinar el ángulo entre vectores y descomponer un vector en sus componentes.",
+        videos: [
+          { t: "Producto Punto y Ángulo entre Vectores", c: "MateFacil" },
+          { t: "Descomposición de vectores (Clase Completa)", c: "Unicoos" },
+          { t: "Proyecciones Vectoriales", c: "Eduardo Espinoza" },
+          { t: "Ángulos directores y vectores en R3", c: "Javier Santos" },
+          { t: "Componentes escalares y vectoriales de un vector", c: "Profe Alex" }
+        ],
+        lecturas: [
+          "Larson, R. — Fundamentos de Álgebra Lineal, Cap. 1, pp. 65-78",
+          "Lehmann, C. — Geometría Analítica, Cap. 5, pp. 200-215",
+          "OpenStax — Álgebra y Trigonometría, Cap. 8, pp. 593-610",
+          "Anton, H. — Elementary Linear Algebra, Cap. 1, pp. 35-50"
+        ],
+        practica: [
+          { t: "OpenStax — Práctica de vectores, pp. 610-615", n: "Básico" },
+          { t: "Larson, R. — Ejercicios de producto punto, pp. 78-80", n: "Intermedio" },
+          { t: "Lehmann, C. — Ejercicios de ángulos, pp. 215-218", n: "Intermedio" },
+          { t: "Problemas de proyección y descomposición vectorial (videos MateFacil)", n: "Avanzado" },
+          { t: "Taller de cosenos directores — Javier Santos", n: "Avanzado" }
+        ]
+      }
+    ]
+  },
+  {
+    num: 2,
+    title: "Rectas en el plano cartesiano. Rectas y planos en el espacio",
+    hours: 30,
+    weeks: "Semanas 5 – 8",
+    desc: "Ecuaciones de rectas en ℝ² y ℝ³, planos en el espacio tridimensional, intersecciones geométricas y fórmulas de distancia.",
+    subtopics: [
+      {
+        id: "2-1",
+        title: "2.1 Ecuaciones de la recta en el plano y el espacio",
+        objective: "Deducir y aplicar las distintas ecuaciones de la recta en ℝ² y ℝ³.",
+        videos: [
+          { t: "Ecuaciones de la recta en R2 y R3", c: "MateFacil" },
+          { t: "Rectas en el espacio (Paramétricas y Simétricas)", c: "Javier Santos" },
+          { t: "Geometría Analítica — La Recta (Clase Completa)", c: "Unicoos" },
+          { t: "Ecuaciones de rectas en 3D", c: "Mathias Kolczyn" },
+          { t: "Recta en el plano: todas sus formas", c: "Profe Alex" }
+        ],
+        lecturas: [
+          "Lehmann, C. — Geometría Analítica, Cap. 2, pp. 50-70",
+          "Larson, R. — Precálculo, Cap. 6, pp. 420-440",
+          "OpenStax — Álgebra y Trigonometría, Cap. 8, pp. 620-635",
+          "Anton, H. — Elementary Linear Algebra, Cap. 1, pp. 55-70"
+        ],
+        practica: [
+          { t: "Larson, R. — Problemas sobre rectas, pp. 441-444", n: "Básico" },
+          { t: "Taller de ecuaciones de la recta (videos Unicoos)", n: "Básico" },
+          { t: "Lehmann, C. — Ejercicios Cap. 2, pp. 71-75", n: "Intermedio" },
+          { t: "Ejercicios resueltos de rectas en el espacio (MateFacil)", n: "Intermedio" },
+          { t: "Problemas paramétricos y simétricos — Anton, pp. 70-72", n: "Avanzado" }
+        ]
+      },
+      {
+        id: "2-2",
+        title: "2.2 Ecuaciones de un plano en el espacio",
+        objective: "Formular y analizar las ecuaciones del plano en el espacio tridimensional.",
+        videos: [
+          { t: "Ecuación del plano en R3 (Teoría completa)", c: "MateFacil" },
+          { t: "Planos en el espacio tridimensional", c: "Eduardo Espinoza" },
+          { t: "Geometría en 3D: Planos", c: "Javier Santos" },
+          { t: "Ecuaciones de Planos y sus Aplicaciones", c: "Mathias Kolczyn" },
+          { t: "Plano en el espacio — Vectores normales", c: "Unicoos" }
+        ],
+        lecturas: [
+          "Lehmann, C. — Geometría Analítica, Cap. 6, pp. 220-240",
+          "Larson, R. — Fundamentos de Álgebra Lineal, Cap. 1, pp. 80-95",
+          "Anton, H. — Elementary Linear Algebra, Cap. 1, pp. 72-85",
+          "OpenStax — Cálculo Volumen 3, Cap. 2.5, pp. 110-125"
+        ],
+        practica: [
+          { t: "Larson, R. — Problemas de planos, pp. 95-98", n: "Básico" },
+          { t: "Lehmann, C. — Ejercicios sobre planos, pp. 241-245", n: "Intermedio" },
+          { t: "Ejercicios de planos y trazas (videos Javier Santos)", n: "Intermedio" },
+          { t: "OpenStax — Cálculo Volumen 3, Sección 2.5, pp. 126-130", n: "Avanzado" },
+          { t: "Taller de ecuaciones generales del plano — Eduardo Espinoza", n: "Avanzado" }
+        ]
+      },
+      {
+        id: "2-3",
+        title: "2.3 Intersección entre rectas y planos",
+        objective: "Resolver problemas de intersección entre rectas y planos en ℝ² y ℝ³.",
+        videos: [
+          { t: "Intersección entre rectas y planos en R3", c: "MateFacil" },
+          { t: "Intersección de planos y rectas", c: "Javier Santos" },
+          { t: "Sistemas lineales y Geometría 3D", c: "Eduardo Espinoza" },
+          { t: "Análisis de intersecciones espaciales", c: "Unicoos" },
+          { t: "Recta de intersección de dos planos", c: "Mathias Kolczyn" }
+        ],
+        lecturas: [
+          "Lehmann, C. — Geometría Analítica, Cap. 6, pp. 250-265",
+          "Anton, H. — Elementary Linear Algebra, Cap. 1, pp. 90-105",
+          "OpenStax — Cálculo Volumen 3, Cap. 2.5, pp. 130-145",
+          "Grossman, S. — Álgebra Lineal, Cap. 4, pp. 160-175"
+        ],
+        practica: [
+          { t: "Problemas resueltos: Intersecciones 3D (videos MateFacil)", n: "Intermedio" },
+          { t: "Lehmann, C. — Problemas de intersección, pp. 265-268", n: "Intermedio" },
+          { t: "Anton, H. — Ejercicios de intersección, pp. 105-108", n: "Avanzado" },
+          { t: "Taller de sistemas y planos (Eduardo Espinoza)", n: "Avanzado" },
+          { t: "Grossman — Problemas de geometría lineal, Cap. 4, pp. 176-180", n: "Avanzado" }
+        ]
+      },
+      {
+        id: "2-4",
+        title: "2.4 Distancia de punto a recta y de punto a plano",
+        objective: "Calcular la distancia mínima entre un punto y una recta o un plano.",
+        videos: [
+          { t: "Distancia de punto a recta y plano", c: "MateFacil" },
+          { t: "Fórmulas de distancia en Geometría 3D", c: "Javier Santos" },
+          { t: "Distancias Mínimas (Clase Universitaria)", c: "Eduardo Espinoza" },
+          { t: "Proyecciones y Distancias en el Espacio", c: "Mathias Kolczyn" },
+          { t: "Distancia entre rectas paralelas y cruzadas", c: "Unicoos" }
+        ],
+        lecturas: [
+          "Lehmann, C. — Geometría Analítica, Cap. 6, pp. 270-285",
+          "OpenStax — Cálculo Volumen 3, Cap. 2.5, pp. 146-155",
+          "Larson, R. — Fundamentos de Álgebra Lineal, Cap. 1, pp. 100-115",
+          "Anton, H. — Elementary Linear Algebra, Cap. 1, pp. 110-120"
+        ],
+        practica: [
+          { t: "Lehmann, C. — Ejercicios de aplicación, pp. 285-288", n: "Básico" },
+          { t: "OpenStax — Cálculo Volumen 3, Ejercicios de distancia, pp. 155-158", n: "Intermedio" },
+          { t: "Ejercicios resueltos: Distancia punto-plano (videos MateFacil)", n: "Intermedio" },
+          { t: "Larson, R. — Problemas de optimización de distancia, pp. 115-118", n: "Avanzado" },
+          { t: "Taller de distancias entre objetos 3D — Javier Santos", n: "Avanzado" }
+        ]
+      }
+    ]
+  },
+  {
+    num: 3,
+    title: "Cónicas",
+    hours: 28,
+    weeks: "Semanas 9 – 12",
+    desc: "Estudio analítico de las cuatro curvas cónicas: circunferencia, parábola, elipse e hipérbola, con énfasis en sus ecuaciones y aplicaciones.",
+    subtopics: [
+      {
+        id: "3-1",
+        title: "3.1 La circunferencia",
+        objective: "Identificar y graficar la circunferencia a partir de su ecuación general y canónica.",
+        videos: [
+          { t: "La Circunferencia — Teoría y Ejercicios", c: "MateFacil" },
+          { t: "Geometría Analítica: Circunferencia", c: "Javier Santos" },
+          { t: "Ecuación de la circunferencia (Clase Completa)", c: "Unicoos" },
+          { t: "Análisis de la Circunferencia", c: "Mathias Kolczyn" },
+          { t: "Circunferencia: forma general y canónica", c: "Profe Alex" }
+        ],
+        lecturas: [
+          "Lehmann, C. — Geometría Analítica, Cap. 3, pp. 80-95",
+          "OpenStax — Álgebra y Trigonometría, Cap. 12, pp. 650-665",
+          "Larson, R. — Precálculo, Cap. 6, pp. 450-460",
+          "Grossman, S. — Álgebra Lineal, Apéndice G, pp. 700-710"
+        ],
+        practica: [
+          { t: "Lehmann, C. — Ejercicios sobre circunferencia, pp. 96-100", n: "Básico" },
+          { t: "Taller de circunferencias (videos MateFacil)", n: "Básico" },
+          { t: "OpenStax — Sección 12.1 Ejercicios, pp. 665-668", n: "Intermedio" },
+          { t: "Larson, R. — Problemas de aplicación, pp. 461-464", n: "Avanzado" },
+          { t: "Problemas de circunferencia tangente — Javier Santos", n: "Avanzado" }
+        ]
+      },
+      {
+        id: "3-2",
+        title: "3.2 La parábola",
+        objective: "Analizar las propiedades y elementos de la parábola en sus distintas formas.",
+        videos: [
+          { t: "La Parábola — Ecuaciones y Elementos", c: "MateFacil" },
+          { t: "Geometría Analítica: La Parábola", c: "Javier Santos" },
+          { t: "Parábolas (Clase Completa de Precálculo)", c: "Unicoos" },
+          { t: "Propiedades focales de la Parábola", c: "Mathias Kolczyn" },
+          { t: "Aplicaciones de la parábola", c: "Profe Alex" }
+        ],
+        lecturas: [
+          "Lehmann, C. — Geometría Analítica, Cap. 3, pp. 105-120",
+          "OpenStax — Álgebra y Trigonometría, Cap. 12.3, pp. 670-685",
+          "Larson, R. — Precálculo, Cap. 6, pp. 465-480",
+          "Swokowski, E. — Álgebra y Trigonometría con Geometría Analítica, Cap. 9, pp. 300-315"
+        ],
+        practica: [
+          { t: "OpenStax — Sección 12.3 Ejercicios, pp. 685-690", n: "Básico" },
+          { t: "Lehmann, C. — Ejercicios de parábola, pp. 120-125", n: "Intermedio" },
+          { t: "Problemas resueltos de Parábola (videos MateFacil)", n: "Intermedio" },
+          { t: "Swokowski, E. — Ejercicios Cap. 9, pp. 315-320", n: "Avanzado" },
+          { t: "Taller de parábolas con aplicaciones físicas — Unicoos", n: "Avanzado" }
+        ]
+      },
+      {
+        id: "3-3",
+        title: "3.3 La elipse",
+        objective: "Derivar la ecuación de la elipse y calcular sus elementos característicos.",
+        videos: [
+          { t: "La Elipse — Ecuación canónica y general", c: "MateFacil" },
+          { t: "Análisis Geométrico de la Elipse", c: "Mathias Kolczyn" },
+          { t: "Elipses — Teoría y Práctica", c: "Unicoos" },
+          { t: "Elementos de la Elipse", c: "Javier Santos" },
+          { t: "Elipse: focos, ejes y excentricidad", c: "Profe Alex" }
+        ],
+        lecturas: [
+          "Lehmann, C. — Geometría Analítica, Cap. 3, pp. 130-150",
+          "OpenStax — Álgebra y Trigonometría, Cap. 12.1, pp. 691-705",
+          "Larson, R. — Precálculo, Cap. 6, pp. 485-500",
+          "Swokowski, E. — Álgebra y Trigonometría con Geometría Analítica, Cap. 9, pp. 325-340"
+        ],
+        practica: [
+          { t: "OpenStax — Sección 12.1 Ejercicios, pp. 705-710", n: "Básico" },
+          { t: "Lehmann, C. — Ejercicios sobre elipse, pp. 150-155", n: "Intermedio" },
+          { t: "Ejercicios de aplicación de Elipse (videos MateFacil)", n: "Intermedio" },
+          { t: "Larson, R. — Problemas de elipse, pp. 501-504", n: "Avanzado" },
+          { t: "Problemas orbitales — Javier Santos", n: "Avanzado" }
+        ]
+      },
+      {
+        id: "3-4",
+        title: "3.4 La hipérbola",
+        objective: "Diferenciar la hipérbola de otras cónicas y trazar su gráfica mediante asíntotas.",
+        videos: [
+          { t: "La Hipérbola — Toda la teoría", c: "MateFacil" },
+          { t: "Geometría Analítica: Hipérbola", c: "Javier Santos" },
+          { t: "Hipérbolas — Clase Completa", c: "Unicoos" },
+          { t: "Asíntotas y Ecuaciones de la Hipérbola", c: "Mathias Kolczyn" },
+          { t: "Hipérbola: construcción geométrica", c: "Eduardo Espinoza" }
+        ],
+        lecturas: [
+          "Lehmann, C. — Geometría Analítica, Cap. 3, pp. 160-180",
+          "OpenStax — Álgebra y Trigonometría, Cap. 12.2, pp. 711-725",
+          "Larson, R. — Precálculo, Cap. 6, pp. 505-520",
+          "Swokowski, E. — Álgebra y Trigonometría con Geometría Analítica, Cap. 9, pp. 345-360"
+        ],
+        practica: [
+          { t: "OpenStax — Sección 12.2 Ejercicios, pp. 725-730", n: "Básico" },
+          { t: "Lehmann, C. — Ejercicios de hipérbola, pp. 180-185", n: "Intermedio" },
+          { t: "Larson, R. — Ejercicios de aplicación, pp. 521-525", n: "Intermedio" },
+          { t: "Taller de Hipérbolas (videos MateFacil)", n: "Avanzado" },
+          { t: "Problemas de asíntotas oblicuas — Swokowski, pp. 360-365", n: "Avanzado" }
+        ]
+      }
+    ]
+  },
+  {
+    num: 4,
+    title: "Rotación de ejes coordenados y coordenadas polares",
+    hours: 26,
+    weeks: "Semanas 13 – 16",
+    desc: "Transformaciones geométricas mediante rotación de ejes, sistema polar, graficación de curvas polares y representación de cónicas en coordenadas polares.",
+    subtopics: [
+      {
+        id: "4-1",
+        title: "4.1 Rotación de ejes coordenados",
+        objective: "Aplicar la rotación de ejes para simplificar ecuaciones cuadráticas generales.",
+        videos: [
+          { t: "Rotación de ejes coordenados (Teoría)", c: "MateFacil" },
+          { t: "Eliminación del término xy por rotación", c: "Javier Santos" },
+          { t: "Rotación de Ejes — Geometría Analítica", c: "Mathias Kolczyn" },
+          { t: "Identificación de cónicas mediante rotación", c: "Eduardo Espinoza" },
+          { t: "Formas cuadráticas y rotación", c: "Unicoos" }
+        ],
+        lecturas: [
+          "Lehmann, C. — Geometría Analítica, Cap. 4, pp. 190-210",
+          "Swokowski, E. — Álgebra y Trigonometría con Geometría Analítica, Cap. 9, pp. 370-385",
+          "Larson, R. — Precálculo, Cap. 6, pp. 530-545",
+          "OpenStax — Álgebra y Trigonometría, Cap. 12.4, pp. 735-745"
+        ],
+        practica: [
+          { t: "Larson, R. — Ejercicios de ángulo de rotación, pp. 545-548", n: "Intermedio" },
+          { t: "Lehmann, C. — Ejercicios de rotación, pp. 210-215", n: "Avanzado" },
+          { t: "Ejercicios resueltos de rotación de ejes (videos MateFacil)", n: "Avanzado" },
+          { t: "Swokowski, E. — Problemas Cap. 9, pp. 385-390", n: "Avanzado" },
+          { t: "Taller de invariantes — Mathias Kolczyn", n: "Avanzado" }
+        ]
+      },
+      {
+        id: "4-2",
+        title: "4.2 Sistema de coordenadas polares",
+        objective: "Convertir coordenadas rectangulares a polares y viceversa eficientemente.",
+        videos: [
+          { t: "Coordenadas Polares (Clase Completa)", c: "Unicoos" },
+          { t: "Sistema de Coordenadas Polares", c: "MateFacil" },
+          { t: "Conversión entre coordenadas polares y rectangulares", c: "Javier Santos" },
+          { t: "Introducción al Sistema Polar", c: "Mathias Kolczyn" },
+          { t: "Coordenadas polares — Teoría y ejemplos", c: "Profe Alex" }
+        ],
+        lecturas: [
+          "Lehmann, C. — Geometría Analítica, Cap. 7, pp. 300-315",
+          "OpenStax — Álgebra y Trigonometría, Cap. 10.1, pp. 750-760",
+          "Larson, R. — Precálculo, Cap. 6, pp. 550-560",
+          "Swokowski, E. — Álgebra y Trigonometría con Geometría Analítica, Cap. 10, pp. 400-415"
+        ],
+        practica: [
+          { t: "OpenStax — Sección 10.1 Ejercicios, pp. 760-765", n: "Básico" },
+          { t: "Práctica de Coordenadas Polares (videos MateFacil)", n: "Básico" },
+          { t: "Lehmann, C. — Ejercicios de conversión, pp. 315-320", n: "Intermedio" },
+          { t: "Larson, R. — Problemas de sistemas polares, pp. 561-565", n: "Intermedio" },
+          { t: "Problemas de localización polar — Javier Santos", n: "Avanzado" }
+        ]
+      },
+      {
+        id: "4-3",
+        title: "4.3 Gráficas en coordenadas polares",
+        objective: "Trazar gráficas de ecuaciones polares identificando simetrías y tipos.",
+        videos: [
+          { t: "Gráficas en Coordenadas Polares", c: "MateFacil" },
+          { t: "Cardioides, Lemniscatas y Rosas Polares", c: "Javier Santos" },
+          { t: "Trazado de curvas polares (Clase)", c: "Eduardo Espinoza" },
+          { t: "Simetría en Coordenadas Polares", c: "Mathias Kolczyn" },
+          { t: "Curvas polares famosas", c: "Unicoos" }
+        ],
+        lecturas: [
+          "Lehmann, C. — Geometría Analítica, Cap. 7, pp. 325-345",
+          "OpenStax — Álgebra y Trigonometría, Cap. 10.2, pp. 766-780",
+          "Larson, R. — Precálculo, Cap. 6, pp. 570-585",
+          "Swokowski, E. — Álgebra y Trigonometría con Geometría Analítica, Cap. 10, pp. 420-435"
+        ],
+        practica: [
+          { t: "OpenStax — Sección 10.2 Ejercicios, pp. 780-785", n: "Básico" },
+          { t: "Lehmann, C. — Ejercicios de graficación, pp. 345-350", n: "Intermedio" },
+          { t: "Taller de graficación polar (videos MateFacil)", n: "Intermedio" },
+          { t: "Larson, R. — Problemas de simetría, pp. 585-590", n: "Avanzado" },
+          { t: "Problemas de intersección de curvas polares — Eduardo Espinoza", n: "Avanzado" }
+        ]
+      },
+      {
+        id: "4-4",
+        title: "4.4 Cónicas en coordenadas polares",
+        objective: "Representar cónicas mediante ecuaciones polares utilizando la excentricidad.",
+        videos: [
+          { t: "Cónicas en Coordenadas Polares", c: "MateFacil" },
+          { t: "Ecuación polar de la Elipse, Parábola e Hipérbola", c: "Javier Santos" },
+          { t: "Excentricidad y Cónicas Polares (Clase)", c: "Eduardo Espinoza" },
+          { t: "Geometría Polar Aplicada", c: "Mathias Kolczyn" },
+          { t: "Cónicas polares unificadas", c: "Unicoos" }
+        ],
+        lecturas: [
+          "Lehmann, C. — Geometría Analítica, Cap. 7, pp. 360-380",
+          "OpenStax — Álgebra y Trigonometría, Cap. 12.5, pp. 790-805",
+          "Larson, R. — Precálculo, Cap. 6, pp. 595-610",
+          "Swokowski, E. — Álgebra y Trigonometría con Geometría Analítica, Cap. 10, pp. 440-455"
+        ],
+        practica: [
+          { t: "OpenStax — Sección 12.5 Ejercicios, pp. 805-810", n: "Intermedio" },
+          { t: "Lehmann, C. — Ejercicios de excentricidad, pp. 380-385", n: "Avanzado" },
+          { t: "Ejercicios resueltos de cónicas polares (videos MateFacil)", n: "Avanzado" },
+          { t: "Larson, R. — Problemas de aplicación, pp. 610-615", n: "Avanzado" },
+          { t: "Taller de órbitas planetarias — Javier Santos", n: "Avanzado" }
+        ]
+      }
+    ]
+  }
+];
+
+/* ======= RENDER ======= */
+const state = JSON.parse(localStorage.getItem("alga-progress") || "{}");
+const container = document.getElementById("units-container");
+
+function saveState() {
+  localStorage.setItem("alga-progress", JSON.stringify(state));
+  updateAllProgress();
+}
+
+function renderUnits() {
+  container.innerHTML = DATA.map(u => {
+    const subsHtml = u.subtopics.map(s => {
+      const checked = state[s.id] ? "checked" : "";
+      const doneClass = state[s.id] ? "done" : "";
+      return `
+        <div class="subtopic ${doneClass}" data-id="${s.id}">
+          <div class="sub-head">
+            <div class="sub-checkbox ${checked}" data-sub="${s.id}" tabindex="0" role="checkbox" aria-checked="${state[s.id] ? 'true':'false'}"></div>
+            <div class="sub-title">${s.title}</div>
+            <div class="sub-toggle-icon">▾</div>
+          </div>
+          <div class="sub-objective">→ ${s.objective}</div>
+          <div class="sub-content">
+            <div class="res-section">
+              <div class="res-section-title">Videos de teoría</div>
+              <ul class="res-list">
+                ${s.videos.map(v => `<li><strong>${v.t}</strong><span class="channel">${v.c}</span></li>`).join("")}
+              </ul>
+            </div>
+            <div class="res-section">
+              <div class="res-section-title">Lectura de texto base</div>
+              <ul class="res-list">
+                ${s.lecturas.map(l => `<li>${l}</li>`).join("")}
+              </ul>
+            </div>
+            <div class="res-section">
+              <div class="res-section-title">Ejercitación recomendada</div>
+              <ul class="res-list">
+                ${s.practica.map(p => `<li>${p.t} <span class="level">${p.n}</span></li>`).join("")}
+              </ul>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join("");
+
+    return `
+      <article class="unit" data-num="U0${u.num}" data-unit="${u.num}">
+        <div class="unit-head">
+          <h2 class="unit-name">${u.title}</h2>
+          <div class="unit-meta">
+            <div class="hours">${u.hours}</div>
+            <div class="weeks">${u.weeks}</div>
+            <button class="unit-toggle" aria-label="Expandir unidad">+</button>
+          </div>
+        </div>
+        <div class="unit-progress">
+          <div class="up-bar"><div class="up-bar-fill" data-bar="${u.num}"></div></div>
+          <div class="up-pct" data-pct="${u.num}">0%</div>
+        </div>
+        <div class="unit-body">
+          <p class="unit-desc">${u.desc}</p>
+          ${subsHtml}
+        </div>
+      </article>
+    `;
+  }).join("");
+
+  bindEvents();
+  updateAllProgress();
+}
+
+function bindEvents() {
+  // Unit toggle
+  document.querySelectorAll(".unit-head").forEach(h => {
+    h.addEventListener("click", (e) => {
+      if (e.target.classList.contains("sub-checkbox")) return;
+      h.closest(".unit").classList.toggle("open");
+    });
+  });
+
+  // Subtopic toggle (solo al hacer click en el título/icono)
+  document.querySelectorAll(".sub-head").forEach(h => {
+    h.addEventListener("click", (e) => {
+      if (e.target.classList.contains("sub-checkbox")) return;
+      h.closest(".subtopic").classList.toggle("open");
+    });
+  });
+
+  // Checkboxes
+  document.querySelectorAll(".sub-checkbox").forEach(cb => {
+    cb.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleCheck(cb);
+    });
+    cb.addEventListener("keydown", (e) => {
+      if (e.key === " " || e.key === "Enter") {
+        e.preventDefault();
+        e.stopPropagation();
+        toggleCheck(cb);
+      }
+    });
+  });
+}
+
+function toggleCheck(cb) {
+  const id = cb.dataset.sub;
+  state[id] = !state[id];
+  cb.classList.toggle("checked", state[id]);
+  cb.setAttribute("aria-checked", state[id] ? "true" : "false");
+  cb.closest(".subtopic").classList.toggle("done", state[id]);
+  saveState();
+}
+
+function updateAllProgress() {
+  let globalDone = 0, globalTotal = 0;
+  DATA.forEach(u => {
+    const total = u.subtopics.length;
+    const done = u.subtopics.filter(s => state[s.id]).length;
+    const pct = Math.round((done / total) * 100);
+    const bar = document.querySelector(`[data-bar="${u.num}"]`);
+    const pctEl = document.querySelector(`[data-pct="${u.num}"]`);
+    if (bar) bar.style.width = pct + "%";
+    if (pctEl) pctEl.textContent = pct + "%";
+    globalDone += done;
+    globalTotal += total;
+  });
+  const globalPct = Math.round((globalDone / globalTotal) * 100);
+  document.getElementById("globalNum").textContent = globalPct;
+  document.getElementById("globalBar").style.width = globalPct + "%";
+}
+
+function scrollUnit(n) {
+  document.querySelectorAll(".graph-node").forEach(g => g.classList.remove("active"));
+  document.querySelector(`.graph-node[data-unit="${n}"]`).classList.add("active");
+  const target = document.querySelector(`.unit[data-unit="${n}"]`);
+  if (target) {
+    target.scrollIntoView({ behavior: "smooth", block: "start" });
+    target.classList.add("open");
+  }
+}
+window.scrollUnit = scrollUnit;
+
+renderUnits();
+
+/* ======= FONDO ANIMADO TOPOLOGICO BRUTALISTA ======= */
+const canvas = document.getElementById("topo-bg");
+const ctx = canvas.getContext("2d");
+let W, H, cols, rows, pts = [];
+const SPACING = 70;
+
+function resize() {
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+  cols = Math.ceil(W / SPACING) + 2;
+  rows = Math.ceil(H / SPACING) + 2;
+  pts = [];
+  for (let i = 0; i < cols; i++) {
+    for (let j = 0; j < rows; j++) {
+      pts.push({
+        x: i * SPACING,
+        y: j * SPACING,
+        phase: Math.random() * Math.PI * 2
+      });
+    }
+  }
+}
+window.addEventListener("resize", resize);
+resize();
+
+let t = 0;
+function animate() {
+  ctx.clearRect(0, 0, W, H);
+  t += 0.006;
+  for (const p of pts) {
+    const wave = Math.sin(t + p.x * 0.007 + p.y * 0.004 + p.phase) * 0.5 + 0.5;
+    const alpha = 0.12 + wave * 0.45;
+    const size = 1.2 + wave * 2;
+    ctx.fillStyle = wave > 0.78 ? "#0047AB" : `rgba(255,255,255,${alpha})`;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, size, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  requestAnimationFrame(animate);
+}
+animate();
+
+/* ======= SCROLL OBSERVER para grafo ======= */
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const u = e.target.dataset.unit;
+      document.querySelectorAll(".graph-node").forEach(g => g.classList.remove("active"));
+      const node = document.querySelector(`.graph-node[data-unit="${u}"]`);
+      if (node) node.classList.add("active");
+      document.querySelectorAll(".graph-edge").forEach(edge => edge.classList.remove("active"));
+      const edge = document.getElementById(`e${u-1}`);
+      if (edge) edge.classList.add("active");
+    }
+  });
+}, { threshold: 0.3 });
+
+document.querySelectorAll(".unit").forEach(u => observer.observe(u));
+
+</script>
+</body>
+</html>
