@@ -1694,5 +1694,26 @@
             }
         });
     </script>
+
+<!-- ====== Sincronización de progreso (Supabase opcional) ====== -->
+<script src="./supabase-config.js"></script>
+<script src="./progress-sync.js"></script>
+<script>
+  if (window.RutasSync) {
+    RutasSync.init("mate-superior", {
+      storageKey: "mate-superior-progress",
+      collectState: function () {
+        var o = {};
+        document.querySelectorAll(".subtopic-checkbox").forEach(function (cb, i) { o[i] = cb.checked; });
+        return o;
+      },
+      applyState: function (m) {
+        var cbs = document.querySelectorAll(".subtopic-checkbox");
+        cbs.forEach(function (cb, i) { cb.checked = !!m[i]; });
+        cbs.forEach(function (cb) { if (typeof updateProgress === "function") updateProgress(cb); });
+      }
+    });
+  }
+</script>
 </body>
 </html>

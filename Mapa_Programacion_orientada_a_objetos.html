@@ -1091,5 +1091,25 @@ ul li:last-child{margin-bottom:0}
     document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 </script>
 
+<!-- ====== Sincronización de progreso (Supabase opcional) ====== -->
+<script src="./supabase-config.js"></script>
+<script src="./progress-sync.js"></script>
+<script>
+  if (window.RutasSync) {
+    RutasSync.init("poo", {
+      storageKey: "poo-archive-progress",
+      collectState: function () {
+        var o = {};
+        document.querySelectorAll(".subtopic-checkbox").forEach(function (cb, i) { o[i] = cb.checked; });
+        return o;
+      },
+      applyState: function (m) {
+        document.querySelectorAll(".subtopic-checkbox").forEach(function (cb, i) { cb.checked = !!m[i]; });
+        if (typeof updateProgress === "function") updateProgress();
+      }
+    });
+  }
+</script>
+
 </body>
 </html>

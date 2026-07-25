@@ -1839,5 +1839,27 @@
         setInterval(drawBinary, 60);
 
     </script>
+
+<!-- ====== Sincronización de progreso (Supabase opcional) ====== -->
+<script src="./supabase-config.js"></script>
+<script src="./progress-sync.js"></script>
+<script>
+  if (window.RutasSync) {
+    RutasSync.init("mate-discreta2", {
+      storageKey: "mate-discreta2-progress",
+      collectState: function () {
+        var o = {};
+        document.querySelectorAll(".subtopic-checkbox").forEach(function (cb, i) { o[i] = cb.checked; });
+        return o;
+      },
+      applyState: function (m) {
+        document.querySelectorAll(".subtopic-checkbox").forEach(function (cb, i) { cb.checked = !!m[i]; });
+        document.querySelectorAll('.unit-accordion[id^="unit-"]').forEach(function (u) {
+          if (typeof updateProgress === "function") updateProgress(u.id);
+        });
+      }
+    });
+  }
+</script>
 </body>
 </html>

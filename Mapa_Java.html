@@ -966,5 +966,23 @@ function bindEvents(){
 
 renderAll();
 </script>
+
+<!-- ====== Sincronización de progreso (Supabase opcional) ====== -->
+<script src="./supabase-config.js"></script>
+<script src="./progress-sync.js"></script>
+<script>
+  if (window.RutasSync) {
+    RutasSync.init("java", {
+      storageKey: "java_route_progress_v1",
+      collectState: function () { return Object.assign({}, state); },
+      applyState: function (m) {
+        for (var k in state) delete state[k];
+        Object.assign(state, m);
+        save();
+        renderAll();
+      }
+    });
+  }
+</script>
 </body>
 </html>

@@ -791,5 +791,23 @@ function resetAll(){
 // Restore open states (simple)
 render();
 </script>
+
+<!-- ====== Sincronización de progreso (Supabase opcional) ====== -->
+<script src="./supabase-config.js"></script>
+<script src="./progress-sync.js"></script>
+<script>
+  if (window.RutasSync) {
+    RutasSync.init("javascript", {
+      storageKey: "ruta_js_progress_v1",
+      collectState: function () { return Object.assign({}, progress); },
+      applyState: function (m) {
+        for (var k in progress) delete progress[k];
+        Object.assign(progress, m);
+        save();
+        render();
+      }
+    });
+  }
+</script>
 </body>
 </html>

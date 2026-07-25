@@ -1268,5 +1268,29 @@
 
         updateProgress();
     </script>
+
+<!-- ====== Sincronización de progreso (Supabase opcional) ====== -->
+<script src="./supabase-config.js"></script>
+<script src="./progress-sync.js"></script>
+<script>
+  if (window.RutasSync) {
+    RutasSync.init("modelado", {
+      storageKey: "modelado-progress",
+      collectState: function () {
+        var o = {};
+        document.querySelectorAll("input[data-unit]").forEach(function (inp) {
+          o[inp.id.replace(/^check-/, "")] = inp.checked;
+        });
+        return o;
+      },
+      applyState: function (m) {
+        document.querySelectorAll("input[data-unit]").forEach(function (inp) {
+          inp.checked = !!m[inp.id.replace(/^check-/, "")];
+        });
+        if (typeof updateProgress === "function") updateProgress();
+      }
+    });
+  }
+</script>
 </body>
 </html>

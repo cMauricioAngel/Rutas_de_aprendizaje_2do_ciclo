@@ -1355,5 +1355,23 @@ const observer = new IntersectionObserver((entries) => {
 document.querySelectorAll(".unit").forEach(u => observer.observe(u));
 
 </script>
+
+<!-- ====== Sincronización de progreso (Supabase opcional) ====== -->
+<script src="./supabase-config.js"></script>
+<script src="./progress-sync.js"></script>
+<script>
+  if (window.RutasSync) {
+    RutasSync.init("algebra-lineal", {
+      storageKey: "alga-progress",
+      collectState: function () { return Object.assign({}, state); },
+      applyState: function (m) {
+        for (var k in state) delete state[k];
+        Object.assign(state, m);
+        saveState();
+        renderUnits();
+      }
+    });
+  }
+</script>
 </body>
 </html>
