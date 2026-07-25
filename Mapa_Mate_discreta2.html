@@ -9,12 +9,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-mate: #111111;
-            --blanco-puro: #FFFFFF;
-            --amarillo-neon: #E7FF00;
-            --azul-electrico: #0F0FFF;
-            --gris-oscuro: #1a1a1a;
-            --gris-texto: #888888;
+            --bg-mate: #1F1F1D;
+            --blanco-puro: #EDEAE0;
+            --amarillo-neon: #B8A444;
+            --azul-electrico: #2D3A7A;
+            --gris-oscuro: #2A2A28;
+            --gris-texto: #908878;
         }
 
         * {
@@ -53,7 +53,7 @@
         }
 
         h1 {
-            font-size: clamp(3rem, 10vw, 8rem);
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
             line-height: 0.85;
             margin-bottom: 2rem;
             letter-spacing: -0.08em;
@@ -61,30 +61,30 @@
         }
 
         h2 {
-            font-size: clamp(2rem, 6vw, 4rem);
+            font-size: 1.6rem;
             margin-bottom: 1.5rem;
             letter-spacing: -0.05em;
         }
 
         h3 {
-            font-size: 1.5rem;
+            font-size: 1.15rem;
             margin-bottom: 1rem;
             letter-spacing: -0.03em;
         }
 
         h4 {
-            font-size: 1.1rem;
+            font-size: 1rem;
             letter-spacing: -0.02em;
         }
 
         p, li {
-            font-size: 0.85rem;
+            font-size: 0.95rem;
             font-weight: 400;
             line-height: 1.5;
         }
 
         small {
-            font-size: 0.65rem;
+            font-size: 0.75rem;
             color: var(--gris-texto);
             letter-spacing: 0.1em;
         }
@@ -143,11 +143,11 @@
         .global-progress-container::before {
             content: '∑';
             position: absolute;
-            top: -40px;
-            right: -40px;
-            font-size: 8rem;
+            top: -20px;
+            right: -20px;
+            font-size: 3.5rem;
             color: var(--amarillo-neon);
-            opacity: 0.3;
+            opacity: 0.4;
             font-weight: 700;
             line-height: 1;
         }
@@ -210,9 +210,9 @@
         .unit-header::before {
             content: '⊂';
             position: absolute;
-            top: -20px;
-            left: -20px;
-            font-size: 6rem;
+            top: -10px;
+            left: -10px;
+            font-size: 2.5rem;
             color: var(--amarillo-neon);
             opacity: 0.4;
             font-weight: 700;
@@ -405,10 +405,10 @@
         .intersection-yellow { fill: var(--amarillo-neon); }
 
         .operator-giant {
-            font-size: 12rem;
+            font-size: 4.5rem;
             font-weight: 700;
             line-height: 1;
-            opacity: 0.15;
+            opacity: 0.18;
         }
 
         footer {
@@ -424,11 +424,11 @@
         footer::before {
             content: '∪';
             position: absolute;
-            bottom: -60px;
-            left: -60px;
-            font-size: 10rem;
+            bottom: -25px;
+            left: -25px;
+            font-size: 4rem;
             color: var(--azul-electrico);
-            opacity: 0.2;
+            opacity: 0.22;
             font-weight: 700;
             line-height: 1;
         }
@@ -436,11 +436,11 @@
         footer::after {
             content: '∩';
             position: absolute;
-            top: -60px;
-            right: -60px;
-            font-size: 10rem;
+            top: -25px;
+            right: -25px;
+            font-size: 4rem;
             color: var(--amarillo-neon);
-            opacity: 0.2;
+            opacity: 0.22;
             font-weight: 700;
             line-height: 1;
         }
@@ -476,9 +476,9 @@
         /* Decorative elements */
         .decorative-operator {
             position: absolute;
-            font-size: 15rem;
+            font-size: 5rem;
             font-weight: 700;
-            opacity: 0.08;
+            opacity: 0.1;
             line-height: 1;
             z-index: 0;
             pointer-events: none;
