@@ -19,7 +19,6 @@
   .mono{font-family:'JetBrains Mono',monospace}
   .container{max-width:1180px;margin:0 auto;padding:24px 20px 80px}
 
-  /* HEADER */
   header.hero{
     border:4px solid var(--ink);
     background:var(--accent);
@@ -32,17 +31,15 @@
   header.hero p{margin:0;font-family:'JetBrains Mono',monospace;font-size:13px;opacity:.78}
   header.hero .bar{display:inline-block;background:#000;color:var(--accent);padding:2px 8px;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:14px}
 
-  /* CONTROLS */
   .controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:20px}
   .controls input{
     flex:1;min-width:220px;border:3px solid var(--ink);background:var(--paper);
     padding:12px 14px;font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:500;
-    box-shadow:4px 4px 0 var(--ink);outline:none;
+    box-shadow:4px 4px 0 var(--ink);outline:none;color:#000;
   }
   .controls input:focus{background:#fff8ef}
   .controls .count{font-family:'JetBrains Mono',monospace;font-size:12px;background:#000;color:var(--accent);padding:8px 12px;font-weight:700;border:3px solid var(--ink)}
 
-  /* GRID */
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px}
   a.card{
     display:flex;flex-direction:column;text-decoration:none;color:inherit;
@@ -63,7 +60,6 @@
 
   mark{background:var(--accent);color:#000;padding:0 2px}
 
-  /* FOOTER */
   footer{
     margin-top:40px;border-top:4px solid var(--ink);padding-top:16px;
     font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--mute);
@@ -71,8 +67,7 @@
   }
   footer .chip{background:#000;color:var(--accent);padding:3px 8px;font-weight:700}
 
-  .empty{display:none;text-align:center;padding:60px 20px;font-family:'JetBrains Mono',monospace;color:var(--mute)}
-  .empty.show{display:block}
+  .noscript-msg{background:#ffecdb;border:3px solid #000;padding:10px;margin-bottom:16px;font-family:'JetBrains Mono',monospace;font-size:13px}
 
   @media (max-width:560px){
     header.hero h1{font-size:22px}
@@ -85,16 +80,101 @@
   <header class="hero">
     <span class="bar">RUTAS//INDEX</span>
     <h1>Rutas de Aprendizaje</h1>
-    <p>8 mapas · acceso rápido · brútalista</p>
+    <p>8 mapas · acceso rápido · brútalista · 2do ciclo</p>
   </header>
 
   <div class="controls">
-    <input id="q" type="search" placeholder="Filtrar por título..." aria-label="Filtrar rutas"/>
+    <input id="q" type="search" placeholder="Filtrar por título (opcional)..." aria-label="Filtrar rutas"/>
     <span class="count" id="count">8 / 8</span>
   </div>
 
-  <div class="grid" id="grid"></div>
-  <div class="empty" id="empty">Sin coincidencias · probá otro término</div>
+  <noscript>
+    <div class="noscript-msg">⚠ JavaScript desactivado: las 8 tarjetas siguen siendo navegables; sólo el filtro de búsqueda no funciona.</div>
+  </noscript>
+
+  <div class="grid" id="grid">
+
+    <a class="card" href="./Atlas_de_estilos+prompt.html">
+      <div class="card-strip"></div>
+      <div class="card-body">
+        <div class="card-arrow">↗</div>
+        <span class="card-tag">Estilos</span>
+        <h2 class="card-title">Atlas de Estilos — Brutalismo × Minimalismo × Matemáticas × Humanidades</h2>
+        <div class="card-meta"><span>Atlas</span><span class="mono">01/08</span></div>
+      </div>
+    </a>
+
+    <a class="card" href="./Mapa_Algebra_LIneal_y_Geo._Analitica.html">
+      <div class="card-strip"></div>
+      <div class="card-body">
+        <div class="card-arrow">↗</div>
+        <span class="card-tag">Matemática</span>
+        <h2 class="card-title">Álgebra Lineal y Geometría Analítica — Ruta Topológica</h2>
+        <div class="card-meta"><span>Álgebra Lineal</span><span class="mono">02/08</span></div>
+      </div>
+    </a>
+
+    <a class="card" href="./Mapa_Java.html">
+      <div class="card-strip"></div>
+      <div class="card-body">
+        <div class="card-arrow">↗</div>
+        <span class="card-tag">Programación</span>
+        <h2 class="card-title">Java · Ruta de Aprendizaje · 8 Semanas</h2>
+        <div class="card-meta"><span>Java · 8 sem</span><span class="mono">03/08</span></div>
+      </div>
+    </a>
+
+    <a class="card" href="./Mapa_Javascript.html">
+      <div class="card-strip"></div>
+      <div class="card-body">
+        <div class="card-arrow">↗</div>
+        <span class="card-tag">Programación</span>
+        <h2 class="card-title">RUTA::JAVASCRIPT // 8 SEMANAS</h2>
+        <div class="card-meta"><span>JavaScript · 8 sem</span><span class="mono">04/08</span></div>
+      </div>
+    </a>
+
+    <a class="card" href="./Mapa_Mate_discreta2.html">
+      <div class="card-strip"></div>
+      <div class="card-body">
+        <div class="card-arrow">↗</div>
+        <span class="card-tag">Matemática</span>
+        <h2 class="card-title">MATEMÁTICA DISCRETA (2DA PARTE)</h2>
+        <div class="card-meta"><span>Discreta II</span><span class="mono">05/08</span></div>
+      </div>
+    </a>
+
+    <a class="card" href="./Mapa_Mate_superior.html">
+      <div class="card-strip"></div>
+      <div class="card-body">
+        <div class="card-arrow">↗</div>
+        <span class="card-tag">Matemática</span>
+        <h2 class="card-title">Matemática Superior | Arquitectura Visual</h2>
+        <div class="card-meta"><span>Mat. Superior</span><span class="mono">06/08</span></div>
+      </div>
+    </a>
+
+    <a class="card" href="./Mapa_Modelado_de_negocios.html">
+      <div class="card-strip"></div>
+      <div class="card-body">
+        <div class="card-arrow">↗</div>
+        <span class="card-tag">Negocios</span>
+        <h2 class="card-title">MODELO DE NEGOCIOS // RUTA BPM</h2>
+        <div class="card-meta"><span>BPM</span><span class="mono">07/08</span></div>
+      </div>
+    </a>
+
+    <a class="card" href="./Mapa_Programacion_orientada_a_objetos.html">
+      <div class="card-strip"></div>
+      <div class="card-body">
+        <div class="card-arrow">↗</div>
+        <span class="card-tag">Programación</span>
+        <h2 class="card-title">PROGRAMACIÓN ORIENTADA A OBJETOS</h2>
+        <div class="card-meta"><span>POO</span><span class="mono">08/08</span></div>
+      </div>
+    </a>
+
+  </div>
 
   <footer>
     <span><span class="chip">RUTAS//INDEX</span> · estático · sin backend</span>
@@ -103,53 +183,39 @@
 </div>
 
 <script>
-const RUTAS = [
-  {tag:"Estilos",   title:"Atlas de Estilos — Brutalismo × Minimalismo × Matemáticas × Humanidades", file:"Atlas_de_estilos+prompt.html", meta:"Atlas"},
-  {tag:"Matemática",title:"Álgebra Lineal y Geometría Analítica — Ruta Topológica", file:"Mapa_Algebra_LIneal_y_Geo._Analitica.html", meta:"Álgebra Lineal"},
-  {tag:"Programación",title:"Java · Ruta de Aprendizaje · 8 Semanas", file:"Mapa_Java.html", meta:"Java · 8 sem"},
-  {tag:"Programación",title:"RUTA::JAVASCRIPT // 8 SEMANAS", file:"Mapa_Javascript.html", meta:"JavaScript · 8 sem"},
-  {tag:"Matemática",title:"MATEMÁTICA DISCRETA (2DA PARTE)", file:"Mapa_Mate_discreta2.html", meta:"Discreta II"},
-  {tag:"Matemática",title:"Matemática Superior | Arquitectura Visual", file:"Mapa_Mate_superior.html", meta:"Mat. Superior"},
-  {tag:"Negocios",  title:"MODELO DE NEGOCIOS // RUTA BPM", file:"Mapa_Modelado_de_negocios.html", meta:"BPM"},
-  {tag:"Programación",title:"PROGRAMACIÓN ORIENTADA A OBJETOS", file:"Mapa_Programacion_orientada_a_objetos.html", meta:"POO"},
-];
+  // Filtro opcional — las tarjetas ya son HTML estático,
+  // así que aunque este script falle, las rutas se ven igual.
+  (function(){
+    var q = document.getElementById('q');
+    var count = document.getElementById('count');
+    var cards = document.querySelectorAll('#grid a.card');
+    if(!q || !count || !cards.length) return;
 
-const grid  = document.getElementById('grid');
-const empty = document.getElementById('empty');
-const count = document.getElementById('count');
-const q     = document.getElementById('q');
+    function escapeHtml(s){return s.replace(/[&<>"']/g,function(c){return {"&":"&","<":"<",">":">",'"':""","'":"&#39;"}[c];});}
+    function stripTags(s){return s.replace(/<[^>]*>/g,'');}
 
-function escapeHtml(s){return s.replace(/[&<>"']/g,c=>({"&":"&","<":"<",">":">",'"':""","'":"&#39;"}[c]))}
-function highlight(text, query){
-  if(!query) return escapeHtml(text);
-  const safe = escapeHtml(text);
-  const q = query.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
-  return safe.replace(new RegExp('('+q+')','gi'),'<mark>$1</mark>');
-}
-
-function render(query){
-  query = (query||'').trim().toLowerCase();
-  const filtered = RUTAS.filter(r => r.title.toLowerCase().includes(query) || r.tag.toLowerCase().includes(query));
-  grid.innerHTML = filtered.map((r,i) => `
-    <a class="card" href="./${encodeURIComponent(r.file)}" style="animation-delay:${i*30}ms">
-      <div class="card-strip"></div>
-      <div class="card-body">
-        <div class="card-arrow">↗</div>
-        <span class="card-tag">${highlight(r.tag, query)}</span>
-        <h2 class="card-title">${highlight(r.title, query)}</h2>
-        <div class="card-meta">
-          <span>${r.meta}</span>
-          <span class="mono">${String(i+1).padStart(2,'0')}/08</span>
-        </div>
-      </div>
-    </a>
-  `).join('');
-  empty.classList.toggle('show', filtered.length===0);
-  count.textContent = `${filtered.length} / ${RUTAS.length}`;
-}
-
-q.addEventListener('input', e => render(e.target.value));
-render('');
+    q.addEventListener('input', function(){
+      var query = q.value.trim().toLowerCase();
+      var visible = 0;
+      cards.forEach(function(card){
+        var titleEl = card.querySelector('.card-title');
+        var tagEl = card.querySelector('.card-tag');
+        var titleText = titleEl ? stripTags(titleEl.textContent) : '';
+        var tagText = tagEl ? stripTags(tagEl.textContent) : '';
+        var match = !query || titleText.toLowerCase().indexOf(query) > -1 || tagText.toLowerCase().indexOf(query) > -1;
+        card.style.display = match ? '' : 'none';
+        if(match) visible++;
+        if(titleEl && query){
+          var safe = escapeHtml(titleText);
+          var qre = query.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+          titleEl.innerHTML = safe.replace(new RegExp('('+qre+')','gi'),'<mark>$1</mark>');
+        } else if(titleEl){
+          titleEl.textContent = titleText;
+        }
+      });
+      count.textContent = visible + ' / ' + cards.length;
+    });
+  })();
 </script>
 </body>
 </html>
