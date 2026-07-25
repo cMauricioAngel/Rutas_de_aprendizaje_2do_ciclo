@@ -158,6 +158,34 @@
   }
   a.card:hover .card-arrow{background:var(--accent);color:#fff}
 
+  /* ====== DASHBOARD GLOBAL ====== */
+  .dash{
+    background:var(--paper);border:1px solid var(--line);border-radius:12px;
+    box-shadow:0 4px 12px var(--shadow);padding:18px 20px;margin-bottom:20px;
+  }
+  .dash-head{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin-bottom:12px}
+  .dash-label{font-size:11px;font-weight:700;letter-spacing:1.5px;color:var(--accent);text-transform:uppercase}
+  .dash-sub{font-size:12px;color:var(--mute);margin-top:2px}
+  .dash-pct{font-size:36px;font-weight:800;color:var(--accent);line-height:1;letter-spacing:-1px}
+  .dash-track{height:14px;border:1px solid var(--line);border-radius:7px;background:var(--bg);overflow:hidden}
+  .dash-fill{height:100%;width:0%;background:linear-gradient(90deg,#1e6fd8,#4a9eff);transition:width .5s ease}
+  .dash-foot{display:flex;justify-content:space-between;align-items:center;margin-top:13px;gap:10px;flex-wrap:wrap}
+  .dash-link{
+    font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;
+    background:var(--accent-soft);color:var(--accent);border:1px solid var(--line);
+    padding:8px 12px;border-radius:8px;cursor:pointer;
+    transition:background .15s ease,color .15s ease;
+  }
+  .dash-link:hover{background:var(--accent);color:#fff}
+  .dash-sync{font-size:11px;color:var(--mute);letter-spacing:.3px}
+
+  /* ====== MINI BARRA POR TARJETA ====== */
+  .card-prog{display:flex;flex-direction:column;gap:5px;margin-top:6px}
+  .card-prog-track{height:8px;border:1px solid var(--line);border-radius:4px;background:var(--bg);overflow:hidden}
+  .card-prog-fill{height:100%;width:0%;background:linear-gradient(90deg,#1e6fd8,#4a9eff);transition:width .4s ease}
+  .card-prog-label{font-size:10px;color:var(--mute);font-weight:700;letter-spacing:.3px}
+  a.card.started .card-strip{background:linear-gradient(90deg,#1e6fd8 0%,#4a9eff 60%,#7ab8ff 100%)}
+
   mark{background:var(--accent-bright);color:#0a1a2f;padding:0 3px;border-radius:2px}
 
   /* ====== FOOTER ====== */
@@ -199,6 +227,21 @@
     <h1>Rutas de Aprendizaje</h1>
     <p>8 mapas · acceso rápido · 2do ciclo</p>
   </header>
+
+  <section class="dash" id="dash" aria-label="Progreso global">
+    <div class="dash-head">
+      <div>
+        <div class="dash-label mono">Progreso global</div>
+        <div class="dash-sub mono" id="dashLabel">cargando progreso…</div>
+      </div>
+      <div class="dash-pct mono" id="dashPct">0%</div>
+    </div>
+    <div class="dash-track"><div class="dash-fill" id="dashFill"></div></div>
+    <div class="dash-foot">
+      <button class="dash-link" id="copyLink" type="button">Copiar enlace de mi progreso</button>
+      <span class="dash-sync mono" id="dashSync">···</span>
+    </div>
+  </section>
 
   <div class="controls">
     <input id="q" type="search" placeholder="Filtrar por título (opcional)..." aria-label="Filtrar rutas"/>
@@ -294,7 +337,7 @@
   </div>
 
   <footer>
-    <span><span class="chip">RUTAS//INDEX</span> · estático · sin backend</span>
+    <span><span class="chip">RUTAS//INDEX</span> · estático · progreso en la nube ☁</span>
     <span>Tema azul marino · #1e6fd8 · ☀/🌙</span>
   </footer>
 </div>
@@ -353,6 +396,88 @@
       });
       count.textContent = visible + " / " + cards.length;
     });
+  })();
+</script>
+
+<!-- ====== Dashboard de progreso (Supabase + localStorage) ====== -->
+<script src="./supabase-config.js"></script>
+<script src="./progress-sync.js"></script>
+<script>
+  (function () {
+    var ROUTES = [
+      { route: "java",           file: "Mapa_Java.html",                                  key: "java_route_progress_v1",  total: 20 },
+      { route: "javascript",     file: "Mapa_Javascript.html",                            key: "ruta_js_progress_v1",     total: 20 },
+      { route: "algebra-lineal", file: "Mapa_Algebra_LIneal_y_Geo._Analitica.html",       key: "alga-progress",           total: 16 },
+      { route: "poo",            file: "Mapa_Programacion_orientada_a_objetos.html",      key: "poo-archive-progress",    total: 19 },
+      { route: "mate-discreta2", file: "Mapa_Mate_discreta2.html",                        key: "mate-discreta2-progress", total: 30 },
+      { route: "mate-superior",  file: "Mapa_Mate_superior.html",                         key: "mate-superior-progress",  total: 35 },
+      { route: "modelado",       file: "Mapa_Modelado_de_negocios.html",                  key: "modelado-progress",       total: 16 }
+    ];
+    var GRAND_TOTAL = ROUTES.reduce(function (s, r) { return s + r.total; }, 0);
+    var cloud = {};
+
+    function readLocal(key) { try { return JSON.parse(localStorage.getItem(key) || "{}"); } catch (e) { return {}; } }
+    function countDone(st) { var n = 0; if (!st) return 0; for (var k in st) if (st[k]) n++; return n; }
+    function doneFor(r) { return Math.max(countDone(readLocal(r.key)), countDone(cloud[r.route])); }
+
+    function cardFor(r) {
+      var cards = document.querySelectorAll("#grid a.card");
+      for (var i = 0; i < cards.length; i++) {
+        if ((cards[i].getAttribute("href") || "").indexOf(r.file) > -1) return cards[i];
+      }
+      return null;
+    }
+    function ensureBar(card, r) {
+      var body = card.querySelector(".card-body");
+      if (!body || body.querySelector(".card-prog")) return;
+      var wrap = document.createElement("div"); wrap.className = "card-prog";
+      var track = document.createElement("div"); track.className = "card-prog-track";
+      var fill = document.createElement("div"); fill.className = "card-prog-fill";
+      var lbl = document.createElement("span"); lbl.className = "card-prog-label mono";
+      track.appendChild(fill); wrap.appendChild(track); wrap.appendChild(lbl);
+      body.insertBefore(wrap, body.querySelector(".card-meta"));
+    }
+
+    function render() {
+      var gDone = 0;
+      ROUTES.forEach(function (r) {
+        var card = cardFor(r); if (!card) return;
+        ensureBar(card, r);
+        var d = doneFor(r);
+        var pct = r.total ? Math.round(d / r.total * 100) : 0;
+        var fill = card.querySelector(".card-prog-fill");
+        var lbl = card.querySelector(".card-prog-label");
+        if (fill) fill.style.width = pct + "%";
+        if (lbl) lbl.textContent = d + "/" + r.total + " · " + pct + "%";
+        card.classList.toggle("started", d > 0);
+        gDone += d;
+      });
+      var gPct = GRAND_TOTAL ? Math.round(gDone / GRAND_TOTAL * 100) : 0;
+      var f = document.getElementById("dashFill"), l = document.getElementById("dashLabel"), p = document.getElementById("dashPct");
+      if (f) f.style.width = gPct + "%";
+      if (l) l.textContent = gDone + " / " + GRAND_TOTAL + " temas completados";
+      if (p) p.textContent = gPct + "%";
+    }
+
+    var sync = document.getElementById("dashSync");
+    if (sync) sync.textContent = (window.RutasSync && RutasSync.configured) ? "☁ Sincronizado en la nube" : "● Modo local";
+
+    var cbtn = document.getElementById("copyLink");
+    if (cbtn) {
+      cbtn.addEventListener("click", function () {
+        var pid = (window.RutasSync && RutasSync.profileId) || "";
+        var path = location.pathname.replace(/[^/]*$/, "");
+        var share = location.origin + path + "index.html" + (pid ? "?p=" + encodeURIComponent(pid) : "");
+        var ok = function () { cbtn.textContent = "✓ Enlace copiado"; setTimeout(function () { cbtn.textContent = "Copiar enlace de mi progreso"; }, 1800); };
+        if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(share).then(ok, ok);
+        else { var t = document.createElement("textarea"); t.value = share; document.body.appendChild(t); t.select(); try { document.execCommand("copy"); } catch (e) {} t.remove(); ok(); }
+      });
+    }
+
+    render();
+    if (window.RutasSync && RutasSync.fetchAll) {
+      RutasSync.fetchAll(ROUTES.map(function (r) { return r.route; })).then(function (map) { cloud = map || {}; render(); });
+    }
   })();
 </script>
 </body>

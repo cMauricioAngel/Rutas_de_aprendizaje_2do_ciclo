@@ -206,6 +206,29 @@
 
       doPull();
       return api;
+    },
+
+    /**
+     * Devuelve un mapa {route: state} con el estado en nube del perfil actual
+     * para las rutas indicadas. Sólo lectura (no toca localStorage).
+     * Pensado para dashboards/índice.
+     */
+    fetchAll: function (routes) {
+      return makeClient().then(function (c) {
+        if (!c) return {};
+        return c.from(TABLE)
+          .select("route,state")
+          .eq("profile_id", PROFILE)
+          .in("route", routes || [])
+          .then(function (res) {
+            var out = {};
+            if (res && !res.error && res.data) {
+              res.data.forEach(function (row) { out[row.route] = row.state || {}; });
+            }
+            return out;
+          })
+          .catch(function () { return {}; });
+      });
     }
   };
 
