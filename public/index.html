@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapas de Conocimiento - Brutalista</title>
+    <style>
+        :root {
+            --primary: #006D5B;
+            --secondary: #004d40;
+            --accent: #ff6b35;
+            --light: #f4f4f4;
+            --dark: #1a1a1a;
+            --border: 3px solid #000;
+            --shadow: 4px 4px 0px #000;
+            --shadow-hover: 6px 6px 0px #000;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: var(--primary);
+            border-bottom: var(--border);
+            padding: 30px 0;
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+            color: white;
+            text-shadow: 3px 3px 0px #000;
+        }
+
+        /* Formulario Brutalista */
+        .upload-form {
+            background: white;
+            border: var(--border);
+            box-shadow: var(--shadow);
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+
+        .upload-form h2 {
+            font-size: 1.8rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            border-bottom: var(--border);
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: var(--border);
+            font-family: inherit;
+            font-size: 1rem;
+            background: var(--light);
+            border-radius: 0;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            background: white;
+            box-shadow: 4px 4px 0px var(--primary);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: var(--primary);
+            color: white;
+            border: var(--border);
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: var(--shadow);
+            text-decoration: none;
+            font-size: 1rem;
+            border-radius: 0;
+        }
+
+        .btn:hover {
+            transform: translate(2px, 2px);
+            box-shadow: var(--shadow-hover);
+            background-color: var(--secondary);
+        }
+
+        .btn:active {
+            transform: translate(4px, 4px);
+            box-shadow: 2px 2px 0px #000;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+
+        .btn-edit {
+            background-color: #ffc107;
+            color: #000;
+        }
+
+        .btn-edit:hover {
+            background-color: #e0a800;
+        }
+
+        /* Lista de Mapas */
+        .mapas-list {
+            display: grid;
+            gap: 30px;
+        }
+
+        .mapa-card {
+            background: white;
+            border: var(--border);
+            box-shadow: var(--shadow);
+            padding: 25px;
+            transition: all 0.2s;
+        }
+
+        .mapa-card:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .mapa-card h3 {
+            font-size: 1.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .mapa-card p {
+            margin-bottom: 15px;
+            font-size: 1rem;
+        }
+
+        .mapa-card .fecha {
+            font-size: 0.8rem;
+            color: #666;
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .mapa-card .archivo-info {
+            background: var(--light);
+            border: 2px solid #000;
+            padding: 10px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        .mapa-card .actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .mapa-card .actions button {
+            flex: 1;
+            min-width: 120px;
+        }
+
+        /* Mensajes */
+        .alert {
+            padding: 15px;
+            border: var(--border);
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            border-color: #28a745;
+        }
+
+        .alert-error {
+            background: #f8d7da;
+            border-color: #dc3545;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        footer {
+            margin-top: 60px;
+            padding: 30px 0;
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            border-top: var(--border);
+        }
+
+        footer p {
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            .mapa-card .actions {
+                flex-direction: column;
+            }
+            
+            .mapa-card .actions button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>📚 Mapas de Conocimiento</h1>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Formulario de Subida -->
+        <section class="upload-form">
+            <h2>➕ Nuevo Mapa</h2>
+            <form id="mapaForm">
+                <input type="hidden" id="mapaId">
+                <div class="form-group">
+                    <label for="titulo">Título *</label>
+                    <input type="text" id="titulo" required placeholder="Ej: Introducción a JavaScript">
+                </div>
+                <div class="form-group">
+                    <label for="descripcion">Descripción</label>
+                    <textarea id="descripcion" rows="3" placeholder="Breve descripción del mapa..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="archivo">Archivo (Imagen o PDF)</label>
+                    <input type="file" id="archivo" accept="image/*,.pdf">
+                </div>
+                <button type="submit" class="btn" id="submitBtn">Crear Mapa</button>
+                <button type="button" class="btn hidden" id="cancelBtn" style="background: #6c757d; margin-left: 10px;">Cancelar</button>
+            </form>
+        </section>
+
+        <!-- Mensajes -->
+        <div id="alertContainer"></div>
+
+        <!-- Lista de Mapas -->
+        <section>
+            <h2 style="font-size: 2rem; font-weight: 900; text-transform: uppercase; margin-bottom: 20px; border-bottom: 3px solid #000; padding-bottom: 10px;">📋 Mapas Existentes</h2>
+            <div id="mapasList" class="mapas-list">
+                <!-- Los mapas se cargarán aquí -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2025 Mapas de Conocimiento - Estilo Brutalista</p>
+        </div>
+    </footer>
+
+    <script>
+        const API_URL = 'http://localhost:3000/api';
+        
+        // Elementos del DOM
+        const mapaForm = document.getElementById('mapaForm');
+        const mapaIdInput = document.getElementById('mapaId');
+        const tituloInput = document.getElementById('titulo');
+        const descripcionInput = document.getElementById('descripcion');
+        const archivoInput = document.getElementById('archivo');
+        const submitBtn = document.getElementById('submitBtn');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const mapasList = document.getElementById('mapasList');
+        const alertContainer = document.getElementById('alertContainer');
+
+        // Mostrar alerta
+        function showAlert(message, type = 'success') {
+            alertContainer.innerHTML = `
+                <div class="alert alert-${type}">${message}</div>
+            `;
+            setTimeout(() => {
+                alertContainer.innerHTML = '';
+            }, 5000);
+        }
+
+        // Cargar todos los mapas
+        async function loadMapas() {
+            try {
+                const response = await fetch(`${API_URL}/mapas`);
+                const result = await response.json();
+                
+                if (result.data.length === 0) {
+                    mapasList.innerHTML = '<p style="font-weight: 700; text-transform: uppercase;">No hay mapas registrados</p>';
+                    return;
+                }
+                
+                mapasList.innerHTML = result.data.map(mapa => `
+                    <div class="mapa-card">
+                        <h3>${mapa.titulo}</h3>
+                        <span class="fecha">📅 ${new Date(mapa.fecha).toLocaleDateString()}</span>
+                        <p>${mapa.descripcion || 'Sin descripción'}</p>
+                        ${mapa.rutaArchivo ? `
+                            <div class="archivo-info">
+                                📎 Archivo: ${mapa.archivo}
+                                <br>
+                                <a href="${mapa.rutaArchivo}" target="_blank" class="btn" style="margin-top: 10px; font-size: 0.8rem; padding: 8px 15px;">Ver Archivo</a>
+                            </div>
+                        ` : ''}
+                        <div class="actions">
+                            <button class="btn btn-edit" onclick="editMapa(${mapa.id}, '${mapa.titulo}', '${mapa.descripcion || ''}')">✏️ Editar</button>
+                            <button class="btn btn-danger" onclick="deleteMapa(${mapa.id})">🗑️ Eliminar</button>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (error) {
+                showAlert('Error al cargar los mapas: ' + error.message, 'error');
+            }
+        }
+
+        // Crear o actualizar mapa
+        mapaForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData();
+            formData.append('titulo', tituloInput.value);
+            formData.append('descripcion', descripcionInput.value);
+            
+            if (archivoInput.files[0]) {
+                formData.append('archivo', archivoInput.files[0]);
+            }
+            
+            const id = mapaIdInput.value;
+            const url = id ? `${API_URL}/mapas/${id}` : `${API_URL}/mapas`;
+            const method = id ? 'PUT' : 'POST';
+            
+            try {
+                const response = await fetch(url, {
+                    method: method,
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    showAlert(id ? '✅ Mapa actualizado exitosamente' : '✅ Mapa creado exitosamente', 'success');
+                    resetForm();
+                    loadMapas();
+                } else {
+                    showAlert('❌ Error: ' + result.error, 'error');
+                }
+            } catch (error) {
+                showAlert('❌ Error de conexión: ' + error.message, 'error');
+            }
+        });
+
+        // Editar mapa
+        window.editMapa = function(id, titulo, descripcion) {
+            mapaIdInput.value = id;
+            tituloInput.value = titulo;
+            descripcionInput.value = descripcion;
+            submitBtn.textContent = 'Actualizar Mapa';
+            cancelBtn.classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+
+        // Cancelar edición
+        cancelBtn.addEventListener('click', resetForm);
+
+        // Resetear formulario
+        function resetForm() {
+            mapaIdInput.value = '';
+            tituloInput.value = '';
+            descripcionInput.value = '';
+            archivoInput.value = '';
+            submitBtn.textContent = 'Crear Mapa';
+            cancelBtn.classList.add('hidden');
+        }
+
+        // Eliminar mapa
+        window.deleteMapa = async function(id) {
+            if (!confirm('¿Estás seguro de eliminar este mapa?')) return;
+            
+            try {
+                const response = await fetch(`${API_URL}/mapas/${id}`, {
+                    method: 'DELETE'
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    showAlert('🗑️ ' + result.mensaje, 'success');
+                    loadMapas();
+                } else {
+                    showAlert('❌ Error: ' + result.error, 'error');
+                }
+            } catch (error) {
+                showAlert('❌ Error de conexión: ' + error.message, 'error');
+            }
+        };
+
+        // Cargar mapas al iniciar
+        loadMapas();
+    </script>
+</body>
+</html>
