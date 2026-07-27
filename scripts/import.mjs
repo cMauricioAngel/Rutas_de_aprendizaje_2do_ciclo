@@ -38,8 +38,8 @@ function enrich(kind, r, mapSlug){
   const url = r.url && String(r.url).trim();
   if(url) return { search_engine:"direct", search_query:url, url };
   if(kind === "video"){
-    const topic = mapSlug === "java" ? topicOf(r.title) : (r.title || "");
-    const q = `${r.channel_or_author || ""} ${topic} ${lang(mapSlug)}`.replace(/\s+/g," ").trim();
+    const topic = mapSlug === "java" ? topicOf(r.title) : `${r.title || ""} ${lang(mapSlug)}`.replace(/\s+/g," ").trim();
+    const q = `${r.channel_or_author || ""} ${topic}`.replace(/\s+/g," ").trim();
     return { search_engine:"youtube", search_query:q };
   }
   // book / practice → google
@@ -242,7 +242,7 @@ function emitRoute(map, data){
       lines.push(`  insert into public.subtopics (unit_id,"order",code,title,objective) values (v_unit,${si+1},'${esc(s.code||"")}','${esc(s.title)}','${esc(s.objective||"")}') returning id into v_sub;`);
       (s.resources||[]).forEach((r, ri)=>{
         const e = enrich(r.kind, r, map.slug);
-        const meta = r.metadata ? `'${JSON.stringify(r.metadata).replace(/'/g,"''")}'::jsonb` : "null";
+        const meta = r.metadata ? `'${JSON.stringify(r.metadata).replace(/'/g,"''")}'::jsonb` : "'{}'::jsonb";
         const lvl = r.level ? `'${esc(r.level)}'` : "null";
         const t = r.title || r.text || "";
         const co = r.channel_or_author || "";
