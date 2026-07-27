@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Atlas de Estilos — Brutalismo × Editorial × Glassmorphism × Matemáticas × Humanidades × Economía × Programación</title>
+<title>Atlas de Estilos — Brutalismo × Minimalismo × Matemáticas × Humanidades</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Archivo+Black&family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Caveat:wght@400;700&family=Crimson+Pro:ital,wght@0,400;0,500;0,600;1,400&family=Space+Mono:wght@400;700&family=Fira+Code:wght@400;500;600;700&family=Source+Code+Pro:wght@400;500;600;700&family=DM+Mono:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Archivo+Black&family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Caveat:wght@400;700&family=Crimson+Pro:ital,wght@0,400;0,500;0,600;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root {
   --bg: #0a0a0a;
@@ -40,18 +40,6 @@ body {
 .f-caveat{font-family:'Caveat',cursive}
 .f-inter{font-family:'Inter',sans-serif}
 .f-space-mono{font-family:'Space Mono',monospace}
-.f-fira{font-family:'Fira Code',monospace}
-.f-source{font-family:'Source Code Pro',monospace}
-.f-dm-mono{font-family:'DM Mono',monospace}
-.f-playfair{font-family:'Playfair Display',serif}
-.f-merriweather{font-family:'Merriweather',serif}
-.f-lora{font-family:'Lora',serif}
-
-/* glassmorphism utilities */
-.glass-panel{background:rgba(255,255,255,0.08);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.12)}
-.glass-panel-dark{background:rgba(15,23,42,0.6);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.08)}
-.glass-card{background:rgba(255,255,255,0.15);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.2)}
-.glass-light{background:rgba(255,255,255,0.5);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.3)}
 
 .topnav{position:sticky;top:0;z-index:100;background:rgba(10,10,10,0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
 .hero-title{font-family:'Archivo Black',sans-serif;font-size:clamp(64px,16vw,260px);line-height:0.82;letter-spacing:-0.04em}
@@ -116,101 +104,6 @@ body {
 .poetry-accent{color:#A6715A}
 .poetry-rule{height:1px;background:#A6715A;width:60px}
 
-/* ====== DEMO 9: Terminal Hacker ====== */
-.demo-terminal{background:#0A0A0A;color:#00FF41;position:relative;overflow:hidden;font-family:'Fira Code',monospace}
-.demo-terminal::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,255,65,0.03) 0px,rgba(0,255,65,0.03) 1px,transparent 1px,transparent 3px);pointer-events:none}
-.term-prompt::before{content:'$ '}
-.term-cursor{display:inline-block;width:8px;height:18px;background:#00FF41;animation:blink 1s step-end infinite}
-@keyframes blink{50%{opacity:0}}
-.btn-terminal{background:#00FF41;color:#0A0A0A;border:2px solid #00FF41;padding:8px 16px;font-weight:700;font-family:'Fira Code',monospace;font-size:11px;cursor:pointer;transition:all .15s}
-.btn-terminal:hover{background:transparent;color:#00FF41}
-.btn-terminal-outline{background:transparent;color:#00FF41;border:2px solid #00FF41;padding:8px 16px;font-weight:700;font-family:'Fira Code',monospace;font-size:11px;cursor:pointer}
-.btn-terminal-outline:hover{background:#00FF41;color:#0A0A0A}
-
-/* ====== DEMO 10: Código Fuente Impreso ====== */
-.demo-printed-code{background:#F5F5F0;color:#1A1A1A;position:relative;overflow:hidden;font-family:'Source Code Pro',monospace}
-.code-keyword{color:#0047AB;font-weight:700}
-.code-string{color:#D11E1E}
-.code-comment{color:#6B7280;font-style:italic}
-.code-line-num{color:#9CA3AF;text-align:right;padding-right:12px;border-right:1px solid #E5E7EB;margin-right:12px;user-select:none}
-.code-block{background:#FFFFFF;border:3px solid #1A1A1A;padding:16px;font-family:'Source Code Pro',monospace;font-size:12px;line-height:1.8}
-
-/* ====== DEMO 11: Economía de Acero ====== */
-.demo-steel{background:#6B7280;color:#1F2937;position:relative;overflow:hidden;font-family:'Bebas Neue',sans-serif}
-.steel-block{background:#1F2937;color:#F9FAFB;border:3px solid #0A0A0A}
-.steel-gold{background:#D4AF37;color:#0A0A0A;font-weight:700}
-.steel-stat{font-family:'IBM Plex Mono',monospace;font-size:11px;color:#9CA3AF}
-
-/* ====== DEMO 12: Mercado Emergente ====== */
-.demo-market{background:#1B4332;color:#F8F9FA;position:relative;overflow:hidden;font-family:'DM Mono',monospace}
-.candle-up{background:#10B981}
-.candle-down{background:#DC2626}
-.market-grid{background-image:linear-gradient(rgba(255,255,255,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.05) 1px,transparent 1px);background-size:40px 40px}
-
-/* ====== DEMO 13: Manifiesto Económico ====== */
-.demo-manifesto{background:#E8E4D0;color:#0A0A0A;position:relative;overflow:hidden;font-family:'Archivo Black',sans-serif}
-.manifesto-block{background:#0A0A0A;color:#E8E4D0;padding:24px;border:3px solid #0A0A0A}
-.manifesto-red{background:#D01C1C;color:#FFFFFF;padding:12px 16px;display:inline-block;transform:rotate(-1deg)}
-.manifesto-stamp{border:3px solid #D01C1C;color:#D01C1C;padding:8px 16px;font-family:'Archivo Black',sans-serif;font-size:14px;transform:rotate(-5deg);display:inline-block}
-
-/* ====== DEMO 14: Revista Académica ====== */
-.demo-journal{background:#FFFFFF;color:#2B2B2B;position:relative;overflow:hidden;font-family:'Playfair Display',serif}
-.journal-cols{column-count:2;column-gap:32px;text-align:justify}
-.journal-dropcap::first-letter{font-size:56px;float:left;line-height:0.8;padding:0 8px 0 0;color:#1E3A5F;font-weight:700;font-family:'Playfair Display',serif}
-.journal-rule{height:2px;background:#1E3A5F;width:48px;margin:16px 0}
-
-/* ====== DEMO 15: Periódico Financiero ====== */
-.demo-newspaper{background:#F4F1EA;color:#1A1A1A;position:relative;overflow:hidden;font-family:'Merriweather',serif}
-.news-cols{column-count:3;column-gap:24px;text-align:justify}
-.news-rule{height:1px;background:#1A1A1A;width:100%;margin:8px 0}
-.news-label{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.05em;text-transform:uppercase}
-.news-accent{color:#0033A0}
-
-/* ====== DEMO 16: Paper Matemático ====== */
-.demo-paper{background:#FAFAFA;color:#2B2B2B;position:relative;overflow:hidden;font-family:'Lora',serif}
-.paper-theorem{border-left:3px solid #2563EB;padding-left:16px;margin:16px 0}
-.paper-proof{font-style:italic;color:#4B5563}
-.paper-eq{font-family:'JetBrains Mono',monospace;background:#F3F4F6;padding:8px 12px;border-radius:2px}
-
-/* ====== DEMO 17: Documentación Técnica ====== */
-.demo-docs{background:#FFFFFF;color:#374151;position:relative;overflow:hidden;font-family:'Inter',sans-serif}
-.docs-code{background:#F9FAFB;border:1px solid #E5E7EB;padding:16px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:12px}
-.docs-warning{background:#FEF3C7;border-left:3px solid #F59E0B;padding:12px 16px}
-.docs-link{color:#0066CC;text-decoration:underline}
-
-/* ====== DEMO 18: Crítica Literaria ====== */
-.demo-critique{background:#FFFDF5;color:#333333;position:relative;overflow:hidden;font-family:'Lora',serif}
-.critique-quote{border-left:3px solid #722F37;padding-left:20px;margin:16px 0;font-style:italic;color:#555}
-.critique-footnote{font-size:11px;color:#666;border-top:1px solid #E5E5E5;padding-top:8px;margin-top:16px}
-
-/* ====== DEMO 19: Dashboard Cuántico ====== */
-.demo-quantum{background:linear-gradient(135deg,#0F172A 0%,#1E293B 100%);color:#F1F5F9;position:relative;overflow:hidden;font-family:'Inter',sans-serif}
-.quantum-panel{background:rgba(255,255,255,0.06);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.12);border-radius:8px}
-.quantum-accent{color:#06B6D4}
-.quantum-accent-2{color:#8B5CF6}
-.quantum-glow{box-shadow:0 0 40px rgba(6,182,212,0.15)}
-
-/* ====== DEMO 20: Interfaz Bancaria Futura ====== */
-.demo-bank{background:linear-gradient(135deg,#1E3A5F 0%,#0F172A 100%);color:#F8FAFC;position:relative;overflow:hidden;font-family:'Inter',sans-serif}
-.bank-panel{background:rgba(30,58,95,0.5);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.08);border-radius:12px}
-.bank-green{color:#10B981}
-.bank-gold{color:#FCD34D}
-.money-display{font-family:'DM Mono',monospace;font-size:28px;font-weight:600}
-
-/* ====== DEMO 21: IDE Transparente ====== */
-.demo-ide{background:linear-gradient(135deg,#1A1A2E 0%,#16213E 100%);color:#E2E8F0;position:relative;overflow:hidden;font-family:'Fira Code',monospace}
-.ide-panel{background:rgba(22,33,62,0.6);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.08);border-radius:8px}
-.ide-pink{color:#F472B6}
-.ide-cyan{color:#22D3EE}
-.ide-yellow{color:#FDE047}
-.ide-line{padding:2px 0}
-
-/* ====== DEMO 22: Archivo Digital Ético ====== */
-.demo-archive{background:linear-gradient(135deg,#F8F9FA 0%,#E9ECEF 100%);color:#374151;position:relative;overflow:hidden;font-family:'Merriweather',serif}
-.archive-panel{background:rgba(255,255,255,0.6);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.4);border-radius:8px}
-.archive-green{color:#84A98C}
-.archive-terracotta{color:#BC6C25}
-
 /* prompts */
 .prompt-card{background:#131311;border:1px solid var(--border);padding:24px;border-radius:4px;transition:border-color .3s}
 .prompt-card:hover{border-color:#3a3a36}
@@ -247,23 +140,21 @@ body {
 <nav class="topnav">
   <div class="max-w-[1400px] mx-auto px-6 py-4 flex items-center justify-between">
     <a href="#top" class="f-archivo text-lg tracking-tight">ATLAS<span style="color:var(--accent)">.</span></a>
-    <div class="hidden md:flex items-center gap-4 lg:gap-6">
+    <div class="hidden md:flex items-center gap-6">
       <a href="#s1" class="nav-link">01 / BRUT×MAT</a>
       <a href="#s2" class="nav-link">02 / BRUT×HUM</a>
-      <a href="#s3" class="nav-link">03 / BRUT×PROG</a>
-      <a href="#s4" class="nav-link">04 / BRUT×ECON</a>
-      <a href="#s5" class="nav-link">05 / EDITORIAL</a>
-      <a href="#s6" class="nav-link">06 / GLASS</a>
-      <a href="#prompts" class="nav-link" style="color:var(--accent)">07 / PROMPTS</a>
+      <a href="#s3" class="nav-link">03 / MIN×MAT</a>
+      <a href="#s4" class="nav-link">04 / MIN×HUM</a>
+      <a href="#prompts" class="nav-link" style="color:var(--accent)">05 / PROMPTS</a>
     </div>
-    <div class="f-mono text-[11px]" style="color:var(--muted)">v.2.0 / 22 paletas</div>
+    <div class="f-mono text-[11px]" style="color:var(--muted)">v.1.0 / 8 paletas</div>
   </div>
 </nav>
 
 <!-- HERO -->
 <header id="top" class="max-w-[1400px] mx-auto px-6 pt-24 pb-32 relative">
   <div class="f-mono text-xs tracking-widest mb-8" style="color:var(--muted)">
-    07 EJES · 22 PALETAS · 23 PROMPTS
+    04 EJES · 08 PALETAS · 01 BIBLIOTECA DE PROMPTS
   </div>
   <h1 class="hero-title">
     ATLAS<br>
@@ -272,16 +163,14 @@ body {
   </h1>
   <div class="grid md:grid-cols-2 gap-12 mt-20 max-w-5xl">
     <p class="text-lg md:text-xl leading-relaxed" style="color:#c5c5b8">
-      Una colección de <strong style="color:#fff">sistemas visuales armónicos</strong> donde el brutalismo, editorial y glassmorphism se cruzan con matemáticas, humanidades, economía y programación. Cada paleta está implementada como una interfaz real, no como un swatch.
+      Una colección de <strong style="color:#fff">sistemas visuales armónicos</strong> donde el brutalismo y el minimalismo se cruzan con las matemáticas y las humanidades. Cada paleta está implementada como una interfaz real, no como un swatch.
     </p>
     <div class="f-mono text-sm space-y-3" style="color:#a5a59a">
       <div class="flex justify-between border-b border-[var(--border)] pb-2"><span>01</span><span>Brutalismo × Matemáticas</span><span style="color:var(--accent)">→</span></div>
       <div class="flex justify-between border-b border-[var(--border)] pb-2"><span>02</span><span>Brutalismo × Humanidades</span><span style="color:var(--accent)">→</span></div>
-      <div class="flex justify-between border-b border-[var(--border)] pb-2"><span>03</span><span>Brutalismo × Programación</span><span style="color:var(--accent)">→</span></div>
-      <div class="flex justify-between border-b border-[var(--border)] pb-2"><span>04</span><span>Brutalismo × Economía</span><span style="color:var(--accent)">→</span></div>
-      <div class="flex justify-between border-b border-[var(--border)] pb-2"><span>05</span><span>Editorial (transversal)</span><span style="color:var(--accent)">→</span></div>
-      <div class="flex justify-between border-b border-[var(--border)] pb-2"><span>06</span><span>Glassmorphism (transversal)</span><span style="color:var(--accent)">→</span></div>
-      <div class="flex justify-between pb-2"><span>07</span><span>Biblioteca de prompts</span><span style="color:var(--accent)">→</span></div>
+      <div class="flex justify-between border-b border-[var(--border)] pb-2"><span>03</span><span>Minimalismo × Matemáticas</span><span style="color:var(--accent)">→</span></div>
+      <div class="flex justify-between border-b border-[var(--border)] pb-2"><span>04</span><span>Minimalismo × Humanidades</span><span style="color:var(--accent)">→</span></div>
+      <div class="flex justify-between pb-2"><span>05</span><span>Biblioteca de prompts</span><span style="color:var(--accent)">→</span></div>
     </div>
   </div>
 </header>
@@ -568,283 +457,164 @@ body {
   </div>
 </section>
 
-<!-- ============ SECCIÓN 3: BRUTALISMO × PROGRAMACIÓN ============ -->
+<!-- ============ SECCIÓN 3: MINIMALISMO × MATEMÁTICAS ============ -->
 <section id="s3" class="max-w-[1400px] mx-auto px-6 py-24 reveal">
   <div class="flex items-end justify-between mb-12 flex-wrap gap-4">
     <div>
       <div class="f-mono text-xs tracking-widest mb-3" style="color:var(--muted)">SECCIÓN 03</div>
-      <h2 class="f-archivo text-4xl md:text-6xl leading-none">BRUTALISMO<br><span style="color:#00FF41">× PROGRAMACIÓN</span></h2>
+      <h2 class="f-archivo text-4xl md:text-6xl leading-none">MINIMALISMO<br><span style="color:#0047AB">× MATEMÁTICAS</span></h2>
     </div>
     <div class="sec-num stroke-text">03</div>
   </div>
   <p class="max-w-3xl text-lg leading-relaxed mb-16" style="color:#c5c5b8">
-    Terminal cruda, código impreso, estética de hacker. La armonía nace del contraste extremo: negro puro con verde fósforo, blanco papel con tinta negra. Bordes de 3px, tipografía monoespaciada, scanlines.
+    La matemática se vuelve elegante, espacial y topológica. Equilibrio asintótico: los colores casi se tocan pero mantienen una distancia perfecta. Proporciones ínfimas de acento.
   </p>
 
   <div class="grid lg:grid-cols-2 gap-8">
-    <!-- DEMO 9: Terminal Hacker -->
+    <!-- DEMO 5: Geometría Suiza -->
     <div>
       <div class="demo-frame mb-5">
         <div class="demo-bar">
           <div class="demo-dot"></div><div class="demo-dot"></div><div class="demo-dot"></div>
-          <span class="ml-2">demo-09-terminal-hacker.html</span>
+          <span class="ml-2">demo-05-geometria-suiza.html</span>
         </div>
-        <div class="demo-terminal p-8 md:p-10 min-h-[520px]">
+        <div class="demo-swiss p-8 md:p-10 min-h-[520px] relative">
+          <div class="swiss-grid"></div>
+          <div class="relative z-10">
+            <div class="flex justify-between items-start mb-12">
+              <div>
+                <div class="f-mono text-[10px] tracking-widest" style="color:#8a8a85">MÉTRICA / Q3 · 2024</div>
+                <div class="text-xs mt-1" style="color:#8a8a85">Informe trimestral · v.2</div>
+              </div>
+              <div class="f-mono text-[10px] tracking-widest" style="color:#8a8a85">03 / 12</div>
+            </div>
+
+            <div class="mb-12">
+              <div class="text-[10px] tracking-widest f-mono mb-3" style="color:#8a8a85">DISTRIBUCIÓN</div>
+              <div class="text-6xl md:text-7xl font-light leading-none tracking-tight">
+                72<span class="text-2xl align-top" style="color:#8a8a85">.4%</span>
+              </div>
+              <div class="text-sm mt-3" style="color:#8a8a85">de los casos se resuelven en ≤ 3 iteraciones</div>
+            </div>
+
+            <div class="mb-10">
+              <div class="text-[10px] tracking-widest f-mono mb-3" style="color:#8a8a85">BARRAS · DESEMPEÑO POR CUATRIMESTRE</div>
+              <div class="space-y-3">
+                <div class="flex items-center gap-4">
+                  <div class="f-mono text-xs w-12" style="color:#8a8a85">Q1</div>
+                  <div class="flex-1"><div class="swiss-bar" style="width:38%"></div></div>
+                  <div class="f-mono text-xs w-10 text-right">38</div>
+                </div>
+                <div class="flex items-center gap-4">
+                  <div class="f-mono text-xs w-12" style="color:#8a8a85">Q2</div>
+                  <div class="flex-1"><div class="swiss-bar" style="width:54%"></div></div>
+                  <div class="f-mono text-xs w-10 text-right">54</div>
+                </div>
+                <div class="flex items-center gap-4">
+                  <div class="f-mono text-xs w-12" style="color:#8a8a85">Q3</div>
+                  <div class="flex-1"><div class="swiss-bar" style="width:72%;background:#0047AB"></div></div>
+                  <div class="f-mono text-xs w-10 text-right swiss-accent font-medium">72</div>
+                </div>
+                <div class="flex items-center gap-4">
+                  <div class="f-mono text-xs w-12" style="color:#8a8a85">Q4</div>
+                  <div class="flex-1"><div class="swiss-bar" style="width:0%"></div></div>
+                  <div class="f-mono text-xs w-10 text-right" style="color:#ccc">—</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="border-t pt-4 flex justify-between" style="border-color:#e0e0e0">
+              <div class="f-mono text-[10px]" style="color:#8a8a85">FUENTE · DATOS INTERNOS</div>
+              <div class="f-mono text-[10px] swiss-accent">▸ VER COMPLETO</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex items-baseline justify-between mb-3">
+        <h3 class="f-archivo text-xl">03.A · Geometría Suiza</h3>
+        <span class="f-mono text-[10px]" style="color:var(--muted)">MIN × MAT</span>
+      </div>
+      <p class="text-sm leading-relaxed mb-4" style="color:#a5a59a">
+        Blanco alabastro con grafito profundo. Azul cobalto en proporciones ínfimas (~5%) para subrayar teoremas o datos clave.
+      </p>
+      <div class="border-t border-[var(--border)] pt-2">
+        <div class="swatch"><div class="swatch-color" style="background:#FAFAFA"></div><span class="flex-1">Fondo · Blanco Alabastro</span><span>#FAFAFA</span></div>
+        <div class="swatch"><div class="swatch-color" style="background:#2B2B2B"></div><span class="flex-1">Texto · Grafito Profundo</span><span>#2B2B2B</span></div>
+        <div class="swatch"><div class="swatch-color" style="background:#0047AB"></div><span class="flex-1">Acento · Azul Cobalto</span><span>#0047AB</span></div>
+        <div class="swatch"><div class="swatch-color" style="background:#0F3D2E"></div><span class="flex-1">Acento 2 · Verde Esmeralda</span><span>#0F3D2E</span></div>
+      </div>
+    </div>
+
+    <!-- DEMO 6: Espacio Negativo Topológico -->
+    <div>
+      <div class="demo-frame mb-5">
+        <div class="demo-bar">
+          <div class="demo-dot"></div><div class="demo-dot"></div><div class="demo-dot"></div>
+          <span class="ml-2">demo-06-espacio-topologico.html</span>
+        </div>
+        <div class="demo-topo p-8 md:p-10 min-h-[520px]">
           <div class="flex justify-between items-start mb-8">
-            <div class="f-mono text-[10px] tracking-widest opacity-70">root@atlas:~$ uname -a</div>
-            <div class="term-cursor"></div>
-          </div>
-
-          <div class="mb-6">
-            <div class="f-mono text-xs opacity-80 mb-2"><span class="opacity-60">#</span> Sistema Atlas v2.0</div>
-            <div class="f-mono text-xs opacity-80">Linux kernel 6.5.0-generic x86_64</div>
-            <div class="f-mono text-xs opacity-80">GNU/Linux (Debian based)</div>
-          </div>
-
-          <div class="border-[2px] border-[#00FF41] p-5 mb-6" style="background:rgba(0,255,65,0.05)">
-            <div class="f-mono text-[10px] opacity-60 mb-3 term-prompt">./status_check.sh</div>
-            <div class="grid grid-cols-3 gap-4">
-              <div>
-                <div class="f-mono text-[9px] opacity-60">CPU</div>
-                <div class="text-xl font-bold" style="color:#00FF41">12%</div>
-              </div>
-              <div>
-                <div class="f-mono text-[9px] opacity-60">MEM</div>
-                <div class="text-xl font-bold" style="color:#00FF41">4.2GB</div>
-              </div>
-              <div>
-                <div class="f-mono text-[9px] opacity-60">NET</div>
-                <div class="text-xl font-bold" style="color:#00FF41">↑↓ 128ms</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="f-mono text-xs mb-6">
-            <div class="opacity-80 mb-2"><span class="opacity-60">$</span> cat /etc/motd</div>
-            <div class="opacity-70 italic">"El código es poesía ejecutable"</div>
-          </div>
-
-          <div class="flex flex-wrap gap-3">
-            <button class="btn-terminal">▸ EJECUTAR</button>
-            <button class="btn-terminal-outline">▸ DEBUG</button>
-            <button class="btn-terminal-outline">▸ EXPORT LOG</button>
-          </div>
-        </div>
-      </div>
-      <div class="flex items-baseline justify-between mb-3">
-        <h3 class="f-archivo text-xl">03.A · Terminal Hacker</h3>
-        <span class="f-mono text-[10px]" style="color:var(--muted)">BRUT × PROG</span>
-      </div>
-      <p class="text-sm leading-relaxed mb-4" style="color:#a5a59a">
-        Negro puro #0A0A0A con verde fósforo #00FF41. Scanlines sutiles, cursor parpadeante, estética de terminal UNIX de los 80s.
-      </p>
-      <div class="border-t border-[var(--border)] pt-2">
-        <div class="swatch"><div class="swatch-color" style="background:#0A0A0A"></div><span class="flex-1">Fondo · Negro Puro</span><span>#0A0A0A</span></div>
-        <div class="swatch"><div class="swatch-color" style="background:#00FF41"></div><span class="flex-1">Texto · Verde Fósforo</span><span>#00FF41</span></div>
-        <div class="swatch"><div class="swatch-color" style="background:#FFB000"></div><span class="flex-1">Acento · Ámbar</span><span>#FFB000</span></div>
-      </div>
-    </div>
-
-    <!-- DEMO 10: Código Fuente Impreso -->
-    <div>
-      <div class="demo-frame mb-5">
-        <div class="demo-bar">
-          <div class="demo-dot"></div><div class="demo-dot"></div><div class="demo-dot"></div>
-          <span class="ml-2">demo-10-codigo-impreso.html</span>
-        </div>
-        <div class="demo-printed-code p-8 md:p-10 min-h-[520px]">
-          <div class="flex justify-between items-start mb-6">
             <div>
-              <div class="f-mono text-[10px] tracking-widest opacity-60">ARCHIVO · main.rs</div>
-              <div class="text-xs mt-1 opacity-70">Rust · Línea 147-162</div>
+              <div class="f-mono text-[10px] tracking-widest opacity-60">GRAFO · TOPOLOGÍA</div>
+              <div class="text-2xl font-light mt-1">Red de afinidad</div>
             </div>
-            <div class="f-mono text-[10px] opacity-60">v.2.0.1</div>
+            <div class="f-mono text-[10px] opacity-60">v.1.4 / 6 nodos</div>
           </div>
 
-          <div class="code-block">
-            <div><span class="code-line-num">147</span><span class="code-keyword">fn</span> <span class="code-string">calculate_harmony</span>(data: <span class="code-keyword">Vec</span>&lt;f64&gt;) -&gt; <span class="code-keyword">Result</span>&lt;f64&gt; {</div>
-            <div><span class="code-line-num">148</span>    <span class="code-comment">// Validar entrada antes de procesar</span></div>
-            <div><span class="code-line-num">149</span>    <span class="code-keyword">if</span> data.is_empty() {</div>
-            <div><span class="code-line-num">150</span>        <span class="code-keyword">return</span> <span class="code-keyword">Err</span>(<span class="code-string">"Dataset vacío"</span>);</div>
-            <div><span class="code-line-num">151</span>    }</div>
-            <div><span class="code-line-num">152</span></div>
-            <div><span class="code-line-num">153</span>    <span class="code-keyword">let</span> mean = data.iter().sum::&lt;f64&gt;() / data.len() <span class="code-keyword">as</span> f64;</div>
-            <div><span class="code-line-num">154</span>    <span class="code-keyword">let</span> variance = data.iter()</div>
-            <div><span class="code-line-num">155</span>        .map(|x| (x - mean).powi(<span class="code-string">2</span>))</div>
-            <div><span class="code-line-num">156</span>        .sum::&lt;f64&gt;() / data.len() <span class="code-keyword">as</span> f64;</div>
-            <div><span class="code-line-num">157</span></div>
-            <div><span class="code-line-num">158</span>    <span class="code-keyword">Ok</span>(variance.sqrt()) <span class="code-comment">// desviación estándar</span></div>
-            <div><span class="code-line-num">159</span>}</div>
+          <div class="relative mb-8" style="height:280px">
+            <svg viewBox="0 0 400 280" class="w-full h-full">
+              <!-- aristas -->
+              <line x1="80" y1="80" x2="200" y2="60" class="topo-line"/>
+              <line x1="80" y1="80" x2="140" y2="180" class="topo-line"/>
+              <line x1="200" y1="60" x2="320" y2="100" class="topo-line"/>
+              <line x1="200" y1="60" x2="140" y2="180" class="topo-line"/>
+              <line x1="320" y1="100" x2="280" y2="200" class="topo-line"/>
+              <line x1="140" y1="180" x2="280" y2="200" class="topo-line"/>
+              <line x1="280" y1="200" x2="350" y2="240" class="topo-line"/>
+              <!-- nodos principales -->
+              <circle cx="80" cy="80" r="8" class="topo-node"/>
+              <circle cx="200" cy="60" r="12" class="topo-node"/>
+              <circle cx="320" cy="100" r="8" class="topo-node"/>
+              <circle cx="140" cy="180" r="10" class="topo-node"/>
+              <circle cx="280" cy="200" r="8" class="topo-node"/>
+              <circle cx="350" cy="240" r="6" class="topo-node"/>
+              <!-- etiquetas -->
+              <text x="60" y="105" class="topo-label">α</text>
+              <text x="185" y="40" class="topo-label">β · nodo raíz</text>
+              <text x="330" y="95" class="topo-label">γ</text>
+              <text x="115" y="205" class="topo-label">δ</text>
+              <text x="295" y="225" class="topo-label">ε</text>
+              <text x="355" y="260" class="topo-label">ζ</text>
+            </svg>
           </div>
 
-          <div class="grid grid-cols-3 gap-4 mt-6 pt-4" style="border-top:1px solid #E5E7EB">
+          <div class="grid grid-cols-3 gap-6 pt-6" style="border-top:1px solid #B0B0B0">
             <div>
-              <div class="f-mono text-[9px] opacity-60">FUNCIONES</div>
-              <div class="text-lg font-bold f-mono">03</div>
+              <div class="f-mono text-[10px] opacity-60 mb-1">NODOS</div>
+              <div class="text-2xl font-light">06</div>
             </div>
             <div>
-              <div class="f-mono text-[9px] opacity-60">LÍNEAS</div>
-              <div class="text-lg font-bold f-mono">162</div>
+              <div class="f-mono text-[10px] opacity-60 mb-1">ARISTAS</div>
+              <div class="text-2xl font-light">07</div>
             </div>
             <div>
-              <div class="f-mono text-[9px] opacity-60">ERRORES</div>
-              <div class="text-lg font-bold f-mono" style="color:#D11E1E">00</div>
+              <div class="f-mono text-[10px] opacity-60 mb-1">CLUSTER</div>
+              <div class="text-2xl font-light">02</div>
             </div>
           </div>
         </div>
       </div>
       <div class="flex items-baseline justify-between mb-3">
-        <h3 class="f-archivo text-xl">03.B · Código Fuente Impreso</h3>
-        <span class="f-mono text-[10px]" style="color:var(--muted)">BRUT × PROG</span>
+        <h3 class="f-archivo text-xl">03.B · Espacio Negativo Topológico</h3>
+        <span class="f-mono text-[10px]" style="color:var(--muted)">MIN × MAT</span>
       </div>
       <p class="text-sm leading-relaxed mb-4" style="color:#a5a59a">
-        Blanco papel #F5F5F0 con negro tinta #1A1A1A. Bordes de 3px, números de línea, sintaxis coloreada como impresión de código en papel.
+        Gris niebla con azul medianoche y plata pálida. Profundidad visual tridimensional sin bordes duros, ideal para geometría y topología.
       </p>
       <div class="border-t border-[var(--border)] pt-2">
-        <div class="swatch"><div class="swatch-color" style="background:#F5F5F0"></div><span class="flex-1">Fondo · Blanco Papel</span><span>#F5F5F0</span></div>
-        <div class="swatch"><div class="swatch-color" style="background:#1A1A1A"></div><span class="flex-1">Texto · Negro Tinta</span><span>#1A1A1A</span></div>
-        <div class="swatch"><div class="swatch-color" style="background:#0047AB"></div><span class="flex-1">Keyword · Azul</span><span>#0047AB</span></div>
-        <div class="swatch"><div class="swatch-color" style="background:#D11E1E"></div><span class="flex-1">String · Rojo Error</span><span>#D11E1E</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ SECCIÓN 4: BRUTALISMO × ECONOMÍA ============ -->
-<section id="s4" class="max-w-[1400px] mx-auto px-6 py-24 reveal">
-  <div class="flex items-end justify-between mb-12 flex-wrap gap-4">
-    <div>
-      <div class="f-mono text-xs tracking-widest mb-3" style="color:var(--muted)">SECCIÓN 04</div>
-      <h2 class="f-archivo text-4xl md:text-6xl leading-none">BRUTALISMO<br><span style="color:#D4AF37">× ECONOMÍA</span></h2>
-    </div>
-    <div class="sec-num stroke-text">04</div>
-  </div>
-  <p class="max-w-3xl text-lg leading-relaxed mb-16" style="color:#c5c5b8">
-    Acero industrial, mercados emergentes, manifiestos económicos. Bloques pesados, tipografía condensada, dorado lingote y rojo de caída bursátil.
-  </p>
-
-  <div class="grid lg:grid-cols-2 gap-8">
-    <!-- DEMO 11: Economía de Acero -->
-    <div>
-      <div class="demo-frame mb-5">
-        <div class="demo-bar">
-          <div class="demo-dot"></div><div class="demo-dot"></div><div class="demo-dot"></div>
-          <span class="ml-2">demo-11-economia-acero.html</span>
-        </div>
-        <div class="demo-steel p-8 md:p-10 min-h-[520px]">
-          <div class="flex justify-between items-start mb-8">
-            <div class="f-mono text-[10px] tracking-widest opacity-70">INFORME TRIMESTRAL · Q3 2024</div>
-            <div class="steel-stat">INDUSTRIAL INDEX</div>
-          </div>
-
-          <div class="steel-block p-6 mb-6">
-            <div class="f-mono text-[10px] tracking-widest opacity-60 mb-3">PRODUCCIÓN MENSUAL</div>
-            <div class="text-5xl md:text-6xl leading-none mb-2">+<span class="steel-gold px-2">12.4%</span></div>
-            <div class="steel-stat">vs. trimestre anterior</div>
-          </div>
-
-          <div class="grid grid-cols-2 gap-4 mb-6">
-            <div class="border-[3px] border-black p-4 bg-transparent">
-              <div class="f-mono text-[9px] tracking-widest opacity-70 mb-2">ACERO (MT)</div>
-              <div class="text-2xl font-bold">847.2</div>
-              <div class="steel-stat mt-1">↑ 3.2% YoY</div>
-            </div>
-            <div class="steel-gold p-4">
-              <div class="f-mono text-[9px] tracking-widest opacity-80 mb-2">ORO (oz)</div>
-              <div class="text-2xl font-bold">$2,034</div>
-              <div class="f-mono text-[9px] mt-1">↑ máx. histórico</div>
-            </div>
-          </div>
-
-          <div class="flex justify-between items-center pt-4 border-t-[3px] border-black">
-            <div class="steel-stat">FUENTE: BANCO CENTRAL EUROPEO</div>
-            <div class="f-mono text-[10px] font-bold">CONFIDENCIAL</div>
-          </div>
-        </div>
-      </div>
-      <div class="flex items-baseline justify-between mb-3">
-        <h3 class="f-archivo text-xl">04.A · Economía de Acero</h3>
-        <span class="f-mono text-[10px]" style="color:var(--muted)">BRUT × ECON</span>
-      </div>
-      <p class="text-sm leading-relaxed mb-4" style="color:#a5a59a">
-        Gris industrial #6B7280 con negro carbón #1F2937. Dorado lingote #D4AF37 para datos positivos. Tipografía Bebas Neue condensada.
-      </p>
-      <div class="border-t border-[var(--border)] pt-2">
-        <div class="swatch"><div class="swatch-color" style="background:#6B7280"></div><span class="flex-1">Fondo · Gris Industrial</span><span>#6B7280</span></div>
-        <div class="swatch"><div class="swatch-color" style="background:#1F2937"></div><span class="flex-1">Texto · Negro Carbón</span><span>#1F2937</span></div>
-        <div class="swatch"><div class="swatch-color" style="background:#D4AF37"></div><span class="flex-1">Acento · Dorado Lingote</span><span>#D4AF37</span></div>
-      </div>
-    </div>
-
-    <!-- DEMO 12: Mercado Emergente -->
-    <div>
-      <div class="demo-frame mb-5">
-        <div class="demo-bar">
-          <div class="demo-dot"></div><div class="demo-dot"></div><div class="demo-dot"></div>
-          <span class="ml-2">demo-12-mercado-emergente.html</span>
-        </div>
-        <div class="demo-market p-8 md:p-10 min-h-[520px] market-grid">
-          <div class="flex justify-between items-start mb-6">
-            <div>
-              <div class="f-mono text-[10px] tracking-widest opacity-70">MERCADO EMERGENTE</div>
-              <div class="text-xs mt-1 opacity-80">BTC/USD · Tiempo real</div>
-            </div>
-            <div class="f-mono text-[10px] opacity-70">▼ -2.4%</div>
-          </div>
-
-          <div class="mb-6" style="height:200px;position:relative">
-            <!-- Velas japonesas simuladas con CSS -->
-            <div class="absolute bottom-0 left-[10%] w-3 candle-up" style="height:60px"></div>
-            <div class="absolute bottom-[60px] left-[10%] w-[1px] candle-up" style="height:20px"></div>
-            
-            <div class="absolute bottom-0 left-[25%] w-3 candle-down" style="height:80px"></div>
-            <div class="absolute bottom-[80px] left-[25%] w-[1px] candle-down" style="height:25px"></div>
-            
-            <div class="absolute bottom-[40px] left-[40%] w-3 candle-up" style="height:100px"></div>
-            <div class="absolute bottom-[140px] left-[40%] w-[1px] candle-up" style="height:30px"></div>
-            
-            <div class="absolute bottom-[80px] left-[55%] w-3 candle-up" style="height:70px"></div>
-            <div class="absolute bottom-[150px] left-[55%] w-[1px] candle-up" style="height:20px"></div>
-            
-            <div class="absolute bottom-[60px] left-[70%] w-3 candle-down" style="height:90px"></div>
-            <div class="absolute bottom-[150px] left-[70%] w-[1px] candle-down" style="height:35px"></div>
-            
-            <div class="absolute bottom-[30px] left-[85%] w-3 candle-up" style="height:50px"></div>
-            <div class="absolute bottom-[80px] left-[85%] w-[1px] candle-up" style="height:25px"></div>
-          </div>
-
-          <div class="grid grid-cols-4 gap-4 pt-4" style="border-top:1px solid rgba(255,255,255,0.1)">
-            <div>
-              <div class="f-mono text-[9px] opacity-60">APERTURA</div>
-              <div class="text-lg font-bold">$42,847</div>
-            </div>
-            <div>
-              <div class="f-mono text-[9px] opacity-60">MÁXIMO</div>
-              <div class="text-lg font-bold candle-up">$43,920</div>
-            </div>
-            <div>
-              <div class="f-mono text-[9px] opacity-60">MÍNIMO</div>
-              <div class="text-lg font-bold candle-down">$41,205</div>
-            </div>
-            <div>
-              <div class="f-mono text-[9px] opacity-60">CIERRE</div>
-              <div class="text-lg font-bold">$42,156</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="flex items-baseline justify-between mb-3">
-        <h3 class="f-archivo text-xl">04.B · Mercado Emergente</h3>
-        <span class="f-mono text-[10px]" style="color:var(--muted)">BRUT × ECON</span>
-      </div>
-      <p class="text-sm leading-relaxed mb-4" style="color:#a5a59a">
-        Verde bolsa oscuro #1B4332 con blanco hueso #F8F9FA. Velas japonesas en verde subida #10B981 y rojo caída #DC2626.
-      </p>
-      <div class="border-t border-[var(--border)] pt-2">
-        <div class="swatch"><div class="swatch-color" style="background:#1B4332"></div><span class="flex-1">Fondo · Verde Bolsa</span><span>#1B4332</span></div>
-        <div class="swatch"><div class="swatch-color" style="background:#F8F9FA"></div><span class="flex-1">Texto · Blanco Hueso</span><span>#F8F9FA</span></div>
-        <div class="swatch"><div class="swatch-color" style="background:#10B981"></div><span class="flex-1">Subida · Verde</span><span>#10B981</span></div>
-        <div class="swatch"><div class="swatch-color" style="background:#DC2626"></div><span class="flex-1">Bajada · Rojo</span><span>#DC2626</span></div>
+        <div class="swatch"><div class="swatch-color" style="background:#EDEDED"></div><span class="flex-1">Fondo · Gris Niebla</span><span>#EDEDED</span></div>
+        <div class="swatch"><div class="swatch-color" style="background:#191970"></div><span class="flex-1">Texto · Azul Medianoche</span><span>#191970</span></div>
+        <div class="swatch"><div class="swatch-color" style="background:#B0B0B0"></div><span class="flex-1">Acento · Plata Pálido</span><span>#B0B0B0</span></div>
       </div>
     </div>
   </div>
@@ -1157,289 +927,8 @@ Sin bordes. Sin sombras. Sin iconos. La tipografía y el aire cargan todo el pes
 Contenido a generar: [DESCRIBIR AQUÍ LA INTERFAZ]</pre>
     </div>
 
-    <!-- PROMPT 9: Terminal Hacker -->
-    <div class="prompt-card">
-      <div class="flex items-baseline justify-between mb-3">
-        <div>
-          <div class="f-mono text-[10px] tracking-widest" style="color:var(--muted)">03.A · BRUT × PROG</div>
-          <h4 class="f-archivo text-lg mt-1">Terminal Hacker</h4>
-        </div>
-        <button class="copy-btn" data-target="p9">COPIAR</button>
-      </div>
-      <pre class="prompt-code" id="p9">Estilo: brutalismo en programación "Terminal Hacker".
-Fondo principal: #0A0A0A (negro puro).
-Texto principal: #00FF41 (verde fósforo terminal).
-Bordes: 2px sólidos en verde fósforo o negro, sin border-radius.
-Acento armónico (~10% del área): #FFB000 (ámbar) para alertas, warnings y estados críticos.
-Tipografía: monoespaciada (Fira Code / JetBrains Mono) con ligaduras activas. Todo el texto en minúsculas o mayúsculas técnicas.
-Efectos: scanlines horizontales (líneas al 3% opacidad cada 3px), cursor parpadeante, texto con ligero glow verde.
-Botones: estilo comando CLI, hover invierte colores (fondo verde, texto negro).
-Sin gradientes. Sin sombras suaves. Estética de terminal UNIX de los 80s.
-Contenido a generar: [DESCRIBIR AQUÍ LA INTERFAZ]</pre>
-    </div>
-
-    <!-- PROMPT 10: Código Fuente Impreso -->
-    <div class="prompt-card">
-      <div class="flex items-baseline justify-between mb-3">
-        <div>
-          <div class="f-mono text-[10px] tracking-widest" style="color:var(--muted)">03.B · BRUT × PROG</div>
-          <h4 class="f-archivo text-lg mt-1">Código Fuente Impreso</h4>
-        </div>
-        <button class="copy-btn" data-target="p10">COPIAR</button>
-      </div>
-      <pre class="prompt-code" id="p10">Estilo: brutalismo en programación "Código Fuente Impreso".
-Fondo principal: #F5F5F0 (blanco papel de impresión).
-Texto principal: #1A1A1A (negro tinta).
-Bordes: 3px sólidos en negro, sin border-radius. Numeración de línea con borde derecho de 1px.
-Acentos de sintaxis: #0047AB (azul keyword), #D11E1E (rojo string/error), #6B7280 (gris comentario).
-Tipografía: Source Code Pro / IBM Plex Mono, tamaño 12-14px, line-height 1.8.
-Estética de impresión: código como si estuviera impreso en papel, números de línea a la izquierda, bloques con边框 pesados.
-Comentarios en cursiva gris. Keywords en azul negrita. Strings en rojo.
-Contenido a generar: [DESCRIBIR AQUÍ LA INTERFAZ]</pre>
-    </div>
-
-    <!-- PROMPT 11: Economía de Acero -->
-    <div class="prompt-card">
-      <div class="flex items-baseline justify-between mb-3">
-        <div>
-          <div class="f-mono text-[10px] tracking-widest" style="color:var(--muted)">04.A · BRUT × ECON</div>
-          <h4 class="f-archivo text-lg mt-1">Economía de Acero</h4>
-        </div>
-        <button class="copy-btn" data-target="p11">COPIAR</button>
-      </div>
-      <pre class="prompt-code" id="p11">Estilo: brutalismo en economía "Economía de Acero".
-Fondo principal: #6B7280 (gris industrial acero).
-Texto principal: #1F2937 (negro carbón).
-Bordes: 3px sólidos en negro, bloques pesados sin border-radius.
-Acento armónico: #D4AF37 (dorado lingote) para datos positivos, máximos históricos, crecimiento.
-Tipografía: Bebas Neue / Archivo Black para titulares condensados; IBM Plex Mono para datos numéricos.
-Estética industrial: bloques rectangulares pesados, tipografía condensada, datos financieros presentados como materia prima.
-Sin gradientes. Sin decoraciones. Solo datos brutos y acero.
-Contenido a generar: [DESCRIBIR AQUÍ LA INTERFAZ]</pre>
-    </div>
-
-    <!-- PROMPT 12: Mercado Emergente -->
-    <div class="prompt-card">
-      <div class="flex items-baseline justify-between mb-3">
-        <div>
-          <div class="f-mono text-[10px] tracking-widest" style="color:var(--muted)">04.B · BRUT × ECON</div>
-          <h4 class="f-archivo text-lg mt-1">Mercado Emergente</h4>
-        </div>
-        <button class="copy-btn" data-target="p12">COPIAR</button>
-      </div>
-      <pre class="prompt-code" id="p12">Estilo: brutalismo en economía "Mercado Emergente".
-Fondo principal: #1B4332 (verde bolsa oscuro).
-Texto principal: #F8F9FA (blanco hueso).
-Bordes: sutiles, grid de fondo al 5% opacidad cada 40px.
-Acentos: #10B981 (verde subida) para velas alcistas, #DC2626 (rojo caída) para velas bajistas.
-Tipografía: DM Mono / JetBrains Mono para datos de trading.
-Visualización: velas japonesas estilizadas, grids de tiempo real, OHLC (Open, High, Low, Close) prominentes.
-Estética de terminal Bloomberg simplificada, brutalista.
-Contenido a generar: [DESCRIBIR AQUÍ LA INTERFAZ]</pre>
-    </div>
-
-    <!-- PROMPT 13: Manifiesto Económico -->
-    <div class="prompt-card">
-      <div class="flex items-baseline justify-between mb-3">
-        <div>
-          <div class="f-mono text-[10px] tracking-widest" style="color:var(--muted)">04.C · BRUT × ECON × HUM</div>
-          <h4 class="f-archivo text-lg mt-1">Manifiesto Económico</h4>
-        </div>
-        <button class="copy-btn" data-target="p13">COPIAR</button>
-      </div>
-      <pre class="prompt-code" id="p13">Estilo: brutalismo híbrido "Manifiesto Económico".
-Fondo principal: #E8E4D0 (beige documento antiguo).
-Texto principal: #0A0A0A (negro pesado).
-Bordes: 3px sólidos en negro, bloques densos.
-Acento armónico: #D01C1C (rojo urgente) para sellos, énfasis, palabras clave revolucionarias.
-Tipografía: Archivo Black para titulares tipo manifiesto; monoespaciada para metadatos.
-Estética de panfleto económico: bloques de texto densos, rotación leve (-1° a -5°), sellos rojos, sensación de urgencia.
-Palabras clave en cajas rojas con rotación. Sensación de documento clasificado o manifiesto underground.
-Contenido a generar: [DESCRIBIR AQUÍ LA INTERFAZ]</pre>
-    </div>
-
-    <!-- PROMPT 14: Revista Académica -->
-    <div class="prompt-card">
-      <div class="flex items-baseline justify-between mb-3">
-        <div>
-          <div class="f-mono text-[10px] tracking-widest" style="color:var(--muted)">05.A · EDIT × HUM</div>
-          <h4 class="f-archivo text-lg mt-1">Revista Académica</h4>
-        </div>
-        <button class="copy-btn" data-target="p14">COPIAR</button>
-      </div>
-      <pre class="prompt-code" id="p14">Estilo: editorial académico "Revista Académica".
-Fondo principal: #FFFFFF (blanco editorial puro).
-Texto principal: #2B2B2B (negro suave, nunca negro puro).
-Bordes: ninguno o líneas finas de 1px en #E5E5E5 para separadores.
-Acento armónico: #1E3A5F (azul académico) para drop caps, reglas decorativas, palabras clave.
-Tipografía: Playfair Display para titulares serif elegantes; cuerpo en columnas justificadas con serif clásica.
-Estructura: drop caps gigantes (56px+), columnas múltiples (2-3), reglas horizontales de 2px, volumen/número visible.
-Palabras clave en azul académico, justificación estricta, aire generoso entre párrafos.
-Contenido a generar: [DESCRIBIR AQUÍ LA INTERFAZ]</pre>
-    </div>
-
-    <!-- PROMPT 15: Periódico Financiero -->
-    <div class="prompt-card">
-      <div class="flex items-baseline justify-between mb-3">
-        <div>
-          <div class="f-mono text-[10px] tracking-widest" style="color:var(--muted)">05.B · EDIT × ECON</div>
-          <h4 class="f-archivo text-lg mt-1">Periódico Financiero</h4>
-        </div>
-        <button class="copy-btn" data-target="p15">COPIAR</button>
-      </div>
-      <pre class="prompt-code" id="p15">Estilo: editorial financiero "Periódico Financiero".
-Fondo principal: #F4F1EA (blanco periódico envejecido).
-Texto principal: #1A1A1A (negro tinta de imprenta).
-Bordes: líneas finas de 1px para separar columnas y secciones.
-Acento armónico: #0033A0 (azul Reuters) para titulares destacados, datos bursátiles positivos.
-Tipografía: Merriweather para cuerpo serif; IBM Plex Mono para labels y metadatos; Archivo Black para masthead gigante.
-Estructura: 3 columnas justificadas, líneas separadoras horizontales, ticker de mercado visible, fecha/volumen prominentes.
-Datos financieros en grid de 3-4 columnas, flechas ▲▼ para dirección del mercado.
-Contenido a generar: [DESCRIBIR AQUÍ LA INTERFAZ]</pre>
-    </div>
-
-    <!-- PROMPT 16: Paper Matemático -->
-    <div class="prompt-card">
-      <div class="flex items-baseline justify-between mb-3">
-        <div>
-          <div class="f-mono text-[10px] tracking-widest" style="color:var(--muted)">05.C · EDIT × MAT</div>
-          <h4 class="f-archivo text-lg mt-1">Paper Matemático</h4>
-        </div>
-        <button class="copy-btn" data-target="p16">COPIAR</button>
-      </div>
-      <pre class="prompt-code" id="p16">Estilo: editorial matemático "Paper Matemático".
-Fondo principal: #FAFAFA (blanco LaTeX).
-Texto principal: #2B2B2B (negro formal).
-Bordes: izquierdo de 3px en azul para teoremas; none para cuerpo.
-Acento armónico: #2563EB (azul theorem) para numeración de teoremas, lemas, proposiciones.
-Tipografía: Lora / EB Garamond para cuerpo serif; JetBrains Mono para ecuaciones inline.
-Estructura: teoremas en cajas con borde izquierdo azul, demostraciones en cursiva, ecuaciones en bloques centrados, referencias numeradas.
-Notación matemática prominente: H^{p,q}(X), ℚ, ∩, etc. Preprint ID visible (arXiv:XXXX.XXXXX).
-Contenido a generar: [DESCRIBIR AQUÍ LA INTERFAZ]</pre>
-    </div>
-
-    <!-- PROMPT 17: Documentación Técnica -->
-    <div class="prompt-card">
-      <div class="flex items-baseline justify-between mb-3">
-        <div>
-          <div class="f-mono text-[10px] tracking-widest" style="color:var(--muted)">05.D · EDIT × PROG</div>
-          <h4 class="f-archivo text-lg mt-1">Documentación Técnica</h4>
-        </div>
-        <button class="copy-btn" data-target="p17">COPIAR</button>
-      </div>
-      <pre class="prompt-code" id="p17">Estilo: editorial técnico "Documentación Técnica".
-Fondo principal: #FFFFFF (blanco limpio).
-Texto principal: #374151 (gris oscuro, no negro).
-Bordes: 1px sutiles en #E5E7EB para bloques de código; border-left de 3px para warnings.
-Acentos: #0066CC (azul enlace) para links, #F59E0B (naranja warning) para advertencias.
-Tipografía: Inter para cuerpo sans-serif; JetBrains Mono para bloques de código.
-Estructura: bloques de código con fondo #F9FAFB, warnings con borde izquierdo naranja, listas de parámetros con badges monoespaciados.
-Endpoint HTTP en color (POST en azul/verde), Content-Type visible, ejemplos copy-pasteables.
-Contenido a generar: [DESCRIBIR AQUÍ LA INTERFAZ]</pre>
-    </div>
-
-    <!-- PROMPT 18: Crítica Literaria -->
-    <div class="prompt-card">
-      <div class="flex items-baseline justify-between mb-3">
-        <div>
-          <div class="f-mono text-[10px] tracking-widest" style="color:var(--muted)">05.E · EDIT × HUM</div>
-          <h4 class="f-archivo text-lg mt-1">Crítica Literaria</h4>
-        </div>
-        <button class="copy-btn" data-target="p18">COPIAR</button>
-      </div>
-      <pre class="prompt-code" id="p18">Estilo: editorial humanístico "Crítica Literaria".
-Fondo principal: #FFFDF5 (crema papel premium).
-Texto principal: #333333 (gris antracita suave).
-Bordes: ninguno; border-left de 3px en burdeos para citas destacadas.
-Acento armónico: #722F37 (burdeos vino) para citas largas, énfasis tipográfico.
-Tipografía: Lora / Crimson Pro serif elegante para cuerpo; italic para citas y énfasis.
-Estructura: citas bloque con sangría izquierda y borde burdeos, notas al pie con línea separadora, títulos centrados con aire generoso.
-Notas numeradas [1], [2] con referencias bibliográficas completas al final. Sensación de ensayo académico literario.
-Contenido a generar: [DESCRIBIR AQUÍ LA INTERFAZ]</pre>
-    </div>
-
-    <!-- PROMPT 19: Dashboard Cuántico -->
-    <div class="prompt-card">
-      <div class="flex items-baseline justify-between mb-3">
-        <div>
-          <div class="f-mono text-[10px] tracking-widest" style="color:var(--muted)">06.A · GLASS × MAT</div>
-          <h4 class="f-archivo text-lg mt-1">Dashboard Cuántico</h4>
-        </div>
-        <button class="copy-btn" data-target="p19">COPIAR</button>
-      </div>
-      <pre class="prompt-code" id="p19">Estilo: glassmorphism científico "Dashboard Cuántico".
-Fondo principal: linear-gradient(135deg, #0F172A 0%, #1E293B 100%) (gradiente oscuro profundo).
-Paneles: rgba(255,255,255,0.06) con backdrop-filter: blur(20px), border: 1px solid rgba(255,255,255,0.12), border-radius: 8px.
-Acentos: #06B6D4 (cian cuántico) para datos primarios; #8B5CF6 (violeta) para secundarios.
-Tipografía: Inter sans-serif para datos; monoespaciada para IDs técnicos.
-Efectos: glow sutil en paneles clave (box-shadow con color cian al 15%), indicadores de estado con pulse animation.
-Profundidad: capas flotantes, transparencias escalonadas, sensación de interfaz holográfica.
-Datos científicos: Qubits, coherencia T₂, criogenia en mK, vacío en Torr.
-Contenido a generar: [DESCRIBIR AQUÍ LA INTERFAZ]</pre>
-    </div>
-
-    <!-- PROMPT 20: Interfaz Bancaria Futura -->
-    <div class="prompt-card">
-      <div class="flex items-baseline justify-between mb-3">
-        <div>
-          <div class="f-mono text-[10px] tracking-widest" style="color:var(--muted)">06.B · GLASS × ECON</div>
-          <h4 class="f-archivo text-lg mt-1">Interfaz Bancaria Futura</h4>
-        </div>
-        <button class="copy-btn" data-target="p20">COPIAR</button>
-      </div>
-      <pre class="prompt-code" id="p20">Estilo: glassmorphism financiero "Interfaz Bancaria Futura".
-Fondo principal: linear-gradient(135deg, #1E3A5F 0%, #0F172A 100%) (azul nocturno profundo).
-Paneles: rgba(30,58,95,0.5) con backdrop-filter: blur(20px), border: 1px solid rgba(255,255,255,0.08), border-radius: 12px.
-Acentos: #10B981 (verde financiero) para ingresos/crecimiento; #FCD34D (dorado) para premium/ahorro.
-Tipografía: Inter para UI; DM Mono para displays monetarios grandes.
-Estructura: balance total prominente ($XXX,XXX.XX), tarjetas de resumen (inversiones, ahorro), lista de transacciones reciente.
-Indicadores: ▲ porcentajes en verde, ★ para rates APY, badges de estado "CONNECTED".
-Sensación de banca privada digital, exclusiva, futurista.
-Contenido a generar: [DESCRIBIR AQUÍ LA INTERFAZ]</pre>
-    </div>
-
-    <!-- PROMPT 21: IDE Transparente -->
-    <div class="prompt-card">
-      <div class="flex items-baseline justify-between mb-3">
-        <div>
-          <div class="f-mono text-[10px] tracking-widest" style="color:var(--muted)">06.C · GLASS × PROG</div>
-          <h4 class="f-archivo text-lg mt-1">IDE Transparente</h4>
-        </div>
-        <button class="copy-btn" data-target="p21">COPIAR</button>
-      </div>
-      <pre class="prompt-code" id="p21">Estilo: glassmorphism para desarrollo "IDE Transparente".
-Fondo principal: linear-gradient(135deg, #1A1A2E 0%, #16213E 100%) (gradiente noche profunda).
-Paneles: rgba(22,33,62,0.6) con backdrop-filter: blur(16px), border: 1px solid rgba(255,255,255,0.08), border-radius: 8px.
-Syntax highlighting: #F472B6 (rosa) keywords, #22D3EE (cyan) funciones, #FDE047 (amarillo) strings.
-Tipografía: Fira Code con ligaduras para código; Inter para UI metadata.
-Estructura: editor de código en panel glass central, sidebar con file tree translúcido, status bar inferior con errores/warnings.
-Window controls visibles (rojo/amarillo/verde macOS style). Contadores de errors/warnings/files en badges glass.
-Sensación de IDE flotante sobre el escritorio, etéreo pero funcional.
-Contenido a generar: [DESCRIBIR AQUÍ LA INTERFAZ]</pre>
-    </div>
-
-    <!-- PROMPT 22: Archivo Digital Ético -->
-    <div class="prompt-card">
-      <div class="flex items-baseline justify-between mb-3">
-        <div>
-          <div class="f-mono text-[10px] tracking-widest" style="color:var(--muted)">06.D · GLASS × HUM</div>
-          <h4 class="f-archivo text-lg mt-1">Archivo Digital Ético</h4>
-        </div>
-        <button class="copy-btn" data-target="p22">COPIAR</button>
-      </div>
-      <pre class="prompt-code" id="p22">Estilo: glassmorphism humanístico "Archivo Digital Ético".
-Fondo principal: linear-gradient(135deg, #F8F9FA 0%, #E9ECEF 100%) (gradiente neutro claro).
-Paneles: rgba(255,255,255,0.6) con backdrop-filter: blur(12px), border: 1px solid rgba(255,255,255,0.4), border-radius: 8px.
-Acentos: #84A98C (verde ético/sostenible) para documentos aprobados; #BC6C25 (terracota) para borradores/en revisión.
-Tipografía: Merriweather serif para títulos humanísticos; monoespaciada para metadatos técnicos (PDF, DOCX, tamaños).
-Estructura: lista de documentos con separadores sutiles, fechas alineadas a derecha, badges de tipo de archivo.
-Metáfora: transparencia visual = transparencia intelectual. Acceso abierto, licencias Creative Commons visibles.
-Sensación de repositorio académico moderno, ético, colaborativo.
-Contenido a generar: [DESCRIBIR AQUÍ LA INTERFAZ]</pre>
-    </div>
-
   </div>
-  
+
   <!-- Plantilla maestra -->
   <div class="mt-12 prompt-card" style="border-color:var(--accent)">
     <div class="flex items-baseline justify-between mb-3">
@@ -1447,17 +936,17 @@ Contenido a generar: [DESCRIBIR AQUÍ LA INTERFAZ]</pre>
         <div class="f-mono text-[10px] tracking-widest" style="color:var(--accent)">PLANTILLA MAESTRA</div>
         <h4 class="f-archivo text-lg mt-1">Estructura universal para generar cualquier estilo</h4>
       </div>
-      <button class="copy-btn" data-target="p23">COPIAR</button>
+      <button class="copy-btn" data-target="p9">COPIAR</button>
     </div>
-    <pre class="prompt-code" id="p23">Estilo: [BRUTALISMO | MINIMALISMO | EDITORIAL | GLASSMORPHISM] × [MATEMÁTICAS | HUMANIDADES | ECONOMÍA | PROGRAMACIÓN], combinación "[NOMBRE DE LA PALETA]".
-Fondo principal: #[HEX] o linear-gradient([dirección], [color1], [color2]) ([descripción]).
+    <pre class="prompt-code" id="p9">Estilo: [BRUTALISMO o MINIMALISMO] × [MATEMÁTICAS o HUMANIDADES], combinación "[NOMBRE DE LA PALETA]".
+Fondo principal: #[HEX] ([descripción]).
 Texto principal: #[HEX] ([descripción]).
-Bordes/Paneles: [3px sólidos en brutalismo / 1px sutiles en minimalismo / glass con backdrop-blur en glassmorphism] en color #[HEX] o rgba().
-Acento(s) armónico(s) (~[5-10]% del área visual): #[HEX] ([descripción]), reservado para [resultado clave / variable / nota / único elemento de énfasis].
+Bordes: [3px sólidos en brutalismo / 1px sutiles o sin bordes en minimalismo] en color #[HEX], border-radius [0px en brutalismo / 4px sutil en minimalismo].
+Acento armónico (~[5-8]% del área visual): #[HEX] ([descripción]), reservado para [resultado clave / variable / nota / único elemento de énfasis].
 Tipografía: [mono / grotesca / serif elegante / serif delgada] con jerarquía por [peso / tamaño / color].
-Textura o grid de fondo: [cartesiana 32px / milimétrica 20px / sutil 48px / papel / scanlines / ninguna].
-Principio armónico: [CONTRASTE ESTRUCTURAL EXTREMO / MONOTONÍA ROTA POR CORTES / EQUILIBRIO ASINTÓTICO / ARMONÍA ANÁLOGA CÁLIDA / TRANSPARENCIA ESTRATIFICADA].
-Prohibido: [GRADIENTES (excepto glassmorphism) / SOMBRAS SUAVES (excepto glass) / BORDES REDONDEADOS (en brutalismo) / ICONOS DECORATIVOS / más de 2 acentos].
+Textura o grid de fondo: [cartesiana 32px / milimétrica 20px / sutil 48px / papel / ninguna].
+Principio armónico: [CONTRASTE ESTRUCTURAL EXTREMO / MONOTONÍA ROTA POR CORTES / EQUILIBRIO ASINTÓTICO / ARMONÍA ANÁLOGA CÁLIDA].
+Prohibido: [GRADIENTES / SOMBRAS SUAVES / BORDES REDONDEADOS / ICONOS DECORATIVOS / más de un acento].
 Contenido a generar: [DESCRIBIR AQUÍ LA INTERFAZ: tipo, sección, datos, función].</pre>
   </div>
 
@@ -1477,16 +966,14 @@ Contenido a generar: [DESCRIBIR AQUÍ LA INTERFAZ: tipo, sección, datos, funci�
         <a href="#s2" class="block hover:text-white">02 / Brutalismo × Humanidades</a>
         <a href="#s3" class="block hover:text-white">03 / Minimalismo × Matemáticas</a>
         <a href="#s4" class="block hover:text-white">04 / Minimalismo × Humanidades</a>
-        <a href="#s5" class="block hover:text-white">05 / Editorial × Transversal</a>
-        <a href="#s6" class="block hover:text-white">06 / Glassmorphism × Transversal</a>
-        <a href="#prompts" class="block" style="color:var(--accent)">07 / Biblioteca de Prompts</a>
+        <a href="#prompts" class="block" style="color:var(--accent)">05 / Biblioteca de Prompts</a>
       </div>
       <div class="f-mono text-xs space-y-2" style="color:#a5a59a">
         <div class="opacity-60 mb-3">METADATOS</div>
-        <div>22 paletas implementadas</div>
-        <div>7 cruces estilísticos</div>
-        <div>23 prompts copiables</div>
-        <div>v.2.0 / documento expandido</div>
+        <div>8 paletas implementadas</div>
+        <div>4 cruces estilísticos</div>
+        <div>9 prompts copiables</div>
+        <div>v.1.0 / documento único</div>
       </div>
     </div>
     <div class="border-t border-[var(--border)] mt-12 pt-6 flex justify-between items-center f-mono text-[11px]" style="color:var(--muted)">
