@@ -546,7 +546,7 @@
 </head>
 <body>
 
-    <script src="./barra-nav.js" defer></script>
+    <script src="assets/js/main.js" defer></script>
 <canvas id="topo-bg"></canvas>
 
 <!-- Poliedros SVG decorativos -->
@@ -1359,8 +1359,8 @@ document.querySelectorAll(".unit").forEach(u => observer.observe(u));
 </script>
 
 <!-- ====== Sincronización de progreso (Supabase opcional) ====== -->
-<script src="./supabase-config.js"></script>
-<script src="./progress-sync.js"></script>
+<script src="assets/js/supabase-client.js"></script>
+<script src="assets/js/progress-sync.js"></script>
 <script>
   if (window.RutasSync) {
     RutasSync.init("algebra-lineal", {

@@ -1,52 +1,110 @@
-# rutas-de-aprendizaje
+# Rutas de Aprendizaje
 
-Rutas de aprendizaje — mapas visuales HTML estático (2do ciclo).
+Mapas visuales interactivos para materias del 2do ciclo universitario.
 
-8 mapas: Atlas de Estilos, Álgebra Lineal y Geometría Analítica, Java, JavaScript,
-Matemática Discreta II, Matemática Superior, Modelado de Negocios (BPM) y POO.
+## 📚 Mapas Disponibles
 
----
+| Mapa | Descripción |
+|------|-------------|
+| [Java](maps/java.html) | Programación orientada a objetos con Java |
+| [JavaScript](maps/javascript.html) | Desarrollo web frontend y backend |
+| [Álgebra Lineal](maps/algebra-lineal.html) | Vectores, matrices y geometría analítica |
+| [Matemática Discreta](maps/mate-discreta.html) | Lógica, conjuntos y grafos |
+| [Matemática Superior](maps/mate-superior.html) | Cálculo avanzado y ecuaciones diferenciales |
+| [Modelado de Negocios](maps/modelado-negocios.html) | BPMN y procesos empresariales |
+| [POO](maps/poo.html) | Fundamentos de programación orientada a objetos |
 
-## Novedad: sincronización de progreso en la nube (opcional)
+## ✨ Características
 
-Cada mapa guarda el progreso de los subtemas marcados. Ahora ese progreso puede
-**sincronizarse con Supabase** para no perderlo al limpiar el navegador y poder
-continuar desde otro dispositivo.
+- ✅ **Progreso sincronizado**: Guarda tu avance en la nube con Supabase
+- ✅ **Funciona offline**: Los datos se guardan localmente si no hay conexión
+- ✅ **Multi-dispositivo**: Continúa donde lo dejaste desde cualquier lugar
+- ✅ **Diseño responsive**: Funciona en desktop y móvil
 
-- **Funciona sin configuración**: si no se configuran credenciales, el sitio sigue
-  operando en modo **local** (solo `localStorage`), igual que antes. Nada se rompe.
-- **Bonus**: los 3 mapas que antes *no* persistían progreso (Mate Discreta II,
-  Matemática Superior, Modelado de Negocios) ahora también lo guardan.
+## 🚀 Inicio Rápido
 
-### Archivos nuevos
+### Opción 1: GitHub Pages (Recomendado)
+1. Ve a Settings → Pages
+2. Activa GitHub Pages en la rama `main`
+3. Accede a `https://tu-usuario.github.io/tu-repo`
 
-| Archivo | Rol |
-|---|---|
-| `progress-sync.js` | Librería compartida de sincronización (pull/merge/push por polling). |
-| `supabase-config.js` | Donde se pegan las credenciales del proyecto Supabase. |
-| `schema.sql` | Script SQL para crear la tabla y las políticas (RLS) en Supabase. |
+### Opción 2: Servidor Local
+```bash
+# Python
+python -m http.server 8000
 
-### Configuración (3 pasos)
+# Node.js
+npx serve
+```
 
-1. **Crear proyecto** en [supabase.com](https://supabase.com) (plan gratis).
-2. **Crear la tabla**: abre *SQL Editor* → pega el contenido de `schema.sql` → *Run*.
-3. **Pegar credenciales** en `supabase-config.js`:
-   ```js
-   window.RUTAS_SUPABASE = {
-     url: "https://XXXXX.supabase.co",   // Settings → API → Project URL
-     anonKey: "eyJhbGci..."              // Settings → API → "anon public"
-   };
-   ```
-   > Usa **solo** la clave `anon public`. Nunca la `service_role`.
+### Opción 3: Abrir directamente
+Simplemente abre `index.html` en tu navegador.
 
-Listo. Al abrir cualquier mapa, el progreso se sube/baja automáticamente (polling
-cada 4 s y al salir de la página).
+## 🔧 Configurar Sincronización (Opcional)
 
-### Compartir progreso entre dispositivos (sin login)
+El proyecto funciona perfectamente sin configuración. Para habilitar la sincronización en la nube:
 
-La identidad es un **perfil anónimo** (UUID) guardado en `localStorage`.
-Para retomar el mismo progreso en otro dispositivo, abre el mapa con el parámetro
-`?p=<perfilId>`:
+1. Crea un proyecto gratuito en [Supabase](https://supabase.com)
+2. Ejecuta el script `schema.sql` en el SQL Editor
+3. Copia tus credenciales en `assets/js/supabase-client.js`:
+
+```js
+window.RUTAS_SUPABASE = {
+  url: "https://XXXXX.supabase.co",
+  anonKey: "eyJhbGci..."
+};
+```
+
+> ⚠️ Usa solo la clave `anon public`, nunca la `service_role`.
+
+## 📁 Estructura del Proyecto
+
+```
+├── index.html              # Página principal
+├── maps/                   # Mapas de aprendizaje
+│   ├── java.html
+│   ├── javascript.html
+│   └── ...
+├── assets/
+│   ├── js/                 # Scripts JavaScript
+│   │   ├── main.js
+│   │   ├── progress-sync.js
+│   │   └── supabase-client.js
+│   ├── css/                # Estilos personalizados
+│   └── img/                # Imágenes y recursos
+├── scripts/                # Utilidades CLI (Node.js)
+│   ├── lib.mjs
+│   ├── validar.mjs
+│   ├── inventario.mjs
+│   └── aplicar.mjs
+├── docs/                   # Documentación adicional
+│   └── atlas-estilos.html
+├── schema.sql              # Esquema de base de datos
+└── README.md
+```
+
+## 🛠️ Scripts de Utilidad
+
+Los scripts en `/scripts` son herramientas CLI para mantenimiento:
+
+```bash
+# Validar integridad de datos
+node scripts/validar.mjs
+
+# Generar inventario de recursos
+node scripts/inventario.mjs
+
+# Aplicar cambios masivos
+node scripts/aplicar.mjs
+```
+
+## 🎨 Atlas de Estilos
+
+Consulta la guía completa de estilos en [docs/atlas-estilos.html](docs/atlas-estilos.html)
+
+## 📄 Licencia
+
+MIT License - Ver [LICENSE](LICENSE) si existe.
 
 ```
 https://<tu-sitio>/Mapa_Java.html?p=11111111-2222-3333-4444-555555555555
