@@ -1,7 +1,38 @@
 ```
-# Logs
-*.log
+# Data files that were deleted (avoid re-adding)
+data/referencias_*.csv
+data/referencias_curadas_*.csv
+data/referencias_raw.csv
+data/referencias_COMPLETO.csv
 
-# Data files that might be temporary or generated
-curacion_log.txt
+# Temporary/backup files for data processing
+*.tmp
+*.bak
+*.backup
+
+# Logs and temporary files
+*.log
+*.tmp
+
+# Environment files
+.env
+.env.local
+.env.*
+
+# Editor/IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Build/dist directories
+dist/
+build/
+target/
 ```
