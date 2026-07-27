@@ -74,19 +74,35 @@ end;
 $$;
 
 -- ============================================================
---  2b) Wrapper IMMUTABLE de to_tsvector
+--  2b) Columna 'search' (tsvector) mantenida por TRIGGER
 --  ------------------------------------------------------------
---  to_tsvector() es STABLE (la config de diccionario puede variar),
---  pero las COLUMNAS GENERADAS exigen IMMUTABLE. La config 'spanish'
---  es estable en este DB, así que envolvemos y declaramos immutable.
---  Patrón documentado por Supabase para tsvector generados.
--- ============================================================
-create or replace function public.immutable_to_tsvector(config regconfig, content text)
-returns tsvector
-language sql
-immutable
+--  to_tsvector() es STABLE y las columnas GENERADAS exigen IMMUTABLE,
+--  así que mantenemos 'search' con un trigger BEFORE INSERT/UPDATE.
+--  100% robusto (sin requirements de immutabilidad).
+--
+--  Limpia el wrapper immutable_to_tsvector de intentos previos:
+drop function if exists public.immutable_to_tsvector(regconfig, text);
+
+create or replace function public.recompute_search()
+returns trigger
+language plpgsql
 as $$
-  select to_tsvector(config, coalesce(content, ''));
+begin
+  if TG_TABLE_NAME = 'routes' then
+    new.search := to_tsvector('spanish',
+      coalesce(new.title,'') || ' ' ||
+      coalesce(new.subtitle,'') || ' ' ||
+      coalesce(new.description,'') || ' ' ||
+      coalesce(new.category,''));
+  elsif TG_TABLE_NAME = 'resources' then
+    new.search := to_tsvector('spanish',
+      coalesce(new.title,'') || ' ' ||
+      coalesce(new.description,'') || ' ' ||
+      coalesce(array_to_string(new.keywords,' '),'') || ' ' ||
+      coalesce(new.channel_or_author,''));
+  end if;
+  return new;
+end;
 $$;
 
 -- ============================================================
@@ -110,18 +126,17 @@ create table if not exists public.routes (
   author_id      uuid references public.profiles(id),
   created_at     timestamptz not null default now(),
   updated_at     timestamptz not null default now(),
-  search         tsvector generated always as (
-    public.immutable_to_tsvector('spanish',
-      coalesce(title,'') || ' ' ||
-      coalesce(subtitle,'') || ' ' ||
-      coalesce(description,'') || ' ' ||
-      coalesce(category,''))
-  ) stored
+  search         tsvector
 );
 
 drop trigger if exists routes_updated_at on public.routes;
 create trigger routes_updated_at before update on public.routes
   for each row execute function public.set_updated_at();
+
+drop trigger if exists routes_search_trigger on public.routes;
+create trigger routes_search_trigger
+  before insert or update on public.routes
+  for each row execute function public.recompute_search();
 
 create index if not exists routes_search_idx on public.routes using gin (search);
 create index if not exists routes_status_idx    on public.routes (status);
@@ -201,18 +216,17 @@ create table if not exists public.resources (
   metadata          jsonb not null default '{}'::jsonb,  -- {chapter,pages,duration,thumbnail}
   created_at        timestamptz not null default now(),
   updated_at        timestamptz not null default now(),
-  search            tsvector generated always as (
-    public.immutable_to_tsvector('spanish',
-      coalesce(title,'') || ' ' ||
-      coalesce(description,'') || ' ' ||
-      coalesce(array_to_string(keywords,' '),'') || ' ' ||
-      coalesce(channel_or_author,''))
-  ) stored
+  search            tsvector
 );
 
 drop trigger if exists resources_updated_at on public.resources;
 create trigger resources_updated_at before update on public.resources
   for each row execute function public.set_updated_at();
+
+drop trigger if exists resources_search_trigger on public.resources;
+create trigger resources_search_trigger
+  before insert or update on public.resources
+  for each row execute function public.recompute_search();
 
 create index if not exists resources_subtopic_idx on public.resources (subtopic_id, "order");
 create index if not exists resources_search_idx   on public.resources using gin (search);
