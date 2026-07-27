@@ -74,6 +74,22 @@ end;
 $$;
 
 -- ============================================================
+--  2b) Wrapper IMMUTABLE de to_tsvector
+--  ------------------------------------------------------------
+--  to_tsvector() es STABLE (la config de diccionario puede variar),
+--  pero las COLUMNAS GENERADAS exigen IMMUTABLE. La config 'spanish'
+--  es estable en este DB, así que envolvemos y declaramos immutable.
+--  Patrón documentado por Supabase para tsvector generados.
+-- ============================================================
+create or replace function public.immutable_to_tsvector(config regconfig, content text)
+returns tsvector
+language sql
+immutable
+as $$
+  select to_tsvector(config, coalesce(content, ''));
+$$;
+
+-- ============================================================
 --  3) RUTAS  (raíz del contenido)
 -- ============================================================
 create table if not exists public.routes (
@@ -95,7 +111,7 @@ create table if not exists public.routes (
   created_at     timestamptz not null default now(),
   updated_at     timestamptz not null default now(),
   search         tsvector generated always as (
-    to_tsvector('spanish',
+    public.immutable_to_tsvector('spanish',
       coalesce(title,'') || ' ' ||
       coalesce(subtitle,'') || ' ' ||
       coalesce(description,'') || ' ' ||
@@ -186,7 +202,7 @@ create table if not exists public.resources (
   created_at        timestamptz not null default now(),
   updated_at        timestamptz not null default now(),
   search            tsvector generated always as (
-    to_tsvector('spanish',
+    public.immutable_to_tsvector('spanish',
       coalesce(title,'') || ' ' ||
       coalesce(description,'') || ' ' ||
       coalesce(array_to_string(keywords,' '),'') || ' ' ||
