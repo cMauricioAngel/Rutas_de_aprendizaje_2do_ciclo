@@ -645,6 +645,43 @@
         .tag.intermedio { background: var(--carbon); color: var(--alabastro); }
         .tag.avanzado { background: var(--rojo-cadmio); color: var(--alabastro); border-color: var(--rojo-cadmio); }
 
+        /* enlaces = búsquedas guiadas */
+        .resource-list li > a { color: inherit; text-decoration: none; display: block; }
+        .resource-list li > a:hover { color: var(--rojo-cadmio); }
+        .resource-list li .meta::after { content: " ↗"; color: var(--rojo-cadmio); font-weight: 800; opacity: 1; }
+
+        /* PANEL DE FUENTES RECOMENDADAS */
+        .sources-panel {
+            border: 2px solid var(--carbon); background: var(--alabastro);
+            padding: 18px 22px; margin: 0 0 28px;
+        }
+        .sp-head { font-weight: 800; font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--carbon); border-bottom: 2px solid var(--gris-linea); padding-bottom: 10px; margin-bottom: 14px; }
+        .sp-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+        @media(min-width:760px){ .sp-grid { grid-template-columns: 1fr 1fr 1fr; } }
+        .sp-col b { display: inline-block; font-size: 0.62rem; letter-spacing: 0.14em; color: var(--alabastro); background: var(--carbon); padding: 3px 9px; margin-bottom: 10px; text-transform: uppercase; }
+        .src-chip { display: inline-block; border: 1.5px solid var(--carbon); background: var(--alabastro); font-size: 0.78rem; padding: 4px 10px; margin: 0 6px 6px 0; text-decoration: none; color: var(--carbon); transition: background .15s, color .15s; }
+        .src-chip:hover { background: var(--rojo-cadmio); color: var(--alabastro); border-color: var(--rojo-cadmio); }
+        .reco { list-style: none; margin: 14px 0 0; padding: 12px 0 0; border-top: 2px dashed var(--gris-linea); font-size: 0.82rem; line-height: 1.6; }
+        .reco li { padding: 4px 0 4px 18px; position: relative; }
+        .reco li::before { content: "▸"; position: absolute; left: 0; color: var(--rojo-cadmio); font-weight: 800; }
+        .reco b { color: var(--rojo-cadmio); }
+
+        /* PANEL DE FUENTES RECOMENDADAS */
+        .sources-panel {
+            border: 2px solid var(--carbon); background: var(--alabastro);
+            padding: 18px 22px; margin: 0 0 28px;
+        }
+        .sp-head { font-weight: 800; font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--carbon); border-bottom: 2px solid var(--gris-linea); padding-bottom: 10px; margin-bottom: 14px; }
+        .sp-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+        @media(min-width:760px){ .sp-grid { grid-template-columns: 1fr 1fr 1fr; } }
+        .sp-col b { display: inline-block; font-size: 0.62rem; letter-spacing: 0.14em; color: var(--alabastro); background: var(--carbon); padding: 3px 9px; margin-bottom: 10px; text-transform: uppercase; }
+        .src-chip { display: inline-block; border: 1.5px solid var(--carbon); background: var(--alabastro); font-size: 0.78rem; padding: 4px 10px; margin: 0 6px 6px 0; text-decoration: none; color: var(--carbon); transition: background .15s, color .15s; }
+        .src-chip:hover { background: var(--rojo-cadmio); color: var(--alabastro); border-color: var(--rojo-cadmio); }
+        .reco { list-style: none; margin: 14px 0 0; padding: 12px 0 0; border-top: 2px dashed var(--gris-linea); font-size: 0.82rem; line-height: 1.6; }
+        .reco li { padding: 4px 0 4px 18px; position: relative; }
+        .reco li::before { content: "▸"; position: absolute; left: 0; color: var(--rojo-cadmio); font-weight: 800; }
+        .reco b { color: var(--rojo-cadmio); }
+
         /* ═══════ FOOTER ═══════ */
         footer {
             padding: 2.5rem 5vw;
@@ -785,11 +822,42 @@
         </div>
 
         <!-- ═══════ MAIN ═══════ -->
+        <section class="sources-panel">
+            <div class="sp-head">Fuentes recomendadas · canales y sitios verificados</div>
+            <div class="sp-grid">
+                <div class="sp-col"><b>Video · YouTube</b>
+                    <a class="src-chip" href="https://www.youtube.com/results?search_query=profe+alex+matematica" target="_blank" rel="noopener">Profe Alex</a>
+                    <a class="src-chip" href="https://www.youtube.com/results?search_query=MateFacil" target="_blank" rel="noopener">MateFacil</a>
+                    <a class="src-chip" href="https://www.youtube.com/results?search_query=Julio+Profe" target="_blank" rel="noopener">Julio Profe</a>
+                    <a class="src-chip" href="https://www.youtube.com/results?search_query=MathEasy+calculo" target="_blank" rel="noopener">MathEasy</a>
+                    <a class="src-chip" href="https://www.youtube.com/results?search_query=unicoos+matematicas" target="_blank" rel="noopener">unicoos</a>
+                </div>
+                <div class="sp-col"><b>Libros · gratis</b>
+                    <a class="src-chip" href="https://openstax.org/details/books/precalculus-2e/" target="_blank" rel="noopener">OpenStax Precálculo</a>
+                    <a class="src-chip" href="https://openstax.org/details/books/calculus-volume-1/" target="_blank" rel="noopener">OpenStax Cálculo I</a>
+                    <a class="src-chip" href="https://www.google.com/search?q=Stewart+Calculo+de+una+variable+PDF" target="_blank" rel="noopener">Stewart — Cálculo</a>
+                    <a class="src-chip" href="https://www.google.com/search?q=Larson+Precalculo+PDF" target="_blank" rel="noopener">Larson — Precálculo</a>
+                </div>
+                <div class="sp-col"><b>Práctica / herramientas</b>
+                    <a class="src-chip" href="https://www.khanacademy.org/math" target="_blank" rel="noopener">Khan Academy</a>
+                    <a class="src-chip" href="https://www.geogebra.org/" target="_blank" rel="noopener">GeoGebra</a>
+                    <a class="src-chip" href="https://www.symbolab.com/" target="_blank" rel="noopener">Symbolab</a>
+                    <a class="src-chip" href="https://www.desmos.com/" target="_blank" rel="noopener">Desmos</a>
+                    <a class="src-chip" href="https://www.wolframalpha.com/" target="_blank" rel="noopener">WolframAlpha</a>
+                </div>
+            </div>
+            <ul class="reco">
+                <li>Prefiere recursos <b>recientes</b> y de los canales o sitios listados arriba.</li>
+                <li>Cada referencia del plan abre una <b>búsqueda guiada</b>: tú eliges el recurso concreto, gratuito y en español.</li>
+                <li>Si un resultado no encaja, combina <b>palabras clave del subtema</b> + el <b>nombre del canal</b> o autor.</li>
+            </ul>
+        </section>
+
         <main id="syllabus-container"></main>
 
         <!-- ═══════ FOOTER ═══════ -->
         <footer>
-            <div class="footer-left">Diseño Brutalista / WCAG AAA</div>
+            <div class="footer-left">REFERENCIAS = BÚSQUEDAS GUIADAS</div>
             <div class="footer-center">{ ARQUITECTURA DEL CONOCIMIENTO }</div>
             <div class="footer-right">MATH.SUP // 2026</div>
         </footer>
@@ -3074,6 +3142,8 @@
 
         // ═══════ RENDERIZADO ═══════
         const container = document.getElementById('syllabus-container');
+        const yt = q => "https://www.youtube.com/results?search_query=" + encodeURIComponent(q);
+        const gg = q => "https://www.google.com/search?q=" + encodeURIComponent(q);
         let totalSubtopics = 0;
 
         syllabusData.forEach((unit, unitIndex) => {
@@ -3133,21 +3203,21 @@
                             <div class="learning-objective">${sub.objective}</div>
                             <div class="resources-grid">
                                 <div class="resource-block">
-                                    <h4>VIDEOS // TEORÍA</h4>
+                                    <h4>VIDEOS // TEORÍA · ↗</h4>
                                     <ul class="resource-list">
-                                        ${sub.videos.map(v => {const t=v.url?`<a href="${v.url}" target="_blank" rel="noopener">${v.t}</a>`:v.t;return `<li><strong>${t}</strong><span class="meta">CANAL :: ${v.c}</span></li>`}).join('')}
+                                        ${sub.videos.map(v => {const href=v.url?v.url:yt(`${v.c} ${v.t}`);return `<li><a href="${href}" target="_blank" rel="noopener"><strong>${v.t}</strong><span class="meta">CANAL :: ${v.c}</span></a></li>`}).join('')}
                                     </ul>
                                 </div>
                                 <div class="resource-block">
-                                    <h4>BIBLIOGRAFÍA // O.A.</h4>
+                                    <h4>BIBLIOGRAFÍA // O.A. · ↗</h4>
                                     <ul class="resource-list">
-                                        ${sub.books.map(b => {const t=b.url?`<a href="${b.url}" target="_blank" rel="noopener">${b.t}</a>`:b.t;return `<li><strong>${t}</strong><span class="meta">${b.a} | ${b.c} | ${b.p}</span></li>`}).join('')}
+                                        ${sub.books.map(b => {const href=b.url?b.url:gg(`${b.t} ${b.a}`);return `<li><a href="${href}" target="_blank" rel="noopener"><strong>${b.t}</strong><span class="meta">${b.a} | ${b.c} | ${b.p}</span></a></li>`}).join('')}
                                     </ul>
                                 </div>
                                 <div class="resource-block">
-                                    <h4>PRÁCTICA // EJERCICIOS</h4>
+                                    <h4>PRÁCTICA // EJERCICIOS · ↗</h4>
                                     <ul class="resource-list">
-                                        ${sub.practice.map(p => {const t=p.url?`<a href="${p.url}" target="_blank" rel="noopener">${p.s}</a>`:p.s;return `<li>${t} <span class="tag ${p.l.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')}">${p.l}</span></li>`}).join('')}
+                                        ${sub.practice.map(p => {const href=p.url?p.url:gg(p.s);return `<li><a href="${href}" target="_blank" rel="noopener">${p.s} <span class="tag ${p.l.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')}">${p.l}</span></a></li>`}).join('')}
                                     </ul>
                                 </div>
                             </div>

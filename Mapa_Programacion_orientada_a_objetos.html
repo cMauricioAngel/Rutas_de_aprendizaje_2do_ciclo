@@ -298,6 +298,24 @@ ul li:last-child{margin-bottom:0}
     white-space:nowrap;transform:translateY(-1px);
 }
 
+/* enlaces = búsquedas guiadas */
+.subtopic-section ul li > a{color:inherit;text-decoration:none}
+.subtopic-section ul li > a:hover{color:var(--safety)}
+.subtopic-section ul li > a .ref-level::after{content:" ↗"}
+
+/* PANEL DE FUENTES RECOMENDADAS */
+.sources-panel{border:var(--bd) solid var(--ink);background:var(--paper);box-shadow:6px 6px 0 var(--ink);padding:16px 18px;margin:0 0 26px}
+.sp-head{font:800 12.5px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--paper);background:var(--ink);padding:8px 12px;margin:-16px -18px 14px}
+.sp-grid{display:grid;grid-template-columns:1fr;gap:14px}
+@media(min-width:760px){.sp-grid{grid-template-columns:1fr 1fr 1fr}}
+.sp-col b{display:inline-block;font:700 10.5px var(--mono);letter-spacing:.1em;color:var(--paper);background:var(--safety);padding:3px 9px;margin-bottom:9px;text-transform:uppercase}
+.src-chip{display:inline-block;border:2px solid var(--ink);background:var(--paper);font:600 12px var(--sans);padding:4px 10px;margin:0 5px 5px 0;text-decoration:none;color:var(--ink);transition:background .15s,color .15s}
+.src-chip:hover{background:var(--safety);color:var(--paper)}
+.reco{list-style:none;margin:14px 0 0;padding:12px 0 0;border-top:2px dashed var(--steel-line);font:400 13px/1.55 var(--sans)}
+.reco li{padding:4px 0 4px 16px;position:relative;margin:0}
+.reco li::before{content:"▸";position:absolute;left:0;top:4px;color:var(--safety);font:700 12px var(--mono)}
+.reco b{font-family:var(--mono);color:var(--safety)}
+
 /* ============ PIE ============ */
 .footer-archive{
     margin-top:44px;padding:18px;text-align:center;
@@ -450,10 +468,40 @@ ul li:last-child{margin-bottom:0}
         </div>
     </section>
 
+    <section class="sources-panel">
+        <div class="sp-head">Fuentes recomendadas · canales y sitios verificados</div>
+        <div class="sp-grid">
+            <div class="sp-col"><b>Video · YouTube</b>
+                <a class="src-chip" href="https://www.youtube.com/results?search_query=MitoCode+POO+Java" target="_blank" rel="noopener">MitoCode</a>
+                <a class="src-chip" href="https://www.youtube.com/results?search_query=La+Geekipedia+De+Ernesto+Java" target="_blank" rel="noopener">La Geekipedia De Ernesto</a>
+                <a class="src-chip" href="https://www.youtube.com/results?search_query=Nestor+Cancino+Java" target="_blank" rel="noopener">Néstor Cancino</a>
+                <a class="src-chip" href="https://www.youtube.com/results?search_query=HolaMundo+Java+POO" target="_blank" rel="noopener">HolaMundo</a>
+                <a class="src-chip" href="https://www.youtube.com/results?search_query=pildorasinformaticas+POO" target="_blank" rel="noopener">pildorasinformaticas</a>
+            </div>
+            <div class="sp-col"><b>Libros / Docs · gratis</b>
+                <a class="src-chip" href="https://www.google.com/search?q=Bruce+Eckel+On+Java+PDF" target="_blank" rel="noopener">On Java (Eckel)</a>
+                <a class="src-chip" href="https://www.google.com/search?q=Aprenda+Java+como+si+estuviera+en+primero+PDF" target="_blank" rel="noopener">Aprenda Java (UPM)</a>
+                <a class="src-chip" href="https://www.google.com/search?q=UML+Notes+for+Professionals+PDF" target="_blank" rel="noopener">UML Notes (Goalkicker)</a>
+                <a class="src-chip" href="https://www.google.com/search?q=Java+Notes+for+Professionals+PDF" target="_blank" rel="noopener">Java Notes (Goalkicker)</a>
+            </div>
+            <div class="sp-col"><b>Práctica / UML</b>
+                <a class="src-chip" href="https://exercism.org/tracks/java" target="_blank" rel="noopener">Exercism · Java</a>
+                <a class="src-chip" href="https://www.hackerrank.com/domains/java" target="_blank" rel="noopener">HackerRank · Java</a>
+                <a class="src-chip" href="https://www.drawio.com/" target="_blank" rel="noopener">draw.io (UML)</a>
+                <a class="src-chip" href="https://staruml.io/" target="_blank" rel="noopener">StarUML</a>
+            </div>
+        </div>
+        <ul class="reco">
+            <li>Prefiere recursos <b>recientes (≥ 2022)</b> y de los canales o sitios listados arriba.</li>
+            <li>Cada referencia del plan abre una <b>búsqueda guiada</b>: tú eliges el recurso concreto, gratuito y en español.</li>
+            <li>Si un resultado no encaja, combina <b>palabras clave del subtema</b> + el <b>nombre del canal</b> o autor.</li>
+        </ul>
+    </section>
+
     <div id="syllabusContainer"></div>
 
     <footer class="footer-archive slab reveal">
-        <p> <span class="star">★ ★ ★</span></p>
+        <p>REFERENCIAS = BÚSQUEDAS GUIADAS / ELIGE RECURSO GRATUITO Y ACTUALIZADO / <span class="star">★ ★ ★</span></p>
     </footer>
 </div>
 
@@ -992,6 +1040,9 @@ ul li:last-child{margin-bottom:0}
 ];
 
     const container = document.getElementById('syllabusContainer');
+    const yt = q => "https://www.youtube.com/results?search_query=" + encodeURIComponent(q);
+    const gg = q => "https://www.google.com/search?q=" + encodeURIComponent(q);
+    const plain = s => String(s).replace(/<[^>]+>/g," ").replace(/[""'''\\]/g," ").replace(/\s+/g," ").trim();
     let totalSubtopics = 0;
 
     syllabusData.forEach(unit => {
@@ -1051,16 +1102,16 @@ ul li:last-child{margin-bottom:0}
                                     <strong>OBJETIVO:</strong> ${subtopic.objective}
                                 </div>
                                 <section class="subtopic-section">
-                                    <h4><span class="star">★</span> <span>REFERENCIAS EN VIDEO</span> <span class="count">${subtopic.videos.length}</span></h4>
-                                    <ul>${subtopic.videos.map(v => {const txt=typeof v==='object'?(v.text||v.t||''):v;const url=typeof v==='object'?(v.url||''):'';return `<li>${url?`<a href="${url}" target="_blank" rel="noopener">${txt}</a>`:txt}</li>`}).join('')}</ul>
+                                    <h4><span class="star">★</span> <span>REFERENCIAS EN VIDEO · ↗</span> <span class="count">${subtopic.videos.length}</span></h4>
+                                    <ul>${subtopic.videos.map(v => {const txt=typeof v==='object'?(v.text||v.t||''):v;const url=typeof v==='object'?(v.url||''):'';const href=url?url:(yt(plain(txt)));return `<li><a href="${href}" target="_blank" rel="noopener">${txt}</a></li>`}).join('')}</ul>
                                 </section>
                                 <section class="subtopic-section">
-                                    <h4><span class="star">★</span> <span>REFERENCIAS BIBLIOGRÁFICAS</span> <span class="count">${subtopic.biblio.length}</span></h4>
-                                    <ul>${subtopic.biblio.map(b => {const txt=typeof b==='object'?(b.text||b.t||''):b;const url=typeof b==='object'?(b.url||''):'';return `<li>${url?`<a href="${url}" target="_blank" rel="noopener">${txt}</a>`:txt}</li>`}).join('')}</ul>
+                                    <h4><span class="star">★</span> <span>REFERENCIAS BIBLIOGRÁFICAS · ↗</span> <span class="count">${subtopic.biblio.length}</span></h4>
+                                    <ul>${subtopic.biblio.map(b => {const txt=typeof b==='object'?(b.text||b.t||''):b;const url=typeof b==='object'?(b.url||''):'';const href=url?url:(gg(plain(txt)));return `<li><a href="${href}" target="_blank" rel="noopener">${txt}</a></li>`}).join('')}</ul>
                                 </section>
                                 <section class="subtopic-section">
-                                    <h4><span class="star">★</span> <span>REFERENCIAS DE PRÁCTICA</span> <span class="count">${subtopic.practice.length}</span></h4>
-                                    <ul>${subtopic.practice.map(p => {const txt=typeof p==='object'?(p.text||p.t||''):p;const url=typeof p==='object'?(p.url||''):'';return `<li>${url?`<a href="${url}" target="_blank" rel="noopener">${txt}</a>`:txt}</li>`}).join('')}</ul>
+                                    <h4><span class="star">★</span> <span>REFERENCIAS DE PRÁCTICA · ↗</span> <span class="count">${subtopic.practice.length}</span></h4>
+                                    <ul>${subtopic.practice.map(p => {const txt=typeof p==='object'?(p.text||p.t||''):p;const url=typeof p==='object'?(p.url||''):'';const href=url?url:(gg(plain(txt)));return `<li><a href="${href}" target="_blank" rel="noopener">${txt}</a></li>`}).join('')}</ul>
                                 </section>
                             </div>
                         </div>

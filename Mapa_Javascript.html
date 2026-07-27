@@ -100,6 +100,23 @@ main{padding:20px 24px 80px;max-width:1200px;margin:0 auto}
 .ref-level{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10px;background:#000;color:#F7DF1E;padding:1px 5px;margin-left:6px;letter-spacing:1px}
 .sect-list li:hover .ref-level{background:#F7DF1E;color:#000}
 
+/* enlaces = búsquedas guiadas */
+.sect-list li>a{color:inherit;text-decoration:none;display:block}
+.sect-list li .ref-m::after{content:" ↗";color:#F7DF1E;font-weight:800}
+
+/* PANEL DE FUENTES RECOMENDADAS */
+.sources-panel{border:3px solid #000;background:#fff;margin:18px 0;padding:14px 16px;box-shadow:6px 6px 0 #000}
+.sp-head{font-family:'JetBrains Mono',monospace;font-weight:800;font-size:12px;letter-spacing:1px;text-transform:uppercase;border-bottom:2px solid #000;padding-bottom:8px;margin-bottom:12px}
+.sp-grid{display:grid;grid-template-columns:1fr;gap:12px}
+@media(min-width:760px){.sp-grid{grid-template-columns:1fr 1fr 1fr}}
+.sp-col b{display:block;font-family:'JetBrains Mono',monospace;font-size:10px;color:#000;background:#F7DF1E;display:inline-block;padding:2px 6px;margin-bottom:8px;letter-spacing:1px}
+.src-chip{display:inline-block;border:2px solid #000;background:#fff;font-family:'JetBrains Mono',monospace;font-size:11px;padding:3px 8px;margin:0 4px 5px 0;text-decoration:none;color:#000;transition:background .15s,color .15s}
+.src-chip:hover{background:#000;color:#F7DF1E}
+.reco{list-style:none;margin:12px 0 0;padding:10px 0 0;border-top:2px dashed #000;font-size:12px;font-family:'Space Grotesk',sans-serif}
+.reco li{padding:4px 0 4px 16px;position:relative}
+.reco li::before{content:"►";position:absolute;left:0;color:#000}
+.reco b{background:#000;color:#F7DF1E;padding:1px 4px;font-family:'JetBrains Mono',monospace}
+
 /* FOOTER */
 footer{border-top:var(--bd-heavy);background:#000;color:#F7DF1E;padding:20px 24px;font-family:'JetBrains Mono',monospace;font-size:11px;text-align:center;letter-spacing:1px}
 footer b{background:#F7DF1E;color:#000;padding:1px 6px}
@@ -169,10 +186,41 @@ footer b{background:#F7DF1E;color:#000;padding:1px 6px}
   </div>
 </div>
 
+<section class="sources-panel">
+  <div class="sp-head">Fuentes recomendadas · canales y sitios verificados</div>
+  <div class="sp-grid">
+    <div class="sp-col"><b>VIDEO · YOUTUBE</b>
+      <a class="src-chip" href="https://www.youtube.com/results?search_query=MoureDev+JavaScript" target="_blank" rel="noopener">MoureDev</a>
+      <a class="src-chip" href="https://www.youtube.com/results?search_query=midudev" target="_blank" rel="noopener">MiduDev</a>
+      <a class="src-chip" href="https://www.youtube.com/results?search_query=Jon+Mircha+JavaScript" target="_blank" rel="noopener">Jon Mircha</a>
+      <a class="src-chip" href="https://www.youtube.com/results?search_query=Fazt+JavaScript" target="_blank" rel="noopener">Fazt</a>
+      <a class="src-chip" href="https://www.youtube.com/results?search_query=sergiecode+javascript" target="_blank" rel="noopener">Sergie Code</a>
+    </div>
+    <div class="sp-col"><b>LIBROS / DOCS · GRATIS</b>
+      <a class="src-chip" href="https://es.javascript.info/" target="_blank" rel="noopener">JavaScript.info (ES)</a>
+      <a class="src-chip" href="https://developer.mozilla.org/es/docs/Web/JavaScript" target="_blank" rel="noopener">MDN Web Docs</a>
+      <a class="src-chip" href="https://eloquentjavascript.net/" target="_blank" rel="noopener">Eloquent JavaScript</a>
+      <a class="src-chip" href="https://github.com/getify/You-Dont-Know-JS" target="_blank" rel="noopener">You Don't Know JS</a>
+    </div>
+    <div class="sp-col"><b>PRÁCTICA · KATAS</b>
+      <a class="src-chip" href="https://exercism.org/tracks/javascript" target="_blank" rel="noopener">Exercism · JS</a>
+      <a class="src-chip" href="https://www.freecodecamp.org/learn/" target="_blank" rel="noopener">freeCodeCamp</a>
+      <a class="src-chip" href="https://www.hackerrank.com/domains/javascript" target="_blank" rel="noopener">HackerRank · JS</a>
+      <a class="src-chip" href="https://leetcode.com/" target="_blank" rel="noopener">LeetCode</a>
+      <a class="src-chip" href="https://www.codewars.com/" target="_blank" rel="noopener">CodeWars</a>
+    </div>
+  </div>
+  <ul class="reco">
+    <li>Prefiere recursos <b>recientes (≥ 2022)</b>, idealmente con ES6+ / ES2020+, de los canales o sitios listados arriba.</li>
+    <li>Cada referencia del plan abre una <b>búsqueda guiada</b>: tú eliges el recurso concreto, gratuito y en español.</li>
+    <li>Si un resultado no encaja, combina <b>palabras clave del subtema</b> + el <b>nombre del canal</b>.</li>
+  </ul>
+</section>
+
 <main id="main"></main>
 
 <footer>
-  ◼ RUTA·JAVASCRIPT // BRUTALIST EDITION // 2026 &nbsp;|&nbsp; PROGRESO GUARDADO EN <b>localStorage</b> &nbsp;|&nbsp; PRESIONA <b>RESET</b> PARA REINICIAR
+  ◼ RUTA·JAVASCRIPT // BRUTALIST EDITION // 2026 &nbsp;|&nbsp; <b>REFERENCIAS = BÚSQUEDAS GUIADAS</b> &nbsp;|&nbsp; ELIGE RECURSO GRATUITO Y ACTUALIZADO
 </footer>
 
 <script>
@@ -2082,6 +2130,9 @@ let progress = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
 
 function save(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(progress)); }
 
+const yt = q => "https://www.youtube.com/results?search_query=" + encodeURIComponent(q);
+const gg = q => "https://www.google.com/search?q=" + encodeURIComponent(q);
+
 function render(){
   const main = document.getElementById("main");
   main.innerHTML = "";
@@ -2123,9 +2174,10 @@ function render(){
 
 function renderSub(s){
   const isDone = progress[s.id];
-  const videosHtml = s.videos.map(v=>{const t=v.url?`<a href="${v.url}" target="_blank" rel="noopener">${v[0]}</a>`:v[0];return `<li><span class="ref-t">${t}</span><span class="ref-m">▸ Canal: ${v[1]}</span></li>`}).join("");
-  const biblioHtml = s.biblio.map(b=>{const t=b.url?`<a href="${b.url}" target="_blank" rel="noopener">${b[1]}</a>`:b[1];return `<li><span class="ref-t">${t}</span><span class="ref-m">${b[0]} · ${b[2]} · ${b[3]}</span></li>`}).join("");
-  const pracHtml = s.practica.map(p=>{const t=p.url?`<a href="${p.url}" target="_blank" rel="noopener">${p[0]}</a>`:p[0];return `<li><span class="ref-t">${t} <span class="ref-level">${p[2]}</span></span><span class="ref-m">▸ ${p[1]}</span></li>`}).join("");
+  const kw = s.title.replace(/[·:,\(\)\.]/g," ");
+  const videosHtml = s.videos.map(v=>{const topic=v[0];const href=v.url?v.url:yt(`${v[1]} ${topic}`);return `<li><a href="${href}" target="_blank" rel="noopener"><span class="ref-t">${topic}</span><span class="ref-m">▸ Canal: ${v[1]}</span></a></li>`}).join("");
+  const biblioHtml = s.biblio.map(b=>{const href=b.url?b.url:gg(`${b[1]} ${b[0]}`);return `<li><a href="${href}" target="_blank" rel="noopener"><span class="ref-t">${b[1]}</span><span class="ref-m">${b[0]} · ${b[2]} · ${b[3]}</span></a></li>`}).join("");
+  const pracHtml = s.practica.map(p=>{const href=p.url?p.url:gg(`${p[1]} ${kw} JavaScript`);return `<li><a href="${href}" target="_blank" rel="noopener"><span class="ref-t">${p[0]} <span class="ref-level">${p[2]}</span></span><span class="ref-m">▸ ${p[1]}</span></a></li>`}).join("");
 
   return `
     <div class="subtopic" id="${s.id}_wrap">
@@ -2140,15 +2192,15 @@ function renderSub(s){
       <div class="sub-body">
         <div class="obj"><b>◼ OBJETIVO DE APRENDIZAJE</b>${s.obj}</div>
         <div class="sect">
-          <div class="sect-head"><span>◼ VIDEOS · TEORÍA</span><span class="ct">${s.videos.length} refs</span></div>
+          <div class="sect-head"><span>◼ VIDEOS · TEORÍA · ↗</span><span class="ct">búsqueda</span></div>
           <ul class="sect-list">${videosHtml}</ul>
         </div>
         <div class="sect">
-          <div class="sect-head"><span>◼ BIBLIOGRAFÍA</span><span class="ct">${s.biblio.length} refs</span></div>
+          <div class="sect-head"><span>◼ BIBLIOGRAFÍA · ↗</span><span class="ct">búsqueda</span></div>
           <ul class="sect-list">${biblioHtml}</ul>
         </div>
         <div class="sect">
-          <div class="sect-head"><span>◼ PRÁCTICA</span><span class="ct">${s.practica.length} refs</span></div>
+          <div class="sect-head"><span>◼ PRÁCTICA · ↗</span><span class="ct">búsqueda</span></div>
           <ul class="sect-list">${pracHtml}</ul>
         </div>
       </div>

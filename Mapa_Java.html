@@ -193,7 +193,40 @@
   /* enlaces a fuentes curadas */
   .ref-list a{color:inherit;text-decoration:none;border-bottom:2px solid var(--accent);transition:color .15s ease}
   .ref-list a:hover{color:var(--accent)}
-  
+  .ref-list li>a{display:block;border-bottom:0}
+  .ref-list li>a .meta::after{content:" ↗";color:var(--accent);font-weight:800}
+
+  /* PANEL DE FUENTES RECOMENDADAS */
+  .sources-panel{
+    border:4px solid var(--ink);background:var(--paper);
+    box-shadow:6px 6px 0 var(--ink);padding:16px 18px;margin-bottom:24px;
+  }
+  .sp-head{
+    font-family:'JetBrains Mono',monospace;font-weight:800;font-size:13px;
+    letter-spacing:1px;text-transform:uppercase;padding-bottom:10px;margin-bottom:12px;
+    border-bottom:3px solid var(--ink);
+  }
+  .sp-grid{display:grid;grid-template-columns:1fr;gap:14px}
+  @media(min-width:760px){.sp-grid{grid-template-columns:1fr 1fr 1fr}}
+  .sp-col b{
+    display:block;font-family:'JetBrains Mono',monospace;font-size:11px;
+    color:var(--accent);letter-spacing:1px;margin-bottom:8px;
+  }
+  .src-chip{
+    display:inline-block;border:2px solid var(--ink);background:var(--paper);
+    font-family:'JetBrains Mono',monospace;font-size:11px;
+    padding:3px 8px;margin:0 5px 5px 0;text-decoration:none;color:var(--ink);
+    transition:background .15s ease,color .15s ease;
+  }
+  .src-chip:hover{background:var(--accent);color:var(--paper)}
+  .reco{
+    list-style:none;margin:14px 0 0;padding:12px 14px 0;border-top:3px dashed var(--ink);
+    font-size:12px;
+  }
+  .reco li{padding:4px 0 4px 18px;position:relative}
+  .reco li::before{content:"▸";position:absolute;left:0;color:var(--accent);font-weight:800}
+  .reco b{font-family:'JetBrains Mono',monospace;color:var(--accent)}
+
   /* FOOTER */
   footer{
     margin-top:30px;border:4px solid var(--ink);padding:16px 20px;
@@ -252,12 +285,43 @@
     <div class="gp-pct mono" id="globalPct">0%</div>
   </div>
 
+  <section class="sources-panel">
+    <div class="sp-head">Fuentes recomendadas · canales y sitios verificados</div>
+    <div class="sp-grid">
+      <div class="sp-col"><b>Video · YouTube</b>
+        <a class="src-chip" href="https://www.youtube.com/results?search_query=MoureDev+Java" target="_blank" rel="noopener">MoureDev</a>
+        <a class="src-chip" href="https://www.youtube.com/results?search_query=pildorasinformaticas+Java" target="_blank" rel="noopener">pildorasinformaticas</a>
+        <a class="src-chip" href="https://www.youtube.com/results?search_query=makigas+Java" target="_blank" rel="noopener">Makigas</a>
+        <a class="src-chip" href="https://www.youtube.com/results?search_query=TodoCode+Java" target="_blank" rel="noopener">TodoCode</a>
+        <a class="src-chip" href="https://www.youtube.com/results?search_query=MitoCode+Java" target="_blank" rel="noopener">MitoCode</a>
+      </div>
+      <div class="sp-col"><b>Libros / Docs · gratis</b>
+        <a class="src-chip" href="https://greenteapress.com/wp/think-java-2e/" target="_blank" rel="noopener">Think Java (Downey)</a>
+        <a class="src-chip" href="https://math.hws.edu/javanotes/" target="_blank" rel="noopener">JavaNotes (Eck)</a>
+        <a class="src-chip" href="https://docs.oracle.com/javase/tutorial/" target="_blank" rel="noopener">Oracle Java Tutorials</a>
+        <a class="src-chip" href="https://www.google.com/search?q=Aprenda+Java+como+si+estuviera+en+primero+Garcia+de+Jalon+PDF" target="_blank" rel="noopener">Aprenda Java (UPM)</a>
+      </div>
+      <div class="sp-col"><b>Práctica · katas</b>
+        <a class="src-chip" href="https://exercism.org/tracks/java" target="_blank" rel="noopener">Exercism · Java</a>
+        <a class="src-chip" href="https://www.hackerrank.com/domains/java" target="_blank" rel="noopener">HackerRank · Java</a>
+        <a class="src-chip" href="https://leetcode.com/" target="_blank" rel="noopener">LeetCode</a>
+        <a class="src-chip" href="https://www.codewars.com/" target="_blank" rel="noopener">CodeWars</a>
+        <a class="src-chip" href="https://github.com/mouredev/hello-java" target="_blank" rel="noopener">mouredev/hello-java</a>
+      </div>
+    </div>
+    <ul class="reco">
+      <li>Prefiere recursos <b>recientes (≥ 2022)</b> y de los canales o sitios listados arriba.</li>
+      <li>Cada referencia del plan abre una <b>búsqueda guiada</b>: tú eliges el recurso concreto, gratuito y en español.</li>
+      <li>Si un resultado no encaja, combina <b>palabras clave del subtema</b> + el <b>nombre del canal</b>.</li>
+    </ul>
+  </section>
+
   <div id="units"></div>
 
   <footer>
-    <div>// PLAN_JAVA_8WKS :: v1.0</div>
-    <div>TODAS LAS REFERENCIAS SON <b>GRATUITAS</b> Y PÚBLICAS</div>
-    <div>LAST_BUILD: <b>2026.07.25</b></div>
+    <div>// PLAN_JAVA_8WKS :: v1.1</div>
+    <div>REFERENCIAS = <b>BÚSQUEDAS GUIADAS</b> · ELIGE RECURSO GRATUITO Y ACTUALIZADO</div>
+    <div>LAST_BUILD: <b>2026.07.26</b></div>
   </footer>
 </div>
 
@@ -2042,6 +2106,18 @@ function badgeFor(lvl){
   return `<span class="badge ${cls}">${lvl}</span>`;
 }
 
+const yt = q => "https://www.youtube.com/results?search_query=" + encodeURIComponent(q);
+const gg = q => "https://www.google.com/search?q=" + encodeURIComponent(q);
+function topicOf(t){
+  let s = String(t).trim();
+  if(s.includes(":")) s = s.slice(s.lastIndexOf(":")+1).trim();
+  s = s.replace(/\b(curso de|curso completo|curso profesional|curso intensivo|curso|aprende|tutorial de|tutorial|introducción a la|introducción al|introducción a|desde cero|paso a paso|para principiantes|profesional|completo)\b/gi,"");
+  s = s.replace(/^[—:·\-\s]+|[—:·\-\s]+$/g,"").replace(/\s{2,}/g," ").trim();
+  s = s.replace(/^(de|a|en|y|del|la|el)\s+/i,"").trim();
+  if(s && !/java|git|github/i.test(s)) s += " en Java";
+  return s || String(t).trim();
+}
+
 function renderUnit(u, idx){
   const subCount = u.subs.length;
   const doneCount = u.subs.filter(s => state[s.code]).length;
@@ -2093,17 +2169,19 @@ function renderUnit(u, idx){
 
 function renderSub(s){
   const checked = !!state[s.code];
+  const kw = s.title.replace(/[·:,\(\)\.]/g," ");
   const videosHTML = s.videos.map((v,i)=>{
-    const t = v.url ? `<a href="${v.url}" target="_blank" rel="noopener">${v.t}</a>` : v.t;
-    return `<li><span class="idx">V${i+1}</span><span>${t}<span class="meta">${v.c}</span></span></li>`;
+    const topic = topicOf(v.t);
+    const href = v.url ? v.url : yt(`${v.c} ${topic}`);
+    return `<li><span class="idx">V${i+1}</span><a href="${href}" target="_blank" rel="noopener">${topic}<span class="meta">${v.c}</span></a></li>`;
   }).join("");
   const bibHTML = s.biblio.map((b,i)=>{
-    const t = b.url ? `<a href="${b.url}" target="_blank" rel="noopener">${b.t}</a>` : b.t;
-    return `<li><span class="idx">B${i+1}</span><span><b>${t}</b><span class="meta">${b.a} · ${b.d}</span></span></li>`;
+    const href = b.url ? b.url : gg(`${b.t} ${b.a}`);
+    return `<li><span class="idx">B${i+1}</span><a href="${href}" target="_blank" rel="noopener"><b>${b.t}</b><span class="meta">${b.a} · ${b.d}</span></a></li>`;
   }).join("");
   const pracHTML = s.practica.map((p,i)=>{
-    const t = p.url ? `<a href="${p.url}" target="_blank" rel="noopener">${p.t}</a>` : p.t;
-    return `<li><span class="idx">P${i+1}</span><span>${t}${badgeFor(p.lvl)}<span class="meta">${p.c}</span></span></li>`;
+    const href = p.url ? p.url : gg(`${p.c} ${kw} Java`);
+    return `<li><span class="idx">P${i+1}</span><a href="${href}" target="_blank" rel="noopener">${p.t}${badgeFor(p.lvl)}<span class="meta">${p.c}</span></a></li>`;
   }).join("");
 
   return `
@@ -2112,7 +2190,7 @@ function renderSub(s){
       <div class="sub-check ${checked?'checked':''}" data-check="${s.code}">${checked?'✓':''}</div>
       <div>
         <h3 class="sub-title">Subtema ${s.code}: ${s.title}</h3>
-        <span class="sub-code">OBJETIVO + 5 VIDEOS · 5 LIBROS · 5 PRÁCTICAS</span>
+        <span class="sub-code">OBJETIVO + BÚSQUEDAS GUIADAS (VIDEO · LIBROS · PRÁCTICA)</span>
       </div>
       <span class="sub-toggle" id="stico-${s.code}">+</span>
     </div>
@@ -2123,15 +2201,15 @@ function renderSub(s){
       </div>
       <div class="refs">
         <div class="ref-block">
-          <div class="ref-title">Referencias en Video <span>TEORÍA</span></div>
+          <div class="ref-title">Buscar en Video <span>TEORÍA · ↗</span></div>
           <ul class="ref-list">${videosHTML}</ul>
         </div>
         <div class="ref-block">
-          <div class="ref-title">Referencias Bibliográficas <span>LIBROS</span></div>
+          <div class="ref-title">Buscar Bibliografía <span>LIBROS · ↗</span></div>
           <ul class="ref-list">${bibHTML}</ul>
         </div>
         <div class="ref-block">
-          <div class="ref-title">Referencias de Práctica <span>KATAS</span></div>
+          <div class="ref-title">Buscar Práctica <span>KATAS · ↗</span></div>
           <ul class="ref-list">${pracHTML}</ul>
         </div>
       </div>

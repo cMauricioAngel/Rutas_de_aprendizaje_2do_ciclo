@@ -644,6 +644,24 @@
             text-transform: uppercase;
         }
 
+        /* enlaces = búsquedas guiadas */
+        .resource-item > a { color: inherit; text-decoration: none; display: block; }
+        .resource-item > a:hover strong { color: var(--accent-esmeralda); }
+        .resource-item > a em::after { content: " ↗"; }
+
+        /* PANEL DE FUENTES RECOMENDADAS */
+        .sources-panel { border: 3px solid var(--accent-esmeralda); background: var(--bg-crema); padding: 18px 22px; margin: 0 0 28px; box-shadow: 8px 8px 0 var(--accent-esmeralda); }
+        .sp-head { font-family: 'JetBrains Mono', monospace; font-weight: 800; font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase; color: var(--accent-esmeralda); border-bottom: 3px solid var(--accent-esmeralda); padding-bottom: 10px; margin-bottom: 14px; }
+        .sp-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+        @media(min-width:760px){ .sp-grid { grid-template-columns: 1fr 1fr 1fr; } }
+        .sp-col b { display: inline-block; font-size: 0.62rem; letter-spacing: 1px; color: var(--bg-crema); background: var(--accent-esmeralda); padding: 3px 9px; margin-bottom: 10px; text-transform: uppercase; }
+        .src-chip { display: inline-block; border: 2px solid var(--accent-esmeralda); background: var(--bg-crema); font-family: 'Inter', sans-serif; font-size: 0.78rem; padding: 4px 10px; margin: 0 6px 6px 0; text-decoration: none; color: var(--text-antracita); transition: background .15s, color .15s; }
+        .src-chip:hover { background: var(--accent-esmeralda); color: var(--bg-crema); }
+        .reco { list-style: none; margin: 14px 0 0; padding: 12px 0 0; border-top: 3px dashed var(--accent-esmeralda); font-size: 0.82rem; line-height: 1.6; font-family: 'Inter', sans-serif; }
+        .reco li { padding: 4px 0 4px 18px; position: relative; }
+        .reco li::before { content: "▸"; position: absolute; left: 0; color: var(--accent-esmeralda); font-weight: 800; }
+        .reco b { color: var(--accent-esmeralda); }
+
         /* ====== SVG ICONS (Líneas rectas 3px, sin curvas) ====== */
         .svg-icon {
             stroke: currentColor;
@@ -745,13 +763,43 @@
         </div>
     </header>
 
+    <section class="sources-panel">
+        <div class="sp-head">Fuentes recomendadas · canales y sitios verificados</div>
+        <div class="sp-grid">
+            <div class="sp-col"><b>Video · YouTube</b>
+                <a class="src-chip" href="https://www.youtube.com/results?search_query=Bizagi+BPMN" target="_blank" rel="noopener">Bizagi</a>
+                <a class="src-chip" href="https://www.youtube.com/results?search_query=IBM+Technology+BPM" target="_blank" rel="noopener">IBM Technology</a>
+                <a class="src-chip" href="https://www.youtube.com/results?search_query=Camunda+BPMN" target="_blank" rel="noopener">Camunda</a>
+                <a class="src-chip" href="https://www.youtube.com/results?search_query=Signavio+process" target="_blank" rel="noopener">Signavio</a>
+                <a class="src-chip" href="https://www.youtube.com/results?search_query=modelado+de+procesos+BPMN+español" target="_blank" rel="noopener">BPMN (general)</a>
+            </div>
+            <div class="sp-col"><b>Libros · gratis / abierto</b>
+                <a class="src-chip" href="https://link.springer.com/book/10.1007/978-3-662-56509-4" target="_blank" rel="noopener">Fundamentals of BPM (Dumas)</a>
+                <a class="src-chip" href="https://www.google.com/search?q=Dumas+Fundamentals+of+Business+Process+Management+PDF" target="_blank" rel="noopener">Dumas — BPM (PDF)</a>
+                <a class="src-chip" href="https://www.bpmn.org/" target="_blank" rel="noopener">BPMN.org</a>
+                <a class="src-chip" href="https://www.omg.org/spec/BPMN/2.0/" target="_blank" rel="noopener">Spec BPMN 2.0 (OMG)</a>
+            </div>
+            <div class="sp-col"><b>Práctica / herramientas</b>
+                <a class="src-chip" href="https://www.bizagi.com/es/plataforma/modeler" target="_blank" rel="noopener">Bizagi Modeler</a>
+                <a class="src-chip" href="https://camunda.com/download/" target="_blank" rel="noopener">Camunda (gratis)</a>
+                <a class="src-chip" href="https://demo.bpmn.io/" target="_blank" rel="noopener">bpmn.io</a>
+                <a class="src-chip" href="https://signavio.com/" target="_blank" rel="noopener">Signavio (trial)</a>
+            </div>
+        </div>
+        <ul class="reco">
+            <li>Prefiere recursos <b>recientes (≥ 2020)</b> y de los canales o sitios listados arriba.</li>
+            <li>Cada referencia del plan abre una <b>búsqueda guiada</b>: tú eliges el recurso concreto, gratuito y en español.</li>
+            <li>Si un resultado no encaja, combina <b>palabras clave del subtema</b> + el <b>nombre del canal</b> o autor.</li>
+        </ul>
+    </section>
+
     <main class="main-container" id="syllabusContainer">
         <!-- JS inyecta unidades -->
     </main>
 
     <footer class="footer">
         <div class="footer-inner">
-            <p>Diseño Instruccional & Arquitectura UI/UX</p>
+            <p>REFERENCIAS = BÚSQUEDAS GUIADAS · ELIGE RECURSO GRATUITO Y ACTUALIZADO</p>
             <p>Gestión de Procesos BPM · 2026</p>
         </div>
     </footer>
@@ -1518,6 +1566,8 @@
 ];
 
         const container = document.getElementById('syllabusContainer');
+        const yt = q => "https://www.youtube.com/results?search_query=" + encodeURIComponent(q);
+        const gg = q => "https://www.google.com/search?q=" + encodeURIComponent(q);
         let totalCheckboxes = 0;
 
         const icons = {
@@ -1535,9 +1585,9 @@
             let subtopicsHTML = '';
             unit.subtopics.forEach(sub => {
                 totalCheckboxes++;
-                let theoryHTML = sub.theory.map(t => {const title=t.url?`<a href="${t.url}" target="_blank" rel="noopener">${t.title}</a>`:t.title;return `<div class="resource-item"><strong>${title}</strong><em>Canal: ${t.channel}</em></div>`}).join('');
-                let biblioHTML = sub.bibliography.map(b => {const text=b.url?`<a href="${b.url}" target="_blank" rel="noopener">${b.text}</a>`:b.text;return `<div class="resource-item">${text}</div>`}).join('');
-                let practiceHTML = sub.practice.map(p => {const text=p.url?`<a href="${p.url}" target="_blank" rel="noopener">${p.text}</a>`:p.text;return `<div class="resource-item"><strong>[${p.type}]</strong> ${text}</div>`}).join('');
+                let theoryHTML = sub.theory.map(t => {const href=t.url?t.url:yt(`${t.channel} ${t.title} BPM`);return `<div class="resource-item"><a href="${href}" target="_blank" rel="noopener"><strong>${t.title}</strong><em>Canal: ${t.channel}</em></a></div>`}).join('');
+                let biblioHTML = sub.bibliography.map(b => {const href=b.url?b.url:gg(b.text);return `<div class="resource-item"><a href="${href}" target="_blank" rel="noopener">${b.text}</a></div>`}).join('');
+                let practiceHTML = sub.practice.map(p => {const href=p.url?p.url:gg(p.text);return `<div class="resource-item"><a href="${href}" target="_blank" rel="noopener"><strong>[${p.type}]</strong> ${p.text}</a></div>`}).join('');
 
                 subtopicsHTML += `
                     <div class="subtopic-cell subtopic-accordion" id="sub-${sub.id}">

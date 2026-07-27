@@ -389,11 +389,29 @@
             background: transparent; 
             color: var(--blanco-puro); 
         }
-        .avanzado { 
-            background: var(--amarillo-neon); 
-            color: var(--bg-mate); 
-            border-color: var(--amarillo-neon); 
+        .avanzado {
+            background: var(--amarillo-neon);
+            color: var(--bg-mate);
+            border-color: var(--amarillo-neon);
         }
+
+        /* enlaces = búsquedas guiadas */
+        .content-block li > a { color: inherit; text-decoration: none; display: block; }
+        .content-block li > a:hover { color: var(--amarillo-neon); }
+        .content-block li > a::after { content: " ↗"; color: var(--amarillo-neon); }
+
+        /* PANEL DE FUENTES RECOMENDADAS */
+        .sources-panel { border: 2px solid var(--amarillo-neon); background: var(--gris-oscuro); padding: 1.5rem; margin: 0 0 2rem; }
+        .sp-head { color: var(--amarillo-neon); font-size: 1.1rem; letter-spacing: 0.05em; border-bottom: 2px solid var(--gris-texto); padding-bottom: 0.8rem; margin-bottom: 1rem; }
+        .sp-grid { display: grid; grid-template-columns: 1fr; gap: 1.2rem; }
+        @media(min-width:760px){ .sp-grid { grid-template-columns: 1fr 1fr 1fr; } }
+        .sp-col b { display: inline-block; color: var(--bg-mate); background: var(--amarillo-neon); padding: 3px 9px; margin-bottom: 0.7rem; font-size: 0.7rem; letter-spacing: 0.05em; }
+        .src-chip { display: inline-block; border: 2px solid var(--azul-electrico); background: var(--bg-mate); color: var(--blanco-puro); padding: 4px 10px; margin: 0 6px 6px 0; text-decoration: none; font-size: 0.78rem; transition: background .15s, color .15s; }
+        .src-chip:hover { background: var(--azul-electrico); color: var(--blanco-puro); }
+        .reco { list-style: none; margin: 1rem 0 0; padding: 0.8rem 0 0; border-top: 2px dashed var(--gris-texto); font-size: 0.8rem; line-height: 1.6; }
+        .reco li { padding: 4px 0 4px 1.2rem; position: relative; margin: 0; }
+        .reco li::before { content: '▸'; position: absolute; left: 0; color: var(--amarillo-neon); }
+        .reco b { color: var(--amarillo-neon); }
 
         /* SVG STYLING */
         svg {
@@ -541,6 +559,37 @@
                 <span class="progress-text" id="global-progress-text">0% COMPLETADO</span>
             </div>
         </div>
+
+        <!-- FUENTES RECOMENDADAS -->
+        <section class="sources-panel">
+            <div class="sp-head">FUENTES RECOMENDADAS · CANALES Y SITIOS VERIFICADOS</div>
+            <div class="sp-grid">
+                <div class="sp-col"><b>VIDEO · YOUTUBE</b>
+                    <a class="src-chip" href="https://www.youtube.com/results?search_query=Neso+Academy+discrete+mathematics" target="_blank" rel="noopener">Neso Academy</a>
+                    <a class="src-chip" href="https://www.youtube.com/results?search_query=Abdul+Bari+graph+theory" target="_blank" rel="noopener">Abdul Bari</a>
+                    <a class="src-chip" href="https://www.youtube.com/results?search_query=Socratica+discrete+math" target="_blank" rel="noopener">Socratica</a>
+                    <a class="src-chip" href="https://www.youtube.com/results?search_query=TrevTutor+discrete+mathematics" target="_blank" rel="noopener">TrevTutor</a>
+                    <a class="src-chip" href="https://www.youtube.com/results?search_query=matematica+discreta+español" target="_blank" rel="noopener">Discreta (ES)</a>
+                </div>
+                <div class="sp-col"><b>LIBROS · GRATIS</b>
+                    <a class="src-chip" href="http://discrete.openmathbooks.org/" target="_blank" rel="noopener">Oscar Levin — Open Intro (gratis)</a>
+                    <a class="src-chip" href="https://www.google.com/search?q=Rosen+Discrete+Mathematics+and+Its+Applications+PDF" target="_blank" rel="noopener">Rosen — Discrete Math</a>
+                    <a class="src-chip" href="https://www.google.com/search?q=Johnsonbaugh+Matematicas+Discretas+PDF" target="_blank" rel="noopener">Johnsonbaugh — Discretas</a>
+                    <a class="src-chip" href="https://www.google.com/search?q=Grimaldi+Discrete+and+Combinatorial+Mathematics+PDF" target="_blank" rel="noopener">Grimaldi — Combinatoria</a>
+                </div>
+                <div class="sp-col"><b>PRÁCTICA / HERRAMIENTAS</b>
+                    <a class="src-chip" href="https://www.khanacademy.org/computing/computer-science" target="_blank" rel="noopener">Khan Academy (CS)</a>
+                    <a class="src-chip" href="https://cses.fi/problemset/" target="_blank" rel="noopener">CSES Problem Set</a>
+                    <a class="src-chip" href="https://www.wolframalpha.com/" target="_blank" rel="noopener">WolframAlpha</a>
+                    <a class="src-chip" href="https://graphonline.ru/en/" target="_blank" rel="noopener">GraphOnline (grafos)</a>
+                </div>
+            </div>
+            <ul class="reco">
+                <li>PREFIERE RECURSOS <b>RECIENTES</b> Y DE LOS CANALES O SITIOS LISTADOS ARRIBA.</li>
+                <li>CADA REFERENCIA DEL PLAN ABRE UNA <b>BÚSQUEDA GUIADA</b>: TÚ ELIGES EL RECURSO CONCRETO, GRATUITO Y EN ESPAÑOL (O CON SUBTÍTULOS).</li>
+                <li>SI UN RESULTADO NO ENCAJA, COMBINA <b>PALABRAS CLAVE DEL SUBTEMA</b> + EL <b>NOMBRE DEL CANAL</b> O AUTOR.</li>
+            </ul>
+        </section>
 
         <!-- UNIDAD 1 -->
         <div class="unit-accordion" id="unit-1">
@@ -1765,7 +1814,7 @@
     </main>
 
     <footer>
-        <p>DESARROLLO FULL-STACK | ARQUITECTURA UI/UX</p>
+        <p>REFERENCIAS = BÚSQUEDAS GUIADAS · ELIGE RECURSO GRATUITO Y ACTUALIZADO</p>
         <p>∑(PROGRESO ACADÉMICO) = 100%</p>
     </footer>
 
@@ -1837,6 +1886,25 @@
         }
 
         setInterval(drawBinary, 60);
+
+        // ═══════ BÚSQUEDAS GUIADAS: convertir referencias estáticas en enlaces ═══════
+        (function enhanceRefs(){
+            const yt = q => "https://www.youtube.com/results?search_query=" + encodeURIComponent(q);
+            const gg = q => "https://www.google.com/search?q=" + encodeURIComponent(q);
+            document.querySelectorAll('.content-block').forEach(block => {
+                const h = block.querySelector('h4');
+                if(!h) return;
+                const t = h.textContent.toUpperCase();
+                if(!t.includes('REFERENCIAS')) return;
+                const isVideo = t.includes('VIDEO');
+                block.querySelectorAll('li').forEach(li => {
+                    if(li.querySelector('a')) return;
+                    const q = li.textContent.replace(/\s+/g,' ').trim();
+                    const href = isVideo ? yt(q) : gg(q);
+                    li.innerHTML = `<a href="${href}" target="_blank" rel="noopener">${li.innerHTML}</a>`;
+                });
+            });
+        })();
 
     </script>
 

@@ -496,6 +496,37 @@
     text-transform: uppercase;
   }
 
+  /* enlaces = búsquedas guiadas */
+  .res-list li>a{color:inherit;text-decoration:none;display:block}
+  .res-list li>a:hover{color:var(--cobalt)}
+  .res-list li .channel::after{content:" ↗";color:var(--cobalt);font-weight:800}
+
+  /* PANEL DE FUENTES RECOMENDADAS */
+  .sources-panel{
+    border:2px solid var(--midnight);background:#fff;
+    padding:18px 22px;margin:0 0 28px;box-shadow:6px 6px 0 var(--cobalt);
+  }
+  .sp-head{
+    font-weight:900;font-size:0.85rem;letter-spacing:0.18em;text-transform:uppercase;
+    color:var(--midnight);border-bottom:2px solid var(--steel);padding-bottom:10px;margin-bottom:14px;
+  }
+  .sp-grid{display:grid;grid-template-columns:1fr;gap:16px}
+  @media(min-width:760px){.sp-grid{grid-template-columns:1fr 1fr 1fr}}
+  .sp-col b{
+    display:inline-block;font-size:0.65rem;letter-spacing:0.2em;color:#fff;background:var(--cobalt);
+    padding:3px 9px;margin-bottom:10px;text-transform:uppercase;
+  }
+  .src-chip{
+    display:inline-block;border:1.5px solid var(--midnight);background:#fff;
+    font-size:0.8rem;padding:4px 10px;margin:0 6px 6px 0;text-decoration:none;color:var(--midnight);
+    transition:background .15s,color .15s;
+  }
+  .src-chip:hover{background:var(--cobalt);color:#fff}
+  .reco{list-style:none;margin:14px 0 0;padding:12px 0 0;border-top:2px dashed var(--steel);font-size:0.85rem;line-height:1.6}
+  .reco li{padding:4px 0 4px 18px;position:relative}
+  .reco li::before{content:"→";position:absolute;left:0;color:var(--cobalt);font-weight:800}
+  .reco b{color:var(--cobalt)}
+
   /* CLIP-PATH DECORATIVO BRUTALISTA */
   .clip-decor {
     position: absolute;
@@ -689,6 +720,36 @@
   </section>
 
   <!-- UNIDADES -->
+  <section class="sources-panel">
+    <div class="sp-head">Fuentes recomendadas · canales y sitios verificados</div>
+    <div class="sp-grid">
+      <div class="sp-col"><b>Video · YouTube</b>
+        <a class="src-chip" href="https://www.youtube.com/results?search_query=MateFacil+algebra+lineal" target="_blank" rel="noopener">MateFacil</a>
+        <a class="src-chip" href="https://www.youtube.com/results?search_query=MathEasy+algebra+lineal" target="_blank" rel="noopener">MathEasy</a>
+        <a class="src-chip" href="https://www.youtube.com/results?search_query=profe+alex+algebra+lineal" target="_blank" rel="noopener">Profe Alex</a>
+        <a class="src-chip" href="https://www.youtube.com/results?search_query=unicoos+algebra+lineal" target="_blank" rel="noopener">unicoos</a>
+        <a class="src-chip" href="https://www.youtube.com/results?search_query=javier+santos+geometria+analitica" target="_blank" rel="noopener">Javier Santos</a>
+      </div>
+      <div class="sp-col"><b>Libros · gratis</b>
+        <a class="src-chip" href="https://www.google.com/search?q=Larson+Fundamentos+de+Algebra+Lineal+PDF" target="_blank" rel="noopener">Larson — Á. Lineal</a>
+        <a class="src-chip" href="https://openstax.org/details/books/algebra-and-trigonometry-2e/" target="_blank" rel="noopener">OpenStax Álgebra</a>
+        <a class="src-chip" href="https://www.google.com/search?q=Grossman+Algebra+Lineal+PDF" target="_blank" rel="noopener">Grossman — Á. Lineal</a>
+        <a class="src-chip" href="https://www.google.com/search?q=Anton+Howard+Introduccion+al+Algebra+Lineal+PDF" target="_blank" rel="noopener">Anton — Á. Lineal</a>
+      </div>
+      <div class="sp-col"><b>Práctica / herramientas</b>
+        <a class="src-chip" href="https://www.khanacademy.org/math/linear-algebra" target="_blank" rel="noopener">Khan Academy</a>
+        <a class="src-chip" href="https://www.geogebra.org/" target="_blank" rel="noopener">GeoGebra</a>
+        <a class="src-chip" href="https://www.symbolab.com/" target="_blank" rel="noopener">Symbolab</a>
+        <a class="src-chip" href="https://www.wolframalpha.com/" target="_blank" rel="noopener">WolframAlpha</a>
+      </div>
+    </div>
+    <ul class="reco">
+      <li>Prefiere recursos <b>recientes</b> y de los canales o sitios listados arriba.</li>
+      <li>Cada referencia del plan abre una <b>búsqueda guiada</b>: tú eliges el recurso concreto, gratuito y en español.</li>
+      <li>Si un resultado no encaja, combina <b>palabras clave del subtema</b> + el <b>nombre del canal</b> o autor.</li>
+    </ul>
+  </section>
+
   <div class="units-wrap">
     <div id="units-container"></div>
   </div>
@@ -696,7 +757,7 @@
   <footer>
     <div>
       <h4>Arquitectura pedagógica</h4>
-      Ruta auto-dirigida. Las marcas de avance son opcionales y locales al navegador. Todos los recursos apuntan a fuentes abiertas y gratuitas.
+      Ruta auto-dirigida. Las marcas de avance son opcionales y locales al navegador. <b>Las referencias son búsquedas guiadas</b>: elige siempre un recurso abierto, gratuito y actualizado.
     </div>
     <div>
       <h4>Accesibilidad</h4>
@@ -1161,6 +1222,17 @@ function saveState() {
   updateAllProgress();
 }
 
+const yt = q => "https://www.youtube.com/results?search_query=" + encodeURIComponent(q);
+const gg = q => "https://www.google.com/search?q=" + encodeURIComponent(q);
+function topicOf(t){
+  let s = String(t).trim();
+  if(s.includes(":")) s = s.slice(s.lastIndexOf(":")+1).trim();
+  s = s.replace(/\b(curso de|curso completo|curso|aprende|tutorial de|tutorial|introducción a la|introducción al|introducción a|desde cero|paso a paso|para principiantes|profesional|completo)\b/gi,"");
+  s = s.replace(/^[—:·\-\s]+|[—:·\-\s]+$/g,"").replace(/\s{2,}/g," ").trim();
+  s = s.replace(/^(de|a|en|y|del|la|el)\s+/i,"").trim();
+  return s || String(t).trim();
+}
+
 function renderUnits() {
   container.innerHTML = DATA.map(u => {
     const subsHtml = u.subtopics.map(s => {
@@ -1176,21 +1248,21 @@ function renderUnits() {
           <div class="sub-objective">→ ${s.objective}</div>
           <div class="sub-content">
             <div class="res-section">
-              <div class="res-section-title">Videos de teoría</div>
+              <div class="res-section-title">Videos de teoría · ↗</div>
               <ul class="res-list">
-                ${s.videos.map(v => {const t=v.url?`<a href="${v.url}" target="_blank" rel="noopener"><strong>${v.t}</strong></a>`:`<strong>${v.t}</strong>`;return `<li>${t}<span class="channel">${v.c}</span></li>`}).join("")}
+                ${s.videos.map(v => `<li><a href="${v.url ? v.url : yt(`${v.c} ${topicOf(v.t)} algebra lineal`)}" target="_blank" rel="noopener"><strong>${v.t}</strong><span class="channel">${v.c}</span></a></li>`).join("")}
               </ul>
             </div>
             <div class="res-section">
-              <div class="res-section-title">Lectura de texto base</div>
+              <div class="res-section-title">Lectura de texto base · ↗</div>
               <ul class="res-list">
-                ${s.lecturas.map(l => `<li>${l}</li>`).join("")}
+                ${s.lecturas.map(l => `<li><a href="${gg(l)}" target="_blank" rel="noopener">${l}</a></li>`).join("")}
               </ul>
             </div>
             <div class="res-section">
-              <div class="res-section-title">Ejercitación recomendada</div>
+              <div class="res-section-title">Ejercitación recomendada · ↗</div>
               <ul class="res-list">
-                ${s.practica.map(p => {const t=p.url?`<a href="${p.url}" target="_blank" rel="noopener">${p.t}</a>`:p.t;return `<li>${t} <span class="level">${p.n}</span></li>`}).join("")}
+                ${s.practica.map(p => `<li><a href="${p.url ? p.url : gg(p.t)}" target="_blank" rel="noopener">${p.t} <span class="level">${p.n}</span></a></li>`).join("")}
               </ul>
             </div>
           </div>
